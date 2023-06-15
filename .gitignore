@@ -1,0 +1,9 @@
+# Vorgaben aus WebP
+*.js
+*.js.map
+package-lock.json
+node_modules
+.idea
+.DS_Store
+
+# Eigene Ergänzungen
