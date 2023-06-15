@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://git.thm.de/ip1-sose23/team-01"
   },
-  "author": "",
+  "author": "Hahn, Robin; Kempf, Jannis; Kissel, Yannick; Schmidt, Aaron; Thiele, Jonas Paul",
   "dependencies": {
     "express": "^4.18.2",
     "express-session": "^1.17.3",
