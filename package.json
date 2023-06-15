@@ -1,0 +1,16 @@
+{
+  "name": "team-01",
+  "repository": {
+    "type": "git",
+    "url": "https://git.thm.de/ip1-sose23/team-01"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql": "^2.18.1",
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.7",
+    "@types/mysql": "^2.15.21"
+  }
+}
