@@ -1,0 +1,3 @@
+Host: http://ip1-dbs.mni.thm.de
+User: team-01
+Password: CrWlwQ3]!PyDbLC)
