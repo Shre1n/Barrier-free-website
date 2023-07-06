@@ -11,7 +11,23 @@
     src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-.BreeSerif {
-    font-family: "Bree Serif", serif;
-    font-weight: 700;
+
+
+/*
+Header
+ */
+
+.header {
+    background-color: #A37F5F !important;
+    overflow: hidden;
+}
+
+.headerschrift {
+    font-family: "Bree Serif";
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size 1s ease-out 100ms;
+}
+.headerschrift:hover {
+    font-size: 2.7em;
 }
