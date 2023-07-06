@@ -101,3 +101,15 @@ Header
     margin-top: 6.25em;
     margin-bottom: 2.5em;
 }
+.porg{
+    width: 10em;
+    height: 10em;
+}
+.hilforg{
+    border-style: solid;
+    border-bottom-color: #707070;
+    border-top-color: #707070;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    margin-top: 4.375em;
+}
