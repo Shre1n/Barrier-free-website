@@ -1,0 +1,38 @@
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "adresse": "Am Musterweg 1",
+  "telefonnummer": "0176 1956285"
+}
+
+###
+GET /user HTTP/2
+Host: localhost:8080
+
+### Einloggen eines existierenden Nutzers (Markus Heidmann)
+POST /login HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{"email": "ceo@playability.de", "password": "Adminpass"}
+
+###
+POST /logout HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+### Auslesen eines Users (Markus Heidmann)
+GET /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{"email": "ceo@playability.de"}
