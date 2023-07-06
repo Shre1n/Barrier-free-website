@@ -14,5 +14,15 @@ const connection: mysql.Connection = mysql.createConnection({
     user: "viewer"
 });
 
+// Datenbankverbindung zu MySQL-Datenbank
+connection.connect((err) => {
+    if (err === null) {
+        console.log("Datenbank erfolgreich verbunden.");
+    } else {
+        console.log("DB-Fehler: " + err);
+    }
+});
+
+
 
 
