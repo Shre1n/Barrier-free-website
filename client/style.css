@@ -27,6 +27,7 @@ Header
 
 .containerHintergrund{
     background-color: #A37F5F !important;
+    height: 146px;
 }
 
 .containerHeader{
@@ -48,10 +49,9 @@ Header
 }
 
 .containerFooter {
-    position: absolute;
     bottom: 0;
+    position: absolute;
     width: 100%;
-    height: 8.125em;
 }
 
 .wIcon {
@@ -67,8 +67,11 @@ Header
 .grid{
     display: grid;
     align-items: center;
+
 }
 #spieleheader{
     text-align: end;
 }
-
+#bengel{
+    align-items: center !important;
+}
