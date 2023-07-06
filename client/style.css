@@ -27,7 +27,6 @@ Header
 
 .containerHintergrund{
     background-color: #A37F5F !important;
-    height: 8.125em;
 }
 
 .containerHeader{
@@ -55,4 +54,14 @@ Header
 
 .wIcon {
     color: #FFFFFF;
+    scale: 2;
 }
+
+.logo {
+    margin-left: 1em;
+    max-height: 8.125em
+}
+#spieleheader{
+    text-align: end;
+}
+
