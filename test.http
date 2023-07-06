@@ -80,14 +80,3 @@ Host: localhost
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
-
-{
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "adresse": "Am Musterweg 1",
-  "telefonnummer": "0176 1956285"
-}
