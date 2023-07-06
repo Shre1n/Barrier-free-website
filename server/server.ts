@@ -8,7 +8,7 @@ import _default from "chart.js/dist/plugins/plugin.tooltip";
 import numbers = _default.defaults.animations.numbers;
 
 // Klassen definieren: Nutzer erstellen und Constructor für Nutzer
-class nutzer {
+class Nutzer {
         vorname: string;
         nachname: string;
         email: string;
@@ -31,7 +31,7 @@ class nutzer {
 }
 
 //Klasse definieren: Produkt erstellen und Constructor für Produkt
-class produkt {
+class Produkt {
     name: string;
     kurzbeschreibung: string;
     lieferumfang: string;
@@ -232,8 +232,6 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response): void {
 
 }
-
-
 
 function disableUser(req: express.Request, res: express.Response): void {
 
