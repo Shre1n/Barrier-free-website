@@ -48,10 +48,16 @@ Header
     color: #707070 !important;
 }
 .searchbar{
-    margin-left: 34.8em;
-    margin-right: 34.8em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    height: 3.125em;
     z-index: -1 !important;
 
+}
+.round{
+    border-radius: 50em !important;
+    border-color: #707070 !important;
 }
 .button1{
     font-size: 2.5em;
@@ -80,7 +86,18 @@ Header
 }
 .lupe{
     position: relative;
-    margin-left: -3em;
-    margin-top: 0.6em;
+    margin-left: -4em;
+    margin-top: 1.4em;
     z-index: 1 !important;
+    scale: 2;
+}
+.suche{
+    margin-top: 2.188em;
+}
+.karussell{
+    margin-top: 2.188em;
+}
+.startu{
+    margin-top: 6.25em;
+    margin-bottom: 2.5em;
 }
