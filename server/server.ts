@@ -53,8 +53,9 @@ const PORT: number = 8080;
 
 const app: express.Express = express();
 const connection: mysql.Connection = mysql.createConnection({
+    database: "team-01",
     user: "team-01",
-    host: "http://ip1-dbs.mni.thm.de",
+    host: "ip1-dbs.mni.thm.de",
     password: "CrWlwQ3]!PyDbLC)"
 });
 
