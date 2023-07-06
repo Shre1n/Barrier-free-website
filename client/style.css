@@ -50,6 +50,8 @@ Header
 .searchbar{
     margin-left: 34.8em;
     margin-right: 34.8em;
+    z-index: -1 !important;
+
 }
 .button1{
     font-size: 2.5em;
@@ -75,4 +77,10 @@ Header
 }
 .bicon{
     color: #3D93A6 !important;
+}
+.lupe{
+    position: relative;
+    margin-left: -3em;
+    margin-top: 0.6em;
+    z-index: 1 !important;
 }
