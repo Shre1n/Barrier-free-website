@@ -139,16 +139,16 @@ router.delete("/admin/user/:username", deleteUser);
 router.put("/admin/user/:username", disableUser);
 
 function postUser(req: express.Request, res: express.Response): void {
-    const firstname: string = req.body.firstname;
-    const lastname: string = req.body.lastname;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
     const email: string = req.body.email;
-    const password: string = req.body.password;
-    const postalCode: number = req.body.postalCode;
-    const city: string = req.body.city;
-    const address: string = req.body.address;
-    const phonenumber: number = req.body.phonenumber;
+    const passwort: string = req.body.passwort;
+    const postleitzahl: number = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const adresse: string = req.body.adresse;
+    const telefonnummer: number = req.body.telefonnummer;
 
-    if (firstname === undefined || lastname === undefined || postalCode === undefined || city === undefined || address === undefined || phonenumber === undefined || password === undefined || email === undefined) {
+    if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || adresse === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
 
         res.status(500);
         res.send("Alle Felder müssen gefüllt werden!");
@@ -166,17 +166,17 @@ function postUser(req: express.Request, res: express.Response): void {
                 res.status(500);
                 res.send("Diese Email ist leider schon vergeben!");
             } else {
-                const cryptopass: string = crypto.createHash("sha512").update(password).digest("hex");
+                const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
                 const data: [string, string, string, string, number, string, string, number] = [
-                    firstname,
-                    lastname,
+                    vorname,
+                    nachname,
                     email,
                     cryptopass,
-                    postalCode,
-                    city,
-                    address,
-                    phonenumber
+                    postleitzahl,
+                    ort,
+                    adresse,
+                    telefonnummer
                 ];
 
                 const newQuery: string = 'INSERT INTO Nutzerliste (Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Adresse, Telefonnummer) VALUES (?,?,?,?,?,?,?,?);'
@@ -251,10 +251,10 @@ function getProductRating(req: express.Request, res: express.Response): void {
 function signIn(req: express.Request, res: express.Response): void {
 
     const email: string = req.body.email;
-    const password: string = req.body.password;
+    const passwort: string = req.body.passwort;
 
-    const data: [string, string] = [email, crypto.createHash("sha512").update(password).digest('hex')];
-    const query: string = 'SELECT ID, Email, Password FROM user WHERE  Email = ? AND Password = ?;';
+    const data: [string, string] = [email, crypto.createHash("sha512").update(passwort).digest('hex')];
+    const query: string = 'SELECT ID, Email, passwort FROM user WHERE  Email = ? AND passwort = ?;';
 
     connection.query(query, data, (err, rows: any) => {
 
