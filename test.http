@@ -1,6 +1,5 @@
 ### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
+POST http://localhost:8080/user
 Content-Type: application/json
 
 {
@@ -15,8 +14,8 @@ Content-Type: application/json
 }
 
 ###
-GET /user HTTP/2
-Host: localhost:8080
+GET /admin/user HTTP/2
+Host: ip1-dbs.mni.thm.de
 
 ### Einloggen eines existierenden Users (Markus Heidmann)
 POST /login HTTP/2

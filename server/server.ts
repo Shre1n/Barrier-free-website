@@ -48,7 +48,6 @@ class Produkt {
 
 }
 
-
 const PORT: number = 8080;
 
 const app: express.Express = express();
@@ -90,54 +89,48 @@ app.listen(PORT, () => {
 const path = require('path');
 const basedir: string = path.join(__dirname, '/');
 
-// Express Router
-const router = express();
 
+app.use('/', express.static(path.join(basedir, "/../client")));
 
-router.use('/', express.static(path.join(basedir, "/../client")));
-
-router.use("/res", express.static(__dirname + "/client"))
+app.use("/res", express.static(__dirname + "/client"))
 
 //JSON und URLenconded
-router.use(express.json());
-router.use(express.urlencoded({extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 // Pfade der Websites
 
 
 //Nutzer Routen
-router.post("/user", postUser);
-router.put("/user/:username", checkLogin, putUser);
-router.delete("/user/:username", checkLogin, deleteUser);
-router.post("/bewertungen", checkLogin)
-router.post("/signin", signIn);
-router.get("/signout", signOut);
+app.post("/user", postUser);
+app.put("/user/:id", checkLogin, putUser);
+app.delete("/user/:id", checkLogin, deleteUser);
+app.post("/bewertungen", checkLogin)
+app.post("/signin", signIn);
+app.get("/signout", signOut);
+app.get("/product/:name", getProduct);
+app.post("/product", postProduct);
+app.get("/product", getAllProducts);
+app.put("/product/:name", editProduct);
+app.delete("/product/:name", deleteProduct);
+app.get("/bewertungen/:name", getProductRating);
 
-//Produkt Routen für Nutzer
-router.get("/product/:name", getProduct);
-router.post("/product", postProduct);
-router.get("/product", getAllProducts);
-router.put("/product/:name", editProduct);
-router.delete("/product/:name", deleteProduct);
-router.get("/bewertungen/:name", getProductRating);
+// Routen für CEO
+app.put("/ceo/product/:id", editProduct);
+app.post("/ceo/product", postProduct);
+app.get("/ceo/product/:name", getProduct);
+app.get("/ceo/bewertungen", getAllRatings);
+app.get("/ceo/bewertungen/:id", getProductRating);
+app.post("/ceo/signin", signIn);
+app.get("/ceo/signout", signOut);
 
-// Produkt Routen für CEO
-router.put("/ceo/product/:id", editProduct);
-router.post("/ceo/product", postProduct);
-router.get("/ceo/product/:name", getProduct);
-router.get("/ceo/bewertungen", getAllRatings);
-router.get("/ceo/bewertungen/:id", getProductRating);
-router.post("/ceo/signin", signIn);
-router.get("/ceo/signout", signOut);
-
-//Produkt Routen für Admin
-router.get("/admin/user", getUser);
-router.post("/admin/signin", signIn);
-router.get("/admin/signout", signOut);
-
-// Admin Routen für Nutzer
-router.delete("/admin/user/:username", deleteUser);
-router.put("/admin/user/:username", disableUser);
+//Routen für Admin
+app.get("/admin/user", getUser);
+app.get("/admin/product", getProduct);
+app.post("/admin/signin", signIn);
+app.get("/admin/signout", signOut);
+app.delete("/admin/user/:username", deleteUser);
+app.put("/admin/user/:username", disableUser);
 
 function postUser(req: express.Request, res: express.Response): void {
     const vorname: string = req.body.vorname;
