@@ -8,7 +8,7 @@
     font-family: 'Bree Serif';
     font-style: normal;
     font-weight: 400;
-    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('/schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 /* belleza-regular - latin */
@@ -17,7 +17,7 @@
     font-family: 'Belleza';
     font-style: normal;
     font-weight: 400;
-    src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('/schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 
@@ -38,4 +38,41 @@ Header
 }
 .headerschrift:hover {
     font-size: 2.7em;
+}
+.headline{
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+}
+*{
+    font-family: "Belleza", serif;
+    color: #707070 !important;
+}
+.searchbar{
+    margin-left: 34.8em;
+    margin-right: 34.8em;
+}
+.button1{
+    font-size: 2.5em;
+}
+.button2{
+    font-size: 1.563em;
+}
+.font40{
+    font-size: 2.5em;
+}
+.font25{
+    font-size: 1.563em;
+}
+.font16{
+    font-size: 1em;
+}
+.bbutton{
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+}
+.wicon{
+   color: #FFFFFF !important;
+}
+.bicon{
+    color: #3D93A6 !important;
 }
