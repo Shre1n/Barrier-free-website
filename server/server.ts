@@ -30,6 +30,24 @@ class nutzer {
          }
 }
 
+//Klasse definieren: Produkt erstellen und Constructor für Produkt
+class produkt {
+    name: string;
+    kurzbeschreibung: string;
+    lieferumfang: string;
+    verfuegbarkeit: number;
+    preis: number;
+    kategorie: string;
+
+    constructor(name: string, kurzbeschreibung: string, lieferumfang: string, verfuegbarkeit: number, preis: number, kategorie: string) {
+    this.name = name;
+    this.kurzbeschreibung = kurzbeschreibung;
+    this.verfuegbarkeit = verfuegbarkeit;
+    this.preis = preis;
+    this.kategorie = kategorie;
+    }
+
+}
 
 
 
