@@ -4,8 +4,6 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
-import _default from "chart.js/dist/plugins/plugin.tooltip";
-import numbers = _default.defaults.animations.numbers;
 
 // Klassen definieren: Nutzer erstellen und Constructor für Nutzer
 class Nutzer {
