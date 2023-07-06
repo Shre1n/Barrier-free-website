@@ -84,30 +84,85 @@ router.use(express.urlencoded({extended: false}));
 
 //Nutzer Routen
 router.post("/user", postUser);
-router.get("/user/:id", getUser);
 router.put("/user/:username", checkLogin, putUser);
-router.delete("/user/:username", checklogin, deleteUser);
-router.post("/bewertungen/:name",checkLogin)
+router.delete("/user/:username", checkLogin, deleteUser);
+router.post("/bewertungen",checkLogin)
 router.post("/signin", signIn);
 router.get("/signout", signOut);
 
-//Produkt Routen
+//Produkt Routen für Nutzer
 router.get("/product/:name", getProduct);
 router.post("/product", postProduct);
 router.get("/product", getAllProducts);
-router.put("/product/:id", editProduct);
+router.put("/product/:name", editProduct);
 router.delete("/product/:name", deleteProduct);
-router.get("/bewertungen", getAllRatings);
-router.get("/bewertungen/:id", getProductRating);
+router.get("/bewertungen/:name", getProductRating);
+
+// Produkt Routen für CEO
+router.put("/ceo/product/:id", editProduct);
+router.post("/ceo/product", postProduct);
+router.get("/ceo/product/:name", getProduct);
+router.get("/ceo/bewertungen", getAllRatings);
+router.get("/ceo/bewertungen/:id", getProductRating);
+router.post("/ceo/signin", signIn);
+router.get("/ceo/signout", signOut);
+
+//Produkt Routen für Admin
+router.get("/admin/user", getUser);
+router.post("/admin/signin", signIn);
+router.get("/admin/signout", signOut);
+
+// Admin Routen für Nutzer
+router.delete("/admin/user/:username", deleteUser);
+router.put("/admin/user/:username", disableUser);
+function postUser(req: express.Request, res: express.Response): void {
+
+}
+
+function getUser(req: express.Request, res: express.Response): void {
+
+}
+
+function putUser(req: express.Request, res: express.Response): void {
+
+}
+
+function deleteUser(req: express.Request, res: express.Response): void {
+
+}
 
 
+//Produkt Routen
 
+function getProduct(req: express.Request, res: express.Response): void {
 
+}
 
+function postProduct(req: express.Request, res: express.Response): void {
 
+}
 
-// User
-// Register a new User
+function getAllProducts(req: express.Request, res: express.Response): void {
+
+}
+
+function editProduct(req: express.Request, res: express.Response): void {
+
+}
+
+function deleteProduct(req: express.Request, res: express.Response): void {
+
+}
+
+function getAllRatings(req: express.Request, res: express.Response): void {
+
+}
+
+function getProductRating(req: express.Request, res: express.Response): void {
+
+}
+
+// User Sign In
 
 function signIn(req: express.Request, res: express.Response): void {
 
@@ -149,11 +204,15 @@ function signOut(req: express.Request, res: express.Response): void {
 
 }
 
+function checkLogin(req: express.Request, res: express.Response): void {
+
+}
 
 
 
+function disableUser(req: express.Request, res: express.Response): void {
 
-
+}
 
 
 
