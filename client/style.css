@@ -25,18 +25,25 @@
 Header
  */
 
-.header {
+.containerHintergrund{
     background-color: #A37F5F !important;
-    overflow: hidden;
+    height: 8.125em;
 }
 
-.headerschrift {
+.containerHeader{
+    position: absolute;
+    width: 100%;
+}
+
+.bree40 {
     font-family: "Bree Serif", serif;
     font-size: 2.5em;
     color: #FFFFFF;
     transition: font-size .1s ease-in-out ;
 }
-.headerschrift:hover {
-    font-size: 2.7em;
+
+
+.bree40:hover {
+    font-size: 2.6em;
 
 }
