@@ -9,25 +9,25 @@ import numbers = _default.defaults.animations.numbers;
 
 // Klassen definieren: Nutzer erstellen und Constructor für Nutzer
 class Nutzer {
-        vorname: string;
-        nachname: string;
-        email: string;
-        passwort: string;
-        postleitzahl: number;
-        ort: string;
-        adresse: string;
-        telefonnummer: number;
+    vorname: string;
+    nachname: string;
+    email: string;
+    passwort: string;
+    postleitzahl: number;
+    ort: string;
+    adresse: string;
+    telefonnummer: number;
 
-         constructor(vorname: string, nachname: string, email: string, passwort: string, postleitzahl: number, ort: string, adresse: string, telefonnummer: number) {
-             this.vorname = vorname;
-             this.nachname = nachname;
-             this.email = email;
-             this.passwort = passwort;
-             this.postleitzahl = postleitzahl;
-             this.ort = ort;
-             this.adresse = adresse;
-             this.telefonnummer = telefonnummer;
-         }
+    constructor(vorname: string, nachname: string, email: string, passwort: string, postleitzahl: number, ort: string, adresse: string, telefonnummer: number) {
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.email = email;
+        this.passwort = passwort;
+        this.postleitzahl = postleitzahl;
+        this.ort = ort;
+        this.adresse = adresse;
+        this.telefonnummer = telefonnummer;
+    }
 }
 
 //Klasse definieren: Produkt erstellen und Constructor für Produkt
@@ -40,15 +40,15 @@ class Produkt {
     kategorie: string;
 
     constructor(name: string, kurzbeschreibung: string, lieferumfang: string, verfuegbarkeit: number, preis: number, kategorie: string) {
-    this.name = name;
-    this.kurzbeschreibung = kurzbeschreibung;
-    this.verfuegbarkeit = verfuegbarkeit;
-    this.preis = preis;
-    this.kategorie = kategorie;
+        this.name = name;
+        this.kurzbeschreibung = kurzbeschreibung;
+        this.lieferumfang = lieferumfang;
+        this.verfuegbarkeit = verfuegbarkeit;
+        this.preis = preis;
+        this.kategorie = kategorie;
     }
 
 }
-
 
 
 const PORT: number = 8080;
@@ -61,16 +61,16 @@ const connection: mysql.Connection = mysql.createConnection({
 });
 
 // Datenbankverbindung zu MySQL-Datenbank
-    connection.connect((err) => {
+connection.connect((err) => {
     if (err === null) {
-    console.log("Datenbank erfolgreich verbunden.");
-} else {
-    console.log("DB-Fehler: " + err);
-}
+        console.log("Datenbank erfolgreich verbunden.");
+    } else {
+        console.log("DB-Fehler: " + err);
+    }
 });
 
 // Session config und Cookie
-app.use(session( {
+app.use(session({
     cookie: {
         maxAge: 60 * 60 * 1000,
         sameSite: true,
@@ -106,12 +106,11 @@ router.use(express.urlencoded({extended: false}));
 // Pfade der Websites
 
 
-
 //Nutzer Routen
 router.post("/user", postUser);
 router.put("/user/:username", checkLogin, putUser);
 router.delete("/user/:username", checkLogin, deleteUser);
-router.post("/bewertungen",checkLogin)
+router.post("/bewertungen", checkLogin)
 router.post("/signin", signIn);
 router.get("/signout", signOut);
 
@@ -140,6 +139,7 @@ router.get("/admin/signout", signOut);
 // Admin Routen für Nutzer
 router.delete("/admin/user/:username", deleteUser);
 router.put("/admin/user/:username", disableUser);
+
 function postUser(req: express.Request, res: express.Response): void {
 
 }
