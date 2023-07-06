@@ -4,6 +4,34 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+import numbers = _default.defaults.animations.numbers;
+
+// Klassen definieren: Nutzer erstellen und Constructor für Nutzer
+class nutzer {
+        vorname: string;
+        nachname: string;
+        email: string;
+        passwort: string;
+        postleitzahl: number;
+        ort: string;
+        adresse: string;
+        telefonnummer: number;
+
+         constructor(vorname: string, nachname: string, email: string, passwort: string, postleitzahl: number, ort: string, adresse: string, telefonnummer: number) {
+             this.vorname = vorname;
+             this.nachname = nachname;
+             this.email = email;
+             this.passwort = passwort;
+             this.postleitzahl = postleitzahl;
+             this.ort = ort;
+             this.adresse = adresse;
+             this.telefonnummer = telefonnummer;
+         }
+}
+
+
+
 
 const PORT: number = 8080;
 
@@ -15,12 +43,12 @@ const connection: mysql.Connection = mysql.createConnection({
 });
 
 // Datenbankverbindung zu MySQL-Datenbank
-connection.connect((err) => {
+    connection.connect((err) => {
     if (err === null) {
-        console.log("Datenbank erfolgreich verbunden.");
-    } else {
-        console.log("DB-Fehler: " + err);
-    }
+    console.log("Datenbank erfolgreich verbunden.");
+} else {
+    console.log("DB-Fehler: " + err);
+}
 });
 
 // Session config und Cookie
