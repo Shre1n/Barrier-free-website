@@ -18,7 +18,7 @@ Content-Type: application/json
 GET /user HTTP/2
 Host: localhost:8080
 
-### Einloggen eines existierenden Nutzers (Markus Heidmann)
+### Einloggen eines existierenden Users (Markus Heidmann)
 POST /login HTTP/2
 Host: localhost:8080
 Content-Type: application/json
@@ -36,3 +36,27 @@ Host: localhost:8080
 Content-Type: application/json
 
 {"email": "ceo@playability.de"}
+
+### Bearbeiten eines Users (alle Daten)
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "vorname": "Muster",
+  "nachname": "Maxmann",
+  "passwort": "54321"
+}
+
+### Bearbeiten eines Users (nur Passwort)
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "passwort": "neuesPasswort"
+}
+
+### Löschen eines Users
+DELETE /user HTTP/2
+Host: localhost:8080
