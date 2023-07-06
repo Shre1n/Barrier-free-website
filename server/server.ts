@@ -3,7 +3,7 @@ import * as session from "express-session";
 import * as mysql from "mysql";
 import * as crypto from "crypto";
 //Install Displayable Chart option
-import Chart from 'chart.js';
+import {Chart} from 'chart.js';
 
 const PORT: number = 8080;
 
@@ -23,6 +23,16 @@ connection.connect((err) => {
     }
 });
 
-
+// Session config und Cookie
+app.use(session( {
+    cookie: {
+        maxAge: 60 * 60 * 1000,
+        sameSite: true,
+        secure: false
+    },
+    secret: Math.random().toString(),
+    resave: false,
+    saveUninitialized: true,
+}))
 
 
