@@ -141,7 +141,68 @@ router.delete("/admin/user/:username", deleteUser);
 router.put("/admin/user/:username", disableUser);
 
 function postUser(req: express.Request, res: express.Response): void {
+    const firstname: string = req.body.firstname;
+    const lastname: string = req.body.lastname;
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+    const postalCode: number = req.body.postalCode;
+    const city: string = req.body.city;
+    const address: string = req.body.address;
+    const phonenumber: number = req.body.phonenumber;
 
+    if (firstname === undefined || lastname === undefined || postalCode === undefined || city === undefined || address === undefined || phonenumber === undefined || password === undefined || email === undefined) {
+
+        res.status(500);
+        res.send("Alle Felder müssen gefüllt werden!");
+
+    } else {
+
+        const queryselect: string = 'SELECT Email FROM Nutzerliste WHERE Email = ?;'
+
+        connection.query(queryselect, [email], (err, result) => {
+
+            if (err) {
+                res.status(500);
+                res.send("Ein Fehler ist aufgetreten :(");
+            } else if (result.length > 0) {
+                res.status(500);
+                res.send("Diese Email ist leider schon vergeben!");
+            } else {
+                const cryptopass: string = crypto.createHash("sha512").update(password).digest("hex");
+
+                const data: [string, string, string, string, number, string, string, number] = [
+                    firstname,
+                    lastname,
+                    email,
+                    cryptopass,
+                    postalCode,
+                    city,
+                    address,
+                    phonenumber
+                ];
+
+                const newQuery: string = 'INSERT INTO Nutzerliste (Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Adresse, Telefonnummer) VALUES (?,?,?,?,?,?,?,?);'
+
+                connection.query(newQuery, data, (err, result) => {
+                    if (err) {
+                        console.log("postUser: " + err);
+                        res.status(400);
+                        res.send("Etwas ist schief gelaufen. :(");
+
+                    } else {
+                        if (result === 0) {
+                            res.status(400);
+                            res.send("result action");
+                        } else {
+                            res.status(201);
+                            res.send("User Signed Up!");
+                        }
+
+                    }
+                });
+            }
+        });
+    }
 }
 
 function getUser(req: express.Request, res: express.Response): void {
