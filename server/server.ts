@@ -23,6 +23,17 @@ connection.connect((err) => {
     }
 });
 
+// Session config und Cookie
+app.use(session( {
+    cookie: {
+        maxAge: 60 * 60 * 1000,
+        sameSite: true,
+        secure: false
+    },
+    secret: Math.random().toString(),
+    resave: false,
+    saveUninitialized: true,
+}))
 // Pfade
 const path = require('path');
 const basedir: string = path.join(__dirname, '/');
