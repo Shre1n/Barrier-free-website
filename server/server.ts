@@ -80,6 +80,13 @@ app.use(session( {
     resave: false,
     saveUninitialized: true,
 }))
+
+// Server starten
+app.listen(PORT, () => {
+    console.log("Server gestartet unter http://localhost:" + PORT + "/");
+});
+
+
 // Pfade
 const path = require('path');
 const basedir: string = path.join(__dirname, '/');
