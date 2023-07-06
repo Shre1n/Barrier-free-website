@@ -1,3 +1,22 @@
 /*
     Fonts: Belleza, Bree Serif
  */
+
+/*
+Header
+ */
+
+.header {
+    background-color: #A37F5F !important;
+    overflow: hidden;
+}
+
+.headerschrift {
+    font-family: "Bree Serif";
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size 1s ease-out 100ms;
+}
+.headerschrift:hover {
+    font-size: 2.7em;
+}
