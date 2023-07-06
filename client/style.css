@@ -49,10 +49,17 @@ Header
 }
 
 .containerFooter {
-    position: absolute; bottom: 0; width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     height: 8.125em;
 }
 
 .wIcon {
     color: #FFFFFF;
+}
+
+.grid{
+    display: grid;
+    align-items: center;
 }
