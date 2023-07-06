@@ -52,8 +52,29 @@ router.use(express.urlencoded({extended: false}));
 
 // Pfade der Websites
 
+
+
+//Nutzer Routen
+router.post("/user", postUser);
+router.get("/user/:id", getUser);
+router.put("/user/:username", checkLogin, putUser);
+router.delete("/user/:username", checklogin, deleteUser);
+router.post("/bewertungen/:name",checkLogin)
 router.post("/signin", signIn);
 router.get("/signout", signOut);
+
+//Produkt Routen
+router.get("/product/:name", getProduct);
+router.post("/product", postProduct);
+router.get("/product", getAllProducts);
+router.put("/product/:id", editProduct);
+router.delete("/product/:name", deleteProduct);
+router.get("/bewertungen", getAllRatings);
+router.get("/bewertungen/:id", getProductRating);
+
+
+
+
 
 
 
