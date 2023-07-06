@@ -1,3 +1,17 @@
 /*
     Fonts: Belleza, Bree Serif
  */
+/* bree-serif-regular - latin */
+/* bree-serif-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+.BreeSerif {
+    font-family: "Bree Serif", serif;
+    font-weight: 700;
+}
