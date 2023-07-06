@@ -54,9 +54,40 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
+
   "passwort": "neuesPasswort"
 }
 
 ### Löschen eines Users
 DELETE /user HTTP/2
 Host: localhost:8080
+
+### Auslesen eines nicht vorhanden Users
+GET /user/error HTTP/2
+Host: localhost:8080
+
+HTTP/1.1 409 Conflict
+Content-Type: text/plain
+
+Diesen Nutzer gibt es nicht.
+
+### Löschen eines nicht vorhanden Users
+DELETE /user/error HTTP/2
+Host: localhost
+
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "adresse": "Am Musterweg 1",
+  "telefonnummer": "0176 1956285"
+}
