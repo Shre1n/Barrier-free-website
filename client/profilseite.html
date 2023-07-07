@@ -11,6 +11,8 @@
     <title>Profil</title>
 </head>
 <body>
+
+<!---Hier kommt User Profil setVisibility in script mit block/none---->
 <div class="breadcrumb-container">
     <nav class="breadcrumb">
         <div class="row">
@@ -23,51 +25,89 @@
     </nav>
 </div>
 
-<section class="container">
-    <div class="row">
-        <div class="col-4">
-        </div>
-        <div class="col-4">
-            <!---- hier Willkommenstext aus {Script}---->
-        </div>
-        <div class="col-4">
+<section class="container user">
+    <div>
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <!---- hier Willkommenstext aus {Script}---->
+            </div>
+            <div class="col-4">
+            </div>
         </div>
     </div>
-</section>
-
-<section class="container-lg">
     <div class="row">
         <div class="col-4">
             <h3>Nutzerdaten</h3>
-        </div>
-        <div class="col-4">
-            <h3>Merkliste</h3>
-        </div>
-        <div class="col-4">
-            <h3>Bestellungen</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
             <div class="boxNutzer">
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="boxMerkliste text-end">
-                <div>
-                    <!---Hier kommt preis des Produkts von DB {Script}---->
-                    <p>Price</p>
+                <div class="text-end">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <p>Anrede: </p>
+                        <p>Nachname: </p>
+                        <p>Vorname: </p>
+                        <p>Straße: </p>
+                        <p>Hausnummer: </p>
+                        <p>PLZ: </p>
+                        <p>Ort: </p>
+                        <p>Handynummer: </p>
+                        <p>Email: </p>
+                        <p>Newsletter erhalten?: </p>
+                    </div>
+                    <div class="col-2">
+                        <!--hier kommt Nutzer Info von Spiel in Merkliste--->
+                        <p id="anrede"></p>
+                        <p id="nachname"></p>
+                        <p id="vorname"></p>
+                        <p id="strasse"></p>
+                        <p id="hausnummer"></p>
+                        <p id="PLZ"></p>
+                        <p id="ort"></p>
+                        <p id="handynummer"></p>
+                        <p id="email"></p>
+                        <p id="newsletter"></p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-4">
+            <h3>Merkliste</h3>
+            <div class="boxMerkliste">
+                <div class="row">
+                    <div class="col-6">
+                        <!--hier kommt Image von Spiel in Merkliste MUSS EVENTL. NOCH ANGEPASST WERDEN!--->
+                        <img id="image" src="" alt="Bild">
+                    </div>
+                    <div class="col-4">
+                        <!--hier kommt Name von Spiel in Merkliste--->
+                        <h4 id="nameMerkliste"></h4>
+                    </div>
+                    <div class="col-2">
+                        <!--hier kommt Trash Icon von Spiel in Merkliste--->
+                        <i id="trashMerkliste" class="fa-solid fa-trash"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <!--hier kommt Text für Bestellungen aus DB von Script--->
+            <h3>Bestellungen</h3>
             <div class="boxBestellungen"></div>
         </div>
     </div>
-
-
 </section>
 
+<!---Hier kommt CEO Profil setVisibility in script mit block/none---->
+
+<section class="container ceo">
+</section>
+
+<!---Hier kommt CEO Profil setVisibility in script mit block/none---->
+<section class="container admin">
+</section>
 
 </body>
 </html>
