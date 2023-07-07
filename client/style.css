@@ -40,28 +40,22 @@ Header
     transition: font-size .1s ease-in-out ;
 }
 
+.bree40:hover {
+    font-size: 2.6em;
+}
+
 .bree20 {
     font-family: "Bree Serif", serif;
     font-size: 1.25em;
     color: #FFFFFF;
-    transition: transform .1s;
 }
 
-.bree40:hover {
-    font-size: 2.6em;
-
+.bree20Scale {
+    transition: transform .1s
 }
 
-bree20:Hover {
+.bree20Scale:Hover {
     transform: scale(1.1);
-}
-
-.containerFooter {
-    background-color: #A37F5F !important;
-    height: 100px;
-    bottom: 0;
-    position: absolute;
-    width: 100%;
 }
 
 .wIcon {
@@ -79,18 +73,8 @@ bree20:Hover {
     max-height: 8.125em
 }
 
-.grid{
-    display: grid;
-    align-items: center;
-
-}
-
 #spieleheader{
     text-align: end;
-}
-
-.footerRow {
-    align-items: center;
 }
 
 #erweiterungenheader{
@@ -103,6 +87,21 @@ bree20:Hover {
 }
 
 .headerRow{
+    align-items: center;
+}
+
+/* Footer */
+
+.containerFooter {
+    background-color: #A37F5F !important;
+    height: 100px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.gridFooter{
+    display: grid;
     align-items: center;
 }
 
