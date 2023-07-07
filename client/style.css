@@ -1,48 +1,20 @@
-/* bree-serif-regular - latin */
-/* bree-serif-regular - latin */
+/* Schriftarten */
+
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-display: swap;
     font-family: "Bree Serif";
     font-style: normal;
     font-weight: 400;
-    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2');
 }
 
 /* belleza-regular - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-display: swap;
     font-family: 'Belleza';
     font-style: normal;
     font-weight: 400;
-    src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* Schriftarten */
-
-.belleza25 {
-    font-family: "Belleza", serif;
-    font-size: 1.563em;
-    color: #707070;
-}
-
-.linksG {
-    color: #707070;
-    text-decoration: none;
-}
-
-
-/*
-Header
- */
-
-
-.containerHeader{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #A37F5F !important;
-    height: 146px;
+    src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2');
 }
 
 .bree40 {
@@ -52,14 +24,20 @@ Header
     transition: font-size .1s ease-in-out ;
 }
 
-.bree40:hover {
-    font-size: 2.6em;
-}
-
 .bree20 {
     font-family: "Bree Serif", serif;
     font-size: 1.25em;
     color: #FFFFFF;
+}
+
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
 }
 
 .bree20Scale {
@@ -69,6 +47,30 @@ Header
 .bree20Scale:Hover {
     transform: scale(1.1);
 }
+
+/* Body */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 100px; /* Höhe des Footers */
+    padding-top: 100px; /* Höhe des Headers */
+}
+
+/* Links */
+
+.linksG {
+    color: #707070;
+    text-decoration: none;
+}
+
+.linksW {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/* Icons */
 
 .wIcon {
     color: #FFFFFF;
@@ -85,44 +87,22 @@ Header
     max-height: 8.125em
 }
 
-.grid{
-    display: grid;
-    align-items: center;
+/* Header */
 
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 100px;
 }
-
-
-.footerRow {
-    align-items: center;
-}
-/*
-#erweiterungenheader{
-    margin-left: 1em;
-    margin-right: -1em;
-}
-#ersatzteileheader{
-    margin-left: 1em;
-    margin-right: -1em;
-}
-#spieleheader{
-    text-align: end;
-}
-
- */
 
 .headerRow{
     align-items: center;
 }
 
 /* Footer */
-
-body {
-    position: relative;
-    min-height: 100vh;
-    margin: 0;
-    padding-bottom: 100px; /* Höhe des Footers */
-    padding-top: 146px; /* Höhe des Headers */
-}
 
 .containerFooter {
     background-color: #A37F5F !important;
@@ -137,9 +117,4 @@ body {
 .gridFooter{
     display: grid;
     align-items: center;
-}
-
-.linksW {
-    color: #FFFFFF;
-    text-decoration: none;
 }
