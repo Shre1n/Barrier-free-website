@@ -103,7 +103,8 @@ function postUser(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const postleitzahl: number = req.body.postleitzahl;
     const ort: string = req.body.ort;
-    const adresse: string = req.body.adresse;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
     if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || adresse === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
@@ -126,18 +127,19 @@ function postUser(req: express.Request, res: express.Response): void {
             } else {
                 const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-                const data: [string, string, string, string, number, string, string, number] = [
+                const data: [string, string, string, string, number, string, string, string, number] = [
                     vorname,
                     nachname,
                     email,
                     cryptopass,
                     postleitzahl,
                     ort,
-                    adresse,
+                    strasse,
+                    hnr,
                     telefonnummer
                 ];
 
-                const newQuery: string = 'INSERT INTO Nutzerliste (Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Adresse, Telefonnummer) VALUES (?,?,?,?,?,?,?,?);'
+                const newQuery: string = 'INSERT INTO Nutzerliste (Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?);'
 
                 connection.query(newQuery, data, (err, result) => {
                     if (err) {

@@ -9,7 +9,8 @@ Content-Type: application/json
   "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
-  "adresse": "Am Musterweg 1",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
   "telefonnummer": "0176 1956285"
 }
 
