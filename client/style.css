@@ -30,7 +30,7 @@ Header
     position: absolute;
     width: 100%;
     background-color: #A37F5F !important;
-    height: 146px;
+    height: 100px;
 }
 
 .textschatten{
@@ -75,7 +75,7 @@ Header
 
 .logo {
     margin-left: 1em;
-    max-height: 8.125em;
+    max-height: 90px;
     transition: transform .1s;
 }
 
@@ -107,7 +107,7 @@ Header
 
 .headericon{
     color: #A37F5F;
-    scale: 200%;
+    scale: 150%;
     transition: transform .1s
 }
 .headericon:hover{
@@ -117,6 +117,7 @@ Header
 
 .headerRow{
     align-items: center;
+    height: 100px;
 }
 
 /* Footer */
