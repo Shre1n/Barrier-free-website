@@ -85,14 +85,11 @@ bree20:Hover {
 
 }
 
-#spieleheader{
-    text-align: end;
-}
 
 .footerRow {
     align-items: center;
 }
-
+/*
 #erweiterungenheader{
     margin-left: 1em;
     margin-right: -1em;
@@ -101,6 +98,11 @@ bree20:Hover {
     margin-left: 1em;
     margin-right: -1em;
 }
+#spieleheader{
+    text-align: end;
+}
+
+ */
 
 .headerRow{
     align-items: center;
