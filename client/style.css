@@ -64,7 +64,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding-bottom: 6.25em; /* Höhe des Footers */
-    /* padding-top: 6.25em; /* Höhe des Headers */
+    padding-top: 6.25em; /* Höhe des Headers */
 }
 
 /* Links */
@@ -139,7 +139,7 @@ body {
 
 .headericon{
     color: #A37F5F;
-    scale: 150%;
+    scale: 100%;
     transition: transform .1s
 }
 
