@@ -255,3 +255,18 @@ Header
 .cardindex {
     z-index: 2 !important;
 }
+/* Verteilerseite*/
+.pichead2{
+
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    height: 15em;
+}
+.pichead{
+    height: 100%;
+    width: 100%;
+    margin-top: 2.688em;
+    margin-right: 2.938em;
+    margin-left: 2.938em;
+}
