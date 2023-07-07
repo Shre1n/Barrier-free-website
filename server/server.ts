@@ -5,6 +5,17 @@ import * as crypto from "crypto";
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
 
+
+// Ergänzt/Überläd den Sessionstore um das Attribut "signInName"
+declare module "express-session" {
+    interface Session {
+        email: string;
+        passwort: string;
+        id: string;
+    }
+}
+
+
 // Klassen definieren: Nutzer erstellen und Constructor für Nutzer
 
 
@@ -216,32 +227,27 @@ function getProductRating(req: express.Request, res: express.Response): void {
 
 // User Sign In
 
+// Prüft, ob ein Nutzer registriert ist und speichert ggf. den Nutzernamen im Sessionstore ab
 function signIn(req: express.Request, res: express.Response): void {
-
-    const loginemail: string = req.body.email;
-    const loginpassword: string = req.body.password;
-
-
-    const data: [string, string] = [loginemail, crypto.createHash("sha512").update(loginpassword).digest('hex')];
-    const query: string = 'SELECT ID, Email, Passwort FROM user WHERE  Email = ? AND passwort = ?;';
-
-    connection.query(query, data, (err, rows: any) => {
-
-
-        if (err) {
-            res.status(500);
-            res.send("Something went wrong!");
-            console.log("signIn" + err);
-        } else if (rows.length == 0) {
-            res.sendStatus(404);
-        } else {
-            req.session.userid = rows[0].ID;
-            res.status(200);
-            res.send("Sie sind Angemeldet!");
-
-        }
-    });
+    const email: string = req.body.email;
+    const passwort: string = req.body.passwort;
+    if (email !== undefined && passwort !== undefined) {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;",[email, passwort]).then((err, result: any) => {
+            if (err) {
+                console.log("Fehler bei der Datenbankabfrage:", err);
+                res.sendStatus(500);
+            } else if (result.length === 1) {
+                req.session.email = email;
+                req.session.passwort = passwort;
+                res.sendStatus(200);
+            } else {
+                console.log("500 in else");
+                res.sendStatus(500);
+            }
+        });
+    }
 }
+
 
 // User meldet sich ab -> Session wird gelöscht
 
@@ -257,7 +263,7 @@ function signOut(req: express.Request, res: express.Response): void {
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
-    if (req.session.userid) {
+    if (req.session) {
         next();
     } else {
         res.status(400);
@@ -267,6 +273,25 @@ function checkLogin(req: express.Request, res: express.Response, next: express.N
 
 function disableUser(req: express.Request, res: express.Response): void {
 
+}
+
+// Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
+function query(sql: string, param: any[] = []): Promise<any> {
+    return new Promise<any>((resolve: any, reject: any) => {
+        connection.query(sql, param, (err: mysql.MysqlError | null, results: any) => {
+            if (err === null) {
+                resolve(results);
+                console.log("resolving ...");
+            } else {
+                reject(err);
+            }
+        });
+    });
+}
+
+// Kleine Hilfsfunktion, die immer 200 OK zurückgibt
+function isLoggedIn(req: express.Request, res: express.Response): void {
+    res.sendStatus(200);
 }
 
 
