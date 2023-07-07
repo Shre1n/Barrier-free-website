@@ -48,6 +48,37 @@ class Produkt {
 
 }
 
+// Geschaeftsfuehrer Klasse
+class Ceo {
+    name: string;
+    email: string;
+    password: string;
+    rollenID: number = 2;
+
+    constructor(name: string, email: string, password: string, rollenID: number) {#
+        this.name = name;
+        this.email = email
+        this.password = password;
+        this.rollenID = rollenID;
+    }
+}
+
+//Admin Klasse
+class Admin{
+    name: string;
+    email: string;
+    password: string;
+    rollenID: number = 1;
+
+    constructor(name: string, email: string, password: string, rollenID: number) {#
+        this.name = name;
+        this.email = email
+        this.password = password;
+        this.rollenID = rollenID;
+    }
+
+}
+
 const PORT: number = 8080;
 
 const app: express.Express = express();
@@ -116,7 +147,9 @@ app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
 
 // Routen für CEO
+// Beim anlegen Rolle mit schicken
 app.put("/ceo/product/:id", editProduct);
+app.post("/ceo", postCeo);
 app.post("/ceo/product", postProduct);
 app.get("/ceo/product/:name", getProduct);
 app.get("/ceo/bewertungen", getAllRatings);
@@ -124,8 +157,10 @@ app.get("/ceo/bewertungen/:id", getProductRating);
 app.post("/ceo/signin", signIn);
 app.get("/ceo/signout", signOut);
 
-//Routen für Admin
+// Routen für Admin
+// Beim anlegen Rolle mit schicken
 app.get("/admin/user", getUser);
+app.post("/admin", postAdmin);
 app.get("/admin/product", getProduct);
 app.post("/admin/signin", signIn);
 app.get("/admin/signout", signOut);
@@ -195,6 +230,15 @@ function postUser(req: express.Request, res: express.Response): void {
             }
         });
     }
+}
+
+
+function postCeo(req: express.Request, res: express.Response): void {
+
+}
+
+function postAdmin(req: express.Request, res: express.Response): void {
+
 }
 
 function getUser(req: express.Request, res: express.Response): void {

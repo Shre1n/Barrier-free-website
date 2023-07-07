@@ -1,5 +1,5 @@
 ### Anlegen eines neuen Users (Max Mustermann)
-POST http://localhost:8080/user
+POST /user HTTP/2
 Content-Type: application/json
 
 {
