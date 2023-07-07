@@ -145,15 +145,14 @@ Header
     margin: auto !important;
 }
 .card{
-    margin-top: 2em;
+    margin-top: 2em !important;
     box-shadow:0.1em 0.3em 0.2em #707070;
     border-radius: 1em;
 }
 .availability{
     color: green !important;
-    margin-left: -14em;
+text-align: left !important;
     margin-top: 2em;
-    z-index: 1;
 }
 .cardpicp{
     margin-top: 1em;
@@ -163,12 +162,32 @@ Header
     width: 15em;
     border-radius: 0em !important;
     border-color: #707070;
-    z-index: 0;
 }
 .cardfont{
-    text-align: left;
-    margin-left: 1.2em;
-    z-index: 0;
-    margin-top: -1em;
-    margin-bottom: 1em;
+    flex: 1;
 }
+.cardbp{
+    margin: auto;
+    width: 18em;
+    height: 25em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+.cardword{
+    display: flex !important;
+}
+.bbuttoncard{
+    background-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em!important;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: transform .1s;
+    margin-left: 14em;
+}
+.bbuttoncard:hover{
+    transform: scale(1.1);}
