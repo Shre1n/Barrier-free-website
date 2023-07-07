@@ -25,10 +25,6 @@
 Header
  */
 
-.containerHintergrund{
-    background-color: #A37F5F !important;
-    height: 146px;
-}
 
 .containerHeader{
     position: absolute;
@@ -42,13 +38,25 @@ Header
     transition: font-size .1s ease-in-out ;
 }
 
+.bree20 {
+    font-family: "Bree Serif", serif;
+    font-size: 1.25em;
+    color: #FFFFFF;
+    transition: transform .1s;
+}
 
 .bree40:hover {
     font-size: 2.6em;
 
 }
 
+bree20:Hover {
+    transform: scale(1.1);
+}
+
 .containerFooter {
+    background-color: #A37F5F !important;
+    height: 100px;
     bottom: 0;
     position: absolute;
     width: 100%;
@@ -74,13 +82,20 @@ Header
     align-items: center;
 
 }
+
 #spieleheader{
     text-align: end;
 }
+
 #bengel{
     align-items: center !important;
 }
 
 .footerRow {
     align-items: center;
+}
+
+.linksW {
+    color: #FFFFFF;
+    text-decoration: none;
 }
