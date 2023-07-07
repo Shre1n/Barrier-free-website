@@ -126,10 +126,10 @@ body {
     scale: 200%;
     transition: transform .1s
 }
+
 .headericon:hover{
     transform: scale(1.1);
 }
-
 
 .headerRow{
     align-items: center;
@@ -149,7 +149,6 @@ body {
     width: 100%;
     height: 100px;
 }
-
 
 .gridFooter{
     display: grid;
