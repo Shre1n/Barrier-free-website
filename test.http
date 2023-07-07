@@ -14,6 +14,20 @@ Content-Type: application/json
   "telefonnummer": "017683829974"
 }
 
+###
+
+// User signing-in
+
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "email": "maik@tester.de",
+  "password": "1234"
+}
+###
+
+
 
 
 
