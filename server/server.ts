@@ -104,7 +104,7 @@ function postUser(req: express.Request, res: express.Response): void {
     const postleitzahl: number = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
-    const hnr: string = req.body.hnr;
+    const hnr: number = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
     if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
@@ -127,7 +127,7 @@ function postUser(req: express.Request, res: express.Response): void {
             } else {
                 const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-                const data: [string, string, string, string, number, string, string, string, number] = [
+                const data: [string, string, string, string, number, string, string, number, number] = [
                     vorname,
                     nachname,
                     email,
