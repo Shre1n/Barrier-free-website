@@ -149,3 +149,15 @@ Header
     box-shadow:0.1em 0.3em 0.2em #707070;
     border-radius: 1em;
 }
+.availability{
+    color: green !important;
+}
+.cardpicp{
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15.5em;
+    width: 15em;
+    border-radius: 0em !important;
+    border-color: #707070;
+}
