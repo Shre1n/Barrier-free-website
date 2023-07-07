@@ -43,6 +43,11 @@
     position: relative;
 }
 
+.boxBestellungen p{
+    font-size: 0.7em;
+    position: relative;
+}
+
 .price-container {
     position: absolute;
     bottom: 0;

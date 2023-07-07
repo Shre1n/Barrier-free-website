@@ -25,19 +25,20 @@
     </nav>
 </div>
 
-<section>
+<section class="container-xxl">
     <div>
         <div class="row">
             <div class="col-4">
             </div>
-            <div class="col-4">
+            <div class="col-4 text-center">
                 <!---- hier Willkommenstext aus {Script}---->
+                <h4>Willkommen</h4>
             </div>
             <div class="col-4">
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-4">
             <h3>Nutzerdaten</h3>
             <div class="boxNutzer">
@@ -103,7 +104,15 @@
         <div class="col-4">
             <!--hier kommt Text für Bestellungen aus DB von Script--->
             <h3>Bestellungen</h3>
-            <div class="boxBestellungen"></div>
+            <div class="boxBestellungen">
+                <p id="datum">Datum:</p>
+                <p id="bestellnummer">Bestellnummer:</p>
+                <p id="bestellstatus">Bestellstatus:</p>
+                <p id="sendenummer">Sendenummer:</p>
+                <p id="gesamtpreis">Gesamtpreis:</p>
+                <p id="aktikelanzahl">Artikelanzahl:</p>
+                <p id="artikel">Artikel:</p>
+            </div>
         </div>
     </div>
 </section>
@@ -130,7 +139,7 @@
                 <!---- hier Willkommenstext aus {Script}---->
                 <h1>Willkommen</h1>
             </div>
-            <div class="col-4">
+            <div class="col-4 m-auto">
                 <p id="time">time</p>
             </div>
         </div>
@@ -256,11 +265,13 @@
                     </div>
                 </div>
             </div>
+            <!----Hier download Button einfügen--->
+            <div class="col-10 mt-5">
+                <p class="text-end">Button</p>
+            </div>
         </div>
     </div>
 </section>
-
-
 <!---Hier kommt ADMIN Profil setVisibility in script mit block/none---->
 <section>
 </section>
