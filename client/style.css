@@ -77,6 +77,14 @@ Header
 .bbutton{
     background-color: #3D93A6 !important;
     color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em!important;
+    width: 7.46em;
+    height: 2em;
+    transition: transform .1s;
+}
+.bbutton:hover{
+    transform: scale(1.1);
 }
 .wicon{
    color: #FFFFFF !important;
@@ -96,6 +104,8 @@ Header
 }
 .karussell{
     margin-top: 2.188em;
+    margin-right: 1.25em;
+    margin-left: 1.25em;
 }
 .startu{
     margin-top: 6.25em;
@@ -114,4 +124,28 @@ Header
     border-left-color: #FFFFFF;
     border-right-color: #FFFFFF;
     margin-top: 4.375em;
+}
+.cardpick{
+    margin-top: 1.7em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 20em;
+    width: 18em;
+    border-radius: 0em !important;
+    border-color: #707070;
+}
+.cardpk{
+    margin: auto;
+    width: 23em;
+    height: 30em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+.kcard{
+    margin: auto !important;
+}
+.card{
+    margin-top: 2em;
+    box-shadow:0.1em 0.3em 0.2em #707070;
+    border-radius: 1em;
 }

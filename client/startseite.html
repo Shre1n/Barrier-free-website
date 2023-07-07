@@ -11,13 +11,15 @@
     <title> Willkommen bei Play Ability</title>
 </head>
 <body>
-    <div class="container-fluid suche">
-        <form class="d-flex searchbar" role="search">
-            <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
-            <i class="fas fa-search bicon lupe"></i>
-        </form>
-    </div>
-
+<section class="suchleiste">
+<div class="container-fluid suche">
+    <form class="d-flex searchbar" role="search">
+        <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
+        <i class="fas fa-search bicon lupe"></i>
+    </form>
+</div>
+</section>
+<section class="bilderkarussell">
 <div class="karussell">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -43,108 +45,120 @@
         </button>
     </div>
 </div>
+</section>
+<section class="headlinekat">
 <div class="container text-center startu">
     <div class="col headline">
         Kategorien
     </div>
 </div>
-<div class="container text-center">
-    <div class="row align-items-start">
-        <div class="col">
-            <div class="card">
-                <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                <div class="card-body">
-                    <div class="container text-center">
-                        <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Spiele</a>
+</section>
+<section class="KKarten">
+<div class="card-group">
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <div class="card cardpk">
+                    <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                    <div class="card-body">
+                        <div class="container text-center">
+                            <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Spiele</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                <div class="card-body">
-                    <div class="container text-center">
-                        <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Erweiterungen</a>
+            <div class="col">
+                <div class="card cardpk">
+                    <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                    <div class="card-body">
+                        <div class="container text-center">
+                            <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Erweiterungen</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                <div class="card-body">
-                    <div class="container text-center">
-                        <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Ersatzteile</a>
+            <div class="col">
+                <div class="card cardpk">
+                    <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                    <div class="card-body">
+                        <div class="container text-center">
+                            <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Ersatzteile</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</section>
+<section class="headlinepro">
 <div class="container text-center startu">
     <div class="col headline">
         Beliebte Produkte
     </div>
 </div>
-<section class="bestproduct">
-    <div class="container text-center">
-        <div class="row align-items-start">
-            <div class="col">
-                <div class="card">
-                    <i class="far fa-bookmark"></i>
-                    <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                    <div class="card-body">
-                        <i class="fas fa-circle"></i>
-                        <h5 class="card-title font40">Tactile Towers</h5>
-                        <p class="card-text font40">59,99€</p>
-                        <a href="produktdetail.html" class="btn btn-primary bbutton"><i
-                                class="fas fa-shopping-bag wicon"></i></a>
+</section>
+<section class="PKarten">
+    <div class="card-group">
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="card">
+                        <i class="far fa-bookmark"></i>
+                        <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
+                        <div class="card-body">
+                            <i class="fas fa-circle availability"></i>
+                            <h5 class="card-title font40">Tactile Towers</h5>
+                            <p class="card-text font40">59,99€</p>
+                            <a href="produktdetail.html" class="btn btn-primary bbutton"><i
+                                    class="fas fa-shopping-bag wicon"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <i class="far fa-bookmark"></i>
-                    <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                    <div class="card-body">
-                        <i class="fas fa-circle"></i>
-                        <h5 class="card-title font40">Shake 'n Match</h5>
-                        <p class="card-text font40">79,99€</p>
-                        <a href="produktdetail.html" class="btn btn-primary bbutton"><i
-                                class="fas fa-shopping-bag wicon"></i></a>
+                <div class="col">
+                    <div class="card">
+                        <i class="far fa-bookmark"></i>
+                        <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
+                        <div class="card-body">
+                            <i class="fas fa-circle"></i>
+                            <h5 class="card-title font40">Shake 'n Match</h5>
+                            <p class="card-text font40">79,99€</p>
+                            <a href="produktdetail.html" class="btn btn-primary bbutton"><i
+                                    class="fas fa-shopping-bag wicon"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <i class="far fa-bookmark"></i>
-                    <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                    <div class="card-body">
-                        <i class="fas fa-circle"></i>
-                        <h5 class="card-title font40">Shape Seekers</h5>
-                        <p class="card-text font40">29,99€</p>
-                        <a href="produktdetail.html" class="btn btn-primary bbutton"><i
-                                class="fas fa-shopping-bag wicon"></i></a>
+                <div class="col">
+                    <div class="card">
+                        <i class="far fa-bookmark"></i>
+                        <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
+                        <div class="card-body">
+                            <i class="fas fa-circle"></i>
+                            <h5 class="card-title font40">Shape Seekers</h5>
+                            <p class="card-text font40">29,99€</p>
+                            <a href="produktdetail.html" class="btn btn-primary bbutton"><i
+                                    class="fas fa-shopping-bag wicon"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <i class="far fa-bookmark"></i>
-                    <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
-                    <div class="card-body">
-                        <i class="fas fa-circle"></i>
-                        <h5 class="card-title font40">Color Cube</h5>
-                        <p class="card-text font40">19,99€</p>
-                        <a href="produktdetail.html" class="btn btn-primary bbutton"><i
-                                class="fas fa-shopping-bag wicon"></i></a>
+                <div class="col">
+                    <div class="card">
+                        <i class="far fa-bookmark"></i>
+                        <img src="/img/placeholder.jpg" class="card-img-top" alt="placeholder">
+                        <div class="card-body">
+                            <i class="fas fa-circle"></i>
+                            <h5 class="card-title font40">Color Cube</h5>
+                            <p class="card-text font40">19,99€</p>
+                            <a href="produktdetail.html" class="btn btn-primary bbutton"><i
+                                    class="fas fa-shopping-bag wicon"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<section class="Hilfsorgpic">
 <div class="container-fluid hilforg">
     <div class="container text-center">
         <div class="row align-items-start">
@@ -166,5 +180,6 @@
         </div>
     </div>
 </div>
+</section>
 </body>
 </html>
