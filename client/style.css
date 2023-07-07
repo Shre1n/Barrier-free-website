@@ -270,3 +270,8 @@ Header
     margin-right: 2.938em;
     margin-left: 2.938em;
 }
+.mela{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
