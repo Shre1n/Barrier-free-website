@@ -6,78 +6,7 @@ import * as crypto from "crypto";
 import {Chart} from 'chart.js';
 
 // Klassen definieren: Nutzer erstellen und Constructor für Nutzer
-class Nutzer {
-    vorname: string;
-    nachname: string;
-    email: string;
-    passwort: string;
-    postleitzahl: number;
-    ort: string;
-    adresse: string;
-    telefonnummer: number;
 
-    constructor(vorname: string, nachname: string, email: string, passwort: string, postleitzahl: number, ort: string, adresse: string, telefonnummer: number) {
-        this.vorname = vorname;
-        this.nachname = nachname;
-        this.email = email;
-        this.passwort = passwort;
-        this.postleitzahl = postleitzahl;
-        this.ort = ort;
-        this.adresse = adresse;
-        this.telefonnummer = telefonnummer;
-    }
-}
-
-//Klasse definieren: Produkt erstellen und Constructor für Produkt
-class Produkt {
-    name: string;
-    kurzbeschreibung: string;
-    lieferumfang: string;
-    verfuegbarkeit: number;
-    preis: number;
-    kategorie: string;
-
-    constructor(name: string, kurzbeschreibung: string, lieferumfang: string, verfuegbarkeit: number, preis: number, kategorie: string) {
-        this.name = name;
-        this.kurzbeschreibung = kurzbeschreibung;
-        this.lieferumfang = lieferumfang;
-        this.verfuegbarkeit = verfuegbarkeit;
-        this.preis = preis;
-        this.kategorie = kategorie;
-    }
-
-}
-
-// Geschaeftsfuehrer Klasse
-class Ceo {
-    name: string;
-    email: string;
-    password: string;
-    rollenID: number = 2;
-
-    constructor(name: string, email: string, password: string, rollenID: number) {#
-        this.name = name;
-        this.email = email
-        this.password = password;
-        this.rollenID = rollenID;
-    }
-}
-
-//Admin Klasse
-class Admin{
-    name: string;
-    email: string;
-    password: string;
-    rollenID: number = 1;
-
-    constructor(name: string, email: string, password: string, rollenID: number) {#
-        this.name = name;
-        this.email = email
-        this.password = password;
-        this.rollenID = rollenID;
-    }
-
-}
 
 const PORT: number = 8080;
 
