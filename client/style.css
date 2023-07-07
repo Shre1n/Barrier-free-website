@@ -63,8 +63,8 @@ body {
     position: relative;
     min-height: 100vh;
     margin: 0;
-    padding-bottom: 100px; /* Höhe des Footers */
-    padding-top: 100px; /* Höhe des Headers */
+    padding-bottom: 6.25em; /* Höhe des Footers */
+    /* padding-top: 6.25em; /* Höhe des Headers */
 }
 
 /* Links */
@@ -108,10 +108,21 @@ body {
     border: 2px #707070;
     padding: 10px;
     box-shadow: 2px 2px 5px #707070;
-
 }
 
 /* Header */
+
+.navbarHeader {
+    background-color: #A37F5F !important;
+    position: absolute;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
 
 .containerHeader{
     position: absolute;
@@ -119,7 +130,11 @@ body {
     left: 0;
     width: 100%;
     background-color: #A37F5F !important;
-    height: 100px;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
 }
 
 .headericon{
@@ -148,7 +163,11 @@ body {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    height: 6.25em;
+}
+
+.rowFooter {
+    height: 6.25em;
 }
 
 .gridFooter{
