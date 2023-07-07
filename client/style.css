@@ -24,6 +24,10 @@
     transition: font-size .1s ease-in-out ;
 }
 
+.bree40:hover {
+    font-size: 2.6em;
+}
+
 .bree20 {
     font-family: "Bree Serif", serif;
     font-size: 1.25em;
@@ -46,6 +50,10 @@
 
 .bree20Scale:Hover {
     transform: scale(1.1);
+}
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
 }
 
 /* Body */
@@ -76,6 +84,7 @@ body {
     color: #FFFFFF;
     scale: 2;
     transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
 }
 
 .wIcon:hover {
@@ -84,7 +93,21 @@ body {
 
 .logo {
     margin-left: 1em;
-    max-height: 8.125em
+    max-height: 8.125em;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+
 }
 
 /* Header */
@@ -98,8 +121,22 @@ body {
     height: 100px;
 }
 
+.headericon{
+    color: #A37F5F;
+    scale: 200%;
+    transition: transform .1s
+}
+.headericon:hover{
+    transform: scale(1.1);
+}
+
+
 .headerRow{
     align-items: center;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
 }
 
 /* Footer */
