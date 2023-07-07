@@ -33,6 +33,10 @@ Header
     height: 146px;
 }
 
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
 .bree40 {
     font-family: "Bree Serif", serif;
     font-size: 2.5em;
@@ -62,6 +66,7 @@ Header
     color: #FFFFFF;
     scale: 2;
     transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
 }
 
 .wIcon:hover {
@@ -70,7 +75,13 @@ Header
 
 .logo {
     margin-left: 1em;
-    max-height: 8.125em
+    max-height: 8.125em;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+
 }
 
 .grid{
@@ -83,20 +94,26 @@ Header
 .footerRow {
     align-items: center;
 }
-/*
-#erweiterungenheader{
-    margin-left: 1em;
-    margin-right: -1em;
-}
-#ersatzteileheader{
-    margin-left: 1em;
-    margin-right: -1em;
-}
-#spieleheader{
-    text-align: end;
+
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+
 }
 
- */
+.headericon{
+    color: #A37F5F;
+    scale: 200%;
+    transition: transform .1s
+}
+.headericon:hover{
+    transform: scale(1.1);
+}
+
 
 .headerRow{
     align-items: center;
@@ -120,4 +137,8 @@ Header
 .linksW {
     color: #FFFFFF;
     text-decoration: none;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
 }
