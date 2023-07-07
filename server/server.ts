@@ -107,7 +107,7 @@ function postUser(req: express.Request, res: express.Response): void {
     const hnr: string = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
-    if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || adresse === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
+    if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
 
         res.status(500);
         res.send("Alle Felder müssen gefüllt werden!");
@@ -162,7 +162,6 @@ function postUser(req: express.Request, res: express.Response): void {
         });
     }
 }
-
 
 function postCeo(req: express.Request, res: express.Response): void {
 
