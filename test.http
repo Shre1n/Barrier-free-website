@@ -1,5 +1,5 @@
 ### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
+POST http://localhost:8080/user
 Content-Type: application/json
 
 {
@@ -14,23 +14,6 @@ Content-Type: application/json
   "telefonnummer": "017683829974"
 }
 
-### Anlegen eines neuen CEOs (Markus Heidmann)
-POST /ceo HTTP/2
-Content-Type: application/json
-
-{
-  "vorname": "Markus",
-  "nachname": "Heidmann",
-  "email": "ceo@playability.de",
-  "passwort": "Opera389",
-  "postleitzahl": "35398",
-  "ort":"Gießen",
-  "strasse": "Grubenwerk",
-  "hnr": "12",
-  "telefonnummer": "0179 2881934"
-}
-
-### Anlegen eines neuen Admins (Markus Rötker)
 
 
 
