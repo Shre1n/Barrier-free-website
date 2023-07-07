@@ -1,3 +1,48 @@
 /*
     Fonts: Belleza, Bree Serif
  */
+
+
+
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
+}
+
+.breadcrumb-container p{
+    font-weight: Bold;
+}
+
+.boxNutzer{
+    margin-top: 5em;
+    width: 17em;
+    height: 25em;
+    border: 0.1em solid black;
+}
+
+.boxMerkliste{
+    margin-top: 5em;
+    width: 20em;
+    height: 15em;
+    border: 0.1em solid black;
+    position: relative;
+}
+
+.boxMerkliste p{
+    position: absolute;
+    margin-left: 17em;
+    margin-top: 13em;
+    font-weight: Bold;
+}
+
+.boxBestellungen{
+    margin-top: 5em;
+    width: 12em;
+    height: 12em;
+    border: 0.1em solid black;
+}
