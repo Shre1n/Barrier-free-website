@@ -218,11 +218,12 @@ function getProductRating(req: express.Request, res: express.Response): void {
 
 function signIn(req: express.Request, res: express.Response): void {
 
-    const email: string = req.body.email;
-    const passwort: string = req.body.passwort;
+    const loginemail: string = req.body.email;
+    const loginpassword: string = req.body.password;
 
-    const data: [string, string] = [email, crypto.createHash("sha512").update(passwort).digest('hex')];
-    const query: string = 'SELECT ID, Email, passwort FROM user WHERE  Email = ? AND passwort = ?;';
+
+    const data: [string, string] = [loginemail, crypto.createHash("sha512").update(loginpassword).digest('hex')];
+    const query: string = 'SELECT ID, Email, Passwort FROM user WHERE  Email = ? AND passwort = ?;';
 
     connection.query(query, data, (err, rows: any) => {
 
@@ -234,8 +235,7 @@ function signIn(req: express.Request, res: express.Response): void {
         } else if (rows.length == 0) {
             res.sendStatus(404);
         } else {
-            // const okuser: string = rows[0].Username;
-            // hier session zeug
+            req.session.userid = rows[0].ID;
             res.status(200);
             res.send("Sie sind Angemeldet!");
 
@@ -256,8 +256,13 @@ function signOut(req: express.Request, res: express.Response): void {
 
 }
 
-function checkLogin(req: express.Request, res: express.Response): void {
-
+function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
+    if (req.session.userid) {
+        next();
+    } else {
+        res.status(400);
+        res.send("User is not logged in! ")
+    }
 }
 
 function disableUser(req: express.Request, res: express.Response): void {
