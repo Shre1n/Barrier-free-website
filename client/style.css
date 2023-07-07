@@ -57,6 +57,11 @@ Header
 .wIcon {
     color: #FFFFFF;
     scale: 2;
+    transition: transform .1s;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
 }
 
 .logo {
@@ -74,4 +79,8 @@ Header
 }
 #bengel{
     align-items: center !important;
+}
+
+.footerRow {
+    align-items: center;
 }
