@@ -1,6 +1,3 @@
-/*
-    Fonts: Belleza, Bree Serif
- */
 /* bree-serif-regular - latin */
 /* bree-serif-regular - latin */
 @font-face {
@@ -18,6 +15,19 @@
     font-style: normal;
     font-weight: 400;
     src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* Schriftarten */
+
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.linksG {
+    color: #707070;
+    text-decoration: none;
 }
 
 
@@ -104,13 +114,22 @@ Header
 
 /* Footer */
 
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 100px; /* Höhe des Footers */
+}
+
 .containerFooter {
     background-color: #A37F5F !important;
-    height: 100px;
-    bottom: 0;
     position: absolute;
+    left: 0;
+    bottom: 0;
     width: 100%;
+    height: 100px;
 }
+
 
 .gridFooter{
     display: grid;
