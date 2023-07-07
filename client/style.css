@@ -53,7 +53,6 @@ Header
     width: 50em;
     height: 3.125em;
     z-index: -1 !important;
-
 }
 .round{
     border-radius: 50em !important;
@@ -131,7 +130,7 @@ Header
     margin-right: auto;
     height: 20em;
     width: 18em;
-    border-radius: 0em !important;
+    border-radius: 0 !important;
     border-color: #707070;
 }
 .cardpk{
@@ -151,22 +150,26 @@ Header
 }
 .availability{
     color: green !important;
-text-align: left !important;
-    margin-top: 2em;
+    text-align: left !important;
+    margin-top: 0.8em;
 }
 .cardpicp{
+    z-index: -1 !important;
     margin-top: 1em;
     margin-left: auto;
     margin-right: auto;
     height: 15.5em;
     width: 15em;
-    border-radius: 0em !important;
+    border-radius: 0 !important;
     border-color: #707070;
 }
 .cardfont{
     flex: 1;
+    text-align: left;
+    margin-left: 0.2em;
 }
 .cardbp{
+    z-index: -2 !important;
     margin: auto;
     width: 18em;
     height: 25em;
@@ -191,3 +194,11 @@ text-align: left !important;
 }
 .bbuttoncard:hover{
     transform: scale(1.1);}
+.bookmarks{
+
+    position: absolute;
+    z-index: 2 !important;
+    margin-left: 1em;
+    margin-right: 8em;
+    margin-top: 2em;
+}
