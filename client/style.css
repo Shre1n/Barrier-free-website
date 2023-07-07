@@ -1,40 +1,20 @@
-/*
-    Fonts: Belleza, Bree Serif
- */
-/* bree-serif-regular - latin */
-/* bree-serif-regular - latin */
+/* Schriftarten */
+
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-display: swap;
     font-family: "Bree Serif";
     font-style: normal;
     font-weight: 400;
-    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('/Schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2');
 }
 
 /* belleza-regular - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-display: swap;
     font-family: 'Belleza';
     font-style: normal;
     font-weight: 400;
-    src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-
-/*
-Header
- */
-
-
-.containerHeader{
-    position: absolute;
-    width: 100%;
-    background-color: #A37F5F !important;
-    height: 100px;
-}
-
-.textschatten{
-    text-shadow: 2px 2px 5px #707070;
+    src: url('../Schriftarten/belleza-v17-latin-regular.woff2') format('woff2');
 }
 
 .bree40 {
@@ -54,6 +34,16 @@ Header
     color: #FFFFFF;
 }
 
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
 .bree20Scale {
     transition: transform .1s
 }
@@ -61,6 +51,34 @@ Header
 .bree20Scale:Hover {
     transform: scale(1.1);
 }
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
+/* Body */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 100px; /* Höhe des Footers */
+    padding-top: 100px; /* Höhe des Headers */
+}
+
+/* Links */
+
+.linksG {
+    color: #707070;
+    text-decoration: none;
+}
+
+.linksW {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/* Icons */
 
 .wIcon {
     color: #FFFFFF;
@@ -75,26 +93,13 @@ Header
 
 .logo {
     margin-left: 1em;
-    max-height: 90px;
+    max-height: 8.125em;
     transition: transform .1s;
 }
 
 .logo:hover{
     transform: scale(1.1);
-
 }
-
-.grid{
-    display: grid;
-    align-items: center;
-
-}
-
-
-.footerRow {
-    align-items: center;
-}
-
 
 .iconborder {
     background-color: white;
@@ -105,9 +110,20 @@ Header
 
 }
 
+/* Header */
+
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 100px;
+}
+
 .headericon{
     color: #A37F5F;
-    scale: 150%;
+    scale: 200%;
     transition: transform .1s
 }
 .headericon:hover{
@@ -117,29 +133,25 @@ Header
 
 .headerRow{
     align-items: center;
-    height: 100px;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
 }
 
 /* Footer */
 
 .containerFooter {
     background-color: #A37F5F !important;
-    height: 100px;
-    bottom: 0;
     position: absolute;
+    left: 0;
+    bottom: 0;
     width: 100%;
+    height: 100px;
 }
+
 
 .gridFooter{
     display: grid;
     align-items: center;
-}
-
-.linksW {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.svgschatten {
-    filter: drop-shadow(3px 5px 2px #707070);
 }
