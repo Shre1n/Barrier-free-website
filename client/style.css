@@ -118,12 +118,12 @@ body {
     left: 0;
     width: 100%;
     background-color: #A37F5F !important;
-    height: 100px;
+    height: 8.125em;
 }
 
 .headericon{
     color: #A37F5F;
-    scale: 200%;
+    scale: 150%;
     transition: transform .1s
 }
 
