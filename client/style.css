@@ -33,6 +33,8 @@ Header
 .containerHeader{
     position: absolute;
     width: 100%;
+    background-color: #A37F5F !important;
+    height: 146px;
 }
 
 .bree40 {
@@ -77,10 +79,20 @@ Header
 #spieleheader{
     text-align: end;
 }
-#bengel{
-    align-items: center !important;
-}
 
 .footerRow {
+    align-items: center;
+}
+
+#erweiterungenheader{
+    margin-left: 1em;
+    margin-right: -1em;
+}
+#ersatzteileheader{
+    margin-left: 1em;
+    margin-right: -1em;
+}
+
+.headerRow{
     align-items: center;
 }
