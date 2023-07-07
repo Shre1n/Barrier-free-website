@@ -262,13 +262,12 @@ Header
     justify-content: center;
     display: flex;
     height: 15em;
+    margin-bottom: 5em;
 }
 .pichead{
     height: 100%;
     width: 100%;
-    margin-top: 2.688em;
-    margin-right: 2.938em;
-    margin-left: 2.938em;
+    margin: 2.688em  2.938em 2.75em;
 }
 .mela{
     display: flex;
