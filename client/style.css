@@ -41,6 +41,11 @@
     font-size: 1em;
 }
 
+.zentriert {
+    text-align: center;
+    margin-top: 3em;
+}
+
 /*Button Farben*/
 .bbutton {
     background-color: #3D93A6 !important;
@@ -254,4 +259,11 @@ Header
 
 .cardindex {
     z-index: 2 !important;
+}
+
+.fotos {
+    transform: scale(0.9);
+}
+.aboutusnamen {
+    text-align: center;
 }
