@@ -28,6 +28,13 @@ Content-Type: application/json
 ###
 
 
+// User logging-out
+
+POST http://localhost:8080/signout HTTP/2
+
+###
+
+
 
 
 

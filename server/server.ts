@@ -230,13 +230,10 @@ function getProductRating(req: express.Request, res: express.Response): void {
 // Prüft, ob ein Nutzer registriert ist und speichert ggf. den Nutzernamen im Sessionstore ab
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
-    const passwort: string = req.body.passwort;
+    const passwort: string = req.body.password;
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;",[email, passwort]).then((err, result: any) => {
-            if (err) {
-                console.log("Fehler bei der Datenbankabfrage:", err);
-                res.sendStatus(500);
-            } else if (result.length === 1) {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;",[email, passwort]).then((result: any) => {
+            if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = passwort;
                 res.sendStatus(200);
@@ -244,6 +241,9 @@ function signIn(req: express.Request, res: express.Response): void {
                 console.log("500 in else");
                 res.sendStatus(500);
             }
+        }).catch(() => {
+            console.log("500 in catch");
+            res.sendStatus(500);
         });
     }
 }
@@ -252,14 +252,14 @@ function signIn(req: express.Request, res: express.Response): void {
 // User meldet sich ab -> Session wird gelöscht
 
 function signOut(req: express.Request, res: express.Response): void {
-
-
-    req.session.destroy(() => {
-        res.clearCookie("connect.sid");
-        res.status(200);
-        res.send("User succesfully logged out!")
-    });
-
+    if (req.session && req.session.email && req.session.passwort) {
+        req.session.destroy(() => {
+            res.clearCookie("connect.sid");
+            res.sendStatus(200);
+        });
+    } else {
+        res.sendStatus(401); // Unauthorized
+    }
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
