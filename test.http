@@ -1,0 +1,107 @@
+### Anlegen eines neuen Users (Max Mustermann)
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Jonas",
+  "nachname": "Thiele",
+  "email": "JonasTh@mni.thm.de",
+  "passwort": "7890",
+  "postleitzahl": 6273,
+  "ort":"Wetzlar",
+  "strasse": "Hauptstraße",
+  "hnr": 26,
+  "telefonnummer": "017683829974"
+}
+
+###
+
+// User signing-in
+
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "email": "maik@tester.de",
+  "password": "1234"
+}
+###
+
+
+// User logging-out
+
+POST http://localhost:8080/signout HTTP/2
+
+###
+
+
+
+
+
+###
+GET /admin/user HTTP/2
+Host: ip1-dbs.mni.thm.de
+
+### Einloggen eines existierenden Users (Markus Heidmann)
+POST /login HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{"email": "ceo@playability.de", "password": "Adminpass"}
+
+###
+POST /logout HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+### Auslesen eines Users (Markus Heidmann)
+GET /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{"email": "ceo@playability.de"}
+
+### Bearbeiten eines Users (alle Daten)
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "vorname": "Muster",
+  "nachname": "Maxmann",
+  "passwort": "54321"
+}
+
+### Bearbeiten eines Users (nur Passwort)
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+
+  "passwort": "neuesPasswort"
+}
+
+### Löschen eines Users
+DELETE /user HTTP/2
+Host: localhost:8080
+
+### Auslesen eines nicht vorhanden Users
+GET /user/error HTTP/2
+Host: localhost:8080
+
+HTTP/1.1 409 Conflict
+Content-Type: text/plain
+
+Diesen Nutzer gibt es nicht.
+
+### Löschen eines nicht vorhanden Users
+DELETE /user/error HTTP/2
+Host: localhost
+
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json

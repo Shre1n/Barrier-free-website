@@ -11,6 +11,41 @@
     <title>Profil</title>
 </head>
 <body>
+<nav class="container-fluid containerHeader">
+    <div class="row">
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowHeader text-center align-items-center">
+                <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
+                    <a  href="startseite.html">
+                        <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
+                    </a>
+                </div>
+                <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
+                    Spiele
+                </div>
+                <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
+                    Erweiterungen
+                </div>
+                <div class="col-lg-3 col-sm-12 d-none d-sm-block bree20 bree20Scale">
+                    Ersatzteile
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row rowHeader text-center align-items-center justify-content-end">
+                <div class="col-lg-3 col-sm-6 col-6">
+                    <i class="fas fa-sign-in-alt headericon iconborder bricon"></i>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-6">
+                    <i class="far fa-user headericon iconborder bricon"></i>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <i class="fas fa-shopping-bag headericon iconborder bricon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 
 <!---Hier kommt User Profil setVisibility in script mit block/none---->
 <div id="nutzerProfil">
@@ -67,7 +102,7 @@
                 </div>
                 <div id="nutzerDatenBearbeiten" class="boxNutzer" style="display: block">
                     <div class="dropdown mt-2 spaceDaten">
-                        <button class="btn btn-secondary dropdown-toggle button buttonColor" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle bbutton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Anrede
                         </button>
                         <ul class="dropdown-menu">
@@ -116,10 +151,10 @@
                     </div>
                     <div class="row">
                         <div class="col-6 text-center mt-3">
-                            <button id="abbrechenNutzerDaten" class="abbrechenButton button">Abbrechen</button>
+                            <button id="abbrechenNutzerDaten" class="abbrechenButton">Abbrechen</button>
                         </div>
                         <div class="col-6 text-center mt-3">
-                            <button id="speichernNutzerDaten" class="speichernButton button buttonColor">Speichern</button>
+                            <button id="speichernNutzerDaten" class="bbutton">Speichern</button>
                         </div>
                     </div>
                 </div>
@@ -313,7 +348,7 @@
             </div>
             <div class="row">
                 <div class="col-11 mt-5 text-end">
-                    <button class="Button buttonColor">Download <i class="fas fa-download"></i></button>
+                    <button class="Button bbutton">Download <i class="fas fa-download"></i></button>
                 </div>
             </div>
         </div>
@@ -451,5 +486,42 @@
         </div>
     </section>
 </div>
+<!--Footer-->
+<footer class="container-fluid containerFooter">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row rowFooter text-center align-items-center">
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="impressum.html" class="linksW">Impressum</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="agb.html" class="linksW">AGB</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="datenschutz.html" class="linksW">Datenschutz</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="aboutus.html" class="linksW">Über uns</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowFooter text-center justify-content-end align-items-center">
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-instagram"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-youtube"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-twitter" ></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-facebook-f"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
