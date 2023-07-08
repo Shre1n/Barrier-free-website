@@ -267,3 +267,16 @@ Header
 .aboutusnamen {
     text-align: center;
 }
+
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
+
+}
+
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+
