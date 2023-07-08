@@ -1,3 +1,38 @@
 /*
     Fonts: Belleza, Bree Serif
  */
+
+.einkauf{
+    font-weight: bold;
+    font-size: 5em;
+}
+
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
+
+}
+
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+.heartcolor{
+    margin-top:0.5em;
+    color: #3D93A6;
+}
+
+.lieferung{
+    margin-top: 0.5em;
+}
+
+
+.weiterEinkaufen{
+    margin-top: 2em;
+    font-size: 2em;
+    background-color: #3D93A6;
+    color: white;
+    border-radius: 2em;
+    border:0;
+}
