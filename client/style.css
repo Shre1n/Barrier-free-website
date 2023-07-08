@@ -271,7 +271,9 @@ Header
 }
 .mela{
     display: flex;
-    margin: auto;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
     justify-content: center;
 }
 .filter{
@@ -295,6 +297,13 @@ margin-left: 1em;
 }
 .verteiler{
     display: flex;
+}
+.sortby{
+    margin-left: 19em;
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em;
 }
 
 
