@@ -36,3 +36,31 @@
     border-radius: 2em;
     border:0;
 }
+
+.belleza40 {
+    font-family: "Belleza", serif;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza75 {
+    font-family: "Belleza", serif;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.bree75 {
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+    color: black;
+}
+
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: white;
+}
+
+
+
+
