@@ -33,7 +33,7 @@
         <div class="row mt-5">
             <div class="col-4">
                 <h3>Nutzerdaten</h3>
-                <div class="boxNutzer">
+                <div class="boxNutzer" id="nutzerDatenEinsehen" style="display: none">
                     <div class="text-end">
                         <i class="fas fa-edit editIcon"></i>
                     </div>
@@ -62,6 +62,63 @@
                             <p id="handynummer"></p>
                             <p id="email"></p>
                             <p id="newsletter"></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="nutzerDatenBearbeiten" class="boxNutzer" style="display: block">
+                    <div class="dropdown mt-2 spaceDaten">
+                        <button class="btn btn-secondary dropdown-toggle button buttonColor" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Anrede
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item" type="button">Herr</button></li>
+                            <li><button class="dropdown-item" type="button">Frau</button></li>
+                        </ul>
+                    </div>
+                    <label for="newNachname"></label>
+                    <input id="newNachname" type="text" pattern="[a-zA-Z0-9]+" name="newNachname" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newVorname"></label>
+                    <input id="newVorname" type="text" pattern="[a-zA-Z0-9]+" name="newVorname" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newStrasse"></label>
+                    <input id="newStrasse" type="text" pattern="[a-zA-Z0-9]+" name="newStrasse" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newHausNummer"></label>
+                    <input id="newHausNummer" type="text" pattern="[a-zA-Z0-9]+" name="newHausNummer" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newPLZ"></label>
+                    <input id="newPLZ" type="text" pattern="[a-zA-Z0-9]+" name="newPLZ" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newOrt"></label>
+                    <input id="newOrt" type="text" pattern="[a-zA-Z0-9]+" name="newOrt" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newTelefonnummer"></label>
+                    <input id="newTelefonnummer" type="text" pattern="[a-zA-Z0-9]+" name="newTelefonnummer" class="form-control inputNutzerDaten">
+                    <br>
+                    <label for="newEmail"></label>
+                    <input id="newEmail" type="text" pattern="[a-zA-Z0-9]+" name="newEmail" class="form-control inputNutzerDaten">
+                    <br>
+                    <div class="row mt-5">
+                        <div class="col-10">
+                            <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
+                            und regelmäßig mit Neuigkeiten und Angeboten
+                            informiert werden.
+                            Die Abmeldung vom Newsletter
+                                ist jederzeit möglich.</p>
+                        </div>
+                        <!------Muss noch vertikal ausgerichtet werden und Rundungen-------->
+                        <div class="col-2">
+                            <input class="form-check-input" type="checkbox" name="newsletter" value="newsletter"
+                                   id="checkNewsletter">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center mt-3">
+                            <button id="abbrechenNutzerDaten" class="abbrechenButton button">Abbrechen</button>
+                        </div>
+                        <div class="col-6 text-center mt-3">
+                            <button id="speichernNutzerDaten" class="speichernButton button buttonColor">Speichern</button>
                         </div>
                     </div>
                 </div>
@@ -255,7 +312,7 @@
             </div>
             <div class="row">
                 <div class="col-11 mt-5 text-end">
-                    <button class="downloadButton buttonColor">Download <i class="fas fa-download"></i></button>
+                    <button class="Button buttonColor">Download <i class="fas fa-download"></i></button>
                 </div>
             </div>
         </div>
