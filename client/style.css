@@ -70,3 +70,46 @@
     font-size: 15rem;
 }
 
+.downloadButton{
+    border: 0;
+    border-radius: 2.5em;
+}
+.buttonColor{
+    background-color: #3D93A6;
+    color: white;
+}
+
+.editIcon{
+    color: #3D93A6;
+}
+
+.availabilityCeo{
+    color: #04AF26;
+    margin-top: 1.75em;
+}
+
+.trashCeo{
+    margin-top: 1.75em;
+}
+
+.linkBewertungen{
+    margin-top: 0.313em;
+}
+.produkteNamenCeo{
+    margin-top:0.313em;
+}
+
+.availabilityAdmin{
+    color: #04AF26;
+}
+
+.nutzerIcon{
+    color: #A37F5F;
+    margin-top: 0.2em;
+}
+
+.tableColor {
+    color: #E2E2E2;
+    border: 1em;
+}
+
