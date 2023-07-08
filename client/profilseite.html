@@ -272,7 +272,66 @@
         <!---- hier Willkommenstext aus {Script}---->
         <h1 class="text-center">Willkommen <span id="adminName"></span></h1>
     </div>
-</section>
 
+    <div class="row mt-5">
+        <div class="col-2">
+            <h3>Filteroptionen</h3>
+        </div>
+        <div class="col-5">
+            <div class="container-fluid suche">
+                <form class="d-flex searchbar" role="search">
+                    <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
+                    <i class="fas fa-search bicon lupe"></i>
+                </form>
+            </div>
+            <div class="card cardbp mt-5">
+                <div class="container-fluid merken">
+                    <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                </div>
+                <div class="card-body">
+                    <div class="container cardword">
+                        <i class="fas fa-circle availability"></i>
+                        <h5 id="produktName" class="card-title font40 cardfont"></h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p id="bestand">Bestand: </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <i id="trashProdukt" class=" fas fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="container-fluid suche">
+                <form class="d-flex searchbar" role="search">
+                    <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
+                    <i class="fas fa-search bicon lupe"></i>
+                </form>
+            </div>
+            <div class="card cardbp mt-5">
+                <div class="container-fluid text-center ">
+                    <i class="fas fa-user userSearch mt-5"></i>
+                </div>
+                <div class="card-body">
+                    <div class="container cardword text-center mt-4">
+                        <h5 id="username" class="card-title font40 cardfont">NAme</h5>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-6 text-center mt-2">
+                            <i class="far fa-times-circle fa-2x"></i>
+                        </div>
+                        <div class="col-6 text-center fa-2x">
+                            <i id="trashAdmin" class=" fas fa-solid fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
