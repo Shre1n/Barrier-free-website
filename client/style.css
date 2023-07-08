@@ -274,8 +274,8 @@ Header
     margin: auto;
     justify-content: center;
 }
-.filter1{
-margin-left: 4em;
+.filter{
+    flex: 1;
 
 }
 .filtercheck{
@@ -283,10 +283,18 @@ margin-left: 1.6em;
 }
 .filterop{
 margin-left: 1em;
+
 }
 .pcard{
-margin-right: 3em;
-
+    align-content: flex-start;
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box !important;
+    margin-bottom: 2em;
+}
+.verteiler{
+    display: flex;
 }
 
 
