@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" xmlns="http://www.w3.org/1999/html">
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -272,12 +272,35 @@
         <!---- hier Willkommenstext aus {Script}---->
         <h1 class="text-center">Willkommen <span id="adminName"></span></h1>
     </div>
-
+        <!-----------Hier Filter--->
     <div class="row mt-5">
         <div class="col-2">
             <h3>Filteroptionen</h3>
+            <div class="row">
+                <div class="col-6 text-start">
+                    <p class="mt-2">Alter</p>
+                    <label id="filterLoeschen">
+                        <i class="fas fa-window-minimize mt-2"></i> <br/>
+                        <i class="fas fa-window-minimize mt-2"></i> <br/>
+                        <i class="fas fa-window-minimize mt-2"></i>
+                    </label>
+                    <br/>
+                    <label id="filterHinzufuegen">
+                        <i class="fas fa-plus mt-2"></i>
+                    </label>
+                    <p class="mt-2">Sehkraft</p>
+                </div>
+                <div class="col-6 text-end">
+                    <i class="fas fa-edit mt-2"></i>
+                    <p id="1-6">1-6</p>
+                    <p id="7-12">7-12</p>
+                    <p id="13">Ab 13</p>
+                    <i class="fas fa-edit mt-2"></i>
+                    <!----------<button id="filterHinzufuegenButton">Option hinzufügen</button--->
+                </div>
+            </div>
         </div>
-        <div class="col-5">
+        <div class="col-5 text-end">
             <div class="container-fluid suche">
                 <form class="d-flex searchbar" role="search">
                     <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
@@ -318,7 +341,7 @@
                 </div>
                 <div class="card-body">
                     <div class="container cardword text-center mt-4">
-                        <h5 id="username" class="card-title font40 cardfont">NAme</h5>
+                        <h5 id="username" class="card-title font40 cardfont"></h5>
                     </div>
                     <div class="row mt-4">
                         <div class="col-6 text-center mt-2">
@@ -328,6 +351,30 @@
                             <i id="trashAdmin" class=" fas fa-solid fa-trash"></i>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vorname</th>
+                            <th>Nachname</th>
+                            <th>Email</th>
+                            <th>PLZ</th>
+                            <th>Ort</th>
+                            <th>Straße</th>
+                            <th>HausNr.</th>
+                            <th>Telefon</th>
+                            <th>RollenID</th>
+                        </tr>
+                        </thead>
+                        <tbody id="usertable">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
