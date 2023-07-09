@@ -345,11 +345,10 @@ margin-left: 1em;
 }
 .phlinks{
     flex: 1;
-    margin-left: 20em;
 }
 .phrechts{
     margin-top: 2em;
-    margin-right: 20em;
+
     flex: 2;
 }
 .cardph{
@@ -362,6 +361,12 @@ margin-left: 1em;
     z-index: -1 !important;
 }
 #upload{
+    display: none;
+}
+#uploaderw{
+    display: none;
+}
+#uploaders{
     display: none;
 }
 .upload{
@@ -388,7 +393,7 @@ margin-left: 1em;
     margin: auto;
 }
 .textfeldph{
-    width: 29em;
+    width: 34em;
     height: 5em;
     margin-top: 0.5em;
     margin-bottom: 1em;
@@ -423,4 +428,23 @@ margin-left: 1em;
     white-space: pre-line;
     width: 8em;
     height: 3em;
+    margin-bottom: 2em;
+}
+.borderaddp{
+    margin: auto;
+    border: solid;
+    width: 70em;
+}
+.boxaddp{
+    margin: auto;
+    max-width: 70em;
+    border: 0.1em solid;
+    z-index: 4;
+}
+.addpp{
+    display: flex;
+    justify-content: center !important;
+    align-items: center!important;
+    margin-bottom: 2em;
+    margin-top: 2em;
 }
