@@ -26,6 +26,10 @@
     color: #707070 !important;
 }
 
+.anrede{
+    margin-left: 1em;
+}
+
 .modal-User-Register{
     width: 90em;
 }
