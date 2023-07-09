@@ -394,5 +394,33 @@ margin-left: 1em;
     margin-bottom: 1em;
 }
 .weiteref{
-
+    margin-top: 0.2em;
+    background-color: #FFFFFF;
+    border-color: #707070;
+}
+.hinzufuegen{
+    background-color: #3D93A6;
+    border-radius: 2em;
+    color: #FFFFFF !important;
+    border-color: #3D93A6!important;
+}
+.addp{
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-radius: 2em;
+    white-space: pre-line;
+    width: 8em;
+    height: 3em;
+}
+.cancelp{
+    background-color: #707070 !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-radius: 2em;
+    white-space: pre-line;
+    width: 8em;
+    height: 3em;
 }
