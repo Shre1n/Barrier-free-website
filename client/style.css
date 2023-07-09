@@ -42,7 +42,7 @@
 }
 
 .font16 {
-    font-size: 1em;
+    font-size: 1em !important;
 }
 .bree20 {
     font-family: "Bree Serif", serif !important;
@@ -106,6 +106,15 @@
     height: 3em;
     transition: transform .1s;
 }
+
+.mehrLaden{
+    margin-top: 2em;
+    font-size: 2em;
+    background-color: #3D93A6;
+    border-radius: 2em;
+    border:0;
+}
+
 
 .buttonFarbe {
     border-radius: 1.5em; !important;
