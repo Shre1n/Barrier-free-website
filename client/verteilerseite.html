@@ -27,8 +27,12 @@
 </section>
 <section class="addproduct">
     <form>
+        <div class="phlinks">
         <label for="upload">Bilder hier ablegen <i class="fas fa-upload"></i></label>
         <input type="file" id="upload" name="upload" accept=".jpeg, .jpg, .png, .mp4">
+        <input type="text" value="Preis einfügen...">
+        </div>
+        <div class="phrechts">
         <input type="submit" value="Produktbilder hochladen">
         <input type="text" value="Produktname einfügen">
         <input type="text" value="Farbvarianten benennen">
@@ -37,11 +41,13 @@
         <input type="text" value="Produktbeschreibung einfügen...">
         <input type="text" value="Kurzbeschreibung einfügen...">
         <input type="text" value="Lieferumfang einfügen...">
-        <input type="text" value="Preis einfügen...">
         <button type="button">Abbrechen</button>
         <button type="button">Produkt hinzufügen</button>
+        </div>
     </form>
-    <button type="button" class="btn btn-primary pplus"><i class="fas fa-plus"></i>Produkt hinzufügen</button>
+    <div class="plusbutton">
+    <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
+    </div>
 </section>
 <div class="dropdown">
     <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
@@ -53,7 +59,7 @@
         <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
     </ul>
 </div>
-<section class="PKarten">
+
     <div class="container verteiler">
         <div class="col filter">
 
@@ -238,7 +244,7 @@
             </div>
         </div>
     </div>
-</section>
+
 <div class="mehrladen">
 <button type="button" class="bbutton mela">Mehr Laden</button>
 </div>
