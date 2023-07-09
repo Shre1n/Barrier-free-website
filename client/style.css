@@ -416,6 +416,19 @@ body {
     padding: 0;
 }
 
+.checkoutcradrechts{
+    align-items: end;
+    text-align: end;
+}
+
+.checkoutcard{
+    border-radius: 0em;
+}
+
+.checkoutcardbild{
+    border-radius: 0 !important;
+}
+
 #lieferangaben {
     border: 2px #707070;
 }
