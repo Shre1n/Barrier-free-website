@@ -348,6 +348,8 @@ margin-left: 1em;
     margin-left: 20em;
 }
 .phrechts{
+    margin-top: 2em;
+    margin-right: 20em;
     flex: 2;
 }
 .cardph{
@@ -362,15 +364,35 @@ margin-left: 1em;
 #upload{
     display: none;
 }
+.upload{
+    z-index: 2 !important;
+}
 .ppicbutton{
     width: 8em;
     text-align: center !important;
     vertical-align: middle !important;
     margin-top: -2em;
+    margin-bottom: 1em;
     background-color: #3D93A6 !important;
     color: #FFFFFF !important;
     border-color: #3D93A6 !important;
     border-radius: 2.5em !important;
     white-space: pre-line;
     z-index: 2 !important;
+}
+.preishin{
+    text-align: center;
+    height: 3em;
+}
+.pdetail{
+    margin: auto;
+}
+.textfeldph{
+    width: 29em;
+    height: 5em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+.weiteref{
+
 }

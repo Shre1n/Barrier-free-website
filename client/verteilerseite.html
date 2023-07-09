@@ -34,31 +34,51 @@
                         <div class="card cardph">
                             <i class="fas fa-upload"></i>
                             <label for="upload">Bilder hier ablegen </label>
-                            <input type="file" id="upload" name="upload" accept=".jpeg, .jpg, .png, .mp4">
+                            <input type="file" id="upload" name="upload" accept=".jpeg, .jpg, .png, .mp4"
+                                   class="upload">
                         </div>
                     </div>
                     <div class="col">
                         <button type="submit" value="Produktbilder
                     hochladen" class="ppicbutton">Produktbilder
-                            hochladen</button>
+                            hochladen
+                        </button>
                     </div>
                     <div class="col">
-                        <input type="text" value="Preis einfügen...">
+                        <input type="text" value="Preis einfügen..." class="preishin">
                     </div>
                 </div>
             </div>
         </div>
         <div class="phrechts">
-            <input type="submit" value="Produktbilder hochladen">
-            <input type="text" value="Produktname einfügen">
-            <input type="text" value="Farbvarianten benennen">
-            <i class="fas fa-plus"></i>
-            <input type="text" value="Weitere Farbvarianten">
-            <input type="text" value="Produktbeschreibung einfügen...">
-            <input type="text" value="Kurzbeschreibung einfügen...">
-            <input type="text" value="Lieferumfang einfügen...">
-            <button type="button">Abbrechen</button>
-            <button type="button">Produkt hinzufügen</button>
+            <div class="container text-center">
+                <div class="row row-cols-2">
+                    <div class="col"><input type="text" value="Produktname einfügen"></div>
+                    <div class="col"><input type="text" value="Farbvarianten benennen"></div>
+                    <div class="col"></div>
+                    <div class="col"><button type="button" value="Weitere Farbvarianten" class="weiteref"><i class="fas fa-plus"></i> Weitere Farbvarianten</button>
+                    </div>
+                </div>
+                <div class="container text-center">
+                    <div class="row row-cols-1">
+                        <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..." class="textfeldph"></div>
+                        <div class="col"><input type="text" value="Kurzbeschreibung einfügen..." class="textfeldph"></div>
+                        <div class="col"><input type="text" value="Lieferumfang einfügen..." class="textfeldph"></div>
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="container text-center">
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <button type="button">Abbrechen</button>
+                            </div>
+                            <div class="col">
+                                <button type="button">Produkt hinzufügen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
     <div class="plusbutton">
