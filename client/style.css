@@ -312,6 +312,7 @@ body {
     font-family: "Bree Serif", serif !important;
     color: #FFFFFF !important;
     text-decoration: none;
+    text-shadow: 2px 2px 5px #707070;
 }
 
 /* Icons */
