@@ -108,6 +108,7 @@ app.delete("/admin/user/:username", deleteUser);
 app.put("/admin/user/:username", disableUser);
 
 function postUser(req: express.Request, res: express.Response): void {
+    const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
     const nachname: string = req.body.nachname;
     const email: string = req.body.email;
@@ -118,7 +119,7 @@ function postUser(req: express.Request, res: express.Response): void {
     const hnr: number = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
-    if (vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
+    if (anrede === undefined || vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
 
         res.status(500);
         res.send("Alle Felder müssen gefüllt werden!");
@@ -138,7 +139,8 @@ function postUser(req: express.Request, res: express.Response): void {
             } else {
                 const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-                const data: [string, string, string, string, number, string, string, number, number] = [
+                const data: [string,string, string, string, string, number, string, string, number, number] = [
+                    anrede,
                     vorname,
                     nachname,
                     email,
@@ -150,7 +152,7 @@ function postUser(req: express.Request, res: express.Response): void {
                     telefonnummer
                 ];
 
-                const newQuery: string = 'INSERT INTO Nutzerliste (Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?);'
+                const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?,?);'
 
                 connection.query(newQuery, data, (err, result) => {
                     if (err) {

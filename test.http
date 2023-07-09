@@ -3,6 +3,7 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
+  "anrede": "Herr",
   "vorname": "Jonas",
   "nachname": "Thiele",
   "email": "JonasTh@mni.thm.de",
