@@ -412,6 +412,23 @@ body {
     align-items: center;
 }
 
-.borderCol{
+.borderCol {
     padding: 0;
 }
+
+#lieferangaben {
+    border: 2px #707070;
+}
+
+.lieferangabehead {
+    font-size: large;
+}
+
+.lieferangabedistance {
+    padding-top: 1em;
+}
+
+.checkBoxColor{
+    color: #A37F5F;
+}
+
