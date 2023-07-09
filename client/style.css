@@ -50,6 +50,25 @@
     color: #FFFFFF !important;
 }
 
+.bree20G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #707070;
+}
+
+.bree40G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza15G {
+    font-family: "Belleza", serif;
+    font-size: 0.938em;
+    color: #707070;
+
+}
+
 .belleza25 {
     font-family: "Belleza", serif;
     font-size: 1.563em;
@@ -75,6 +94,16 @@
     border-radius: 2.5em !important;
     width: 7.46em;
     height: 2em;
+    transition: transform .1s;
+}
+
+.buttonRezension {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 3em;
     transition: transform .1s;
 }
 
