@@ -21,6 +21,10 @@
 }
 
 /* Schriftgrößen für Buttons und Text*/
+* {
+    font-family: "Belleza", serif;
+    color: #707070 !important;
+}
 .button1 {
     font-size: 2.5em;
 }
@@ -40,7 +44,29 @@
 .font16 {
     font-size: 1em;
 }
+.bree20 {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #FFFFFF !important;
+}
 
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.bree20Scale {
+    transition: transform .1s
+}
+
+.bree20Scale:Hover {
+    transform: scale(1.1);
+}
 /*Button Farben*/
 .bbutton {
     background-color: #3D93A6 !important;
@@ -59,7 +85,9 @@
 .wicon {
     color: #FFFFFF !important;
 }
-
+.bricon{
+    color: #A37F5F !important;
+}
 .bicon {
     color: #3D93A6 !important;
 }
@@ -87,11 +115,6 @@ Header
 .headline {
     font-family: "Bree Serif", serif;
     font-size: 4.688em;
-}
-
-* {
-    font-family: "Belleza", serif;
-    color: #707070 !important;
 }
 
 /* Startseite */
@@ -254,6 +277,139 @@ Header
 
 .cardindex {
     z-index: 2 !important;
+}
+.bree40 {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size .1s ease-in-out ;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
+/* Body */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 6.25em; /* Höhe des Footers */
+    padding-top: 6.25em; /* Höhe des Headers */
+}
+
+/* Links */
+
+.linksG {
+    color: #707070 !important;
+    text-decoration: none;
+}
+
+.linksW {
+    font-family: "Bree Serif", serif !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+/* Icons */
+
+.wIcon {
+    color: #FFFFFF !important;
+    scale: 2;
+    transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    margin-left: 1em;
+    max-height: 90px;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+}
+
+/* Header */
+
+.navbarHeader {
+    background-color: #A37F5F !important;
+    position: absolute;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
+
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
+.headericon{
+    color: #A37F5F;
+    scale: 100%;
+    transition: transform .1s
+}
+
+.headericon:hover{
+    transform: scale(1.1);
+}
+
+.headerRow{
+    align-items: center;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
+}
+
+/* Footer */
+
+.containerFooter {
+    background-color: #A37F5F !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowFooter {
+    height: 6.25em;
+}
+
+.gridFooter{
+    display: grid;
+    align-items: center;
 }
 /* Verteilerseite*/
 .pichead2{
