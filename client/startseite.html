@@ -2,15 +2,382 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
-    <title>Play Ability</title>
+    <title> Willkommen bei Play Ability</title>
 </head>
 <body>
+<!-- Navbar -->
+<nav class="container-fluid containerHeader">
+    <div class="row">
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowHeader text-center align-items-center">
+                <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
+                    <a href="startseite.html">
+                        <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
+                    </a>
+                </div>
+                <div id="spiele" type="button" class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
+                    Spiele
+                </div>
+                <div id="erweiterungen" type="button" class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
+                    Erweiterungen
+                </div>
+                <div id="ersatzteile" type="button" class="col-lg-3 col-sm-12 d-none d-sm-block bree20 bree20Scale">
+                    Ersatzteile
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row rowHeader text-center align-items-center justify-content-end">
+                <div class="col-lg-3 col-sm-6 col-6">
+                    <i id="registrieren" type="button" class="fas fa-sign-in-alt headericon iconborder bricon"></i>
+                </div>
+                <div id="profil" type="button" class="col-lg-3 col-sm-6 col-6">
+                    <i class="far fa-user headericon iconborder bricon"></i>
+                </div>
+                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
+                    <i class="fas fa-shopping-bag headericon iconborder bricon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--Seiteninhalt-->
+<section class="suchleiste">
+    <div class="container-fluid suche">
+        <form class="d-flex searchbar" role="search">
+            <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
+            <i class="fas fa-search bicon lupe"></i>
+        </form>
+    </div>
+</section>
+<section class="bilderkarussell">
+    <div class="karussell">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/img/placeholder.jpg" class="d-block w-100" alt="placeholder">
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/placeholder.jpg" class="d-block w-100" alt="placeholder">
+                </div>
+                <div class="carousel-item">
+                    <img src="/img/placeholder.jpg" class="d-block w-100" alt="placeholder">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="headlinekat">
+    <div class="container text-center startu">
+        <div class="col headline">
+            Kategorien
+        </div>
+    </div>
+</section>
+<section class="KKarten">
+    <div class="card-group">
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="card cardpk">
+                        <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                        <div class="card-body">
+                            <div class="container text-center">
+                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Spiele</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card cardpk">
+                        <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                        <div class="card-body">
+                            <div class="container text-center">
+                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Erweiterungen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card cardpk">
+                        <img src="/img/placeholder.jpg" class="card-img-top cardpick" alt="placeholder">
+                        <div class="card-body">
+                            <div class="container text-center">
+                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Ersatzteile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="headlinepro">
+    <div class="container text-center startu">
+        <div class="col headline">
+            Beliebte Produkte
+        </div>
+    </div>
+</section>
+<section class="PKarten">
+    <div class="card-group">
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col cardindex">
+                    <div class="card cardbp">
+                        <div class="container-fluid merken">
+                            <i class="far fa-bookmark bookmarks bicon"></i>
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                        </div>
+                        <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">Tactile Towers<br/>59,99€</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col cardindex">
+                    <div class="card cardbp">
+                        <div class="container-fluid merken">
+                            <i class="far fa-bookmark bookmarks bicon"></i>
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                        </div>
+                        <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">Shake 'n Match<br/>79,99€</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col cardindex">
+                    <div class="card cardbp">
+                        <div class="container-fluid merken">
+                            <i class="far fa-bookmark bookmarks bicon"></i>
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                        </div>
+                        <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">Shape Seekers<br/>29,99€</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col cardindex">
+                    <div class="card cardbp">
+                        <div class="container-fluid merken">
+                            <i class="far fa-bookmark bookmarks bicon"></i>
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                        </div>
+                        <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont"> Color Cube<br/>19,99€</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="Hilfsorgpic">
+    <div class="container-fluid hilforg">
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col">
+                    <img src="/img/BHO.png" alt="BHO" class="porg">
+                </div>
+                <div class="col">
+                    <img src="/img/CarePlus.png" alt="CarePlus" class="porg">
+                </div>
+                <div class="col">
+                    <img src="/img/EHFB.png" alt="EHFB" class="porg">
+                </div>
+                <div class="col">
+                    <img src="/img/Help4U.png" alt="Help4U" class="porg">
+                </div>
+                <div class="col">
+                    <img src="/img/WLTP.png" alt="WLTP" class="porg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+
+<section id="content" class="container-lg mt-4"></section>
+
+<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrieren</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <label for=anrede></label>
+                            <select id="anrede" class="bbutton text-center">
+                                <option value="Herr" class="anrede" selected>Herr</option>
+                                <option value="Frau" class="anrede">Frau</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=vorname></label>
+                            <input id=vorname type="text" name="vorname" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
+                                   placeholder="Vorname" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=nachname></label>
+                            <input id=nachname type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]{2,})*$"
+                                   name="nachname" placeholder="Nachname" class="form-control " required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=email type="email" name="email" pattern="\w+([\.\-]\w+)*@[a-z]+([\.\-][a-z]+)+"
+                                   placeholder="Email" class="form-control " required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwort type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
+                                   class="form-control " required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=strasse></label>
+                            <input id=strasse type="text" name="strasse" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
+                                   placeholder="Straße" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=hausnummer></label>
+                            <input id=hausnummer type="text" pattern="^[1-9]{1,3}$" name="hausnummer"
+                                   placeholder="Hausnummer" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=postleitzahl></label>
+                            <input id=postleitzahl type="text" name="postleitzahl" pattern="^[0-9]{5}$"
+                                   placeholder="Postleitzahl" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=ort></label>
+                            <input id=ort type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-zäöüÄÖÜß]+)*$" name="ort"
+                                   placeholder="Ort" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10">
+                            <label for=telefonnummer></label>
+                            <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{11}$"
+                                   placeholder="Telefon" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <label for="indexUser"></label>
+                    <input id="indexUser" hidden type="number">
+                    <span id="registrierenError"></span>
+                </div>
+                <div class="modal-footer">
+                    <button id="registerUser" type="submit" class="btn btn-primary bbutton" data-bs-dismiss="modal">
+                        Registrieren
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Footer-->
+<footer class="container-fluid containerFooter">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row rowFooter text-center align-items-center">
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="impressum.html" class="linksW">Impressum</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="agb.html" class="linksW">AGB</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="datenschutz.html" class="linksW">Datenschutz</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="aboutus.html" class="linksW">Über uns</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowFooter text-center justify-content-end align-items-center">
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-instagram"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-youtube"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-twitter"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-facebook-f"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

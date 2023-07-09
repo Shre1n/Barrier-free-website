@@ -1,3 +1,576 @@
+/* Schriftarten */
+
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* belleza-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Belleza';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* Schriftgrößen für Buttons und Text*/
+* {
+    font-family: "Belleza", serif;
+    color: #707070 !important;
+}
+
+.hidden{
+    display: none;
+}
+
+.anrede{
+    margin-left: 1em;
+}
+
+.modal-User-Register{
+    width: 90em;
+}
+
+.button1 {
+    font-size: 2.5em;
+}
+
+.button2 {
+    font-size: 1.563em;
+}
+
+.font40 {
+    font-size: 2em;
+}
+
+.font25 {
+    font-size: 1.563em;
+}
+
+.font16 {
+    font-size: 1em !important;
+}
+.bree20 {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #FFFFFF !important;
+}
+
+.bree20G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #707070;
+}
+
+.bree40G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza15G {
+    font-family: "Belleza", serif;
+    font-size: 0.938em;
+    color: #707070;
+
+}
+
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.bree20Scale {
+    transition: transform .1s
+}
+
+.bree20Scale:Hover {
+    transform: scale(1.1);
+}
+/*Button Farben*/
+.bbutton {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 2em;
+    transition: transform .1s;
+}
+
+.buttonRezension {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 3em;
+    transition: transform .1s;
+}
+
+.mehrLaden{
+    margin-top: 2em;
+    font-size: 2em;
+    background-color: #3D93A6;
+    border-radius: 2em;
+    border:0;
+}
+
+
+.buttonFarbe {
+    border-radius: 1.5em; !important;
+    width:  6em;
+    height: 3em;
+    background-color: #3D93A6;
+    border: #707070;
+    text-align: center;
+}
+
+.bbutton:hover {
+    transform: scale(1.1);
+}
+
+.wicon {
+    color: #FFFFFF !important;
+}
+.bricon{
+    color: #A37F5F !important;
+}
+.bicon {
+    color: #3D93A6 !important;
+}
+
+/*
+Header
+ */
+
+.header {
+    background-color: #A37F5F !important;
+    overflow: hidden;
+}
+
+.headerschrift {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size 1s ease-out 100ms;
+}
+
+.headerschrift:hover {
+    font-size: 2.7em;
+}
+
+.headline {
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+}
+
+/* Startseite */
+.searchbar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    height: 3.125em;
+    z-index: -1 !important;
+}
+
+.round {
+    border-radius: 50em !important;
+    border-color: #707070 !important;
+}
+
+.lupe {
+    position: relative;
+    margin-left: -4em;
+    margin-top: 1.4em;
+    z-index: 1 !important;
+    scale: 2;
+}
+
+.suche {
+    margin-top: 2.188em;
+}
+
+.karussell {
+    margin-top: 2.188em;
+    margin-right: 1.25em;
+    margin-left: 1.25em;
+}
+
+.startu {
+    margin-top: 6.25em;
+    margin-bottom: 2.5em;
+}
+
+.porg {
+    margin-top: 1.375em;
+    margin-bottom: 1.375em;
+    width: 10em;
+    height: 10em;
+}
+
+.hilforg {
+    border-style: solid;
+    border-bottom-color: #707070;
+    border-top-color: #707070;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    margin-top: 4.375em;
+}
+
+.cardpick {
+    margin-top: 1.7em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 20em;
+    width: 18em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+.cardpk {
+    margin: auto;
+    width: 23em;
+    height: 30em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+
+.kcard {
+    margin: auto !important;
+}
+
+.card {
+    margin-top: 2em !important;
+    box-shadow: 0.1em 0.3em 0.2em #707070;
+    border-radius: 1em;
+}
+
+.availability {
+    color: green !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
+.cardpicp {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15.5em;
+    width: 15em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+.cardfont {
+    flex: 1;
+    text-align: left;
+    margin-left: 0.2em;
+}
+
+.cardbp {
+    z-index: -2 !important;
+    margin: auto;
+    width: 18em;
+    height: 25em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+
+.cardword {
+    display: flex !important;
+}
+
+.bbuttoncard {
+    margin-left: 14em;
+    margin-top: -0.7em;
+    background-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em !important;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: transform .1s;
+    z-index: 2;
+}
+
+.bbuttoncard:hover {
+    transform: scale(1.1);
+}
+
+.bookmarks {
+    background-color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em !important;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    z-index: 2 !important;
+    margin-top: 1.2em;
+    margin-left: 1em;
+    margin-right: 8em;
+    transition: transform .1s;
+}
+
+.bookmarks:hover {
+    transform: scale(1.1);
+}
+
+.cardindex {
+    z-index: 2 !important;
+}
+.bree40 {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size .1s ease-in-out ;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
+/* Body */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 6.25em; /* Höhe des Footers */
+    padding-top: 6.25em; /* Höhe des Headers */
+}
+
+/* Links */
+
+.linksG {
+    color: #707070 !important;
+    text-decoration: none;
+}
+
+.linksW {
+    font-family: "Bree Serif", serif !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+/* Icons */
+
+.wIcon {
+    color: #FFFFFF !important;
+    scale: 2;
+    transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    margin-left: 1em;
+    max-height: 90px;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+}
+
+/* Produktdetailseite */
+
+
+
+/* Header */
+
+.navbarHeader {
+    background-color: #A37F5F !important;
+    position: absolute;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
+.inputNutzerDaten{
+    position: absolute;
+}
+
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
+.headericon{
+    color: #A37F5F;
+    scale: 100%;
+    transition: transform .1s
+}
+
+.headericon:hover{
+    transform: scale(1.1);
+}
+
+.headerRow{
+    align-items: center;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
+}
+
+/* Footer */
+
+.containerFooter {
+    background-color: #A37F5F !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowFooter {
+    height: 6.25em;
+}
+
+.gridFooter{
+    display: grid;
+    align-items: center;
+}
+/* bree-serif-regular - latin */
+/* bree-serif-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Bree Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/schriftarten/bree-serif-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* belleza-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Belleza';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/schriftarten/belleza-v17-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* Schriftgrößen für Buttons und Text*/
+* {
+    font-family: "Belleza", serif;
+    color: #707070 !important;
+}
+.button1 {
+    font-size: 2.5em;
+}
+
+.button2 {
+    font-size: 1.563em;
+}
+
+.font40 {
+    font-size: 2em;
+}
+
+.font25 {
+    font-size: 1.563em;
+}
+
+.font16 {
+    font-size: 1em;
+}
+.bree20 {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #FFFFFF !important;
+}
+
+.belleza25 {
+    font-family: "Belleza", serif;
+    font-size: 1.563em;
+    color: #707070;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.bree20Scale {
+    transition: transform .1s
+}
+
+.bree20Scale:Hover {
+    transform: scale(1.1);
+}
+.zentriert {
+    text-align: center;
+    margin-top: 3em;
+}
+
+/*Button Farben*/
+.bbutton {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 2em;
+    transition: transform .1s;
+}
+
+.bbutton:hover {
+    transform: scale(1.1);
+}
+
+.wicon {
+    color: #FFFFFF !important;
+}
+.bricon{
+    color: #A37F5F !important;
+}
+.bicon {
+    color: #3D93A6 !important;
+}
+
 /*
     Fonts: Belleza, Bree Serif
  */
@@ -62,5 +635,728 @@
 }
 
 
+
+
+
+
+.header {
+    background-color: #A37F5F !important;
+    overflow: hidden;
+}
+
+.headerschrift {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size 1s ease-out 100ms;
+}
+
+.headerschrift:hover {
+    font-size: 2.7em;
+}
+
+.headline {
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+}
+
+* {
+    font-family: "Belleza", serif;
+    color: #707070 !important;
+}
+
+/* Startseite */
+.searchbar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    height: 3.125em;
+    z-index: -1 !important;
+}
+
+.round {
+    border-radius: 50em !important;
+    border-color: #707070 !important;
+}
+
+.lupe {
+    position: relative;
+    margin-left: -4em;
+    margin-top: 1.4em;
+    z-index: 1 !important;
+    scale: 2;
+}
+
+.suche {
+    margin-top: 2.188em;
+}
+
+.karussell {
+    margin-top: 2.188em;
+    margin-right: 1.25em;
+    margin-left: 1.25em;
+}
+
+.startu {
+    margin-top: 6.25em;
+    margin-bottom: 2.5em;
+}
+
+.porg {
+    margin-top: 1.375em;
+    margin-bottom: 1.375em;
+    width: 10em;
+    height: 10em;
+}
+
+.hilforg {
+    border-style: solid;
+    border-bottom-color: #707070;
+    border-top-color: #707070;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    margin-top: 4.375em;
+}
+
+.cardpick {
+    margin-top: 1.7em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 20em;
+    width: 18em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+.cardpk {
+    margin: auto;
+    width: 23em;
+    height: 30em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+
+.kcard {
+    margin: auto !important;
+}
+
+.card {
+    margin-top: 2em !important;
+    box-shadow: 0.1em 0.3em 0.2em #707070;
+    border-radius: 1em;
+}
+
+.availability {
+    color: green !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
+.cardpicp {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15.5em;
+    width: 15em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+.cardfont {
+    flex: 1;
+    text-align: left;
+    margin-left: 0.2em;
+}
+
+.cardbp {
+    z-index: -2 !important;
+    margin: auto;
+    width: 18em;
+    height: 25em;
+    border-color: #707070;
+    border-radius: 2em;
+}
+
+.cardword {
+    display: flex !important;
+}
+
+.bbuttoncard {
+    margin-left: 14em;
+    margin-top: -0.7em;
+    background-color: #FFFFFF !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em !important;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: transform .1s;
+    z-index: 2;
+}
+
+.bbuttoncard:hover {
+    transform: scale(1.1);
+}
+
+.bookmarks {
+    background-color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em !important;
+    width: 2em;
+    height: 2em;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    z-index: 2 !important;
+    margin-top: 1.2em;
+    margin-left: 1em;
+    margin-right: 8em;
+    transition: transform .1s;
+}
+
+.bookmarks:hover {
+    transform: scale(1.1);
+}
+
+.cardindex {
+    z-index: 2 !important;
+}
+.bree40 {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size .1s ease-in-out ;
+}
+
+.bree40:hover {
+    font-size: 2.6em;
+}
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
+/* Body */
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 6.25em; /* Höhe des Footers */
+    padding-top: 6.25em; /* Höhe des Headers */
+}
+
+/* Links */
+
+.linksG {
+    color: #707070 !important;
+    text-decoration: none;
+}
+
+.linksW {
+    font-family: "Bree Serif", serif !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+
+/* Icons */
+
+.wIcon {
+    color: #FFFFFF !important;
+    scale: 2;
+    transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    margin-left: 1em;
+    max-height: 90px;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+}
+
+/* Header */
+
+.navbarHeader {
+    background-color: #A37F5F !important;
+    position: absolute;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+}
+
+
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 6.25em;
+}
+
+.rowHeader {
+    height: 6.25em;
+    height: 8.125em;
+}
+
+.headericon{
+    color: #A37F5F;
+    scale: 150%;
+    transition: transform .1s
+}
+
+.headericon:hover{
+    transform: scale(1.1);
+}
+
+.headerRow{
+    align-items: center;
+}
+
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
+}
+
+/* Footer */
+
+.containerFooter {
+    background-color: #A37F5F !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6.25em;
+}
+
+.rowFooter {
+    height: 6.25em;
+}
+
+.gridFooter{
+    display: grid;
+    align-items: center;
+}
+/* Verteilerseite*/
+.pichead2{
+
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    height: 15em;
+    margin-bottom: 5em;
+}
+.pichead{
+    height: 100%;
+    width: 100%;
+    margin: 2.688em  2.938em 2.75em;
+}
+.mehrladen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.plusbutton{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-right: 12em;
+}
+.mela{
+    display: inline-block;
+    height: 3em;
+    width: 8em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-color: #707070 !important;
+    font-family: "Belleza", serif;
+}
+.filter{
+    flex: 1;
+    margin-left: auto;
+
+}
+.filtercheck{
+margin-left: 1.6em;
+}
+.filterop{
+margin-left: 1em;
+
+}
+.pcard{
+    align-content: flex-start;
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box !important;
+    margin-bottom: 2em;
+}
+.verteiler{
+    display: flex;
+}
+.sortby{
+    margin-left: 19em;
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em;
+}
+.checkfilter{
+    border-radius: 1em;
+    box-shadow: 0.1em 0.1em 0.1em;
+}
+.pplus{
+    background-color: #FFFFFF;
+    border-color: #707070;
+    border-radius: 2em;
+    font-family: "Belleza", serif;
+    transition: transform.1s;
+
+}
+.pplus:hover{
+    transform: scale(1.1);
+    border-color: #707070;
+    border-radius: 2em;
+}
+.plus{
+    color: #3D93A6 !important;
+}
+.ph{
+    display: flex;
+}
+.phlinks{
+    flex: 1;
+}
+.phrechts{
+    margin-top: 2em;
+
+    flex: 2;
+}
+.cardph{
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 12em;
+    height: 16em;
+    z-index: -1 !important;
+}
+#upload{
+    display: none;
+}
+#uploaderw{
+    display: none;
+}
+#uploaders{
+    display: none;
+}
+.upload{
+    z-index: 2 !important;
+}
+.ppicbutton{
+    width: 8em;
+    text-align: center !important;
+    vertical-align: middle !important;
+    margin-top: -2em;
+    margin-bottom: 1em;
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    white-space: pre-line;
+    z-index: 2 !important;
+}
+.preishin{
+    text-align: center;
+    height: 3em;
+}
+.pdetail{
+    margin: auto;
+}
+.textfeldph{
+    width: 34em;
+    height: 5em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+.weiteref{
+    margin-top: 0.2em;
+    background-color: #FFFFFF;
+    border-color: #707070;
+}
+.hinzufuegen{
+    background-color: #3D93A6;
+    border-radius: 2em;
+    color: #FFFFFF !important;
+    border-color: #3D93A6!important;
+}
+.addp{
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-radius: 2em;
+    white-space: pre-line;
+    width: 8em;
+    height: 3em;
+}
+.cancelp{
+    background-color: #707070 !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border-radius: 2em;
+    white-space: pre-line;
+    width: 8em;
+    height: 3em;
+    margin-bottom: 2em;
+}
+.borderaddp{
+    margin: auto;
+    border: solid;
+    width: 70em;
+}
+.boxaddp{
+    margin: auto;
+    max-width: 70em;
+    border: 0.1em solid;
+    z-index: 4;
+}
+.addpp{
+    display: flex;
+    justify-content: center !important;
+    align-items: center!important;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+/* Profilseite*/
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
+}
+
+.breadcrumb-container p{
+    font-weight: Bold;
+}
+
+.boxNutzer{
+    margin-top: 5em;
+    width: 20em;
+    height: 30em;
+    border: 0.1em solid black;
+    position: relative;
+}
+.boxNutzerbe{
+    margin-top: 5em;
+    width: 20em;
+    height: 43em;
+    border: 0.1em solid black;
+    position: relative;
+}
+.nutzerbearbeiten{
+    max-width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0.5em;
+}
+
+.boxMerkliste{
+    margin-top: 5em;
+    width: 20em;
+    height: 15em;
+    border: 0.1em solid black;
+    position: relative;
+}
+.nutzerdaten{
+    margin-left: 0.5em;
+}
+
+.boxBestellungen{
+    margin-top: 5em;
+    width: 12em;
+    height: 14em;
+    border: 0.1em solid black;
+    position: relative;
+}
+
+.inputNutzerDaten{
+    position: absolute;
+}
+
+.boxBestellungen p{
+    font-size: 0.7em;
+    position: relative;
+}
+
+.price-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+}
+
+.icon-container{
+    position: absolute;
+    bottom: 0;
+    right: 11.5em;
+}
+
+.form-check-input{
+    position: absolute;
+    margin-left: 0.5em;
+}
+
+.userSearch{
+    font-size: 15rem;
+}
+
+.editIcon{
+    color: #3D93A6!important;
+}
+
+.abbrechenButton{
+    background-color: #707070 !important;
+    color: #FFFFFF !important;
+    border-color: #707070 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 2em;
+    transition: transform .1s;
+}
+
+.abbrechenButton:hover {
+    transform: scale(1.1);
+}
+
+
+.availabilityCeo{
+    margin-top: 1.75em;
+    color: #04AF26;
+}
+
+.trashCeo{
+    margin-top: 1.75em;
+}
+
+.linkBewertungen{
+    margin-top: 0.313em;
+}
+.produkteNamenCeo{
+    margin-top:0.313em;
+}
+
+.availabilityAdmin{
+    color: #04AF26;
+}
+
+.nutzerIcon{
+    color: #A37F5F;
+    margin-top: 0.2em;
+}
+
+.tableColor {
+    color: #E2E2E2;
+    border: 1em;
+}
+
+.font16 {
+    font-size: 1em;
+}
+
+.spaceDaten{
+    margin-left: 0.2em;
+}
+.newsletter{
+    margin-left: 1em;
+}
+.placeholdermerkliste{
+    width: 10em;
+    height: 15em;
+}
+.pnamemerk{
+    margin-left: 3em;
+}
+.searchbar2 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 22em;
+    height: 3.125em;
+    z-index: -1 !important;
+}
+.availability1 {
+    color: green !important;
+    text-align: left !important;
+}
+.downloadceo{
+    color: #FFFFFF!important;
+}
+.cardadmin{
+    width: 18rem;
+}
+.admintrash{
+    text-align: right!important;
+}
+.iconcard{
+    margin-top: 0.5em;
+}
+.cardpicp2 {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15em;
+    width: 15em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+
+.fotos {
+    transform: scale(0.9);
+}
+.aboutusnamen {
+    text-align: center;
+}
+
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
+
+}
+
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
+}
 
 
