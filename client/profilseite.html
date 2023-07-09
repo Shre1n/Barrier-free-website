@@ -16,7 +16,7 @@
         <div class="col-sm-6 d-none d-sm-block">
             <div class="row rowHeader text-center align-items-center">
                 <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
-                    <a  href="startseite.html">
+                    <a href="startseite.html">
                         <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
                     </a>
                 </div>
@@ -68,22 +68,22 @@
         <div class="row mt-5">
             <div class="col-4">
                 <h3>Nutzerdaten</h3>
-                <div class="boxNutzer" id="nutzerDatenEinsehen" style="display: none">
+                <div class="boxNutzer" id="nutzerDatenEinsehen">
                     <div class="text-end">
                         <i class="fas fa-edit editIcon"></i>
                     </div>
                     <div class="row ">
-                        <div class="col-4">
-                            <p>Anrede: </p>
-                            <p>Nachname: </p>
-                            <p>Vorname: </p>
-                            <p>Straße: </p>
-                            <p>Hausnummer: </p>
-                            <p>PLZ: </p>
-                            <p>Ort: </p>
-                            <p>Handynummer: </p>
-                            <p>Email: </p>
-                            <p>Newsletter erhalten?: </p>
+                        <div class="col-4 nutzerdaten">
+                            <p>Anrede:Herr </p>
+                            <p>Nachname:Mustermann </p>
+                            <p>Vorname:Max</p>
+                            <p>Straße:Musterstraße </p>
+                            <p>Hausnummer:1 </p>
+                            <p>PLZ:12345 </p>
+                            <p>Ort:Musterstadt </p>
+                            <p>Handynummer:123456789 </p>
+                            <p>Email:musteremail </p>
+                            <p>Newsletter erhalten?: Ja </p>
                         </div>
                         <div class="col-2">
                             <!--hier kommt Nutzer Info von Spiel in Merkliste--->
@@ -100,53 +100,60 @@
                         </div>
                     </div>
                 </div>
-                <div id="nutzerDatenBearbeiten" class="boxNutzer" style="display: block">
+                <div id="nutzerDatenBearbeiten" class="boxNutzerbe">
                     <div class="dropdown mt-2 spaceDaten">
-                        <button class="btn btn-secondary dropdown-toggle bbutton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle bbutton" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             Anrede
                         </button>
                         <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Herr</button></li>
-                            <li><button class="dropdown-item" type="button">Frau</button></li>
+                            <li>
+                                <button class="dropdown-item" type="button">Herr</button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" type="button">Frau</button>
+                            </li>
                         </ul>
                     </div>
-                    <label for="newNachname"></label>
-                    <input id="newNachname" type="text" pattern="[a-zA-Z0-9]+" name="newNachname" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newVorname"></label>
-                    <input id="newVorname" type="text" pattern="[a-zA-Z0-9]+" name="newVorname" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newStrasse"></label>
-                    <input id="newStrasse" type="text" pattern="[a-zA-Z0-9]+" name="newStrasse" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newHausNummer"></label>
-                    <input id="newHausNummer" type="text" pattern="[a-zA-Z0-9]+" name="newHausNummer" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newPLZ"></label>
-                    <input id="newPLZ" type="text" pattern="[a-zA-Z0-9]+" name="newPLZ" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newOrt"></label>
-                    <input id="newOrt" type="text" pattern="[a-zA-Z0-9]+" name="newOrt" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newTelefonnummer"></label>
-                    <input id="newTelefonnummer" type="text" pattern="[a-zA-Z0-9]+" name="newTelefonnummer" class="form-control inputNutzerDaten">
-                    <br>
-                    <label for="newEmail"></label>
-                    <input id="newEmail" type="text" pattern="[a-zA-Z0-9]+" name="newEmail" class="form-control inputNutzerDaten">
-                    <br>
+                    <div class="nutzerbearbeiten">
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Mustermann">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Max">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Musterstraße">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="1">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="12345">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Musterstadt">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="123456789">
+                    </div>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="mustermail">
+                    </div>
+                    </div>
                     <div class="row mt-5">
-                        <div class="col-10">
+                        <div class="col-10 newsletter">
                             <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
-                            und regelmäßig mit Neuigkeiten und Angeboten
-                            informiert werden.
-                            Die Abmeldung vom Newsletter
+                                und regelmäßig mit Neuigkeiten und Angeboten
+                                informiert werden.
+                                Die Abmeldung vom Newsletter
                                 ist jederzeit möglich.</p>
                         </div>
                         <!------Muss noch vertikal ausgerichtet werden und Rundungen-------->
                         <div class="col-2">
                             <label for="checkNewsletter">
-                            </label><input class="form-check-input" type="checkbox" name="newsletter" value="newsletter"
-                                                                        id="checkNewsletter">
+                            </label><input class="form-check-input checkboxnews" type="checkbox" name="newsletter" value="newsletter"
+                                           id="checkNewsletter">
                         </div>
                     </div>
                     <div class="row">
@@ -165,15 +172,18 @@
                     <div class="row">
                         <div class="col-4">
                             <!--hier kommt Image von Spiel in Merkliste MUSS EVENTL. NOCH ANGEPASST WERDEN!--->
-                            <img id="imageProdukt" src="" alt="Bild">
+
+                            <img  src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste">
+
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 pnamemerk">
                             <!--hier kommt Name von Spiel in Merkliste--->
-                            <h4 id="produktName">Produkt</h4>
-                        </div>
-                        <div class="col-4 text-end">
-                            <!--hier kommt Trash Icon von Spiel in Merkliste--->
-                            <i id="trashMerkliste" class=" fas fa-solid fa-trash"></i>
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col-auto"><h4 id="produktName">Produkt</h4> </div>
+                                    <div class="col-auto trashnutzer"><i id="trashMerkliste" class=" fas fa-solid fa-trash"></i></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Hier kommt der Preis -->
@@ -190,19 +200,24 @@
                 <!--hier kommt Text für Bestellungen aus DB von Script--->
                 <h3>Bestellungen</h3>
                 <div class="boxBestellungen">
-                    <p id="datum">Datum:</p>
-                    <p id="bestellnummer">Bestellnummer:</p>
-                    <p id="bestellstatus">Bestellstatus:</p>
-                    <p id="sendenummer">Sendenummer:</p>
-                    <p id="gesamtpreis">Gesamtpreis:</p>
-                    <p id="aktikelanzahl">Artikelanzahl:</p>
-                    <p id="artikel">Artikel:</p>
+                    <p id="datum" class="nutzerdaten">Datum:</p>
+                    <p id="bestellnummer" class="nutzerdaten">Bestellnummer:</p>
+                    <p id="bestellstatus" class="nutzerdaten">Bestellstatus:</p>
+                    <p id="sendenummer" class="nutzerdaten">Sendenummer:</p>
+                    <p id="gesamtpreis" class="nutzerdaten">Gesamtpreis:</p>
+                    <p id="aktikelanzahl" class="nutzerdaten">Artikelanzahl:</p>
+                    <p id="artikel" class="nutzerdaten">Artikel:</p>
                 </div>
             </div>
         </div>
     </section>
 </div>
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <!---Hier kommt CEO Profil setVisibility in script mit block/none---->
 <div id="ceoProfil">
     <div class="breadcrumb-container">
@@ -402,7 +417,7 @@
             </div>
             <div class="col-5">
                 <div class="container-fluid suche">
-                    <form class="d-flex searchbar" role="search">
+                    <form class="d-flex searchbar2" role="search">
                         <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
                                aria-label="Search">
                         <i class="fas fa-search bicon lupe"></i>
@@ -432,7 +447,7 @@
             </div>
             <div class="col-5">
                 <div class="container-fluid suche">
-                    <form class="d-flex searchbar" role="search">
+                    <form class="d-flex searchbar2" role="search">
                         <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
                                aria-label="Search">
                         <i class="fas fa-search bicon lupe"></i>
@@ -514,7 +529,7 @@
                     <i class="wIcon fab fa-youtube"></i>
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                    <i class="wIcon fab fa-twitter" ></i>
+                    <i class="wIcon fab fa-twitter"></i>
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">
                     <i class="wIcon fab fa-facebook-f"></i>
