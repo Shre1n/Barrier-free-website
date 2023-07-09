@@ -1124,8 +1124,8 @@ margin-left: 1em;
 
 
 .availabilityCeo{
+    margin-top: 1.75em;
     color: #04AF26;
-    margin-top: 3em;
 }
 
 .trashCeo{
@@ -1176,4 +1176,30 @@ margin-left: 1em;
     width: 22em;
     height: 3.125em;
     z-index: -1 !important;
+}
+.availability1 {
+    color: green !important;
+    text-align: left !important;
+}
+.downloadceo{
+    color: #FFFFFF!important;
+}
+.cardadmin{
+    width: 18rem;
+}
+.admintrash{
+    text-align: right!important;
+}
+.iconcard{
+    margin-top: 0.5em;
+}
+.cardpicp2 {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15em;
+    width: 15em;
+    border-radius: 0 !important;
+    border-color: #707070;
 }
