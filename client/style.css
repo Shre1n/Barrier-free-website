@@ -42,12 +42,31 @@
 }
 
 .font16 {
-    font-size: 1em;
+    font-size: 1em !important;
 }
 .bree20 {
     font-family: "Bree Serif", serif !important;
     font-size: 1.25em;
     color: #FFFFFF !important;
+}
+
+.bree20G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #707070;
+}
+
+.bree40G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza15G {
+    font-family: "Belleza", serif;
+    font-size: 0.938em;
+    color: #707070;
+
 }
 
 .belleza25 {
@@ -76,6 +95,34 @@
     width: 7.46em;
     height: 2em;
     transition: transform .1s;
+}
+
+.buttonRezension {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 3em;
+    transition: transform .1s;
+}
+
+.mehrLaden{
+    margin-top: 2em;
+    font-size: 2em;
+    background-color: #3D93A6;
+    border-radius: 2em;
+    border:0;
+}
+
+
+.buttonFarbe {
+    border-radius: 1.5em; !important;
+    width:  6em;
+    height: 3em;
+    background-color: #3D93A6;
+    border: #707070;
+    text-align: center;
 }
 
 .bbutton:hover {
@@ -346,6 +393,10 @@ body {
     padding: 10px;
     box-shadow: 2px 2px 5px #707070;
 }
+
+/* Produktdetailseite */
+
+
 
 /* Header */
 
