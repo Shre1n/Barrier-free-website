@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
 
     document.getElementById("registrieren").addEventListener("click",()=>{
-       modalFensterUser.show();
+       document.getElementById("dropRegister").style.display="block";
     });
-    document.getElementById("modalForm").addEventListener("submit", (event:Event) => addUser(event));
+    document.getElementById("dropdownRegister").addEventListener("submit", (event:Event) => addUser(event));
 
 
 });
