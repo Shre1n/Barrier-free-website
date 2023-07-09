@@ -25,6 +25,11 @@
     font-family: "Belleza", serif;
     color: #707070 !important;
 }
+
+.modal-User-Register{
+    width: 90em;
+}
+
 .button1 {
     font-size: 2.5em;
 }

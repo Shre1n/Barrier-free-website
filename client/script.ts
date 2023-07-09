@@ -1,6 +1,15 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
+
+let modalFensterUser: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("registrieren").addEventListener("submit", (event: Event) => addUser(event));
+
+    modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
+
+    document.getElementById("registrieren").addEventListener("click",()=>{
+       modalFensterUser.show();
+       document.getElementById("modalForm").addEventListener("submit", (event:Event) => addUser(event));
+    });
 });
 
 function addUser(event: Event): void {
