@@ -340,3 +340,23 @@ margin-left: 1em;
 .plus{
     color: #3D93A6 !important;
 }
+.ph{
+    display: flex;
+}
+.phlinks{
+    flex: 1;
+    margin-left: 20em;
+}
+.phrechts{
+    flex: 2;
+}
+.cardph{
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 12em;
+    height: 16em;
+}
+#upload{
+    display: none;
+}
