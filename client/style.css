@@ -78,6 +78,15 @@
     transition: transform .1s;
 }
 
+.buttonFarbe {
+    border-radius: 1.5em; !important;
+    width:  6em;
+    height: 3em;
+    background-color: #3D93A6;
+    border: #707070;
+    text-align: center;
+}
+
 .bbutton:hover {
     transform: scale(1.1);
 }
@@ -346,6 +355,10 @@ body {
     padding: 10px;
     box-shadow: 2px 2px 5px #707070;
 }
+
+/* Produktdetailseite */
+
+
 
 /* Header */
 
