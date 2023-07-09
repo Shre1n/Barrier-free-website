@@ -411,3 +411,7 @@ body {
     display: grid;
     align-items: center;
 }
+
+.borderCol{
+    padding: 0;
+}
