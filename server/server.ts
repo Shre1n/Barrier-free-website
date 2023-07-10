@@ -157,7 +157,6 @@ function postUser(req: express.Request, res: express.Response): void {
                     res.status(400);
                     res.send("Etwas ist schief gelaufen. :(");
                 }
-
             } else {
                 if (result === 0) {
                     res.status(400);

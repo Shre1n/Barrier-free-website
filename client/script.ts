@@ -1,8 +1,8 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
 
+let modalFensterUser: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
-    let modalFensterUser: bootstrap.Modal;
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     const registrieren = document.querySelector("#registrieren");
     if (registrieren){
@@ -10,10 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUser.show();
         });
     }
-    document.getElementById("modalForm").addEventListener("submit", (event:Event) => addUser(event));
+    console.log(document.getElementById("modalForm"));
+    document.getElementById("modalForm").addEventListener("submit", addUser);
 });
 
 function addUser(event: Event): void {
+    console.log("ADDUSER");
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
@@ -45,9 +47,10 @@ function addUser(event: Event): void {
         console.log(res);
         //reset der Form zum Eintragen
         form.reset();
-        document.getElementById("registrierenError").innerText = "";
+        document.getElementById("registrierenError").innerText = "HDJEHUEWHUHWU";
+        modalFensterUser.hide();
     }).catch((reason: AxiosError) => {
-        if (reason.response.status == 500) {
+        if (reason.response.status == 400) {
             document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
         }
         //Error Ausgabe in Console

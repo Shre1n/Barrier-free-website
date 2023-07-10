@@ -4,14 +4,16 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
+  "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
+  "email": "ejihuiwhuiw.mustermann@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "adresse": "Am Musterweg 1",
-  "telefonnummer": "0176 1956285"
+  "ort": "Musterstadt",
+  "strasse": "Musterweg",
+  "hnr": "1",
+  "telefonnummer": "01761956285"
 }
 
 ###
