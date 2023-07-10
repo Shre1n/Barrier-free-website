@@ -483,3 +483,11 @@ body {
 #firstCheckoutCard {
     margin-top: 0 !important;
 }
+
+.botPad {
+    padding-bottom: 0.5em;
+}
+.topPad {
+    padding-top: 1em;
+}
+
