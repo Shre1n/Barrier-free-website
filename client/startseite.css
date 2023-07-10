@@ -1,0 +1,52 @@
+/* Startseite */
+
+
+
+.headline {
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+}
+
+.round {
+    border-radius: 50em !important;
+    border-color: #707070 !important;
+}
+
+.lupe {
+    position: relative;
+    margin-left: -4em;
+    margin-top: 1.4em;
+    z-index: 1 !important;
+    scale: 2;
+}
+
+.suche {
+    margin-top: 2.188em;
+}
+
+.karussell {
+    margin-top: 2.188em;
+    margin-right: 1.25em;
+    margin-left: 1.25em;
+}
+
+.startu {
+    margin-top: 6.25em;
+    margin-bottom: 2.5em;
+}
+
+.porg {
+    margin-top: 1.375em;
+    margin-bottom: 1.375em;
+    width: 10em;
+    height: 10em;
+}
+
+.hilforg {
+    border-style: solid;
+    border-bottom-color: #707070;
+    border-top-color: #707070;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    margin-top: 4.375em;
+}
