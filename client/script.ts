@@ -1,6 +1,6 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
-
+//Modalfenster wird beim Klicken auf den Button geöffnet
 document.addEventListener("DOMContentLoaded", () => {
     let modalFensterUser: bootstrap.Modal;
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUser.show();
         });
     }
-    document.getElementById("modalForm").addEventListener("submit", (event:Event) => addUser(event));
+    document.querySelector("#modalForm").addEventListener("submit", (event:Event) => addUser(event));
 });
 
 function addUser(event: Event): void {
@@ -30,7 +30,9 @@ function addUser(event: Event): void {
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
 
     //routen aufruf welcher an den Server uebermittelt wird
+    //Axios dient als Middleware
     axios.post("/user", {
+        //JSON Body
         anrede:anrede,
         vorname: vorname,
         nachname: nachname,

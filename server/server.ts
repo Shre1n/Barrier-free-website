@@ -6,8 +6,9 @@ import * as crypto from "crypto";
 import {Chart} from 'chart.js';
 
 
-// Ergänzt/Überläd den Sessionstore um das Attribut "signInName"
+// Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
+    //Das Interface deklariert, was in der Session erhalten sein muss
     interface Session {
         email: string;
         passwort: string;
@@ -61,7 +62,6 @@ app.listen(PORT, () => {
 app.use(express.static(__dirname + "/../client/"));
 
 app.use("/img", express.static(__dirname+"/../img/"));
-
 
 //JSON und URLenconded
 app.use(express.json());
