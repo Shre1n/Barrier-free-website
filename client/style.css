@@ -490,6 +490,11 @@ body {
 .topPad {
     padding-top: 1em;
 }
+.gesamtpreis{
+    font-family: "Bree Serif";
+    font-size: 2em;
+}
+
 
 .noPadleft {
     padding-left: 0;
