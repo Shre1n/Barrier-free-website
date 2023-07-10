@@ -48,7 +48,7 @@ function addUser(event: Event): void {
         console.log(res);
         //reset der Form zum Eintragen
         form.reset();
-        document.getElementById("registrierenError").innerText = "HDJEHUEWHUHWU";
+        document.getElementById("registrierenError").innerText = "";
         modalFensterUser.hide();
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400) {
