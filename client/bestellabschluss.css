@@ -15,3 +15,92 @@
 .lieferung{
     margin-top: 0.5em;
 }
+/* CSS Bestellen*/
+.borderCol {
+    padding: 0;
+}
+
+.checkoutcradrechts{
+    align-items: end;
+    text-align: end;
+}
+
+.checkoutcard{
+    border-radius: 0;
+    margin-top: 0 !important;
+}
+
+.checkoutcardbild{
+    border-radius: 0 !important;
+}
+
+.cardpicW {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1em;
+    width: 4em;
+    border-radius: 0 !important;
+    border-color: #707070;
+}
+
+.noPad {
+    padding: 0;
+}
+
+.wbutton {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 6.5em;
+    height: 2.5em;
+    transition: transform .1s;
+}
+
+.pricePad {
+    padding-top: 2em;
+}
+
+.padContent {
+    padding-left: 1em;
+}
+
+#lieferangaben {
+    border-width: 1em;
+    border-color: #707070;
+}
+
+.abstandtop{
+    margin-top: 2em;
+}
+
+.abstandtopbott{
+    margin-bottom: 2em;
+}
+
+.weiterbuttonbestellabschluss{
+    scale: 1.5;
+}
+
+#firstCheckoutCard {
+    margin-top: 0 !important;
+}
+
+.botPad {
+    padding-bottom: 0.5em;
+}
+.topPad {
+    padding-top: 1em;
+}
+.gesamtpreis{
+    font-family: "Bree Serif", serif;
+    font-size: 2em;
+}
+
+
+.noPadleft {
+    padding-left: 0;
+    margin-left: 0;
+}
