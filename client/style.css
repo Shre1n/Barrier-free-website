@@ -164,6 +164,24 @@
     height: 3.125em;
     z-index: -1 !important;
 }
+@media (max-width: 824px) {
+    .searchbar{
+        margin-left: auto;
+        margin-right: auto;
+        width: 30em;
+        height: 3.125em;
+        z-index: -1 !important;
+    }
+}
+@media (max-width: 497px){
+    .searchbar{
+        margin-left: auto;
+        margin-right: auto;
+        width: 20em;
+        height: 3.125em;
+        z-index: -1 !important;
+    }
+}
 
 .cardpick {
     margin-top: 1.7em;
