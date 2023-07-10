@@ -307,7 +307,7 @@
                         </div>
                         <div class="col-5">
                             <label for=strasse></label>
-                            <input id=strasse type="text" name="strasse" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
+                            <input id=strasse type="text" name="strasse" pattern="^[A-Za-zäöüÄÖÜß\s]{2,}(\s[A-Za-z]+)*$"
                                    placeholder="Straße" class="form-control" required>
                             <br>
                         </div>
@@ -339,7 +339,7 @@
                         </div>
                         <div class="col-10">
                             <label for=telefonnummer></label>
-                            <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{11}$"
+                            <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{5,20}$"
                                    placeholder="Telefon" class="form-control" required>
                             <br>
                         </div>
