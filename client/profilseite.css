@@ -14,10 +14,11 @@
 .searchbar2 {
     margin-left: auto;
     margin-right: auto;
-    width: 22em;
-    height: 3.125em;
+    width: 22em!important;
+    height: 3.125em!important;
     z-index: -1 !important;
 }
+
 .availability1 {
     color: green !important;
     text-align: left !important;

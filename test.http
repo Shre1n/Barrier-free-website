@@ -7,13 +7,13 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "ejihuiwhuiw.mustermann@hotmail.de",
+  "email": "max.mustermann@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "12345",
-  "ort": "Musterstadt",
-  "strasse": "Musterweg",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
   "hnr": "1",
-  "telefonnummer": "01761956285"
+  "telefonnummer": "0176 1956285"
 }
 
 ###
@@ -82,7 +82,7 @@ Host: localhost
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
-### Anlegen eines neuen Users (Max Mustermann)
+### Anlegen eines neuen Users (Jonas Thiele)
 POST http://localhost:8080/user
 Content-Type: application/json
 
