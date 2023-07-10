@@ -4,13 +4,15 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
+  "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
   "email": "max.mustermann@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
-  "adresse": "Am Musterweg 1",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
   "telefonnummer": "0176 1956285"
 }
 
@@ -80,7 +82,7 @@ Host: localhost
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
-### Anlegen eines neuen Users (Max Mustermann)
+### Anlegen eines neuen Users (Jonas Thiele)
 POST http://localhost:8080/user
 Content-Type: application/json
 
@@ -88,13 +90,13 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Jonas",
   "nachname": "Thiele",
-  "email": "JonasTh@mni.thm.de",
-  "passwort": "7890",
-  "postleitzahl": 6273,
-  "ort":"Wetzlar",
-  "strasse": "Hauptstraße",
-  "hnr": 26,
-  "telefonnummer": "017683829974"
+  "email": "jonas.thiele@test.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "0176 1956285"
 }
 
 ###
