@@ -3,6 +3,7 @@ POST http://localhost:8080/user
 Content-Type: application/json
 
 {
+  "anrede": "Herr",
   "vorname": "Jonas",
   "nachname": "Thiele",
   "email": "JonasTh@mni.thm.de",
@@ -13,6 +14,30 @@ Content-Type: application/json
   "hnr": 26,
   "telefonnummer": "017683829974"
 }
+
+###
+
+// User signing-in
+
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "email": "maik@tester.de",
+  "password": "1234"
+}
+###
+
+
+// User logging-out
+
+POST http://localhost:8080/signout HTTP/2
+
+###
+
+
+
+
 
 ###
 
