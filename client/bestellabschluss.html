@@ -47,77 +47,77 @@
     </div>
 </nav>
 <div class="container-fluid">
-<div class="row">
-    <div class="col-1 borderCol"></div>
-    <div class="col-4 noPad">
-<!---Hier kommt User Profil setVisibility in script mit block/none---->
-<div id="nutzerProfil">
-    <div class="breadcrumb-container">
-        <nav class="breadcrumb">
-            <div class="row">
-                <div class="col">
-                    <a href="#">Startseite</a>
-                    <a href="#">&lt; Nutzerprofil</a>
+    <div class="row">
+        <div class="col-1 borderCol"></div>
+        <div class="col-4 noPad">
+            <!---Hier kommt User Profil setVisibility in script mit block/none---->
+            <div id="nutzerProfil">
+                <div class="breadcrumb-container">
+                    <nav class="breadcrumb">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#">Startseite</a>
+                                <a href="#">&lt; Nutzerprofil</a>
+                            </div>
+                            <p><a href="#">&lt; Zurück zur Startseite</a></p>
+                        </div>
+                    </nav>
                 </div>
-                <p><a href="#">&lt; Zurück zur Startseite</a></p>
             </div>
-        </nav>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4"></div>
+        <div class="col-1 borderCol"></div>
     </div>
-</div>
-</div>
-    <div class="col-2"></div>
-    <div class="col-4"></div>
-    <div class="col-1 borderCol"></div>
-</div>
-<!--
-Datenangaben von Kunde werden in nächsten Sprints ersetzt
-Server-Funktion und Datenbankverknüpfung ebenfalls
- -->
-<div class="row">
-    <div class="col-1 borderCol"></div>
-    <div class="col-4" id="lieferangaben">
+    <!--
+    Datenangaben von Kunde werden in nächsten Sprints ersetzt
+    Server-Funktion und Datenbankverknüpfung ebenfalls
+     -->
+    <div class="row">
+        <div class="col-1 borderCol"></div>
+        <div class="col-4">
 
-        <div class="row lieferangabehead">
-            <div class="col borderCol">Lieferangaben</div>
-            <div class="col">Icon</div>
-        </div>
-        <div class="row"></div>
-        <div class="row">Herr</div>
-        <div class="row">Mustermann</div>
-        <div class="row">Max</div>
-        <div class="row">Musterstraße</div>
-        <div class="row">1</div>
-        <div class="row">12345</div>
-        <div class="row">Musterstadt</div>
-        <div class="row">123456789</div>
-        <div class="row">mustermann.max@mail.com</div>
-        <div class="container-fluid">
+            <div class="row" id="lieferangaben">
+                <div class="col borderCol">Lieferangaben</div>
+                <div class="col">Icon</div>
             <div class="row"></div>
-            <div class="row">
+            <div class="row">Herr</div>
+            <div class="row">Mustermann</div>
+            <div class="row">Max</div>
+            <div class="row">Musterstraße</div>
+            <div class="row">1</div>
+            <div class="row">12345</div>
+            <div class="row">Musterstadt</div>
+            <div class="row">123456789</div>
+            <div class="row">mustermann.max@mail.com</div>
+            <div class="container-fluid">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                               checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row lieferangabedistance">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
+                    <input class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label font16" for="flexCheckDefault">
+                        Ich erkläre mich mit den AGB von PlayAbility einverstanden.
                     </label>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="row lieferangabedistance">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="">
-                <label class="form-check-label font16" for="flexCheckDefault">
-                    Ich erkläre mich mit den AGB von PlayAbility einverstanden.
-                </label>
-            </div>
-        </div>
             <div class="row">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="">
@@ -126,17 +126,19 @@ Server-Funktion und Datenbankverknüpfung ebenfalls
                     </label>
                 </div>
             </div>
-        <div class="row">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label font16" for="flexCheckDefault">
-                    Rechnungsadresse weicht von Lieferadresse ab.
-                </label>
+            <div class="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label font16" for="flexCheckDefault">
+                        Rechnungsadresse weicht von Lieferadresse ab.
+                    </label>
+                </div>
             </div>
+            </div>
+        <div class="row"></div>
         </div>
-    </div>
-    <div class="col-2"></div>
-    <div class="col-4">
+        <div class="col-2"></div>
+        <div class="col-4">
             <div class="card mb-3 checkoutcard">
                 <div class="row g-0">
                     <div class="col-md-6">
@@ -149,7 +151,7 @@ Server-Funktion und Datenbankverknüpfung ebenfalls
                                     <h5 class="card-title">Tactile Towers</h5>
                                 </div>
                                 <div class="col-1">
-                                    <i  class=" fas fa-solid fa-trash"></i>
+                                    <i class=" fas fa-solid fa-trash"></i>
                                 </div>
                                 <div class="col-1">
                                 </div>
@@ -167,7 +169,9 @@ Server-Funktion und Datenbankverknüpfung ebenfalls
                                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                         <button type="button" class="btn btn-secondary bree20">1</button>
                                         <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop2" type="button" class="btn btn-secondary dropdown-toggle bree20" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <button id="btnGroupDrop2" type="button"
+                                                    class="btn btn-secondary dropdown-toggle bree20"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 Menge
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -189,111 +193,116 @@ Server-Funktion und Datenbankverknüpfung ebenfalls
                     </div>
                 </div>
             </div>
-        <div class="card mb-3 checkoutcard">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <img src="/img/placeholder.jpg" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5 class="card-title">Tactile Towers</h5>
-                            </div>
-                            <div class="col-1">
-                                <i  class=" fas fa-solid fa-trash"></i>
-                            </div>
-                            <div class="col-1">
-                            </div>
-                        </div>
-                        <p class="card-text">Tactile Towers ist ein Spiel,
-                            bei dem unter Zeitdruck eine
-                            Figur aus Einzelteilen richtig
-                            gestapelt werden muss.
-                            Trainiere deine taktile
-                            Wahrnehmung und
-                            Geschicklichkeit in diesem
-                            spannenden Spiel!</p>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                <button type="button" class="btn btn-secondary bree20">1</button>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle bree20" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        Menge
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="#">1</a>
-                                        <a class="dropdown-item" href="#">2</a>
-                                        <a class="dropdown-item" href="#">3</a>
-                                        <a class="dropdown-item" href="#">4</a>
-                                        <a class="dropdown-item" href="#">5</a>
-                                        <a class="dropdown-item" href="#">6</a>
-                                    </div>
+            <div class="card mb-3 checkoutcard">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <img src="/img/placeholder.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-10">
+                                    <h5 class="card-title">Tactile Towers</h5>
+                                </div>
+                                <div class="col-1">
+                                    <i class=" fas fa-solid fa-trash"></i>
+                                </div>
+                                <div class="col-1">
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-4 checkoutcradrechts">
-                                79,99€
+                            <p class="card-text">Tactile Towers ist ein Spiel,
+                                bei dem unter Zeitdruck eine
+                                Figur aus Einzelteilen richtig
+                                gestapelt werden muss.
+                                Trainiere deine taktile
+                                Wahrnehmung und
+                                Geschicklichkeit in diesem
+                                spannenden Spiel!</p>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                        <button type="button" class="btn btn-secondary bree20">1</button>
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button"
+                                                    class="btn btn-secondary dropdown-toggle bree20"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Menge
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item" href="#">1</a>
+                                                <a class="dropdown-item" href="#">2</a>
+                                                <a class="dropdown-item" href="#">3</a>
+                                                <a class="dropdown-item" href="#">4</a>
+                                                <a class="dropdown-item" href="#">5</a>
+                                                <a class="dropdown-item" href="#">6</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 checkoutcradrechts">
+                                    79,99€
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
-    <div class="col-1 borderCol"></div>
-</div>
+        <div class="col-1 borderCol"></div>
 
 
-<div class="row text-right">
-    <div class="row text-right">
-        139,98€
+
+        <div class="row text-right">
+            <div class="row text-right pricePad">
+                139,98€
+            </div>
+        </div>
+        <div class="row">
+            <div class="btn btn-primary button1 wbutton text-right font16">Weiter</div>
+        </div>
     </div>
-    </div>
-    <div class="row">
-        <div class="btn btn-primary button1 wbutton text-right font16">Weiter</div>
-    </div>
-</div>
 
 
 </div>
 
 <!--Footer-->
-    <footer class="container-fluid containerFooter">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="row rowFooter text-center align-items-center">
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                        <a href="impressum.html" class="linksW">Impressum</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                        <a href="agb.html" class="linksW">AGB</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                        <a href="datenschutz.html" class="linksW">Datenschutz</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                        <a href="aboutus.html" class="linksW">Über uns</a>
-                    </div>
+<footer class="container-fluid containerFooter">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row rowFooter text-center align-items-center">
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="impressum.html" class="linksW">Impressum</a>
                 </div>
-            </div>
-            <div class="col-sm-6 d-none d-sm-block">
-                <div class="row rowFooter text-center justify-content-end align-items-center">
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <i class="wIcon fab fa-instagram"></i>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <i class="wIcon fab fa-youtube"></i>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <i class="wIcon fab fa-twitter"></i>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <i class="wIcon fab fa-facebook-f"></i>
-                    </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="agb.html" class="linksW">AGB</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="datenschutz.html" class="linksW">Datenschutz</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="aboutus.html" class="linksW">Über uns</a>
                 </div>
             </div>
         </div>
-    </footer>
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowFooter text-center justify-content-end align-items-center">
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-instagram"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-youtube"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-twitter"></i>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <i class="wIcon fab fa-facebook-f"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
