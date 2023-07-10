@@ -149,6 +149,7 @@ function postUser(req: express.Request, res: express.Response): void {
 
         connection.query(newQuery, data, (err, result) => {
             if (err) {
+                //Anstatt des Servers wird die Datenbank gefragt, ob die Email schon vorhanden ist
                 if (err.code === "ER_DUP_ENTRY"){
                     res.status(400).send("Email schon existent.");
                 }else {
