@@ -443,3 +443,15 @@ body {
 .noPad {
     padding: 0;
 }
+
+.abstandtop{
+    margin-top: 2em;
+}
+
+.abstandtopbott{
+    margin-bottom: 2em;
+}
+
+.weiterbuttonbestellabschluss{
+    scale: 0.8;
+}
