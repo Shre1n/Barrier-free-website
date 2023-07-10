@@ -367,7 +367,7 @@ body {
     height: 6.25em;
 }
 .headericon{
-    color: #A37F5F;
+    color: #A37F5F!important;
     scale: 100%;
     transition: transform .1s
 }
