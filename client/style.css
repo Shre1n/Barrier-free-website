@@ -444,6 +444,25 @@ body {
     padding: 0;
 }
 
+.wbutton {
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 6.5em;
+    height: 2.5em;
+    transition: transform .1s;
+}
+
+.pricePad {
+    padding-top: 2em;
+}
+
+#lieferangaben {
+    border-width: 0.2em;
+    border-color: #707070;
+}
+
 .abstandtop{
     margin-top: 2em;
 }
