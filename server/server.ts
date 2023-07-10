@@ -52,18 +52,16 @@ app.use(session({
 
 // Server starten
 app.listen(PORT, () => {
-    console.log("Server gestartet unter http://localhost:" + PORT + "/");
+    console.log("Server gestartet unter http://localhost:" + PORT + "/startseite.html");
 });
 
 
 // Pfade
-const path = require('path');
-const basedir: string = path.join(__dirname, '/');
+// Der Ordner ../client/ wird auf die URL /res gemapped
+app.use(express.static(__dirname + "/../client/"));
 
+app.use("/img", express.static(__dirname+"/../img/"));
 
-app.use('/', express.static(path.join(basedir, "/../client")));
-
-app.use("/res", express.static(__dirname + "/client"))
 
 //JSON und URLenconded
 app.use(express.json());
@@ -107,6 +105,11 @@ app.get("/admin/signout", signOut);
 app.delete("/admin/user/:username", deleteUser);
 app.put("/admin/user/:username", disableUser);
 
+
+//SITE
+// Angezeigte Webseite
+
+
 function postUser(req: express.Request, res: express.Response): void {
     const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
@@ -126,51 +129,44 @@ function postUser(req: express.Request, res: express.Response): void {
 
     } else {
 
-        const queryselect: string = 'SELECT Email FROM Nutzerliste WHERE Email = ?;'
 
-        connection.query(queryselect, [email], (err, result) => {
+        const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
+        const data: [string, string, string, string, string, number, string, string, number, number] = [
+            anrede,
+            vorname,
+            nachname,
+            email,
+            cryptopass,
+            postleitzahl,
+            ort,
+            strasse,
+            hnr,
+            telefonnummer
+        ];
+
+        const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?,?);'
+
+        connection.query(newQuery, data, (err, result) => {
             if (err) {
-                res.status(500);
-                res.send("Ein Fehler ist aufgetreten :(");
-            } else if (result.length > 0) {
-                res.status(500);
-                res.send("Diese Email ist leider schon vergeben!");
+                //Anstatt des Servers wird die Datenbank gefragt, ob die Email schon vorhanden ist
+                if (err.code === "ER_DUP_ENTRY"){
+                    res.status(400).send("Email schon existent.");
+                }else {
+                    console.log("postUser: " + err);
+                    res.status(400);
+                    res.send("Etwas ist schief gelaufen. :(");
+                }
+
             } else {
-                const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
+                if (result === 0) {
+                    res.status(400);
+                    res.send("result action");
+                } else {
+                    res.status(201);
+                    res.send("User registriert!");
+                }
 
-                const data: [string,string, string, string, string, number, string, string, number, number] = [
-                    anrede,
-                    vorname,
-                    nachname,
-                    email,
-                    cryptopass,
-                    postleitzahl,
-                    ort,
-                    strasse,
-                    hnr,
-                    telefonnummer
-                ];
-
-                const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?,?);'
-
-                connection.query(newQuery, data, (err, result) => {
-                    if (err) {
-                        console.log("postUser: " + err);
-                        res.status(400);
-                        res.send("Etwas ist schief gelaufen. :(");
-
-                    } else {
-                        if (result === 0) {
-                            res.status(400);
-                            res.send("result action");
-                        } else {
-                            res.status(201);
-                            res.send("User Signed Up!");
-                        }
-
-                    }
-                });
             }
         });
     }
@@ -234,7 +230,7 @@ function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
     const passwort: string = req.body.password;
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;",[email, passwort]).then((result: any) => {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = passwort;

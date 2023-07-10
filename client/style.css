@@ -1,8 +1,5 @@
-/*
-    Fonts: Belleza, Bree Serif
- */
-/* bree-serif-regular - latin */
-/* bree-serif-regular - latin */
+/* Schriftarten */
+
 @font-face {
     font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Bree Serif';
@@ -25,13 +22,8 @@
     font-family: "Belleza", serif;
     color: #707070 !important;
 }
-.button1 {
-    font-size: 2.5em;
-}
 
-.button2 {
-    font-size: 1.563em;
-}
+/* Fonts */
 
 .font40 {
     font-size: 2em;
@@ -42,7 +34,7 @@
 }
 
 .font16 {
-    font-size: 1em;
+    font-size: 1em !important;
 }
 .bree20 {
     font-family: "Bree Serif", serif !important;
@@ -50,10 +42,36 @@
     color: #FFFFFF !important;
 }
 
+.bree20G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 1.25em;
+    color: #707070;
+}
+
+.bree40G {
+    font-family: "Bree Serif", serif !important;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza15G {
+    font-family: "Belleza", serif;
+    font-size: 0.938em;
+    color: #707070;
+
+}
+
 .belleza25 {
     font-family: "Belleza", serif;
     font-size: 1.563em;
     color: #707070;
+}
+
+.bree40 {
+    font-family: "Bree Serif", serif;
+    font-size: 2.5em;
+    color: #FFFFFF;
+    transition: font-size .1s ease-in-out ;
 }
 
 .bree40:hover {
@@ -67,6 +85,37 @@
 .bree20Scale:Hover {
     transform: scale(1.1);
 }
+
+.belleza40 {
+    font-family: "Belleza", serif;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.belleza75 {
+    font-family: "Belleza", serif;
+    font-size: 2.5em;
+    color: #707070;
+}
+
+.bree75 {
+    font-family: "Bree Serif", serif;
+    font-size: 4.688em;
+    color: black;
+}
+
+.hidden{
+    display: none;
+}
+
+/* Registrieren */
+
+.anrede{
+    margin-left: 1em;
+}
+
+/* Buttons */
+
 /*Button Farben*/
 .bbutton {
     background-color: #3D93A6 !important;
@@ -78,13 +127,17 @@
     transition: transform .1s;
 }
 
+
+.button1 {
+    font-size: 2.5em;
+}
+
+
 .bbutton:hover {
     transform: scale(1.1);
 }
 
-.wicon {
-    color: #FFFFFF !important;
-}
+
 .bricon{
     color: #A37F5F !important;
 }
@@ -92,29 +145,15 @@
     color: #3D93A6 !important;
 }
 
-/*
-Header
- */
+.breadcrumb-container a{
+    color: black;
+    text-decoration: none;
 
-.header {
-    background-color: #A37F5F !important;
-    overflow: hidden;
 }
 
-.headerschrift {
-    font-family: "Bree Serif", serif;
-    font-size: 2.5em;
-    color: #FFFFFF;
-    transition: font-size 1s ease-out 100ms;
-}
-
-.headerschrift:hover {
-    font-size: 2.7em;
-}
-
-.headline {
-    font-family: "Bree Serif", serif;
-    font-size: 4.688em;
+.breadcrumb-container{
+    margin-left: 2em;
+    margin-top: 2em;
 }
 
 /* Startseite */
@@ -124,50 +163,6 @@ Header
     width: 50em;
     height: 3.125em;
     z-index: -1 !important;
-}
-
-.round {
-    border-radius: 50em !important;
-    border-color: #707070 !important;
-}
-
-.lupe {
-    position: relative;
-    margin-left: -4em;
-    margin-top: 1.4em;
-    z-index: 1 !important;
-    scale: 2;
-}
-
-.suche {
-    margin-top: 2.188em;
-}
-
-.karussell {
-    margin-top: 2.188em;
-    margin-right: 1.25em;
-    margin-left: 1.25em;
-}
-
-.startu {
-    margin-top: 6.25em;
-    margin-bottom: 2.5em;
-}
-
-.porg {
-    margin-top: 1.375em;
-    margin-bottom: 1.375em;
-    width: 10em;
-    height: 10em;
-}
-
-.hilforg {
-    border-style: solid;
-    border-bottom-color: #707070;
-    border-top-color: #707070;
-    border-left-color: #FFFFFF;
-    border-right-color: #FFFFFF;
-    margin-top: 4.375em;
 }
 
 .cardpick {
@@ -278,20 +273,6 @@ Header
 .cardindex {
     z-index: 2 !important;
 }
-.bree40 {
-    font-family: "Bree Serif", serif;
-    font-size: 2.5em;
-    color: #FFFFFF;
-    transition: font-size .1s ease-in-out ;
-}
-
-.bree40:hover {
-    font-size: 2.6em;
-}
-
-.textschatten{
-    text-shadow: 2px 2px 5px #707070;
-}
 
 /* Body */
 
@@ -329,6 +310,30 @@ body {
     transform: scale(1.1);
 }
 
+.form-check-input{
+    position: absolute;
+    margin-left: 0.5em;
+}
+
+.textschatten{
+    text-shadow: 2px 2px 5px #707070;
+}
+
+/* header und footer */
+
+/* Icons */
+
+.wIcon {
+    color: #FFFFFF !important;
+    scale: 2;
+    transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
+}
+
 .logo {
     margin-left: 1em;
     max-height: 90px;
@@ -346,21 +351,10 @@ body {
     padding: 10px;
     box-shadow: 2px 2px 5px #707070;
 }
-
 /* Header */
-
-.navbarHeader {
-    background-color: #A37F5F !important;
-    position: absolute;
-    width: 100%;
-    height: 6.25em;
-}
-
 .rowHeader {
     height: 6.25em;
 }
-
-
 .containerHeader{
     position: absolute;
     top: 0;
@@ -369,29 +363,20 @@ body {
     background-color: #A37F5F !important;
     height: 6.25em;
 }
-
 .rowHeader {
     height: 6.25em;
 }
-
 .headericon{
     color: #A37F5F;
     scale: 100%;
     transition: transform .1s
 }
-
 .headericon:hover{
     transform: scale(1.1);
 }
-
-.headerRow{
-    align-items: center;
-}
-
 .svgschatten {
     filter: drop-shadow(3px 5px 2px #707070);
 }
-
 /* Footer */
 
 .containerFooter {
@@ -402,16 +387,11 @@ body {
     width: 100%;
     height: 6.25em;
 }
-
 .rowFooter {
     height: 6.25em;
 }
 
-.gridFooter{
-    display: grid;
-    align-items: center;
-}
-
+/* CSS Bestellen*/
 .borderCol {
     padding: 0;
 }

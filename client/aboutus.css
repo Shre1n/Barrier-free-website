@@ -1,0 +1,15 @@
+.fotos {
+    transform: scale(0.9);
+}
+.aboutusnamen {
+    text-align: center;
+}
+
+.breadcrumb-container p{
+    font-weight: Bold;
+}
+
+.zentriert {
+    text-align: center;
+    margin-top: 3em;
+}

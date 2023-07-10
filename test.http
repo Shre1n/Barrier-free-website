@@ -122,6 +122,30 @@ POST http://localhost:8080/signout HTTP/2
 
 
 ###
+
+// User signing-in
+
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "email": "maik@tester.de",
+  "password": "1234"
+}
+###
+
+
+// User logging-out
+
+POST http://localhost:8080/signout HTTP/2
+
+###
+
+
+
+
+
+###
 GET /admin/user HTTP/2
 Host: ip1-dbs.mni.thm.de
 
