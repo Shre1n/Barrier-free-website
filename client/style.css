@@ -429,19 +429,17 @@ body {
     border-radius: 0 !important;
 }
 
-#lieferangaben {
-    border: 2px #707070;
+.cardpicW {
+    z-index: -1 !important;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1em;
+    width: 4em;
+    border-radius: 0 !important;
+    border-color: #707070;
 }
 
-.lieferangabehead {
-    font-size: large;
+.noPad {
+    padding: 0;
 }
-
-.lieferangabedistance {
-    padding-top: 1em;
-}
-
-.checkBoxColor{
-    color: #A37F5F;
-}
-
