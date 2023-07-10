@@ -114,12 +114,11 @@ Header
     font-family: "Bree Serif", serif;
     font-size: 4.688em;
 }
-
 /* Startseite */
 .searchbar {
     margin-left: auto;
     margin-right: auto;
-    width: 50em;
+    max-width: 50em;
     height: 3.125em;
     z-index: -1 !important;
 }
