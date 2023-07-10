@@ -2,10 +2,11 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="node_modules/@popperjs/core/dist/cjs/popper.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
     <title>Bestellprozess</title>
@@ -69,7 +70,6 @@
         <div class="col-4"></div>
         <div class="col-1 borderCol"></div>
     </div>
-</div>
     <!--
     Datenangaben von Kunde werden in nächsten Sprints ersetzt
     Server-Funktion und Datenbankverknüpfung ebenfalls
@@ -77,9 +77,12 @@
     <div class="row">
         <div class="col-1 borderCol"></div>
         <div class="col-4">
-            <div class="row border border-secondary" id="lieferangaben">
+            <div class="row border border-secondary">
+                <div class="col ms-3">
+                <div class="row">
                 <div class="col borderCol font25">Lieferangaben</div>
                 <div class="col">Icon</div>
+                </div>
                 <div class="row"></div>
                 <div class="row">Herr</div>
                 <div class="row">Mustermann</div>
@@ -135,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row"></div>
+            </div>
         </div>
         <div class="col-2"></div>
         <div class="col-4">
@@ -248,6 +251,15 @@
                 </div>
             </div>
             <div class="text-end bree40 abstandtop">
+
+
+        </div>
+        <div class="col-1 borderCol"></div>
+
+</div>
+
+        <div class="row text-right">
+            <div class="row text-right pricePad">
                 139,98€
             </div>
             <div>
@@ -306,5 +318,6 @@
             </div>
         </div>
     </footer>
+</div>
 </body>
 </html>

@@ -423,6 +423,7 @@ body {
 
 .checkoutcard{
     border-radius: 0em;
+    margin-top: 0 !important;
 }
 
 .checkoutcardbild{
@@ -458,6 +459,10 @@ body {
     padding-top: 2em;
 }
 
+.padContent {
+    padding-left: 1em;
+}
+
 #lieferangaben {
     border-width: 1em;
     border-color: #707070;
@@ -475,3 +480,6 @@ body {
     scale: 1.5;
 }
 
+#firstCheckoutCard {
+    margin-top: 0 !important;
+}
