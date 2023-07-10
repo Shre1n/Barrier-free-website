@@ -319,6 +319,78 @@ body {
     text-shadow: 2px 2px 5px #707070;
 }
 
+/* header und footer */
+
+/* Icons */
+
+.wIcon {
+    color: #FFFFFF !important;
+    scale: 2;
+    transition: transform .1s;
+    text-shadow: 2px 2px 5px #707070;
+}
+
+.wIcon:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    margin-left: 1em;
+    max-height: 90px;
+    transition: transform .1s;
+}
+
+.logo:hover{
+    transform: scale(1.1);
+}
+
+.iconborder {
+    background-color: white;
+    border-radius: 50%;
+    border: 2px #707070;
+    padding: 10px;
+    box-shadow: 2px 2px 5px #707070;
+}
+/* Header */
+.rowHeader {
+    height: 6.25em;
+}
+.containerHeader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #A37F5F !important;
+    height: 6.25em;
+}
+.rowHeader {
+    height: 6.25em;
+}
+.headericon{
+    color: #A37F5F;
+    scale: 100%;
+    transition: transform .1s
+}
+.headericon:hover{
+    transform: scale(1.1);
+}
+.svgschatten {
+    filter: drop-shadow(3px 5px 2px #707070);
+}
+/* Footer */
+
+.containerFooter {
+    background-color: #A37F5F !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6.25em;
+}
+.rowFooter {
+    height: 6.25em;
+}
+
 
 
 
