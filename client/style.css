@@ -370,6 +370,9 @@ body {
     box-shadow: 2px 2px 5px #707070;
 }
 /* Header */
+#abmelden{
+    display: none;
+}
 .rowHeader {
     height: 6.25em;
 }
