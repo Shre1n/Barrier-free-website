@@ -251,7 +251,7 @@
 
 <section id="content" class="container-lg mt-4"></section>
 
-<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -259,7 +259,7 @@
                 <h5 class="modal-title">Anmelden</h5>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="modalForm">
+            <form id="modalFormlogin">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-2">
@@ -285,9 +285,9 @@
                     <p id="signupform">
                         Noch nicht registriert?
                     </p>
-                        <button id="loginUser" type="submit" class="btn btn-primary bbutton">
-                            Anmelden
-                        </button>
+                    <button id="loginUser" type="submit" class="btn btn-primary bbutton">
+                        Anmelden
+                    </button>
                 </div>
             </form>
         </div>
@@ -295,7 +295,7 @@
 </div>
 
 
-<div class="modal fade" id="ModalUserreg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -305,7 +305,7 @@
                 </div>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="modalFormreg">
+            <form id="modalForm">
                 <div class="modal-body">
                     <div class="signup">
                         <div class="row">
@@ -345,10 +345,9 @@
                                 <br>
                             </div>
                             <div class="col-5">
-                                <label for=passwort></label>
-                                <input id=passwort type="password" pattern=".{3,}" name="passwort"
-                                       placeholder="Passwort"
-                                       class="form-control" required>
+                                <label for=telefonnummer></label>
+                                <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{5,20}$"
+                                       placeholder="Telefon" class="form-control" required>
                                 <br>
                             </div>
                         </div>
@@ -389,14 +388,21 @@
                         <div class="row">
                             <div class="col-2">
                             </div>
-                            <div class="col-10">
-                                <label for=telefonnummer></label>
-                                <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{5,20}$"
-                                       placeholder="Telefon" class="form-control" required>
+                            <div class="col-5">
+                                <label for=passwort></label>
+                                <input id=passwort type="password" pattern=".{3,}" name="passwort"
+                                       placeholder="Passwort"
+                                       class="form-control" required>
+                                <br>
+                            </div>
+                            <div class="col-5">
+                                <label for=passwort></label>
+                                <input id=passwortcheck type="password" pattern=".{3,}" name="passwort"
+                                       placeholder="Passwort wiederholen"
+                                       class="form-control" required>
                                 <br>
                             </div>
                         </div>
-
                         <label for="indexUser"></label>
                         <input id="indexUser" hidden type="number">
                         <span id="registrierenError"></span>
