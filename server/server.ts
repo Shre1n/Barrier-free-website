@@ -321,7 +321,7 @@ function validateUser(isPut,user){
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern(/^[0-9][A-Za-z]+$/)
+            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
             .message("Hausnummer muss mindestens eine Zahl enthalten")
             .min(1)
             .required(),

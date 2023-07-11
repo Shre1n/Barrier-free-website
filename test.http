@@ -254,12 +254,12 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "7peter@outlook.de",
+  "email": "80peter@outlook.de",
   "passwort": "15621526",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
-  "hnr": "304b-404",
+  "hnr": "1",
   "telefonnummer": "51231234",
   "newsletter": "Nein"
 }
