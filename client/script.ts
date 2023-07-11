@@ -44,8 +44,8 @@ function addUser(event: Event): void {
     const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
     const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
-
-    if(passwort===passwortcheck){
+    const checkbox=document.querySelector("#checkNewsletter") as HTMLInputElement;
+    if(checkbox.checked && passwort===passwortcheck){
         //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
         axios.post("/user", {
@@ -59,7 +59,8 @@ function addUser(event: Event): void {
             ort:ort,
             strasse:strasse,
             hnr: hnr,
-            telefonnummer:telefonnummer
+            telefonnummer:telefonnummer,
+            newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             console.log(res);
             //reset der Form zum Eintragen
@@ -75,7 +76,38 @@ function addUser(event: Event): void {
             console.log(reason);
         });
     }
-    else {
+    else if(passwort===passwortcheck){
+//routen aufruf welcher an den Server uebermittelt wird
+        //Axios dient als Middleware
+        axios.post("/user", {
+            //JSON Body
+            anrede:anrede,
+            vorname: vorname,
+            nachname: nachname,
+            email: email,
+            passwort: passwort,
+            postleitzahl:postleitzahl,
+            ort:ort,
+            strasse:strasse,
+            hnr: hnr,
+            telefonnummer:telefonnummer,
+            newsletter: "Nein"
+        }).then((res: AxiosResponse) => {
+            console.log(res);
+            //reset der Form zum Eintragen
+            form.reset();
+            document.getElementById("registrierenError").innerText = "";
+            modalFensterUser.hide();
+        }).
+        catch((reason: AxiosError) => {
+            if (reason.response.status == 400) {
+                document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
+            }
+            //Error Ausgabe in Console
+            console.log(reason);
+        });
+    }
+    else  {
         document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
     }
 }
