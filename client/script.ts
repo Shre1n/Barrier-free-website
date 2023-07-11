@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalFensterUserreg = new bootstrap.Modal(document.querySelector("#ModalUserreg"));
     const registrieren = document.querySelector("#registrieren");
     const signupform = document.querySelector("#signupform");
+    const loginform= document.querySelector("#loginform");
     if (registrieren){
         registrieren.addEventListener("click", () =>{
             modalFensterUser.show();
@@ -17,6 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUserreg.show();
             modalFensterUser.hide();
     });
+        if(loginform){
+            loginform.addEventListener("click",()=>{
+                modalFensterUser.show();
+                modalFensterUserreg.hide();
+            })
+        }
 }
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
