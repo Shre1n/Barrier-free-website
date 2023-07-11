@@ -123,21 +123,21 @@ function postUser(req: express.Request, res: express.Response): void {
     const nachname: string = req.body.nachname;
     const email: string = req.body.email;
     const passwort: string = req.body.passwort;
-    const postleitzahl: number = req.body.postleitzahl;
+    const postleitzahl: string = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
-    const hnr: number = req.body.hnr;
-    const telefonnummer: number = req.body.telefonnummer;
+    const hnr: string = req.body.hnr;
+    const telefonnummer: string = req.body.telefonnummer;
+    const newsletter: string = req.body.newsletter
 
     const { error } = validateUser(false, req.body);
 
     if(error) {
         console.log(error.details[0].message);
-    }
-    else {
+    } else {
         const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-        const data: [string, string, string, string, string, number, string, string, number, number] = [
+        const data: [string, string, string, string, string, string, string, string, string, string, string] = [
             anrede,
             vorname,
             nachname,
@@ -147,10 +147,11 @@ function postUser(req: express.Request, res: express.Response): void {
             ort,
             strasse,
             hnr,
-            telefonnummer
+            telefonnummer,
+            newsletter
         ];
 
-        const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?,?);'
+        const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer,Newsletter) VALUES (?,?,?,?,?,?,?,?,?,?,?);'
 
         connection.query(newQuery, data, (err, result) => {
             if (err) {
@@ -285,38 +286,43 @@ function validateUser(isPut,user){
             .pattern(/^(Herr|Frau)$/)
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß](\s[A-Za-z]+)$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z])$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
             .min(2)
             .required(),
         email: Joi.string()
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
             .min(2)
             .required(),
+        passwort: Joi.string()
+            .pattern(/.{3,}/)
+            .required(),
         postleitzahl: Joi.string()
-            .pattern(/^[0-9]$/)
+            .pattern(/^[0-9]{1,5}$/)
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+[-\s]?[A-Za-zäöüÄÖÜß]+$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
             .min(2)
             .required(),
         strasse: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß\s](\s[A-Za-z]+)*$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern(/^[0-9][a-zA-Z]?$/)
+            .pattern(/^[0-9]+[a-zA-Z]?$/)
             .min(1)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/\+[0-9]{1,3}[0-9]{4,}$/)
+            .pattern(/^\+[0-9]{1,3}[0-9]{4,}$/)
             .min(5)
-            .required()
+            .required(),
+        newsletter: Joi.string()
+            .pattern(/^(Ja|Nein)$/)
     });
 
     return schemaPost.validate(user);
