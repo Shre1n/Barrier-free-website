@@ -314,7 +314,7 @@ function validateUser(isPut,user){
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern(/^[0-9]+[a-zA-Z]?$/)
+            .pattern(/^[0-9]+(?:\s[a-zA-Z]+)*$/)
             .min(1)
             .required(),
         telefonnummer: Joi.string()
