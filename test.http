@@ -13,7 +13,7 @@ Content-Type: application/json
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
   "hnr": "1",
-  "telefonnummer": "0176 1956285"
+  "telefonnummer": "+1761956285"
 }
 
 ###

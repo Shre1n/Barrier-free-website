@@ -55,7 +55,7 @@ app.use(session({
 
 // Server starten
 app.listen(PORT, () => {
-    console.log("Server gestartet unter http://localhost:" + PORT + "/startseite.html");
+    console.log("Server gestartet unter http://localhost:" + PORT);
 });
 
 
@@ -129,14 +129,11 @@ function postUser(req: express.Request, res: express.Response): void {
     const hnr: number = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
-    if (anrede === undefined || vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
-
+    if (validateUser(false,req.body)){
         res.status(500);
         res.send("Alle Felder müssen gefüllt werden!");
 
     } else {
-
-
         const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
         const data: [string, string, string, string, string, number, string, string, number, number] = [
@@ -287,14 +284,41 @@ function validateUser(isPut,user){
             .pattern(/^(Herr|Frau)$/)
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+[-\s]?[A-Za-zäöüÄÖÜß]+$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß](\s[A-Za-z]+)*$/)
             .min(2)
             .required(),
         nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z])*$/)
+            .min(2)
+            .required(),
+        email: Joi.string()
+            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
+            .min(2)
+            .required(),
+        postleitzahl: Joi.string()
+            .pattern(/^[0-9]$/)
+            .min(1)
+            .max(5)
+            .required(),
+        ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+[-\s]?[A-Za-zäöüÄÖÜß]+$/)
             .min(2)
             .required(),
+        strasse: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß\s](\s[A-Za-z]+)*$/)
+            .min(2)
+            .required(),
+        hnr: Joi.string()
+            .pattern(/^[0-9][a-zA-Z]?$/)
+            .min(1)
+            .required(),
+        telefonnummer: Joi.string()
+            .pattern(/\+[0-9]{1,3}[0-9]{4,}$/)
+            .min(5)
+            .required()
     });
+
+    return schemaPost.validate(user);
 }
 
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
