@@ -412,3 +412,12 @@ body {
     height: 6.25em;
 }
 
+/* Login/Registrierenforumlar */
+
+.login{
+    display: block;
+}
+
+.signup{
+    display: none;
+}
