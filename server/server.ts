@@ -133,6 +133,7 @@ function postUser(req: express.Request, res: express.Response): void {
     const { error } = validateUser(false, req.body);
 
     if(error) {
+        res.status(403).json(error.details[0].message);
         console.log(error.details[0].message);
     } else {
         const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
@@ -278,47 +279,55 @@ function disableUser(req: express.Request, res: express.Response): void {
 
 }
 
-
-
 function validateUser(isPut,user){
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
+            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname ist darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname ist darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         email: Joi.string()
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
+            .message("Email muss in folgendem Format sein: test@test.test")
             .min(2)
             .required(),
         passwort: Joi.string()
             .pattern(/.{3,}/)
+            .message("Muss größer als 3 Zeichen sein")
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
+            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern(/^[A-Za-z0-9\-]+$/)
+            .pattern(/^[0-9][A-Za-z]+$/)
+            .message("Hausnummer muss mindestens eine Zahl enthalten")
             .min(1)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
+            .message("Telefonnummer muss darf keine Buchstaben enthalten")
             .min(5)
             .required(),
         newsletter: Joi.string()
@@ -327,6 +336,7 @@ function validateUser(isPut,user){
 
     return schemaPost.validate(user);
 }
+
 
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
 function query(sql: string, param: any[] = []): Promise<any> {
