@@ -286,7 +286,14 @@ function validateUser(isPut,user){
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
             .required(),
-        vorname: Joi
+        vorname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+[-\s]?[A-Za-zäöüÄÖÜß]+$/)
+            .min(2)
+            .required(),
+        nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+[-\s]?[A-Za-zäöüÄÖÜß]+$/)
+            .min(2)
+            .required(),
     });
 }
 
