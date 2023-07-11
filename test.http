@@ -235,13 +235,32 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "3peter@outlook.de",
+  "email": "5peter@outlook.de",
   "passwort": "15621526",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
   "hnr": "304b-404",
   "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "7peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "304b-404",
+  "telefonnummer": "51231234",
   "newsletter": "Nein"
 }
 

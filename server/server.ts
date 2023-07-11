@@ -314,11 +314,11 @@ function validateUser(isPut,user){
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern(/^[0-9]+(?:\s[a-zA-Z]+)*$/)
+            .pattern(/^[A-Za-z0-9\-]+$/)
             .min(1)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^\+[0-9]{1,3}[0-9]{4,}$/)
+            .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
             .min(5)
             .required(),
         newsletter: Joi.string()
