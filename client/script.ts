@@ -1,17 +1,34 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
 
+
 let modalFensterUser: bootstrap.Modal;
+let modalNutzerlöschen: bootstrap.Modal;
+
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     const registrieren = document.querySelector("#registrieren");
-    if (registrieren){
-        registrieren.addEventListener("click", () =>{
+    if (registrieren) {
+        registrieren.addEventListener("click", () => {
             modalFensterUser.show();
         });
     }
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    modalNutzerlöschen = new bootstrap.Modal(document.getElementById("ModalNutzerlöschen"));
+    const löschen = document.querySelector("#nutzerlöschenbutton");
+    if (löschen) {
+        löschen.addEventListener("click", () => {
+            modalNutzerlöschen.show();
+        });
+    }
+    console.log(document.getElementById("ModalNutzerlöschen"));
+    document.getElementById("ModalNutzerlöschen").addEventListener("submit", delUser);
+
 });
 
 function addUser(event: Event): void {
@@ -59,3 +76,12 @@ function addUser(event: Event): void {
     });
 }
 
+function delUser(): void{
+    axios.delete("/user/",{
+
+    }).then((res: AxiosResponse) => {
+        console.log(res);
+    }).catch((reason: AxiosError) => {
+        console.log(reason);
+    });
+}

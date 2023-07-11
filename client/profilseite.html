@@ -159,8 +159,12 @@
                             <input type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-sm" value="mustermail">
                         </div>
+                        <div>
+                            <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
+                        </div>
                     </div>
                     <div class="row mt-5">
+
                         <div class="col-10 newsletter">
                             <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
                                 und regelmäßig mit Neuigkeiten und Angeboten
@@ -525,6 +529,37 @@
         </div>
     </section>
 </div>
+
+<!--- Popup für Nutzer löschen --->
+
+<div class="modal fade" id="ModalNutzerlöschen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sind Sie sicher?</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormNutzerlöschen">
+                <div class="modal-body">
+                    <span>
+                        Es werden alle Ihre Nutzerdaten, inklusive Ihrer Merkliste, unwiderruflich gelöscht und Sie gelangen zurrück zur Startseite.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button id="nutzerlöschenbestätigen" type="submit" class="btn btn-primary bbutton">
+                        Ja, löschen
+                    </button>
+                    <button id="nutzerlöschenabbrechen" type="button" class="btn btn-primary abbrechenButton">
+                        Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <footer class="container-fluid containerFooter">
     <div class="row">
         <div class="col-sm-6">
