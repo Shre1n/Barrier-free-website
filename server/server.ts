@@ -2,6 +2,7 @@ import * as express from "express";
 import * as session from "express-session";
 import * as mysql from "mysql";
 import * as crypto from "crypto";
+import * as path from "path";
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
 
@@ -53,7 +54,7 @@ app.use(session({
 
 // Server starten
 app.listen(PORT, () => {
-    console.log("Server gestartet unter http://localhost:" + PORT + "/startseite.html");
+    console.log("Server gestartet unter http://localhost:8080/");
 });
 
 
@@ -62,6 +63,11 @@ app.listen(PORT, () => {
 app.use(express.static(__dirname + "/../client/"));
 
 app.use("/img", express.static(__dirname+"/../img/"));
+
+// GET-Routen
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/../client/startseite.html'));
+});
 
 //JSON und URLenconded
 app.use(express.json());
