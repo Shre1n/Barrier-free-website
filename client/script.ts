@@ -1,18 +1,27 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
-
 let modalFensterUser: bootstrap.Modal;
+let modalFensterUserreg: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
+    modalFensterUserreg = new bootstrap.Modal(document.querySelector("#ModalUserreg"));
     const registrieren = document.querySelector("#registrieren");
+    const signupform = document.querySelector("#signupform");
     if (registrieren){
         registrieren.addEventListener("click", () =>{
             modalFensterUser.show();
         });
     }
+    if(signupform){
+        signupform.addEventListener("click",()=>{
+            modalFensterUserreg.show();
+            modalFensterUser.hide();
+    });
+}
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
 });
+
 
 function addUser(event: Event): void {
     event.preventDefault();
@@ -58,4 +67,5 @@ function addUser(event: Event): void {
         console.log(reason);
     });
 }
+
 
