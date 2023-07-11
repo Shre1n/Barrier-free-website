@@ -337,6 +337,7 @@ function validateUser(isPut,user){
     return schemaPost.validate(user);
 }
 
+
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
 function query(sql: string, param: any[] = []): Promise<any> {
     return new Promise<any>((resolve: any, reject: any) => {

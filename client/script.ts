@@ -1,15 +1,29 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
-
-
 let modalFensterUser: bootstrap.Modal;
+let modalFensterUserLogin: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
+    modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren");
+    const signupform = document.querySelector("#signupform");
+    const loginform = document.querySelector("#loginform");
     if (registrieren){
         registrieren.addEventListener("click", () =>{
+            modalFensterUserLogin.show();
+        });
+    }
+    if (signupform) {
+        signupform.addEventListener("click", () => {
+            modalFensterUserLogin.hide();
             modalFensterUser.show();
         });
     }
+    if (loginform) {
+            loginform.addEventListener("click", () => {
+                modalFensterUser.hide();
+                modalFensterUserLogin.show();
+            })
+        }
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
 });
@@ -29,33 +43,73 @@ function addUser(event: Event): void {
     const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value;
     const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
-
-    //routen aufruf welcher an den Server uebermittelt wird
-    //Axios dient als Middleware
-    axios.post("/user", {
-        //JSON Body
-        anrede:anrede,
-        vorname: vorname,
-        nachname: nachname,
-        email: email,
-        passwort: passwort,
-        postleitzahl:postleitzahl,
-        ort:ort,
-        strasse:strasse,
-        hnr: hnr,
-        telefonnummer:telefonnummer
-    }).then((res: AxiosResponse) => {
-        console.log(res);
-        //reset der Form zum Eintragen
-        form.reset();
-        document.getElementById("registrierenError").innerText = "";
-        modalFensterUser.hide();
-    }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400) {
-            document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
-        }
-        //Error Ausgabe in Console
-        console.log(reason);
-    });
+    const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
+    const checkbox=document.querySelector("#checkNewsletter") as HTMLInputElement;
+    if(checkbox.checked && passwort===passwortcheck){
+        //routen aufruf welcher an den Server uebermittelt wird
+        //Axios dient als Middleware
+        axios.post("/user", {
+            //JSON Body
+            anrede:anrede,
+            vorname: vorname,
+            nachname: nachname,
+            email: email,
+            passwort: passwort,
+            postleitzahl:postleitzahl,
+            ort:ort,
+            strasse:strasse,
+            hnr: hnr,
+            telefonnummer:telefonnummer,
+            newsletter: "Ja"
+        }).then((res: AxiosResponse) => {
+            console.log(res);
+            //reset der Form zum Eintragen
+            form.reset();
+            document.getElementById("registrierenError").innerText = "";
+            modalFensterUser.hide();
+        }).
+        catch((reason: AxiosError) => {
+            if (reason.response.status == 400) {
+                document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
+            }
+            //Error Ausgabe in Console
+            console.log(reason);
+        });
+    }
+    else if(passwort===passwortcheck){
+//routen aufruf welcher an den Server uebermittelt wird
+        //Axios dient als Middleware
+        axios.post("/user", {
+            //JSON Body
+            anrede:anrede,
+            vorname: vorname,
+            nachname: nachname,
+            email: email,
+            passwort: passwort,
+            postleitzahl:postleitzahl,
+            ort:ort,
+            strasse:strasse,
+            hnr: hnr,
+            telefonnummer:telefonnummer,
+            newsletter: "Nein"
+        }).then((res: AxiosResponse) => {
+            console.log(res);
+            //reset der Form zum Eintragen
+            form.reset();
+            document.getElementById("registrierenError").innerText = "";
+            modalFensterUser.hide();
+        }).
+        catch((reason: AxiosError) => {
+            if (reason.response.status == 400) {
+                document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
+            }
+            //Error Ausgabe in Console
+            console.log(reason);
+        });
+    }
+    else  {
+        document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
+    }
 }
+
 
