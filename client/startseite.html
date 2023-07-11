@@ -294,15 +294,12 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="signup">
-                    <h5 class="modal-title">Registrieren</h5>
-                </div>
+                <h5 class="modal-title">Registrieren</h5>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="modalForm">
@@ -318,7 +315,7 @@
                         </div>
                         <div class="col-5">
                             <label for=vorname></label>
-                            <input id=vorname type="text" name="vorname"
+                            <input id=vorname type="text" name="vorname" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
                                    placeholder="Vorname" class="form-control" required>
                             <br>
                         </div>
@@ -326,7 +323,7 @@
                             <label for=nachname></label>
                             <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
                             geht später in den Server-->
-                            <input id=nachname type="text"
+                            <input id=nachname type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]{2,})*$"
                                    name="nachname" placeholder="Nachname" class="form-control" required>
                             <br>
                         </div>
@@ -337,14 +334,14 @@
                         <div class="col-5">
                             <label for=email></label>
                             <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
-                            <input id=email type="email" name="email"
+                            <input id=email type="email" name="email" pattern="\w+([\.\-]\w+)*@[a-z]+([\.\-][a-z]+)+"
                                    placeholder="Email" class="form-control" required>
                             <br>
                         </div>
                         <div class="col-5">
-                            <label for=passwort></label>
-                            <input id=passwort type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
-                                   class="form-control" required>
+                            <label for=telefonnummer></label>
+                            <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{5,20}$"
+                                   placeholder="Telefon" class="form-control" required>
                             <br>
                         </div>
                     </div>
@@ -353,13 +350,13 @@
                         </div>
                         <div class="col-5">
                             <label for=strasse></label>
-                            <input id=strasse type="text" name="strasse"
+                            <input id=strasse type="text" name="strasse" pattern="^[A-Za-zäöüÄÖÜß\s]{2,}(\s[A-Za-z]+)*$"
                                    placeholder="Straße" class="form-control" required>
                             <br>
                         </div>
                         <div class="col-5">
                             <label for=hausnummer></label>
-                            <input id=hausnummer type="text"
+                            <input id=hausnummer type="text" pattern="^[0-9]{1,3}[a-zA-Z]?$" name="hausnummer"
                                    placeholder="Hausnummer" class="form-control" required>
                             <br>
                         </div>
@@ -369,13 +366,13 @@
                         </div>
                         <div class="col-5">
                             <label for=postleitzahl></label>
-                            <input id=postleitzahl type="text" name="postleitzahl"
+                            <input id=postleitzahl type="text" name="postleitzahl" pattern="^[0-9]{5}$"
                                    placeholder="Postleitzahl" class="form-control" required>
                             <br>
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
-                            <input id=ort type="text" name="ort"
+                            <input id=ort type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-zäöüÄÖÜß]+)*$" name="ort"
                                    placeholder="Ort" class="form-control" required>
                             <br>
                         </div>
@@ -383,10 +380,24 @@
                     <div class="row">
                         <div class="col-2">
                         </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwort type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortcheck type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
                         <div class="col-10">
-                            <label for=telefonnummer></label>
-                            <input id=telefonnummer type="text" name="telefonnummer"
-                                   placeholder="Telefon" class="form-control" required>
+
                             <br>
                         </div>
                     </div>
@@ -395,20 +406,15 @@
                     <span id="registrierenError"></span>
                 </div>
                 <div class="modal-footer">
-                    <p id="loginform">
-                        Zurück zur Anmeldung?
-                    </p>
-                    <div class="signup">
-                        <button id="registerUser" type="submit" class="btn btn-primary bbutton">
-                            Registrieren
-                        </button>
-                    </div>
-
+                    <button id="registerUser" type="submit" class="btn btn-primary bbutton">
+                        Registrieren
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 
 <!--Footer-->
