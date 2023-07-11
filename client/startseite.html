@@ -263,6 +263,23 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=emaillogin type="email" name="email" pattern="\w+([\.\-]\w+)*@[a-z]+([\.\-][a-z]+)+"
+                                   placeholder="Email" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortlogin type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
                             <label for=anrede></label>
                             <select id="anrede" class="bbutton text-center" required>
                                 <option value="Herr" class="anrede">Herr</option>
