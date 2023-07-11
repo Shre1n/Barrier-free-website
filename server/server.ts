@@ -3,6 +3,7 @@ import * as session from "express-session";
 import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
+import Joi = require('joi');
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
 
@@ -54,7 +55,7 @@ app.use(session({
 
 // Server starten
 app.listen(PORT, () => {
-    console.log("Server gestartet unter http://localhost:8080/");
+    console.log("Server gestartet unter http://localhost:" + PORT + "/startseite.html");
 });
 
 
@@ -276,6 +277,17 @@ function checkLogin(req: express.Request, res: express.Response, next: express.N
 
 function disableUser(req: express.Request, res: express.Response): void {
 
+}
+
+
+
+function validateUser(isPut,user){
+    const schemaPost = Joi.object({
+        anrede: Joi.string()
+            .pattern(/^(Herr|Frau)$/)
+            .required(),
+        vorname: Joi
+    });
 }
 
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
