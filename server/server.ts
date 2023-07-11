@@ -129,11 +129,12 @@ function postUser(req: express.Request, res: express.Response): void {
     const hnr: number = req.body.hnr;
     const telefonnummer: number = req.body.telefonnummer;
 
-    if (validateUser(false,req.body)){
-        res.status(500);
-        res.send("Alle Felder müssen gefüllt werden!");
+    const { error } = validateUser(false, req.body);
 
-    } else {
+    if(error) {
+        console.log(error.details[0].message);
+    }
+    else {
         const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
         const data: [string, string, string, string, string, number, string, string, number, number] = [
@@ -284,11 +285,11 @@ function validateUser(isPut,user){
             .pattern(/^(Herr|Frau)$/)
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß](\s[A-Za-z]+)*$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß](\s[A-Za-z]+)$/)
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z])*$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z])$/)
             .min(2)
             .required(),
         email: Joi.string()
