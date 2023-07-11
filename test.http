@@ -9,7 +9,7 @@ Content-Type: application/json
   "nachname": "Mustermann",
   "email": "max.mustermann@hotmail.de",
   "passwort": "12345",
-  "postleitzahl": "12345",
+  "postleitzahl": "02345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
   "hnr": "1",
