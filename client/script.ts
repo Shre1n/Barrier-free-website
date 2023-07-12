@@ -87,7 +87,8 @@ function addUser(event: Event): void {
 }
 
 function delUser(): void{
-    axios.delete(`/user/${currentUser.get("email")}`).then((res: AxiosResponse) => {
+    event.preventDefault();
+    axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
         console.log(res);
         signOff();
     }).catch((reason: AxiosError) => {
@@ -105,7 +106,6 @@ function delUser(): void{
 function signOff(): void {
     axios.get("/signout").then((res: AxiosResponse) => {
         console.log(res);
-        currentUser = new Map<string, string>();
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });

@@ -73,7 +73,7 @@ app.use(express.urlencoded({extended: false}));
 //Nutzer Routen
 app.post("/user", postUser);
 app.put("/user/:id", checkLogin, putUser);
-app.delete("/user/:id", checkLogin, deleteUser);
+app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
 app.get("/signout", signOut);
@@ -189,25 +189,19 @@ function putUser(req: express.Request, res: express.Response): void {
 
 function deleteUser(req: express.Request, res: express.Response): void {
 
-    const validemail: string = req.params.email;
-    const email = req.session.email;
+    const email: string = req.body.email;
+    const passwort = req.body.passwort;
 
-    const query: string = 'DELETE FROM Nutzerliste WHERE Email = ?;';
-
-    if (validemail === email) {
-        connection.query(query, [email], (err, result) => {
-            if (err) {
-                res.status(500);
-                res.send("There went something wrong!")
-                console.log("deleteUser" + err);
-            } else {
+    console.log("Deleting user " + email);
+    console.log("Email: " + email + ", Password: " + passwort);
+    if(email !== undefined && passwort !== undefined){
+        if (email === req.session.email && req.session.passwort){
+            query("DELETE FROM Nutzerliste WHERE email = ? AND Passwort = ?;",[email,passwort]).then((result: any) => {
                 res.status(200);
-                res.send("User successfully deleted!");
-            }
-        });
-    } else {
-        res.status(400);
-        res.send("You can only delete yourself! ;)");
+            });
+        }
+    }else {
+        res.sendStatus(500);
     }
 }
 
@@ -267,16 +261,15 @@ function signIn(req: express.Request, res: express.Response): void {
 
 
 // User meldet sich ab -> Session wird gelöscht
+// Löscht den Sessionstore und weist den Client an, das Cookie zu löschen
 
 function signOut(req: express.Request, res: express.Response): void {
-    if (req.session && req.session.email && req.session.passwort) {
-        req.session.destroy(() => {
+    req.session.destroy(() => {
             res.clearCookie("connect.sid");
             res.sendStatus(200);
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
-    }
+        }
+    );
+
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
