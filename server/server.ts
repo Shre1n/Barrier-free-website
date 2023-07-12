@@ -2,6 +2,8 @@ import * as express from "express";
 import * as session from "express-session";
 import * as mysql from "mysql";
 import * as crypto from "crypto";
+import * as path from "path";
+import Joi = require('joi');
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
 
@@ -13,7 +15,6 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
-        rollenid: string;
     }
 }
 
@@ -54,7 +55,7 @@ app.use(session({
 
 // Server starten
 app.listen(PORT, () => {
-    console.log("Server gestartet unter http://localhost:" + PORT + "/startseite.html");
+    console.log("Server gestartet unter http://localhost:" + PORT);
 });
 
 
@@ -63,6 +64,11 @@ app.listen(PORT, () => {
 app.use(express.static(__dirname + "/../client/"));
 
 app.use("/img", express.static(__dirname + "/../img/"));
+
+// GET-Routen
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/../client/startseite.html'));
+});
 
 //JSON und URLenconded
 app.use(express.json());
@@ -73,19 +79,17 @@ app.use(express.urlencoded({extended: false}));
 
 //Nutzer Routen
 app.post("/user", postUser);
-app.put("/user/:id", checkLogin, putUser);
-app.delete("/user/:id", checkLogin, deleteUser);
-app.get("/user", checkLogin, getUser);
+app.put("/user", checkLogin, putUser);
+app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
-app.get("/signout", signOut);
+app.post("/signout", signOut);
 app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
 app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -119,23 +123,22 @@ function postUser(req: express.Request, res: express.Response): void {
     const nachname: string = req.body.nachname;
     const email: string = req.body.email;
     const passwort: string = req.body.passwort;
-    const postleitzahl: number = req.body.postleitzahl;
+    const postleitzahl: string = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
-    const hnr: number = req.body.hnr;
-    const telefonnummer: number = req.body.telefonnummer;
+    const hnr: string = req.body.hnr;
+    const telefonnummer: string = req.body.telefonnummer;
+    const newsletter: string = req.body.newsletter
 
-    if (anrede === undefined || vorname === undefined || nachname === undefined || postleitzahl === undefined || ort === undefined || strasse === undefined || hnr === undefined || telefonnummer === undefined || passwort === undefined || email === undefined) {
+    const {error} = validateUser(false, req.body);
 
-        res.status(500);
-        res.send("Alle Felder müssen gefüllt werden!");
-
+    if (error) {
+        res.status(403).json(error.details[0].message);
+        console.log(error.details[0].message);
     } else {
-
-
         const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-        const data: [string, string, string, string, string, number, string, string, number, number] = [
+        const data: [string, string, string, string, string, string, string, string, string, string, string] = [
             anrede,
             vorname,
             nachname,
@@ -145,10 +148,11 @@ function postUser(req: express.Request, res: express.Response): void {
             ort,
             strasse,
             hnr,
-            telefonnummer
+            telefonnummer,
+            newsletter
         ];
 
-        const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer) VALUES (?,?,?,?,?,?,?,?,?,?);'
+        const newQuery: string = 'INSERT INTO Nutzerliste (Anrede, Vorname, Nachname, Email, Passwort, Postleitzahl, Ort, Straße, HausNr, Telefonnummer,Newsletter) VALUES (?,?,?,?,?,?,?,?,?,?,?);'
 
         connection.query(newQuery, data, (err, result) => {
             if (err) {
@@ -210,11 +214,53 @@ function getUser(req: express.Request, res: express.Response): void {
 
 function putUser(req: express.Request, res: express.Response): void {
 
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const passwort: string = req.body.passwort;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+    const telefonnummer: string = req.body.telefonnummer;
+    const newsletter: string = req.body.newsletter;
+
+    const email: string = req.session.email;
+
+    const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
+
+    const data: [string, string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname, cryptopass, postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
+    const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?,  Passwort = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ? WHERE Email = ?;`;
+
+    connection.query(query, data, (err, result) => {
+        if (err) {
+            res.status(500);
+            res.send("Etwas ist schiefgelaufen");
+        }   else {
+            res.status(200);
+            res.send("Nutzer bearbeitet!");
+        }
+    });
 }
 
 function deleteUser(req: express.Request, res: express.Response): void {
 
+    const logeedinUser: string = req.session.email;
+    const query: string = 'DELETE FROM Nutzerliste WHERE Email = ?;';
+
+
+    connection.query(query, [logeedinUser], (err, result) => {
+        if (err) {
+            res.status(500);
+            res.send("There went something wrong!")
+            console.log("deleteUser" + err);
+        } else {
+            res.status(200);
+            res.send("User successfully deleted!");
+        }
+    });
 }
+
 
 //Produkt Routen
 
@@ -251,17 +297,17 @@ function getProductRating(req: express.Request, res: express.Response): void {
 // Prüft, ob ein Nutzer registriert ist und speichert ggf. den Nutzernamen im Sessionstore ab
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
-    const passwort: string = req.body.password;
+    const passwort: string = req.body.passwort;
+    const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname, RollenID FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
-                req.session.passwort = passwort;
-                req.session.rollenid = result[0].RollenID;
+                req.session.passwort = cryptopass;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
-                res.sendStatus(500);
+                res.sendStatus(400);
             }
         }).catch(() => {
             console.log("500 in catch");
@@ -272,32 +318,88 @@ function signIn(req: express.Request, res: express.Response): void {
 
 
 // User meldet sich ab -> Session wird gelöscht
+// Löscht den Sessionstore und weist den Client an, das Cookie zu löschen
 
 function signOut(req: express.Request, res: express.Response): void {
-    if (req.session && req.session.email && req.session.passwort) {
-        req.session.destroy(() => {
+    req.session.destroy(() => {
             res.clearCookie("connect.sid");
             res.sendStatus(200);
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
-    }
+        }
+    );
+
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
-    if (req.session) {
+    if (req.session.email !== undefined) {
         next();
     } else {
-        res.status(400);
+        res.status(401);
         res.send("User is not logged in! ")
     }
-    //* if (req.session.rollenid = 3) {
-
 }
 
 function disableUser(req: express.Request, res: express.Response): void {
 
 }
+
+function validateUser(isPut, user) {
+    const schemaPost = Joi.object({
+        anrede: Joi.string()
+            .pattern(/^(Herr|Frau)$/)
+            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .required(),
+        vorname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        email: Joi.string()
+            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
+            .message("Email muss in folgendem Format sein: test@test.test")
+            .min(2)
+            .required(),
+        passwort: Joi.string()
+            .pattern(/.{3,}/)
+            .message("Muss größer als 3 Zeichen sein")
+            .required(),
+        postleitzahl: Joi.string()
+            .pattern(/^[0-9]{1,5}$/)
+            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .min(1)
+            .max(5)
+            .required(),
+        ort: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        strasse: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        hnr: Joi.string()
+            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .min(1)
+            .required(),
+        telefonnummer: Joi.string()
+            .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
+            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .min(5)
+            .required(),
+        newsletter: Joi.string()
+            .pattern(/^(Ja|Nein)$/)
+    });
+
+    return schemaPost.validate(user);
+}
+
 
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
 function query(sql: string, param: any[] = []): Promise<any> {
