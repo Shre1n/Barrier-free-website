@@ -80,7 +80,7 @@ app.use(express.urlencoded({extended: false}));
 //Nutzer Routen
 app.post("/user", postUser);
 app.put("/user/:id", checkLogin, putUser);
-app.delete("/user/:id", checkLogin, deleteUser);
+app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
 app.get("/signout", signOut);
@@ -196,6 +196,20 @@ function putUser(req: express.Request, res: express.Response): void {
 
 function deleteUser(req: express.Request, res: express.Response): void {
 
+    const email: string = req.body.email;
+    const passwort = req.body.passwort;
+
+    console.log("Deleting user " + email);
+    console.log("Email: " + email + ", Password: " + passwort);
+    if(email !== undefined && passwort !== undefined){
+        if (email === req.session.email && req.session.passwort){
+            query("DELETE FROM Nutzerliste WHERE email = ? AND Passwort = ?;",[email,passwort]).then((result: any) => {
+                res.status(200);
+            });
+        }
+    }else {
+        res.sendStatus(500);
+    }
 }
 
 
@@ -254,16 +268,15 @@ function signIn(req: express.Request, res: express.Response): void {
 
 
 // User meldet sich ab -> Session wird gelöscht
+// Löscht den Sessionstore und weist den Client an, das Cookie zu löschen
 
 function signOut(req: express.Request, res: express.Response): void {
-    if (req.session && req.session.email && req.session.passwort) {
-        req.session.destroy(() => {
+    req.session.destroy(() => {
             res.clearCookie("connect.sid");
             res.sendStatus(200);
-        });
-    } else {
-        res.sendStatus(401); // Unauthorized
-    }
+        }
+    );
+
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {

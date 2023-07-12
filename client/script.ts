@@ -1,6 +1,11 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
+
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+let modalNutzerlöschen: bootstrap.Modal;
+let currentUser: Map<string, string> = new Map<string, string>();
+
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -15,6 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (signupform) {
         signupform.addEventListener("click", () => {
             modalFensterUserLogin.hide();
+
+    if (registrieren) {
+        registrieren.addEventListener("click", () => {
             modalFensterUser.show();
         });
     }
@@ -26,6 +34,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    modalNutzerlöschen = new bootstrap.Modal(document.getElementById("ModalNutzerlöschen"));
+    const loeschen = document.querySelector("#nutzerlöschenbutton");
+    const abbrechen = document.querySelector("#nutzerlöschenabbrechen");
+    if (loeschen) {
+        loeschen.addEventListener("click", () => {
+            modalNutzerlöschen.show();
+        });
+    }
+    if(abbrechen){
+        abbrechen.addEventListener("click",()=>{
+            modalNutzerlöschen.hide();
+        });
+    }
+    console.log(document.getElementById("ModalNutzerlöschen"));
+    document.getElementById("ModalNutzerlöschen").addEventListener("submit", delUser);
+
 });
 
 function addUser(event: Event): void {
@@ -112,4 +140,28 @@ function addUser(event: Event): void {
     }
 }
 
+function delUser(): void{
+    event.preventDefault();
+    axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
+        console.log(res);
+        signOff();
+    }).catch((reason: AxiosError) => {
+        console.log(reason);
+    });
+}
+
+/**
+ *
+ * Methode zum Abmelden des Users
+ * Meldet den jetzigen User ab und setzt die Session des Users auf null
+ *
+ */
+
+function signOff(): void {
+    axios.get("/signout").then((res: AxiosResponse) => {
+        console.log(res);
+    }).catch((reason: AxiosError) => {
+        console.log(reason);
+    });
+}
 

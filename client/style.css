@@ -255,7 +255,7 @@
     border-color: #707070 !important;
     border-radius: 2.5em !important;
     width: 2em;
-    height: 2em;
+    height: 2em;^
     justify-content: center;
     align-items: center;
     display: flex;
@@ -412,3 +412,10 @@ body {
     height: 6.25em;
 }
 
+.nutzerlöschenbutton{
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    transition: transform .1s;
+}
