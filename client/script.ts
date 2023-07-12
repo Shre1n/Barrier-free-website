@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
-    const deleteUser = document.querySelector("#userdelete") as HTMLElement;
-    const deleteUserCheck = document.querySelector("#userdeletecheck") as HTMLElement;
+    const deleteUser = document.querySelector("#userdelete") as HTMLButtonElement;
 
 
         registrieren.addEventListener("click", () => {
@@ -31,21 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
            modalFensterUserLogin.show();
         });
     }
-    if (deleteUser) {
-        deleteUser.addEventListener("click", () => {
-            deleteUser.style.display="none"
-            deleteUserCheck.style.display="block"
-        });
-    }
-
-
-
-
-
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
-    deleteUserCheck.addEventListener("click", delUser);
+    deleteUser.addEventListener("click", ()=>{
+        return(console.log("hallo?"))
+
+    });
 
 });
 
@@ -129,18 +120,19 @@ function addUser(event: Event): void {
     }
 }
 
-
-function delUser(): void {
+function delUser(event: Event): void {
     event.preventDefault();
+    console.log("Möchte Löschen")
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
         console.log(res);
+        window.location.reload();
         signOff();
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
 }
 
-function editUser(): void {
+function editUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
