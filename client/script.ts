@@ -1,17 +1,19 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
-
+// Funktion Asynch geschaltet damit getUser geht
 let modalFensterUser: bootstrap.Modal;
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     const registrieren = document.querySelector("#registrieren");
-    if (registrieren){
-        registrieren.addEventListener("click", () =>{
+    if (registrieren) {
+        registrieren.addEventListener("click", () => {
             modalFensterUser.show();
         });
     }
     console.log(document.getElementById("modalForm"));
     document.getElementById("modalForm").addEventListener("submit", addUser);
+    //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
+    await getUser();
 });
 
 function addUser(event: Event): void {
@@ -58,4 +60,38 @@ function addUser(event: Event): void {
         console.log(reason);
     });
 }
+
+async function getUser(){
+    const response = await fetch("/user", {
+      method: "get"
+    });
+    const data = await response.json();
+    renderUserProfile(data);
+}
+
+function renderUserProfile(data: any){
+    const anredeElement = document.getElementById('displayanrede');
+    const vornameElement = document.getElementById('displayvorname');
+    const nachnameElement = document.getElementById('displaynachname');
+    const emailElement = document.getElementById('displayemail');
+    const passwortElement = document.getElementById('displaypasswort');
+    const plzElement = document.getElementById('displayPLZ');
+    const ortElement = document.getElementById('displayort');
+    const strasseElement = document.getElementById('displaystrasse');
+    const hnrElement = document.getElementById('displayhausnummer');
+    const telefonnummerElement = document.getElementById('displaytelefonnummer');
+    const newsletterElement =  document.getElementById("displaynewsletter");
+    anredeElement.innerText = data.anrede;
+    vornameElement.innerText = data.vorname;
+    nachnameElement.innerText = data.nachname;
+    emailElement.innerText = data.email;
+    passwortElement.innerText = data.passwort;
+    plzElement.innerText = data.postleitzahl;
+    ortElement.innerText = data.ort;
+    strasseElement.innerText = data.straße;
+    hnrElement.innerText = data.hnr;
+    telefonnummerElement.innerText = data.telefonnummer;
+    newsletterElement.innerText = data.newsletter;
+}
+
 

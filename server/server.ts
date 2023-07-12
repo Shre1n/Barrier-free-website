@@ -74,6 +74,7 @@ app.use(express.urlencoded({extended: false}));
 app.post("/user", postUser);
 app.put("/user/:id", checkLogin, putUser);
 app.delete("/user/:id", checkLogin, deleteUser);
+app.get("/user", checkLogin, getUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
 app.get("/signout", signOut);
@@ -181,6 +182,26 @@ function postAdmin(req: express.Request, res: express.Response): void {
 
 function getUser(req: express.Request, res: express.Response): void {
 
+        query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
+            .then((results: any) => {
+                res.status(200);
+                res.json({vorname: results[0].Vorname,
+                                nachname: results[0].Nachname,
+                                email: results[0].Email,
+                                anrede: results[0].Anrede,
+                                passwort: results[0].Passwort,
+                                postleitzahl: results[0].Postleitzahl,
+                                ort: results[0].Ort,
+                                straße: results[0].Straße,
+                                hnr: results[0].HausNr,
+                                telefonnummer: results[0].Telefonnummer,
+                                newsletter: results[0].Newsletter
+                })
+            })
+            .catch((err: mysql.MysqlError) => {
+                res.sendStatus(500);
+                console.log(err);
+            })
 }
 
 function putUser(req: express.Request, res: express.Response): void {
@@ -246,6 +267,7 @@ function signIn(req: express.Request, res: express.Response): void {
 }
 
 
+
 // User meldet sich ab -> Session wird gelöscht
 
 function signOut(req: express.Request, res: express.Response): void {
@@ -291,6 +313,24 @@ function isLoggedIn(req: express.Request, res: express.Response): void {
     res.sendStatus(200);
 }
 
+
+/*
+const query = 'SELECT Email FROM Nutzerliste where RollenID = ?;';
+connection.query(query, [userId], (err, result) => {
+    if (err) {
+        console.error('Nutzerrolle konnte nicht gelesen werden:', err);
+    } else {
+        if (result.length > 0) {
+            const Rolle = result[0].RollenID;
+            // Store the user role in a variable or session for future use
+            // Example: req.session.userRole = userRole;
+        } else {
+            console.error('Nutzer nicht gefunden');
+            // Handle the case when the user is not found or the role is not defined
+        }
+    }
+});
+ */
 
 
 
