@@ -7,7 +7,7 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "9Peter@hotmail.de",
+  "email": "10Peter@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "02345",
   "ort":"Musterstadt",
@@ -296,8 +296,8 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Peter",
   "nachname": "Mustermann",
-  "email": "9Peter@hotmail.de",
-  "passwort": "12345",
+  "email": "10Peter@hotmail.de",
+  "passwort": "123456",
   "postleitzahl": "02345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
@@ -363,8 +363,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "9Peter@hotmail.de",
-  "password": "12345"
+  "email": "10Peter@hotmail.de",
+  "password": "123456"
 }
 ###
 
