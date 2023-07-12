@@ -7,7 +7,7 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
+  "email": "80mustermann@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "02345",
   "ort":"Musterstadt",
@@ -83,7 +83,7 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "1peter@@hotmail.com",
+  "email": "peter1234@@hotmail.com",
   "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
@@ -309,7 +309,7 @@ Content-Type: application/json
 }
 
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users
@@ -373,16 +373,7 @@ POST http://localhost:8080/signout HTTP/2
 
 ###
 
-// User signing-in
 
-POST http://localhost:8080/signin
-Content-Type: application/json
-
-{
-  "email": "maik@tester.de",
-  "password": "1234"
-}
-###
 
 
 // User logging-out
@@ -439,8 +430,20 @@ Content-Type: application/json
   "passwort": "neuesPasswort"
 }
 
+###
+// User signing-in
+
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+"email": "80mustermann@hotmail.de",
+"password": "12345"
+}
+###
+
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users
