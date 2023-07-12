@@ -63,7 +63,7 @@ app.listen(PORT, () => {
 // Der Ordner ../client/ wird auf die URL /res gemapped
 app.use(express.static(__dirname + "/../client/"));
 
-app.use("/img", express.static(__dirname+"/../img/"));
+app.use("/img", express.static(__dirname + "/../img/"));
 
 // GET-Routen
 app.get('/', (req, res) => {
@@ -83,7 +83,7 @@ app.put("/user", checkLogin, putUser);
 app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
-app.get("/signout", signOut);
+app.post("/signout", signOut);
 app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
 app.get("/product", getAllProducts);
@@ -130,9 +130,9 @@ function postUser(req: express.Request, res: express.Response): void {
     const telefonnummer: string = req.body.telefonnummer;
     const newsletter: string = req.body.newsletter
 
-    const { error } = validateUser(false, req.body);
+    const {error} = validateUser(false, req.body);
 
-    if(error) {
+    if (error) {
         res.status(403).json(error.details[0].message);
         console.log(error.details[0].message);
     } else {
@@ -157,9 +157,9 @@ function postUser(req: express.Request, res: express.Response): void {
         connection.query(newQuery, data, (err, result) => {
             if (err) {
                 //Anstatt des Servers wird die Datenbank gefragt, ob die Email schon vorhanden ist
-                if (err.code === "ER_DUP_ENTRY"){
+                if (err.code === "ER_DUP_ENTRY") {
                     res.status(400).send("Email schon existent.");
-                }else {
+                } else {
                     console.log("postUser: " + err);
                     res.status(400);
                     res.send("Etwas ist schief gelaufen. :(");
@@ -221,20 +221,20 @@ function putUser(req: express.Request, res: express.Response): void {
 
 function deleteUser(req: express.Request, res: express.Response): void {
 
-    const email: string = req.body.email;
-    const passwort = req.body.passwort;
+    const logeedinUser: string = req.session.email;
+    const query: string = 'DELETE FROM Nutzerliste WHERE Email = ?;';
 
-    console.log("Deleting user " + email);
-    console.log("Email: " + email + ", Password: " + passwort);
-    if(email !== undefined && passwort !== undefined){
-        if (email === req.session.email && req.session.passwort){
-            query("DELETE FROM Nutzerliste WHERE email = ? AND Passwort = ?;",[email,passwort]).then((result: any) => {
-                res.status(200);
-            });
+
+    connection.query(query, [logeedinUser], (err, result) => {
+        if (err) {
+            res.status(500);
+            res.send("There went something wrong!")
+            console.log("deleteUser" + err);
+        } else {
+            res.status(200);
+            res.send("User successfully deleted!");
         }
-    }else {
-        res.sendStatus(500);
-    }
+    });
 }
 
 
@@ -274,15 +274,16 @@ function getProductRating(req: express.Request, res: express.Response): void {
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
     const passwort: string = req.body.password;
+    const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
-                req.session.passwort = passwort;
+                req.session.passwort = cryptopass;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
-                res.sendStatus(500);
+                res.sendStatus(400);
             }
         }).catch(() => {
             console.log("500 in catch");
@@ -305,10 +306,10 @@ function signOut(req: express.Request, res: express.Response): void {
 }
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
-    if (req.session) {
+    if (req.session.email !== undefined) {
         next();
     } else {
-        res.status(400);
+        res.status(401);
         res.send("User is not logged in! ")
     }
 }
@@ -317,7 +318,7 @@ function disableUser(req: express.Request, res: express.Response): void {
 
 }
 
-function validateUser(isPut,user){
+function validateUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)

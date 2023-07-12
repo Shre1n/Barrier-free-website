@@ -10,9 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const registrieren = document.querySelector("#registrieren");
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
+    //const loginUser = document.querySelector("#loginUser");
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
+            console.log(document.getElementById("modalForm"));
+            document.getElementById("modalForm").addEventListener("submit", addUser);
         });
     }
     if (signupform) {
@@ -26,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
         loginform.addEventListener("click", () =>{
            modalFensterUser.hide();
            modalFensterUserLogin.show();
+           document.getElementById("modalFormlogin").addEventListener("submit", signIn);
         });
     }
-    console.log(document.getElementById("modalForm"));
-    document.getElementById("modalForm").addEventListener("submit", addUser);
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -149,6 +152,29 @@ function delUser(): void {
  * Meldet den jetzigen User ab und setzt die Session des Users auf null
  *
  */
+
+function signIn(event: Event): void {
+    event.preventDefault();
+    const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
+    const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
+
+    console.log("dhewhui");
+    axios.post("/signin", {
+        email: email,
+        passwort: passwort
+    }).then((res: AxiosResponse) => {
+        console.log(res);
+        console.log(email + " " + passwort + " ist angemeldet.");
+        form.reset();
+        document.getElementById("logginError").innerText = "";
+    }).catch((reason: AxiosError) => {
+        if (reason.response.status == 400){
+            document.getElementById("logginError").innerText = "Passwort oder Email ist falsch."
+        }
+    });
+}
 
 function signOff(): void {
     axios.get("/signout").then((res: AxiosResponse) => {

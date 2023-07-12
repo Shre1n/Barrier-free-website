@@ -317,7 +317,7 @@ Content-Type: application/json
 }
 
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users
@@ -448,7 +448,7 @@ Content-Type: application/json
 }
 
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users
