@@ -3,8 +3,6 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
-let modalNutzerlöschen: bootstrap.Modal;
-let currentUser: Map<string, string> = new Map<string, string>();
 
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
@@ -20,38 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (signupform) {
         signupform.addEventListener("click", () => {
             modalFensterUserLogin.hide();
+            modalFensterUser.show();
+        });
 
-            if (loginform) {
-                loginform.addEventListener("click", () => {
-                    modalFensterUser.hide();
-                    modalFensterUserLogin.show();
-                })
-            }
-            console.log(document.getElementById("modalForm"));
-            document.getElementById("modalForm").addEventListener("submit", addUser);
-
+    }
+    if (loginform) {
+        loginform.addEventListener("click", () =>{
+           modalFensterUser.hide();
+           modalFensterUserLogin.show();
         });
     }
+    console.log(document.getElementById("modalForm"));
+    document.getElementById("modalForm").addEventListener("submit", addUser);
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    modalNutzerlöschen = new bootstrap.Modal(document.getElementById("ModalNutzerlöschen"));
-    const loeschen = document.querySelector("#nutzerlöschenbutton");
-    const abbrechen = document.querySelector("#nutzerlöschenabbrechen");
-    if (loeschen) {
-        loeschen.addEventListener("click", () => {
-            modalNutzerlöschen.show();
-        });
-    }
-    if (abbrechen) {
-        abbrechen.addEventListener("click", () => {
-            modalNutzerlöschen.hide();
-        });
-    }
-    console.log(document.getElementById("ModalNutzerlöschen"));
-    document.getElementById("ModalNutzerlöschen").addEventListener("submit", delUser);
-
-});
 
 function addUser(event: Event): void {
     event.preventDefault();
