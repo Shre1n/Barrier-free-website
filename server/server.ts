@@ -192,7 +192,7 @@ function deleteUser(req: express.Request, res: express.Response): void {
     const validemail: string = req.params.email;
     const email = req.session.email;
 
-    const query: string = 'DELETE FROM user WHERE Username = ?;';
+    const query: string = 'DELETE FROM Nutzerliste WHERE Email = ?;';
 
     if (validemail === email) {
         connection.query(query, [email], (err, result) => {
