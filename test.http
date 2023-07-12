@@ -364,7 +364,7 @@ Content-Type: application/json
 
 {
   "email": "10Peter@hotmail.de",
-  "password": "123456"
+  "passwort": "123456"
 }
 ###
 

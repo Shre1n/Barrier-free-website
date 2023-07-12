@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const registrieren = document.querySelector("#registrieren");
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
+    const abmelden = document.querySelector("#abmelden");
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
-    document.getElementById("abmelden").addEventListener("submit", signOff)
+    abmelden.addEventListener("click", signOff);
 
 });
 
@@ -195,8 +196,11 @@ function signIn(event: Event): void {
 }
 
 function signOff(): void {
-    axios.get("/signout").then((res: AxiosResponse) => {
+    console.log("will abmelden")
+    axios.post("/signout").then((res: AxiosResponse) => {
+        window.location.reload();
         console.log(res);
+        console.log("hab abgemeldet")
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
