@@ -15,6 +15,7 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
+        rollenid: number;
     }
 }
 
@@ -81,7 +82,8 @@ app.use(express.urlencoded({extended: false}));
 app.post("/user", postUser);
 app.put("/user", checkLogin, putUser);
 app.delete("/deleteUser", checkLogin, deleteUser);
-app.post("/bewertungen", checkLogin)
+app.post("/bewertungen", checkLogin);
+app.get("/user", checkLogin, getUser);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.get("/product/:name", getProduct);
@@ -188,14 +190,14 @@ function postAdmin(req: express.Request, res: express.Response): void {
 
 function getUser(req: express.Request, res: express.Response): void {
 
-    query("SELECT Vorname,Nachname FROM Nutzerliste WHERE Email = ?", [req.session.email])
+    query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
         .then((results: any) => {
             res.status(200);
             res.json({
+                anrede: results[0].Anrede,
                 vorname: results[0].Vorname,
                 nachname: results[0].Nachname,
                 email: results[0].Email,
-                anrede: results[0].Anrede,
                 passwort: results[0].Passwort,
                 postleitzahl: results[0].Postleitzahl,
                 ort: results[0].Ort,

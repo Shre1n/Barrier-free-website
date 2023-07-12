@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
-    await getUser();
-    await displayProfile();
+    getUser();
+    displayProfile();
 });
 
 function addUser(event: Event): void {
@@ -211,6 +211,9 @@ function signOff(): void {
 }
 
 async function getUser(){
+
+    axios.get("/user");
+
     const response = await fetch("/user", {
       method: "get"
     });
