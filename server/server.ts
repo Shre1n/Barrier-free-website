@@ -275,7 +275,7 @@ function getProductRating(req: express.Request, res: express.Response): void {
 // Prüft, ob ein Nutzer registriert ist und speichert ggf. den Nutzernamen im Sessionstore ab
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
-    const passwort: string = req.body.password;
+    const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
         query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {

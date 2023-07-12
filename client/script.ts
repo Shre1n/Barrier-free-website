@@ -1,8 +1,5 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
-
-import axios from "axios";
-
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalNutzerlöschen: bootstrap.Modal;
@@ -17,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
             console.log(document.getElementById("modalForm"));
-            document.getElementById("modalForm").addEventListener("submit", addUser);
         });
     }
     if (signupform) {
@@ -25,15 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUserLogin.hide();
             modalFensterUser.show();
         });
-
     }
+
     if (loginform) {
         loginform.addEventListener("click", () =>{
            modalFensterUser.hide();
            modalFensterUserLogin.show();
-           document.getElementById("modalFormlogin").addEventListener("submit", signIn);
         });
     }
+    document.getElementById("modalForm").addEventListener("submit", addUser);
+    document.getElementById("modalFormlogin").addEventListener("submit", signIn);
 
 });
 
@@ -206,10 +203,11 @@ function signIn(event: Event): void {
         console.log(res);
         console.log(email + " " + passwort + " ist angemeldet.");
         form.reset();
-        document.getElementById("logginError").innerText = "";
+        modalFensterUserLogin.hide();
+        document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
-            document.getElementById("logginError").innerText = "Passwort oder Email ist falsch."
+            document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
     });
 }
