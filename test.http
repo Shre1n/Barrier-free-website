@@ -7,7 +7,7 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
+  "email": "9Peter@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "02345",
   "ort":"Musterstadt",
@@ -293,9 +293,17 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-  "vorname": "Muster",
-  "nachname": "Maxmann",
-  "passwort": "54321"
+  "anrede": "Herr",
+  "vorname": "Peter",
+  "nachname": "Mustermann",
+  "email": "9Peter@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "02345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
 }
 
 ### Bearbeiten eines Users (nur Passwort)
@@ -355,8 +363,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "maik@tester.de",
-  "password": "1234"
+  "email": "9Peter@hotmail.de",
+  "password": "12345"
 }
 ###
 

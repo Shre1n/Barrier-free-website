@@ -79,7 +79,7 @@ app.use(express.urlencoded({extended: false}));
 
 //Nutzer Routen
 app.post("/user", postUser);
-app.put("/user/:id", checkLogin, putUser);
+app.put("/user", checkLogin, putUser);
 app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
@@ -192,6 +192,31 @@ function getUser(req: express.Request, res: express.Response): void {
 
 function putUser(req: express.Request, res: express.Response): void {
 
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const passwort: string = req.body.passwort;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+    const telefonnummer: string = req.body.telefonnummer;
+    const newsletter: string = req.body.newsletter;
+
+    const email: string = req.session.email;
+
+    const data: [string, string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname, passwort, postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
+    const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?,  Passwort = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ?, WHERE Email = ?;`;
+
+    connection.query(query, data, (err, result) => {
+        if (err) {
+            res.status(500);
+            res.send("Etwas ist schiefgelaufen");
+        }   else {
+            res.status(200);
+            res.send("Nutzer bearbeitet!");
+        }
+    });
 }
 
 function deleteUser(req: express.Request, res: express.Response): void {
