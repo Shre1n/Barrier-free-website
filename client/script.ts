@@ -9,13 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
+    const deleteUser = document.querySelector("#userdelete") as HTMLElement;
+    const deleteUserCheck = document.querySelector("#userdeletecheck") as HTMLElement;
 
-    if (registrieren) {
+
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
             console.log(document.getElementById("modalForm"));
         });
-    }
+
     if (signupform) {
         signupform.addEventListener("click", () => {
             modalFensterUserLogin.hide();
@@ -29,9 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
            modalFensterUserLogin.show();
         });
     }
+    if (deleteUser) {
+        deleteUser.addEventListener("click", () => {
+            deleteUser.style.display="none"
+            deleteUserCheck.style.display="block"
+        });
+    }
+
+
+
+
+
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
+    deleteUserCheck.addEventListener("click", delUser);
 
 });
 
