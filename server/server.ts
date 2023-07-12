@@ -300,12 +300,12 @@ function validateUser(isPut,user){
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname ist darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname ist darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
             .min(2)
             .required(),
         email: Joi.string()
