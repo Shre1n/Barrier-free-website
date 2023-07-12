@@ -1,6 +1,8 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
 
+import axios from "axios";
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalNutzerlöschen: bootstrap.Modal;
@@ -143,6 +145,42 @@ function delUser(): void {
         signOff();
     }).catch((reason: AxiosError) => {
         console.log(reason);
+    });
+}
+
+function editUser(): void {
+    event.preventDefault();
+    const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
+    const vorname: String = (document.getElementById("vornameNeu") as HTMLInputElement).value;
+    const nachname: String = (document.getElementById("nachnameNeu") as HTMLInputElement).value;
+    const passwort: String = (document.getElementById("passwortNeu") as HTMLInputElement).value;
+    const postleitzahl: String = (document.getElementById("postleitzahlNeu") as HTMLInputElement).value;
+    const ort: String = (document.getElementById("ortNeu") as HTMLInputElement).value;
+    const strasse: String = (document.getElementById("strasseNeu") as HTMLInputElement).value;
+    const hnr: String = (document.getElementById("hausnummerNeu") as HTMLInputElement).value;
+    const telefonnummer: String = (document.getElementById("telefonnummerNeu") as HTMLInputElement).value;
+    const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
+
+    axios.put("/user", {
+        anrede:anrede,
+        vorname:vorname,
+        nachname:nachname,
+        passwort:passwort,
+        postleitzahl:postleitzahl,
+        ort:ort,
+        strasse:strasse,
+        hnr:hnr,
+        telefonnummer:telefonnummer,
+        checkbox:checkbox
+    }).then((res: AxiosResponse) => {
+        console.log(res);
+        form.reset();
+    }).catch((reason: AxiosError) => {
+        if (reason.response.status == 400) {
+            document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
+        }
     });
 }
 
