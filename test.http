@@ -355,8 +355,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "maik@tester.de",
-  "password": "1234"
+  "email": "jonastest@test.de",
+  "password": "12345"
 }
 ###
 
@@ -437,7 +437,7 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-"email": "80mustermann@hotmail.de",
+"email": "jonastest@test.de",
 "password": "12345"
 }
 ###

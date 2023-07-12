@@ -83,7 +83,7 @@ app.put("/user/:id", checkLogin, putUser);
 app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin)
 app.post("/signin", signIn);
-app.get("/signout", signOut);
+app.post("/signout", signOut);
 app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
 app.get("/product", getAllProducts);
