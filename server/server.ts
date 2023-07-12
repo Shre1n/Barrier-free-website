@@ -13,6 +13,7 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
+        rollenid: string;
     }
 }
 
@@ -84,7 +85,7 @@ app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-app.get("user", getRole);
+app.get("/user", getRole);
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -215,13 +216,8 @@ function deleteUser(req: express.Request, res: express.Response): void {
 }
 
 function getRole(req: express.Request, res: express.Response): void {
-    query("SELECT RollenID FROM Nutzerliste WHERE Email = ?", [req.session.email])
-        .then((results: any) => {
-            res.status(200);
-            res.json({
-                RollenID: results[0].RollenID
-            })
-        })
+    res.status(200)
+    res.json({rollenid: req.session.rollenid});
 }
 
 // in der SignIn-Funktion die RollenID in der Session speichern durch SQL-Abfrage, damit RollenID permanent in der Session abgefragt werden kann
@@ -264,10 +260,11 @@ function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
     const passwort: string = req.body.password;
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
+        query("SELECT Vorname, Nachname, RollenID FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = passwort;
+                req.session.rollenid = result[0].RollenID;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -301,6 +298,8 @@ function checkLogin(req: express.Request, res: express.Response, next: express.N
         res.status(400);
         res.send("User is not logged in! ")
     }
+    //* if (req.session.rollenid = 3) {
+
 }
 
 function disableUser(req: express.Request, res: express.Response): void {

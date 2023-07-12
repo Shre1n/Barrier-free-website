@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
     await getUser();
+    displayProfile();
 });
 
 function addUser(event: Event): void {
@@ -94,20 +95,34 @@ function renderUserProfile(data: any){
     newsletterElement.innerText = data.newsletter;
 }
 
-async function getRole(){
-    const response = await fetch("/user", {
-        method: "get"
-    });
-    const data = await response.json();
-    displayProfile(data);
-}
 
-function displayProfile(data: any) {
+async function displayProfile() {
  const DisplayUser = document.getElementById('nutzerProfil')
  const DisplayCeo = document.getElementById('ceoProfil')
  const DisplayAdmin = document.getElementById('adminProfil')
 
-    if()
+    try {
+        const res: Response = await fetch("/user" , {method: "GET"});
+        const json = await res.json();
+        if (json.rollenid === "1"){
+            DisplayCeo.hidden = true;
+            DisplayAdmin.hidden = false;
+            DisplayUser.hidden = true;
+        }
+        else if (json.rollenid === "2"){
+            DisplayCeo.hidden = false;
+            DisplayAdmin.hidden = true;
+            DisplayUser.hidden = true;
+        }
+        else if (json.rollenid === "3"){
+            DisplayCeo.hidden = true;
+            DisplayAdmin.hidden = true;
+            DisplayUser.hidden = false;
+        }
+    }
+    catch (err) {
+        console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
+    }
 }
 
 
