@@ -94,4 +94,21 @@ function renderUserProfile(data: any){
     newsletterElement.innerText = data.newsletter;
 }
 
+async function getRole(){
+    const response = await fetch("/user", {
+        method: "get"
+    });
+    const data = await response.json();
+    displayProfile(data);
+}
+
+function displayProfile(data: any) {
+ const DisplayUser = document.getElementById('nutzerProfil')
+ const DisplayCeo = document.getElementById('ceoProfil')
+ const DisplayAdmin = document.getElementById('adminProfil')
+
+    if()
+}
+
+
 

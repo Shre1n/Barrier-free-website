@@ -61,7 +61,7 @@ app.listen(PORT, () => {
 // Der Ordner ../client/ wird auf die URL /res gemapped
 app.use(express.static(__dirname + "/../client/"));
 
-app.use("/img", express.static(__dirname+"/../img/"));
+app.use("/img", express.static(__dirname + "/../img/"));
 
 //JSON und URLenconded
 app.use(express.json());
@@ -84,6 +84,7 @@ app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
+app.get("user", getRole);
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -151,9 +152,9 @@ function postUser(req: express.Request, res: express.Response): void {
         connection.query(newQuery, data, (err, result) => {
             if (err) {
                 //Anstatt des Servers wird die Datenbank gefragt, ob die Email schon vorhanden ist
-                if (err.code === "ER_DUP_ENTRY"){
+                if (err.code === "ER_DUP_ENTRY") {
                     res.status(400).send("Email schon existent.");
-                }else {
+                } else {
                     console.log("postUser: " + err);
                     res.status(400);
                     res.send("Etwas ist schief gelaufen. :(");
@@ -182,26 +183,27 @@ function postAdmin(req: express.Request, res: express.Response): void {
 
 function getUser(req: express.Request, res: express.Response): void {
 
-        query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
-            .then((results: any) => {
-                res.status(200);
-                res.json({vorname: results[0].Vorname,
-                                nachname: results[0].Nachname,
-                                email: results[0].Email,
-                                anrede: results[0].Anrede,
-                                passwort: results[0].Passwort,
-                                postleitzahl: results[0].Postleitzahl,
-                                ort: results[0].Ort,
-                                straße: results[0].Straße,
-                                hnr: results[0].HausNr,
-                                telefonnummer: results[0].Telefonnummer,
-                                newsletter: results[0].Newsletter
-                })
+    query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
+        .then((results: any) => {
+            res.status(200);
+            res.json({
+                vorname: results[0].Vorname,
+                nachname: results[0].Nachname,
+                email: results[0].Email,
+                anrede: results[0].Anrede,
+                passwort: results[0].Passwort,
+                postleitzahl: results[0].Postleitzahl,
+                ort: results[0].Ort,
+                straße: results[0].Straße,
+                hnr: results[0].HausNr,
+                telefonnummer: results[0].Telefonnummer,
+                newsletter: results[0].Newsletter
             })
-            .catch((err: mysql.MysqlError) => {
-                res.sendStatus(500);
-                console.log(err);
-            })
+        })
+        .catch((err: mysql.MysqlError) => {
+            res.sendStatus(500);
+            console.log(err);
+        })
 }
 
 function putUser(req: express.Request, res: express.Response): void {
@@ -211,6 +213,18 @@ function putUser(req: express.Request, res: express.Response): void {
 function deleteUser(req: express.Request, res: express.Response): void {
 
 }
+
+function getRole(req: express.Request, res: express.Response): void {
+    query("SELECT RollenID FROM Nutzerliste WHERE Email = ?", [req.session.email])
+        .then((results: any) => {
+            res.status(200);
+            res.json({
+                RollenID: results[0].RollenID
+            })
+        })
+}
+
+// in der SignIn-Funktion die RollenID in der Session speichern durch SQL-Abfrage, damit RollenID permanent in der Session abgefragt werden kann
 
 
 //Produkt Routen
@@ -265,7 +279,6 @@ function signIn(req: express.Request, res: express.Response): void {
         });
     }
 }
-
 
 
 // User meldet sich ab -> Session wird gelöscht
