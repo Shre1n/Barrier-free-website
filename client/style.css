@@ -374,6 +374,10 @@ body {
     display: none;
 }
 
+#profilseite{
+    display: none;
+}
+
 .rowHeader {
     height: 6.25em;
 }

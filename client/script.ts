@@ -176,6 +176,8 @@ function signIn(event: Event): void {
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
     const logout = (document.querySelector("#abmelden")as HTMLElement);
+    const profil= (document.querySelector("#profilseite") as HTMLElement);
+    const registrieren= (document.querySelector("#registrieren") as HTMLElement);
 
     console.log("dhewhui");
     axios.post("/signin", {
@@ -187,6 +189,8 @@ function signIn(event: Event): void {
         form.reset();
         modalFensterUserLogin.hide();
         logout.style.display="inline-block";
+        profil.style.display="inline-block";
+        registrieren.style.display="none";
         document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
@@ -205,4 +209,3 @@ function signOff(): void {
         console.log(reason);
     });
 }
-
