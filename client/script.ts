@@ -2,13 +2,16 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+let currentUser: Map<string, string> = new Map<string, string>();
 document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname;
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren");
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
+    const profil= (document.querySelector("#profilseite") as HTMLElement);
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -29,13 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
            modalFensterUserLogin.show();
         });
     }
+
+    if (profil){
+        profil.addEventListener("click", (event) => {
+            event.preventDefault();
+            console.log("Nicht laden!");
+            getUser();
+        });
+    }
+
+
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
-    getUser();
-    displayProfile();
 });
 
 function addUser(event: Event): void {
@@ -213,18 +224,46 @@ function signOff(): void {
     });
 }
 
-async function getUser(){
-
-    axios.get("/user");
-
-    const response = await fetch("/user", {
-      method: "get"
+function getUser(){
+    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
+    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
+    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value;
+    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value;
+    const email: String = (document.getElementById("email") as HTMLInputElement).value;
+    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value;
+    const ort: String = (document.getElementById("ort") as HTMLInputElement).value;
+    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value;
+    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
+    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
+    const newsletter =  document.getElementById("displaynewsletter");
+    const nameElement = document.getElementById("nutzerName")
+    axios.get("/user",{
+        anrede:anrede,
+        vorname: vorname,
+        nachname: nachname,
+        email:email,
+        passwort:passwort,
+        postleizahl:postleitzahl,
+        ort: ort,
+        strasse: strasse,
+        hausnummer: hnr,
+        telefonnummer:telefonnummer,
+        newsletter:newsletter,
+        rollenid: (1|2|3)
+    }).then((res:AxiosResponse) => {
+        console.log("Hier");
+        const userData = res.data;
+        console.log(userData);
+        if (userData.rollenid === 3){
+            renderUserProfile(userData);
+            console.log("DA DU KEK");
+        }
+        console.log(res);
+        currentUser = new Map<string, string>();
     });
-    const data = await response.json();
-    renderUserProfile(data);
 }
 
-function renderUserProfile(data: any){
+function renderUserProfile(userData) {
     const anredeElement = document.getElementById('displayanrede');
     const vornameElement = document.getElementById('displayvorname');
     const nachnameElement = document.getElementById('displaynachname');
@@ -235,25 +274,25 @@ function renderUserProfile(data: any){
     const strasseElement = document.getElementById('displaystrasse');
     const hnrElement = document.getElementById('displayhausnummer');
     const telefonnummerElement = document.getElementById('displaytelefonnummer');
-    const newsletterElement =  document.getElementById("displaynewsletter");
-    const nameElement = document.getElementById("nutzerName")
+    const newsletterElement = document.getElementById("displaynewsletter");
+    const nameElement = document.getElementById("nutzerName");
 
-    anredeElement.innerText = data.anrede;
-    vornameElement.innerText = data.vorname;
-    nachnameElement.innerText = data.nachname;
-    emailElement.innerText = data.email;
-    passwortElement.innerText = data.passwort;
-    plzElement.innerText = data.postleitzahl;
-    ortElement.innerText = data.ort;
-    strasseElement.innerText = data.strasse;
-    hnrElement.innerText = data.hnr;
-    telefonnummerElement.innerText = data.telefonnummer;
-    newsletterElement.innerText = data.newsletter;
-    nameElement.innerText = data.vorname + data.nachname;
-
+    anredeElement.innerText = userData.anrede;
+    vornameElement.innerText = userData.vorname;
+    nachnameElement.innerText = userData.nachname;
+    emailElement.innerText = userData.email;
+    passwortElement.innerText = userData.passwort;
+    plzElement.innerText = userData.postleitzahl;
+    ortElement.innerText = userData.ort;
+    strasseElement.innerText = userData.strasse;
+    hnrElement.innerText = userData.hausnummer;
+    telefonnummerElement.innerText = userData.telefonnummer;
+    newsletterElement.innerText = userData.newsletter;
+    nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
 
 
+/*
  async function displayProfile() {
      const DisplayUser = document.getElementById('nutzerProfil')
      const DisplayCeo = document.getElementById('ceoProfil')
@@ -279,6 +318,8 @@ function renderUserProfile(data: any){
          console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
      }
  }
+
+ */
 
 
 

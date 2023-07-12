@@ -15,7 +15,6 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
-        rollenid: number;
     }
 }
 
@@ -191,21 +190,21 @@ function postAdmin(req: express.Request, res: express.Response): void {
 function getUser(req: express.Request, res: express.Response): void {
 
     query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
-        .then((results: any) => {
+        .then((result: any) => {
             res.status(200);
             res.json({
-                anrede: results[0].Anrede,
-                vorname: results[0].Vorname,
-                nachname: results[0].Nachname,
-                email: results[0].Email,
-                passwort: results[0].Passwort,
-                postleitzahl: results[0].Postleitzahl,
-                ort: results[0].Ort,
-                strasse: results[0].strasse,
-                hnr: results[0].HausNr,
-                telefonnummer: results[0].Telefonnummer,
-                newsletter: results[0].Newsletter,
-                rollenid: req.session.rollenid
+                anrede: result[0].Anrede,
+                vorname: result[0].Vorname,
+                nachname: result[0].Nachname,
+                email: result[0].Email,
+                passwort: result[0].Passwort,
+                postleitzahl: result[0].Postleitzahl,
+                ort: result[0].Ort,
+                strasse: result[0].Straße,
+                hnr: result[0].HausNr,
+                telefonnummer: result[0].Telefonnummer,
+                newsletter: result[0].Newsletter,
+                rollenid: result[0].RollenID
             })
         })
         .catch((err: mysql.MysqlError) => {
