@@ -2,14 +2,13 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
-let modalNutzerlöschen: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren");
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
-    //const loginUser = document.querySelector("#loginUser");
+
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -31,25 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
-
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    modalNutzerlöschen = new bootstrap.Modal(document.getElementById("ModalNutzerlöschen"));
-    const loeschen = document.querySelector("#nutzerlöschenbutton");
-    const abbrechen = document.querySelector("#nutzerlöschenabbrechen");
-    if (loeschen) {
-        loeschen.addEventListener("click", () => {
-            modalNutzerlöschen.show();
-        });
-    }
-    if (abbrechen) {
-        abbrechen.addEventListener("click", () => {
-            modalNutzerlöschen.hide();
-        });
-    }
-    console.log(document.getElementById("ModalNutzerlöschen"));
-    document.getElementById("ModalNutzerlöschen").addEventListener("submit", delUser);
 
 });
 
