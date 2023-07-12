@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+    document.getElementById("abmelden").addEventListener("submit", signOff)
 
 });
 
