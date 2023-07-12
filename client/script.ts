@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -174,6 +173,7 @@ function signIn(event: Event): void {
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
+    const logout = (document.querySelector("#abmelden")as HTMLElement);
 
     console.log("dhewhui");
     axios.post("/signin", {
@@ -184,6 +184,7 @@ function signIn(event: Event): void {
         console.log(email + " " + passwort + " ist angemeldet.");
         form.reset();
         modalFensterUserLogin.hide();
+        logout.style.display="inline-block";
         document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
