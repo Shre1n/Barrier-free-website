@@ -370,7 +370,7 @@ body {
     box-shadow: 2px 2px 5px #707070;
 }
 /* Header */
-#abmelden{
+#abmeldenbutton{
     display: none;
 }
 .rowHeader {

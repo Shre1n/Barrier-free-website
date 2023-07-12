@@ -387,8 +387,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "maik@tester.de",
-  "password": "1234"
+  "email": "10Peter@hotmail.de",
+  "password": "123456"
 }
 ###
 

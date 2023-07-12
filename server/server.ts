@@ -274,12 +274,12 @@ function getProductRating(req: express.Request, res: express.Response): void {
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
     const passwort: string = req.body.password;
-    const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
+
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, passwort]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
-                req.session.passwort = cryptopass;
+                req.session.passwort = passwort;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");

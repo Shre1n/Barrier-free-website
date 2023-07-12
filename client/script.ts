@@ -1,9 +1,5 @@
-//import axios, {AxiosError, AxiosResponse} from "axios;
-
-
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
-let modalNutzerlöschen: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -14,8 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
-            console.log(document.getElementById("modalForm"));
-            document.getElementById("modalForm").addEventListener("submit", addUser);
         });
     }
     if (signupform) {
@@ -23,37 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUserLogin.hide();
             modalFensterUser.show();
         });
-
     }
     if (loginform) {
         loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
-           document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
     }
-
+    document.getElementById("ModalUser").addEventListener("submit", addUser);
+    document.getElementById("ModalUserLogin").addEventListener("submit", signIn);
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-    modalNutzerlöschen = new bootstrap.Modal(document.getElementById("ModalNutzerlöschen"));
-    const loeschen = document.querySelector("#nutzerlöschenbutton");
-    const abbrechen = document.querySelector("#nutzerlöschenabbrechen");
-    if (loeschen) {
-        loeschen.addEventListener("click", () => {
-            modalNutzerlöschen.show();
-        });
-    }
-    if (abbrechen) {
-        abbrechen.addEventListener("click", () => {
-            modalNutzerlöschen.hide();
-        });
-    }
-    console.log(document.getElementById("ModalNutzerlöschen"));
-    document.getElementById("ModalNutzerlöschen").addEventListener("submit", delUser);
-
-});
-
 
 function addUser(event: Event): void {
     event.preventDefault();
@@ -153,12 +126,13 @@ function delUser(): void {
  *
  */
 
-function signIn(event: Event): void {
+/*function signIn(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
+    const signoutbutton = document.querySelector("#abmeldenbutton") as HTMLElement;
 
     console.log("dhewhui");
     axios.post("/signin", {
@@ -168,13 +142,53 @@ function signIn(event: Event): void {
         console.log(res);
         console.log(email + " " + passwort + " ist angemeldet.");
         form.reset();
+        modalFensterUserLogin.hide();
+        signoutbutton.style.display="block";
         document.getElementById("logginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
             document.getElementById("logginError").innerText = "Passwort oder Email ist falsch."
         }
     });
+}*/
+function signIn(event) {
+    event.preventDefault();
+    const email = (document.getElementById("emaillogin") as HTMLInputElement).value;
+    const passwort = (document.getElementById("passwortlogin")as HTMLInputElement).value;
+console.log("Ja")
+    fetch("/signin", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: email,
+            passwort: passwort,
+        }),
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("Anmelden");
+                return response.json();
+            } else {
+                throw new Error("Fehler beim Anmelden");
+            }
+        })
+        /*.then((data) => {
+            console.log(data);
+            console.log(email + " " + passwort + " ist angemeldet.");
+            form.reset();
+            modalFensterUserLogin.hide();
+            document.getElementById("logginError").innerText = "";
+        })*/
+        .catch((error) => {
+            console.log("Nein")
+            document.getElementById("logginError").innerText =
+                "Passwort oder Email ist falsch.";
+            console.error(error);
+        });
 }
+
 
 function signOff(): void {
     axios.get("/signout").then((res: AxiosResponse) => {
