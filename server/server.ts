@@ -189,6 +189,19 @@ function putUser(req: express.Request, res: express.Response): void {
 
 function deleteUser(req: express.Request, res: express.Response): void {
 
+    const email = req.session.email;
+    query("DELETE FROM `Nutzerliste` WHERE Email = ?", //Email ist der Primärschlüssel des Nutzers
+        [email])
+        .then((results: any) => {
+            res.status(200)
+            res.send("Nutzer gelöscht")
+        })
+        .catch((err: mysql.MysqlError) => {
+            // Ansonsten (keine Übereinstimmung) war wohl etwas falsch
+            res.status(404);
+            res.send("Nutzer konnte nicht gelöscht werden");
+        });
+
 }
 
 
