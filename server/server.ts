@@ -85,7 +85,7 @@ app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-app.get("/user", getRole);
+
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -198,7 +198,8 @@ function getUser(req: express.Request, res: express.Response): void {
                 straße: results[0].Straße,
                 hnr: results[0].HausNr,
                 telefonnummer: results[0].Telefonnummer,
-                newsletter: results[0].Newsletter
+                newsletter: results[0].Newsletter,
+                rollenid: req.session.rollenid
             })
         })
         .catch((err: mysql.MysqlError) => {
@@ -214,14 +215,6 @@ function putUser(req: express.Request, res: express.Response): void {
 function deleteUser(req: express.Request, res: express.Response): void {
 
 }
-
-function getRole(req: express.Request, res: express.Response): void {
-    res.status(200)
-    res.json({rollenid: req.session.rollenid});
-}
-
-// in der SignIn-Funktion die RollenID in der Session speichern durch SQL-Abfrage, damit RollenID permanent in der Session abgefragt werden kann
-
 
 //Produkt Routen
 

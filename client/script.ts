@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
     await getUser();
-    displayProfile();
+    await displayProfile();
 });
 
 function addUser(event: Event): void {
@@ -82,6 +82,8 @@ function renderUserProfile(data: any){
     const hnrElement = document.getElementById('displayhausnummer');
     const telefonnummerElement = document.getElementById('displaytelefonnummer');
     const newsletterElement =  document.getElementById("displaynewsletter");
+    const nameElement = document.getElementById("nutzerName")
+
     anredeElement.innerText = data.anrede;
     vornameElement.innerText = data.vorname;
     nachnameElement.innerText = data.nachname;
@@ -93,16 +95,18 @@ function renderUserProfile(data: any){
     hnrElement.innerText = data.hnr;
     telefonnummerElement.innerText = data.telefonnummer;
     newsletterElement.innerText = data.newsletter;
+    nameElement.innerText = data.vorname + data.nachname;
+
 }
 
 
-async function displayProfile() {
+ function displayProfile() {
  const DisplayUser = document.getElementById('nutzerProfil')
  const DisplayCeo = document.getElementById('ceoProfil')
  const DisplayAdmin = document.getElementById('adminProfil')
 
     try {
-        const res: Response = await fetch("/user" , {method: "GET"});
+        const res: Response = fetch("/user" , {method: "GET"});
         const json = await res.json();
         if (json.rollenid === "1"){
             DisplayCeo.hidden = true;
