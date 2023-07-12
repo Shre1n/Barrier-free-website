@@ -91,7 +91,7 @@ function renderUserProfile(data: any){
     passwortElement.innerText = data.passwort;
     plzElement.innerText = data.postleitzahl;
     ortElement.innerText = data.ort;
-    strasseElement.innerText = data.straße;
+    strasseElement.innerText = data.strasse;
     hnrElement.innerText = data.hnr;
     telefonnummerElement.innerText = data.telefonnummer;
     newsletterElement.innerText = data.newsletter;
@@ -100,34 +100,31 @@ function renderUserProfile(data: any){
 }
 
 
- function displayProfile() {
- const DisplayUser = document.getElementById('nutzerProfil')
- const DisplayCeo = document.getElementById('ceoProfil')
- const DisplayAdmin = document.getElementById('adminProfil')
+ async function displayProfile() {
+     const DisplayUser = document.getElementById('nutzerProfil')
+     const DisplayCeo = document.getElementById('ceoProfil')
+     const DisplayAdmin = document.getElementById('adminProfil')
 
-    try {
-        const res: Response = fetch("/user" , {method: "GET"});
-        const json = await res.json();
-        if (json.rollenid === "1"){
-            DisplayCeo.hidden = true;
-            DisplayAdmin.hidden = false;
-            DisplayUser.hidden = true;
-        }
-        else if (json.rollenid === "2"){
-            DisplayCeo.hidden = false;
-            DisplayAdmin.hidden = true;
-            DisplayUser.hidden = true;
-        }
-        else if (json.rollenid === "3"){
-            DisplayCeo.hidden = true;
-            DisplayAdmin.hidden = true;
-            DisplayUser.hidden = false;
-        }
-    }
-    catch (err) {
-        console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-    }
-}
+     try {
+         const res: Response = await fetch("/user", {method: "GET"});
+         const json = await res.json();
+         if (json.rollenid === "1") {
+             DisplayCeo.hidden = true;
+             DisplayAdmin.hidden = false;
+             DisplayUser.hidden = true;
+         } else if (json.rollenid === "2") {
+             DisplayCeo.hidden = false;
+             DisplayAdmin.hidden = true;
+             DisplayUser.hidden = true;
+         } else if (json.rollenid === "3") {
+             DisplayCeo.hidden = true;
+             DisplayAdmin.hidden = true;
+             DisplayUser.hidden = false;
+         }
+     } catch (err) {
+         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
+     }
+ }
 
 
 

@@ -184,7 +184,7 @@ function postAdmin(req: express.Request, res: express.Response): void {
 
 function getUser(req: express.Request, res: express.Response): void {
 
-    query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
+    query("SELECT Vorname,Nachname FROM Nutzerliste WHERE Email = ?", [req.session.email])
         .then((results: any) => {
             res.status(200);
             res.json({
@@ -195,7 +195,7 @@ function getUser(req: express.Request, res: express.Response): void {
                 passwort: results[0].Passwort,
                 postleitzahl: results[0].Postleitzahl,
                 ort: results[0].Ort,
-                straße: results[0].Straße,
+                strasse: results[0].strasse,
                 hnr: results[0].HausNr,
                 telefonnummer: results[0].Telefonnummer,
                 newsletter: results[0].Newsletter,
