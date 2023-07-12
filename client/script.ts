@@ -4,6 +4,7 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalNutzerlöschen: bootstrap.Modal;
+let currentUser: Map<string, string> = new Map<string, string>();
 
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
@@ -86,11 +87,27 @@ function addUser(event: Event): void {
 }
 
 function delUser(): void{
-    axios.delete("/user/",{
-
-    }).then((res: AxiosResponse) => {
+    axios.delete(`/user/${currentUser.get("email")}`).then((res: AxiosResponse) => {
         console.log(res);
+        signOff();
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
 }
+
+/**
+ *
+ * Methode zum Abmelden des Users
+ * Meldet den jetzigen User ab und setzt die Session des Users auf null
+ *
+ */
+
+function signOff(): void {
+    axios.get("/signout").then((res: AxiosResponse) => {
+        console.log(res);
+        currentUser = new Map<string, string>();
+    }).catch((reason: AxiosError) => {
+        console.log(reason);
+    });
+}
+
