@@ -7,14 +7,14 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
-  "email": "10Peter@hotmail.de",
+  "email": "13Peter@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "02345",
   "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
+  "strasse": "Musterweg",
   "hnr": "1",
   "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
+  "newsletter": "Ja"
 }
 
 ### Anlegen eines neuen Users

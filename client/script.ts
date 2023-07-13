@@ -4,7 +4,6 @@ let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let currentUser: Map<string, string> = new Map<string, string>();
 document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname;
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren");
@@ -32,10 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
            modalFensterUserLogin.show();
         });
     }
-    profil.addEventListener("click",(event: Event)=>{
-      console.log(getUser);
-       getUser();
-    })
+
+    getUser();
 
 
 
@@ -198,12 +195,10 @@ function signIn(event: Event): void {
     }).then((res: AxiosResponse) => {
         console.log(res);
         console.log(email + " " + passwort + " ist angemeldet.");
-        getUser();
         modalFensterUserLogin.hide();
         logout.style.display="inline-block";
         profil.style.display="inline-block";
         registrieren.style.display="none";
-        form.reset();
         document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
@@ -224,31 +219,8 @@ function signOff(): void {
 }
 
 function getUser(){
-    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value;
-    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value;
-    const email: String = (document.getElementById("email") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("ort") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
-    const newsletter =  document.getElementById("displaynewsletter");
-    const nameElement = document.getElementById("nutzerName")
     axios.get("/user",{
-        anrede:anrede,
-        vorname: vorname,
-        nachname: nachname,
-        email:email,
-        passwort:passwort,
-        postleizahl:postleitzahl,
-        ort: ort,
-        strasse: strasse,
-        hausnummer: hnr,
-        telefonnummer:telefonnummer,
-        newsletter:newsletter,
-        rollenid: (1|2|3)
+
     }).then((res:AxiosResponse) => {
         console.log("Hier");
         const userData = res.data;
@@ -267,7 +239,6 @@ function renderUserProfile(userData) {
     const vornameElement = document.getElementById('displayvorname');
     const nachnameElement = document.getElementById('displaynachname');
     const emailElement = document.getElementById('displayemail');
-    const passwortElement = document.getElementById('displaypasswort');
     const plzElement = document.getElementById('displayPLZ');
     const ortElement = document.getElementById('displayort');
     const strasseElement = document.getElementById('displaystrasse');
@@ -280,11 +251,10 @@ function renderUserProfile(userData) {
     vornameElement.innerText = userData.vorname;
     nachnameElement.innerText = userData.nachname;
     emailElement.innerText = userData.email;
-    passwortElement.innerText = userData.passwort;
     plzElement.innerText = userData.postleitzahl;
     ortElement.innerText = userData.ort;
     strasseElement.innerText = userData.strasse;
-    hnrElement.innerText = userData.hausnummer;
+    hnrElement.innerText = userData.hnr;
     telefonnummerElement.innerText = userData.telefonnummer;
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
