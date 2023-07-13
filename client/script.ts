@@ -2,6 +2,7 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -10,12 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
     const deleteUser = document.querySelector("#userdelete") as HTMLButtonElement;
+    const deletecheck = document.querySelector("#userdeletecheck") as HTMLButtonElement;
 
 
-        registrieren.addEventListener("click", () => {
-            modalFensterUserLogin.show();
-            console.log(document.getElementById("modalForm"));
-        });
+    registrieren.addEventListener("click", () => {
+        modalFensterUserLogin.show();
+        console.log(document.getElementById("modalForm"));
+    });
 
     if (signupform) {
         signupform.addEventListener("click", () => {
@@ -25,17 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (loginform) {
-        loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
+        loginform.addEventListener("click", () => {
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
     }
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
-    deleteUser.addEventListener("click", ()=>{
-        return(console.log("hallo?"))
-
+    deleteUser.addEventListener("click", ()=> {
+            console.log("hallo?")
+            deletecheck.style.display = "inline-block"
     });
 
 });
