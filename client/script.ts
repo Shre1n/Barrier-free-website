@@ -38,8 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
        getUser();
     })
     editButtonUser.addEventListener("click", (event: Event)=>{
-        const UserEditForm = document.querySelector("#editUser");
-        const UserProfilForm = document.querySelector("#profilUser");
+        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+
+        UserEditForm.style.display="block";
+        UserProfilForm.style.display="none";
     })
 
 
