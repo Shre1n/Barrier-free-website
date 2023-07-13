@@ -1,5 +1,6 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let currentUser: Map<string, string> = new Map<string, string>();
@@ -37,14 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getUser();
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
-    editButtonUser.addEventListener("click", (event: Event) => {
-        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
-        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-        console.log("Wird jetzt angezeigt")
-        UserEditForm.style.display = "block";
-        UserProfilForm.style.display = "none";
-    })
-
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
@@ -52,6 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
 
+    editButtonUser.addEventListener("click", (event: Event) => {
+        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+        console.log("Wird jetzt angezeigt")
+        UserEditForm.style.display = "block";
+        UserProfilForm.style.display = "none";
+    })
 
 });
 
@@ -175,15 +175,14 @@ function editUser(event: Event): void {
             strasse: strasse,
             hnr: hnr,
             telefonnummer: telefonnummer,
-            checkbox: "Ja"
+            newsletter: "Ja"
         }).then((res: AxiosResponse) => {
+            getUser();
+            hideEditUser();
             console.log(res);
             form.reset();
-            UserEditForm.style.display = "none";
-            UserProfilForm.style.display = "block";
-
         }).catch((reason: AxiosError) => {
-            if (reason.response.status == 400) {
+            if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
         });
@@ -198,15 +197,14 @@ function editUser(event: Event): void {
             strasse: strasse,
             hnr: hnr,
             telefonnummer: telefonnummer,
-            checkbox: "Nein"
+            newsletter: "Nein"
         }).then((res: AxiosResponse) => {
             console.log(res);
+            getUser();
+            hideEditUser();
             form.reset();
-            UserEditForm.style.display = "none";
-            UserProfilForm.style.display = "block";
-
         }).catch((reason: AxiosError) => {
-            if (reason.response.status == 400) {
+            if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
         });

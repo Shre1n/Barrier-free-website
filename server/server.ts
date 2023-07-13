@@ -218,7 +218,7 @@ function putUser(req: express.Request, res: express.Response): void {
     const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
     const nachname: string = req.body.nachname;
-    const passwort: string = req.session.passwort;
+
     const postleitzahl: string = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
@@ -228,10 +228,9 @@ function putUser(req: express.Request, res: express.Response): void {
 
     const email: string = req.session.email;
 
-    const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
 
-    const data: [string, string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname, cryptopass, postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
-    const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?,  Passwort = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ? WHERE Email = ?;`;
+    const data: [string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname,  postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
+    const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ? WHERE Email = ?;`;
 
     connection.query(query, data, (err, result) => {
         if (err) {

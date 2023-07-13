@@ -294,7 +294,7 @@ Content-Type: application/json
 
 {
   "anrede": "Herr",
-  "vorname": "Manni",
+  "vorname": "Mannfred",
   "nachname": "Mustermann",
   "email": "max.mustermann@hotmail.de",
   "passwort": "12345",
@@ -303,7 +303,7 @@ Content-Type: application/json
   "strasse": "Am Musterweg",
   "hnr": "1",
   "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
+  "newsletter": "Ja"
 }
 
 ### Bearbeiten eines Users (nur Passwort)
