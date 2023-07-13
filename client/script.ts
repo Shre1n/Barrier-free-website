@@ -32,14 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
            modalFensterUserLogin.show();
         });
     }
+    profil.addEventListener("click",(event: Event)=>{
+      console.log(getUser);
+       getUser();
+    })
 
-    if (profil){
-        profil.addEventListener("click", (event) => {
-            event.preventDefault();
-            console.log("Nicht laden!");
-            getUser();
-        });
-    }
+
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -200,11 +198,12 @@ function signIn(event: Event): void {
     }).then((res: AxiosResponse) => {
         console.log(res);
         console.log(email + " " + passwort + " ist angemeldet.");
-        form.reset();
+        getUser();
         modalFensterUserLogin.hide();
         logout.style.display="inline-block";
         profil.style.display="inline-block";
         registrieren.style.display="none";
+        form.reset();
         document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
