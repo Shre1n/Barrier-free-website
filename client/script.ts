@@ -218,7 +218,7 @@ function signIn(event: Event): void {
 function signOff(): void {
     console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
-        window.location.reload();
+        window.location.href = "/startseite.html";
         console.log(res);
         console.log("hab abgemeldet")
     }).catch((reason: AxiosError) => {
