@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
         UserEditForm.style.display="block";
         UserProfilForm.style.display="none";
-        renderUserEdit();
     })
 });
 
@@ -232,7 +231,7 @@ function getUser(){
         console.log(userData);
         if (userData.rollenid === 3){
             renderUserProfile(userData);
-            console.log("DA DU KEK");
+            renderUserEdit(userData);
         }
         console.log(res);
         currentUser = new Map<string, string>();
@@ -265,7 +264,6 @@ function renderUserProfile(userData) {
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
 function renderUserEdit(userData){
-    const anredeElementEdit = document.getElementById('displayanredeEdit');
     const vornameElementEdit = document.getElementById('displayvornameEdit');
     const nachnameElementEdit = document.getElementById('displaynachnameEdit');
     const emailElementEdit = document.getElementById('displayemailEdit');
@@ -277,7 +275,6 @@ function renderUserEdit(userData){
     const newsletterElementEdit = document.getElementById("displaynewsletterEdit");
     const nameElementEdit = document.getElementById("nutzerName");
 
-    anredeElementEdit.innerText = userData.anrede;
     vornameElementEdit.innerText = userData.vorname;
     nachnameElementEdit.innerText = userData.nachname;
     emailElementEdit.innerText = userData.email;
@@ -289,6 +286,7 @@ function renderUserEdit(userData){
     newsletterElementEdit.innerText = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 
+    editUser();
 }
 
 
