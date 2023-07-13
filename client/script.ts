@@ -34,21 +34,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     getUser();
 
-    editButtonUser.addEventListener("click", (event: Event)=>{
-        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
-        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-
-        UserEditForm.style.display="block";
-        UserProfilForm.style.display="none";
-    })
-
-
-
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
+    editButtonUser.addEventListener("click", (event: Event)=>{
+        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+        UserEditForm.style.display="block";
+        UserProfilForm.style.display="none";
+        getUserEdit();
+    })
 });
 
 function addUser(event: Event): void {
@@ -267,7 +264,9 @@ function renderUserProfile(userData) {
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
+function getUserEdit(){
 
+}
 
 
 /*
