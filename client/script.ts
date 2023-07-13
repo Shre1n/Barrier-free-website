@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
-    const deleteUser = document.querySelector("#userdelete") as HTMLButtonElement;
-    const deletecheck = document.querySelector("#userdeletecheck") as HTMLButtonElement;
+    const deleteUser = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
+    const deletecheck = document.querySelector("#userdeletecheck") as HTMLElement;
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+    deleteUser.addEventListener("click", delUser);
     abmelden.addEventListener("click", signOff);
 
 });
