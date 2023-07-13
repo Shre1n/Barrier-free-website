@@ -32,13 +32,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (deleteUser){
+        deleteUser.addEventListener("click", () => {
+           deleteUser.style.display = "none";
+           deletecheck.style.display = "block";
+        });
+    }
+
     getUser();
 
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
-    deleteUser.addEventListener("click", delUser);
+
+    deletecheck.addEventListener("click", delUser);
     abmelden.addEventListener("click", signOff);
 
 });
@@ -128,8 +136,8 @@ function delUser(event: Event): void {
     console.log("Möchte Löschen")
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
         console.log(res);
-        window.location.reload();
         signOff();
+        window.location.href = "/startseite.html";
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
