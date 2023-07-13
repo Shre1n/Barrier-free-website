@@ -6,7 +6,7 @@ let currentUser: Map<string, string> = new Map<string, string>();
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
-    const registrieren = document.querySelector("#registrieren");
+    const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
@@ -259,6 +259,7 @@ function renderUserProfile(userData) {
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
+
 
 
 /*

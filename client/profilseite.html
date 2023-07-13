@@ -47,14 +47,6 @@
                 <div class="col-lg-3 col-sm-6 col-6">
                     <i id="abmelden"  type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
                 </div>
-                <div  type="button" class="col-lg-3 col-sm-6 col-6">
-                    <a href="profilseite.html">
-                        <i id="profilseite" class="far fa-user headericon iconborder"></i>
-                    </a>
-                </div>
-                <div type="button" class="col-lg-3 col-sm-6 col-6">
-                    <i id="registrieren" class="far fa-user headericon iconborder"></i>
-                </div>
                 <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
                     <i class="fas fa-shopping-bag headericon iconborder"></i>
                 </div>
@@ -182,7 +174,7 @@
                             <label for="checkNewsletter">
                             </label><input class="form-check-input checkboxnews" type="checkbox" name="newsletter"
                                            value="newsletter"
-                                           id="checkNewsletter">
+                                           id="checkNewsletterNeu">
                         </div>
                     </div>
                     <div class="row">
@@ -557,6 +549,185 @@
                     </button>
                     <button id="nutzerlöschenabbrechen" type="button" class="btn btn-primary abbrechenButton">
                         Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section id="content" class="container-lg mt-4"></section>
+
+<div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Anmelden</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormlogin">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=emaillogin type="email" name="email"
+                                   placeholder="Email" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortlogin type="password"
+                                   placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <span id="loginError"></span>
+                <div class="modal-footer">
+                    <p id="signupform">
+                        Noch nicht registriert?
+                    </p>
+                    <button id="loginUser" type="submit" class="btn btn-primary bbutton">
+                        Anmelden
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrieren</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <label for=anrede></label>
+                            <select id="anrede" class="bbutton text-center" required>
+                                <option value="Herr" class="anrede">Herr</option>
+                                <option value="Frau" class="anrede">Frau</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=vorname></label>
+                            <input id=vorname type="text" name="vorname"
+                                   placeholder="Vorname" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=nachname></label>
+                            <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
+                            geht später in den Server-->
+                            <input id=nachname type="text"
+                                   name="nachname" placeholder="Nachname" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=email type="email" name="email"
+                                   placeholder="Email" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=telefonnummer></label>
+                            <input id=telefonnummer type="text" name="telefonnummer"
+                                   placeholder="Telefon" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=strasse></label>
+                            <input id=strasse type="text" name="strasse"
+                                   placeholder="Straße" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=hausnummer></label>
+                            <input id=hausnummer type="text"
+                                   placeholder="Hausnummer" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=postleitzahl></label>
+                            <input id=postleitzahl type="text" name="postleitzahl"
+                                   placeholder="Postleitzahl" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=ort></label>
+                            <input id=ort type="text"  name="ort"
+                                   placeholder="Ort" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwort type="password"  name="passwort" placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortcheck type="password"  name="passwort" placeholder="Passwort wiederholen"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for="checkNewsletter">
+                            </label><input  class="form-check-input" type="checkbox" name="newsletter"
+                                            value="newsletter"
+                                            id="checkNewsletter">
+                        </div>
+                        <div class="col-5">
+                            <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
+                                und regelmäßig mit Neuigkeiten und Angeboten
+                                informiert werden.
+                                Die Abmeldung vom Newsletter
+                                ist jederzeit möglich.</p>
+                            <br>
+                        </div>
+                    </div>
+                    <label for="indexUser"></label>
+                    <input id="indexUser" hidden type="number">
+                    <span id="registrierenError"></span>
+                </div>
+                <div class="modal-footer">
+                    <p id="loginform">
+                        Zurück zur Anmeldung
+                    </p>
+                    <button id="registerUser" type="submit" class="btn btn-primary bbutton">
+                        Registrieren
                     </button>
                 </div>
             </form>
