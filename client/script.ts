@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
     const profil= (document.querySelector("#profilseite") as HTMLElement);
+    const editButtonUser = (document.querySelector("#editIconUser")as HTMLElement);
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -36,7 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(getUser);
        getUser();
     })
-
+    editButtonUser.addEventListener("click", (event: Event)=>{
+        const UserEditForm = document.querySelector("#editUser");
+        const UserProfilForm = document.querySelector("#profilUser");
+    })
 
 
 

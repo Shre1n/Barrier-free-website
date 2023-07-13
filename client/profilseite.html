@@ -21,7 +21,7 @@
         <div class="col-sm-6 d-none d-sm-block">
             <div class="row rowHeader text-center align-items-center">
                 <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
-                    <a  href="startseite.html">
+                    <a href="startseite.html">
                         <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
                     </a>
                 </div>
@@ -45,9 +45,9 @@
         <div class="col-sm-6">
             <div class="row rowHeader text-center align-items-center justify-content-end">
                 <div class="col-lg-3 col-sm-6 col-6">
-                    <i id="abmelden"  type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
+                    <i id="abmelden" type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
                 </div>
-                <div  type="button" class="col-lg-3 col-sm-6 col-6">
+                <div type="button" class="col-lg-3 col-sm-6 col-6">
                     <a href="profilseite.html">
                         <i id="profilseite" class="far fa-user headericon iconborder"></i>
                     </a>
@@ -83,121 +83,126 @@
         </div>
         <div class="row mt-5">
             <div class="col-4">
-                <h3>Nutzerdaten</h3>
-                <div class="boxNutzer" id="nutzerDatenEinsehen">
-                    <div class="text-end">
-                        <i class="fas fa-edit editIcon"></i>
-                    </div>
-                    <div class="row ">
-                        <div class="col-4 nutzerdaten">
-                            <p>Anrede:</p>
-                            <p>Nachname:</p>
-                            <p>Vorname:</p>
-                            <p>Straße:</p>
-                            <p>Hausnummer:</p>
-                            <p>PLZ:</p>
-                            <p>Ort:</p>
-                            <p>Handynummer:</p>
-                            <p>Email:</p>
-                            <p>Newsletter erhalten?:</p>
+                <div id="profilUser">
+                    <h3>Nutzerdaten</h3>
+                    <div class="boxNutzer" id="nutzerDatenEinsehen">
+                        <div class="text-end">
+                            <i class="fas fa-edit" id="editIconUser"></i>
                         </div>
-                        <div class="col-2">
-                            <!--hier kommt Nutzer Info von Spiel in Merkliste--->
-                            <p id="displayanrede"></p>
-                            <p id="displaynachname"></p>
-                            <p id="displayvorname"></p>
-                            <p id="displaystrasse"></p>
-                            <p id="displayhausnummer"></p>
-                            <p id="displayPLZ"></p>
-                            <p id="displayort"></p>
-                            <p id="displaytelefonnummer"></p>
-                            <p id="displayemail"></p>
-                            <p id="displaynewsletter"></p>
+                        <div class="row ">
+                            <div class="col-4 nutzerdaten">
+                                <p>Anrede:</p>
+                                <p>Nachname:</p>
+                                <p>Vorname:</p>
+                                <p>Straße:</p>
+                                <p>Hausnummer:</p>
+                                <p>PLZ:</p>
+                                <p>Ort:</p>
+                                <p>Handynummer:</p>
+                                <p>Email:</p>
+                                <p>Newsletter erhalten?:</p>
+                            </div>
+                            <div class="col-2">
+                                <!--hier kommt Nutzer Info von Spiel in Merkliste--->
+                                <p id="displayanrede"></p>
+                                <p id="displaynachname"></p>
+                                <p id="displayvorname"></p>
+                                <p id="displaystrasse"></p>
+                                <p id="displayhausnummer"></p>
+                                <p id="displayPLZ"></p>
+                                <p id="displayort"></p>
+                                <p id="displaytelefonnummer"></p>
+                                <p id="displayemail"></p>
+                                <p id="displaynewsletter"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="nutzerDatenBearbeiten" class="boxNutzerbe">
-                    <div id="anredeNeu class="dropdown mt-2 spaceDaten">
-                        <button class="btn btn-secondary dropdown-toggle bbutton" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Anrede
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <button class="dropdown-item" type="button">Herr</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">Frau</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nutzerbearbeiten">
-                        <div class="input-group input-group-sm mb-3">
-                            <input id="nachnameNeu" type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="Mustermann">
+                    <div id="editUser" class="boxNutzerbe">
+                        <div id="anredeNeu" class="dropdown mt-2 spaceDaten">
+                            <button class="btn btn-secondary dropdown-toggle bbutton" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                Anrede
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="dropdown-item" type="button">Herr</button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" type="button">Frau</button>
+                                </li>
+                            </ul>
                         </div>
-                        <div id="vornameNeu" class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="Max">
+                        <div class="nutzerbearbeiten">
+                            <div class="input-group input-group-sm mb-3">
+                                <input id="nachnameNeu" type="text" class="form-control"
+                                       aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="Mustermann">
+                            </div>
+                            <div id="vornameNeu" class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="Max">
+                            </div>
+                            <div id="strasseNeu" class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="Musterstraße">
+                            </div>
+                            <div id="hausnummerNeu" class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="1">
+                            </div>
+                            <div id="postleitzahlNeu" class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="12345">
+                            </div>
+                            <div id="ortNeu" class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="Musterstadt">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <input type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="123456789">
+                            </div>
+                            <div id="emailNeu" class="input-group input-group-sm mb-3">
+                                <input disabled type="text" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="mustermail">
+                            </div>
+                            <div>
+                                <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto
+                                    löschen
+                                </button>
+                            </div>
+                            <div id="passwortNeu" class="input-group input-group-sm mb-3">
+                                <input type="password" class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm" value="passwort">
+                            </div>
                         </div>
-                        <div id="strasseNeu" class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="Musterstraße">
-                        </div>
-                        <div id="hausnummerNeu" class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="1">
-                        </div>
-                        <div id="postleitzahlNeu" class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="12345">
-                        </div>
-                        <div id="ortNeu" class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="Musterstadt">
-                        </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="123456789">
-                        </div>
-                        <div id="emailNeu" class="input-group input-group-sm mb-3">
-                            <input disabled type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="mustermail">
-                        </div>
-                        <div>
-                            <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
-                        </div>
-                        <div id="passwortNeu" class="input-group input-group-sm mb-3">
-                            <input type="password" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" value="passwort">
-                        </div>
-                    </div>
-                    <div class="row mt-5">
+                        <div class="row mt-5">
 
-                        <div class="col-10 newsletter">
-                            <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
-                                und regelmäßig mit Neuigkeiten und Angeboten
-                                informiert werden.
-                                Die Abmeldung vom Newsletter
-                                ist jederzeit möglich.</p>
+                            <div class="col-10 newsletter">
+                                <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
+                                    und regelmäßig mit Neuigkeiten und Angeboten
+                                    informiert werden.
+                                    Die Abmeldung vom Newsletter
+                                    ist jederzeit möglich.</p>
+                            </div>
+                            <!------Muss noch vertikal ausgerichtet werden und Rundungen-------->
+                            <div class="col-2">
+                                <label for="checkNewsletterNeu">
+                                </label><input id="checkNewsletterNeu" class="form-check-input checkboxnews"
+                                               type="checkbox" name="newsletter"
+                                               value="newsletter">
+                            </div>
                         </div>
-                        <!------Muss noch vertikal ausgerichtet werden und Rundungen-------->
-                        <div class="col-2">
-                            <label for="checkNewsletter">
-                            </label><input id="checkNewsletterNeu" class="form-check-input checkboxnews" type="checkbox" name="newsletter"
-                                           value="newsletter"
-                                           id="checkNewsletter">
+                        <div class="row">
+                            <div class="col-6 text-center mt-3">
+                                <button id="abbrechenNutzerDaten" class="abbrechenButton">Abbrechen</button>
+                            </div>
+                            <div class="col-6 text-center mt-3">
+                                <button id="speichernNutzerDaten" class="bbutton">Speichern</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6 text-center mt-3">
-                            <button id="abbrechenNutzerDaten" class="abbrechenButton">Abbrechen</button>
-                        </div>
-                        <div class="col-6 text-center mt-3">
-                            <button id="speichernNutzerDaten" class="bbutton">Speichern</button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-4">
                 <h3>Merkliste</h3>
@@ -601,7 +606,7 @@
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">
                     <a href="https://twitter.com/hausuebungwep1%22%3E">
-                        <i class="wIcon fab fa-twitter" ></i>
+                        <i class="wIcon fab fa-twitter"></i>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">
