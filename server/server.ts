@@ -229,18 +229,25 @@ function putUser(req: express.Request, res: express.Response): void {
     const email: string = req.session.email;
 
 
-    const data: [string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname,  postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
-    const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ? WHERE Email = ?;`;
+    const data: [string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
+    const {error} = validateEditUser(false, req.body);
 
-    connection.query(query, data, (err, result) => {
-        if (err) {
-            res.status(500);
-            res.send("Etwas ist schiefgelaufen");
-        }   else {
-            res.status(200);
-            res.send("Nutzer bearbeitet!");
-        }
-    });
+    if (error) {
+        res.status(403).json(error.details[0].message);
+        console.log(error.details[0].message);
+    } else {
+        const query: string = `UPDATE Nutzerliste SET Anrede = ?, Vorname = ?, Nachname = ?, Postleitzahl = ?, Ort = ?, Straße = ?, HausNr = ?, Telefonnummer = ?, Newsletter = ? WHERE Email = ?;`;
+
+        connection.query(query, data, (err, result) => {
+            if (err) {
+                res.status(500);
+                res.send("Etwas ist schiefgelaufen");
+            } else {
+                res.status(200);
+                res.send("Nutzer bearbeitet!");
+            }
+        });
+    }
 }
 
 function deleteUser(req: express.Request, res: express.Response): void {
@@ -366,6 +373,59 @@ function validateUser(isPut, user) {
         passwort: Joi.string()
             .pattern(/.{3,}/)
             .message("Muss größer als 3 Zeichen sein")
+            .required(),
+        postleitzahl: Joi.string()
+            .pattern(/^[0-9]{1,5}$/)
+            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .min(1)
+            .max(5)
+            .required(),
+        ort: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        strasse: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        hnr: Joi.string()
+            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .min(1)
+            .required(),
+        telefonnummer: Joi.string()
+            .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
+            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .min(5)
+            .required(),
+        newsletter: Joi.string()
+            .pattern(/^(Ja|Nein)$/)
+    });
+
+    return schemaPost.validate(user);
+}
+function validateEditUser(isPut, user) {
+    const schemaPost = Joi.object({
+        anrede: Joi.string()
+            .pattern(/^(Herr|Frau)$/)
+            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .required(),
+        vorname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .min(2)
+            .required(),
+        email: Joi.string()
+            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
+            .message("Email muss in folgendem Format sein: test@test.test")
+            .min(2)
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
