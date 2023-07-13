@@ -259,11 +259,8 @@ function signOff(): void {
     });
 }
 
-function getUser(){
-    axios.get("/user",{
-
-    }).then((res:AxiosResponse) => {
-        console.log("Hier");
+function getUser() {
+    axios.get("/user", {}).then((res: AxiosResponse) => {
         const userData = res.data;
         console.log(userData);
         if (userData.rollenid === 3) {
