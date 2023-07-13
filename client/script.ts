@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
         UserEditForm.style.display="block";
         UserProfilForm.style.display="none";
-        getUserEdit();
+        renderUserEdit();
     })
 });
 
@@ -264,7 +264,30 @@ function renderUserProfile(userData) {
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
-function getUserEdit(){
+function renderUserEdit(userData){
+    const anredeElementEdit = document.getElementById('displayanredeEdit');
+    const vornameElementEdit = document.getElementById('displayvornameEdit');
+    const nachnameElementEdit = document.getElementById('displaynachnameEdit');
+    const emailElementEdit = document.getElementById('displayemailEdit');
+    const plzElementEdit = document.getElementById('displayPLZEdit');
+    const ortElementEdit = document.getElementById('displayortEdit');
+    const strasseElementEdit = document.getElementById('displaystrasseEdit');
+    const hnrElementEdit = document.getElementById('displayhausnummerEdit');
+    const telefonnummerElementEdit = document.getElementById('displaytelefonnummerEdit');
+    const newsletterElementEdit = document.getElementById("displaynewsletterEdit");
+    const nameElementEdit = document.getElementById("nutzerName");
+
+    anredeElementEdit.innerText = userData.anrede;
+    vornameElementEdit.innerText = userData.vorname;
+    nachnameElementEdit.innerText = userData.nachname;
+    emailElementEdit.innerText = userData.email;
+    plzElementEdit.innerText = userData.postleitzahl;
+    ortElementEdit.innerText = userData.ort;
+    strasseElementEdit.innerText = userData.strasse;
+    hnrElementEdit.innerText = userData.hnr;
+    telefonnummerElementEdit.innerText = userData.telefonnummer;
+    newsletterElementEdit.innerText = userData.newsletter;
+    nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 
 }
 
