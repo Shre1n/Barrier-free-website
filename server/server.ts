@@ -86,6 +86,10 @@ app.put("/user", checkLogin, putUser);
 app.delete("/deleteUser", checkLogin, deleteUser);
 app.post("/bewertungen", checkLogin);
 app.get("/user", checkLogin, getUser);
+app.get("/cart", getCart);
+app.post("/cart", postCart);
+app.delete("/cart", deleteCart);
+app.put("/cart", putCart);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.get("/product/:name", getProduct);
@@ -367,7 +371,7 @@ function validateUser(isPut, user) {
             .required(),
         email: Joi.string()
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test")
+            .message("Email muss in folgendem Format sein: test@test.de")
             .min(2)
             .required(),
         passwort: Joi.string()
@@ -397,7 +401,7 @@ function validateUser(isPut, user) {
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .message("Telefonnummer muss mind. 5 Nummern enthalten und in dem Format: +49123456 oder 0123456 sein.")
             .min(5)
             .required(),
         newsletter: Joi.string()
@@ -427,6 +431,24 @@ function isLoggedIn(req: express.Request, res: express.Response): void {
     res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
+
+function getCart(req: express.Request, res: express.Response): void {
+
+
+
+}
+
+function postCart(req: express.Request, res: express.Response): void {
+
+}
+
+function putCart(req: express.Request, res: express.Response): void {
+
+}
+
+function deleteCart(req: express.Request, res: express.Response): void {
+
+}
 
 /*
 const query = 'SELECT Email FROM Nutzerliste where RollenID = ?;';

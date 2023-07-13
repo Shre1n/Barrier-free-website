@@ -1,5 +1,7 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
+import axios from "axios";
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteUser = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
     const deletecheck = document.querySelector("#userdeletecheck") as HTMLElement;
 
+
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -23,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         signupform.addEventListener("click", () => {
             modalFensterUserLogin.hide();
             modalFensterUser.show();
+
         });
     }
 
@@ -41,13 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     getUser();
-
-
-
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
 
     abmelden.addEventListener("click", signOff);
+
 
 
 
@@ -59,6 +61,29 @@ document.addEventListener("DOMContentLoaded", () => {
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+    passwortErr.innerText = "";
+    passwortCheckErr.innerText = "";
 
     //Attribute von User
     const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
@@ -92,10 +117,12 @@ function addUser(event: Event): void {
         }).then((res: AxiosResponse) => {
             console.log(res);
             //reset der Form zum Eintragen
+            modalFensterUser.hide();
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
+            (document.getElementById(`${caselower}Err`).innerText= stringEle);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -121,10 +148,13 @@ function addUser(event: Event): void {
         }).then((res: AxiosResponse) => {
             console.log(res);
             //reset der Form zum Eintragen
-            form.reset();
-            document.getElementById("registrierenError").innerText = "";
             modalFensterUser.hide();
+            form.reset();
+            signIn;
+            document.getElementById("registrierenError").innerText = "";
+            console.log("ehruwe");
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -132,7 +162,7 @@ function addUser(event: Event): void {
             console.log(reason);
         });
     } else {
-        document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
+        document.getElementById("passwortCheckErr").innerText = "Passwörter stimmen nicht überein.";
     }
 }
 
@@ -146,6 +176,13 @@ function delUser(event: Event): void {
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
+}
+
+function getErrorMessage(data){
+    const firstSpace = data.indexOf(" ");
+    const firstword = data.substring(0,firstSpace);
+    const caselower = firstword.toLowerCase();
+    (document.getElementById(`${caselower}Err`).innerText= data);
 }
 
 function editUser(event: Event): void {
@@ -193,7 +230,6 @@ function editUser(event: Event): void {
 
 function signIn(event: Event): void {
     event.preventDefault();
-    const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
@@ -201,7 +237,6 @@ function signIn(event: Event): void {
     const profil= (document.querySelector("#profilseite") as HTMLElement);
     const registrieren= (document.querySelector("#registrieren") as HTMLElement);
 
-    console.log("dhewhui");
     axios.post("/signin", {
         email: email,
         passwort: passwort
@@ -224,11 +259,9 @@ function signIn(event: Event): void {
 }
 
 function signOff(): void {
-    console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
         window.location.href = "/startseite.html";
         console.log(res);
-        console.log("hab abgemeldet")
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
@@ -240,12 +273,10 @@ function getUser(){
     axios.get("/user",{
 
     }).then((res:AxiosResponse) => {
-        console.log("Hier");
         const userData = res.data;
         console.log(userData);
         if (userData.rollenid === 3){
             renderUserProfile(userData);
-            console.log("DA DU KEK");
         }
         console.log(res);
     });
@@ -281,6 +312,39 @@ function renderUserProfile(userData) {
 
 }
 
+
+function getCart() {
+    axios.get("/cart", {
+
+    }).then((res:AxiosResponse) => {
+
+    });
+}
+
+function postCart() {
+    axios.post("/cart", {
+
+    }).then((res:AxiosResponse) => {
+
+    });
+}
+
+function deleteCart() {
+    axios.delete("/cart", {
+
+    }).then((res:AxiosResponse) => {
+
+    });
+}
+
+function putCart() {
+    axios.put("/cart", {
+
+    }).then((res:AxiosResponse) => {
+
+    });
+}
+
 async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
     try {
@@ -301,37 +365,5 @@ async function checkLogin() {
 
     }
 }
-
-
-
-/*
- async function displayProfile() {
-     const DisplayUser = document.getElementById('nutzerProfil')
-     const DisplayCeo = document.getElementById('ceoProfil')
-     const DisplayAdmin = document.getElementById('adminProfil')
-
-     try {
-         const res: Response = await fetch("/user", {method: "GET"});
-         const json = await res.json();
-         if (json.rollenid === "1") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = false;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "2") {
-             DisplayCeo.hidden = false;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "3") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = false;
-         }
-     } catch (err) {
-         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-     }
- }
-
- */
-
 
 
