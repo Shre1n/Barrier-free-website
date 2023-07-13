@@ -46,6 +46,13 @@
     border-color: #707070;
 }
 
+#abmelden {
+    display: inline-block; !important;
+}
+
+#registrieren{
+    visibility: hidden;
+}
 
 .tableColor {
     color: #E2E2E2;
@@ -147,6 +154,9 @@
 
 .breadcrumb-container p{
     font-weight: Bold;
+}
+.show{
+    display: block !important;
 }
 #editUser{
     display: none;
