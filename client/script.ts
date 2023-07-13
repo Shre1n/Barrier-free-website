@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
-    const profil= (document.querySelector("#profilseite") as HTMLElement);
     const editButtonUser = (document.querySelector("#editIconUser")as HTMLElement);
 
     if (registrieren) {
