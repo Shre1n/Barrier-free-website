@@ -248,7 +248,6 @@ function getUser(){
             console.log("DA DU KEK");
         }
         console.log(res);
-        currentUser = new Map<string, string>();
     });
     checkLogin();
 
@@ -284,10 +283,6 @@ function renderUserProfile(userData) {
 
 async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
-
-
-
-
     try {
         const response = await fetch("/login",
             {
@@ -298,26 +293,13 @@ async function checkLogin() {
         if(response.status == 200) {
             const rolle = data.rolle;
             abmelden.classList.remove("d-none");
-
-
-
-
-
         } else {
             abmelden.classList.add("d-none");
 
         }
-
-
-
-
     } catch (e) {
 
     }
-
-
-
-
 }
 
 
