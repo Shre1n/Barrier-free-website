@@ -326,6 +326,8 @@ function renderUserProfile(userData) {
 
 async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
+    const registrieren = document.querySelector("#registrieren") as HTMLElement;
+    const profil = document.querySelector("#profilseite") as HTMLElement;
     try {
         const response = await fetch("/login",
             {
@@ -335,7 +337,10 @@ async function checkLogin() {
 
         if(response.status == 200) {
             const rolle = data.rolle;
+
             abmelden.classList.remove("d-none");
+            registrieren.style.display="none";
+            profil.style.display="inline-block";
         } else {
             abmelden.classList.add("d-none");
 
