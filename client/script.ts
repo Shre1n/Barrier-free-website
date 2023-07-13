@@ -260,7 +260,10 @@ function signOff(): void {
 }
 
 function getUser() {
-    axios.get("/user", {}).then((res: AxiosResponse) => {
+    axios.get("/user", {
+
+    }).then((res: AxiosResponse) => {
+        console.log("Hier");
         const userData = res.data;
         console.log(userData);
         if (userData.rollenid === 3) {
