@@ -1,10 +1,9 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
-
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
-let currentUser: Map<string, string> = new Map<string, string>();
 document.addEventListener("DOMContentLoaded", () => {
+    checkLogin();
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
@@ -14,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    const deleteUser = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
+    const deletecheck = document.querySelector("#userdeletecheck") as HTMLElement;
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -35,15 +36,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (deleteUser){
+        deleteUser.addEventListener("click", () => {
+           deleteUser.style.display = "none";
+           deletecheck.style.display = "block";
+        });
+    }
+
     getUser();
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
+
+
+
 
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
@@ -51,7 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Wird jetzt angezeigt")
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
-    })
+    });
+    // Nur auf Profilseite oder ganz UNTEN!
+    deletecheck.addEventListener("click", delUser);
 
 });
 
@@ -135,12 +149,13 @@ function addUser(event: Event): void {
     }
 }
 
-
-function delUser(): void {
+function delUser(event: Event): void {
     event.preventDefault();
+    console.log("Möchte Löschen")
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
         console.log(res);
         signOff();
+        window.location.href = "/startseite.html";
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
@@ -241,22 +256,27 @@ function signIn(event: Event): void {
         registrieren.style.display = "none";
         form.reset();
         document.getElementById("loginError").innerText = "";
+        checkLogin();
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400) {
             document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
+        checkLogin();
     });
+    checkLogin();
 }
 
 function signOff(): void {
     console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
-        window.location.reload();
+        window.location.href = "/startseite.html";
         console.log(res);
         console.log("hab abgemeldet")
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
+    checkLogin();
+
 }
 
 function getUser(){
@@ -271,8 +291,9 @@ function getUser(){
             renderUserEdit(userData);
         }
         console.log(res);
-        currentUser = new Map<string, string>();
     });
+    checkLogin();
+
 }
 
 function renderUserProfile(userData) {
@@ -299,6 +320,29 @@ function renderUserProfile(userData) {
     telefonnummerElement.innerText = userData.telefonnummer;
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
+    checkLogin();
+
+}
+
+async function checkLogin() {
+    const abmelden = document.querySelector("#abmelden");
+    try {
+        const response = await fetch("/login",
+            {
+                method:"GET"
+            });
+        const data = await response.json();
+
+        if(response.status == 200) {
+            const rolle = data.rolle;
+            abmelden.classList.remove("d-none");
+        } else {
+            abmelden.classList.add("d-none");
+
+        }
+    } catch (e) {
+
+    }
 }
 
 function renderUserEdit(userData) {

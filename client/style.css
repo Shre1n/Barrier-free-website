@@ -370,9 +370,7 @@ body {
     box-shadow: 2px 2px 5px #707070;
 }
 /* Header */
-#abmelden{
-    display: none;
-}
+
 
 #profilseite{
     display: none;
@@ -423,4 +421,8 @@ body {
     border-color: #3D93A6 !important;
     border-radius: 2.5em !important;
     transition: transform .1s;
+}
+
+#userdeletecheck{
+    display: none;
 }

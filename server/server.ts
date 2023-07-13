@@ -6,6 +6,7 @@ import * as path from "path";
 import Joi = require('joi');
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
+import {func} from "joi";
 
 
 // Ergänzt/Überlädt den Sessionstore
@@ -15,6 +16,7 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
+        rollenid: number
     }
 }
 
@@ -65,6 +67,7 @@ app.use(express.static(__dirname + "/../client/"));
 
 app.use("/img", express.static(__dirname + "/../img/"));
 
+
 // GET-Routen
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/../client/startseite.html'));
@@ -91,6 +94,7 @@ app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
+app.get("/login",checkLogin, isLoggedIn)
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -116,6 +120,7 @@ app.put("/admin/user/:username", disableUser);
 
 //SITE
 // Angezeigte Webseite
+
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -339,6 +344,7 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
         next();
+        console.log("Lüppt")
     } else {
         res.status(401);
         res.send("User is not logged in! ")
@@ -477,7 +483,7 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.sendStatus(200);
+    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
 

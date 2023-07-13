@@ -46,6 +46,13 @@
     border-color: #707070;
 }
 
+#abmelden {
+    display: inline-block; !important;
+}
+
+#registrieren{
+    visibility: hidden;
+}
 
 .tableColor {
     color: #E2E2E2;
@@ -153,4 +160,7 @@
 }
 #gehtweg{
     display: none;
+}
+.show{
+    display: block !important;
 }
