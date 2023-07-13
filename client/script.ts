@@ -264,26 +264,26 @@ function renderUserProfile(userData) {
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
 function renderUserEdit(userData){
-    const vornameElementEdit = document.getElementById('displayvornameEdit');
-    const nachnameElementEdit = document.getElementById('displaynachnameEdit');
-    const emailElementEdit = document.getElementById('displayemailEdit');
-    const plzElementEdit = document.getElementById('displayPLZEdit');
-    const ortElementEdit = document.getElementById('displayortEdit');
-    const strasseElementEdit = document.getElementById('displaystrasseEdit');
-    const hnrElementEdit = document.getElementById('displayhausnummerEdit');
-    const telefonnummerElementEdit = document.getElementById('displaytelefonnummerEdit');
-    const newsletterElementEdit = document.getElementById("displaynewsletterEdit");
+    const vornameElementEdit = document.getElementById('displayvornameEdit') as HTMLInputElement;
+    const nachnameElementEdit = document.getElementById('displaynachnameEdit') as HTMLInputElement;
+    const emailElementEdit = document.getElementById('displayemailEdit') as HTMLInputElement;
+    const plzElementEdit = document.getElementById('displayPLZEdit') as HTMLInputElement;
+    const ortElementEdit = document.getElementById('displayortEdit') as HTMLInputElement;
+    const strasseElementEdit = document.getElementById('displaystrasseEdit') as HTMLInputElement;
+    const hnrElementEdit = document.getElementById('displayhausnummerEdit') as HTMLInputElement;
+    const telefonnummerElementEdit = document.getElementById('displaytelefonnummerEdit') as HTMLInputElement;
+    const newsletterElementEdit = document.getElementById("displaynewsletterEdit") as HTMLInputElement;
     const nameElementEdit = document.getElementById("nutzerName");
 
-    vornameElementEdit.innerText = userData.vorname;
-    nachnameElementEdit.innerText = userData.nachname;
-    emailElementEdit.innerText = userData.email;
-    plzElementEdit.innerText = userData.postleitzahl;
-    ortElementEdit.innerText = userData.ort;
-    strasseElementEdit.innerText = userData.strasse;
-    hnrElementEdit.innerText = userData.hnr;
-    telefonnummerElementEdit.innerText = userData.telefonnummer;
-    newsletterElementEdit.innerText = userData.newsletter;
+    vornameElementEdit.value = userData.vorname;
+    nachnameElementEdit.value = userData.nachname;
+    emailElementEdit.value = userData.email;
+    plzElementEdit.value = userData.postleitzahl;
+    ortElementEdit.value = userData.ort;
+    strasseElementEdit.value = userData.strasse;
+    hnrElementEdit.value = userData.hnr;
+    telefonnummerElementEdit.value = userData.telefonnummer;
+    newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 
     editUser();

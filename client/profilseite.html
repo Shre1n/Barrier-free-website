@@ -128,35 +128,27 @@
                         <h3>Nutzerdaten</h3>
                         <div id="nutzerDatenEdit">
                             <div class="row ">
-                                <div class="col-4 nutzerdaten">
-                                    <p>Anrede:</p>
-                                    <p>Nachname:</p>
-                                    <p>Vorname:</p>
-                                    <p>Straße:</p>
-                                    <p>Hausnummer:</p>
-                                    <p>PLZ:</p>
-                                    <p>Ort:</p>
-                                    <p>Handynummer:</p>
-                                    <p>Email:</p>
-                                    <p>Newsletter erhalten?:</p>
-                                </div>
-                                <div class="col-2">
-                                    <!--hier kommt Nutzer Info von Spiel in Merkliste--->
-                                    <p id="displayanredeEdit"></p>
-                                    <p id="displaynachnameEdit"></p>
-                                    <p id="displayvornameEdit"></p>
-                                    <p id="displaystrasseEdit"></p>
-                                    <p id="displayhausnummerEdit"></p>
-                                    <p id="displayPLZEdit"></p>
-                                    <p id="displayortEdit"></p>
-                                    <p id="displaytelefonnummerEdit"></p>
-                                    <p id="displayemailEdit"></p>
-                                    <p id="displaynewsletterEdit"></p>
+                                <div class="col nutzerdaten">
+                                    <input type="text" placeholder="Nachname" class="form-control" name="editNachname"
+                                           aria-label="Nachname" required id="displaynachnameEdit">
+                                    <input type="text" placeholder="Vorname" class="form-control" name="editVorname"
+                                           aria-label="Vorname" required id="displayvornameEdit">
+                                    <input type="text" placeholder="Strasse" class="form-control" name="editStrasse"
+                                           aria-label="Strasse" required id="displaystrasseEdit">
+                                    <input type="text" placeholder="Hausnummer" class="form-control" name="editHausnummer"
+                                           aria-label="Hausnummer" required id="displayhausnummerEdit">
+                                    <input type="text" placeholder="PLZ" class="form-control" name="editPLZ"
+                                           aria-label="PLZ" required id="displayPLZEdit">
+                                    <input type="text" placeholder="Ort" class="form-control" name="editOrt"
+                                           aria-label="Ort" required id="displayortEdit">
+                                    <input type="text" placeholder="E-Mail" class="form-control" name="editEmail"
+                                           aria-label="E-Mail" required id="displayemailEdit" disabled>
+                                    <input type="text" placeholder="Telefonnummer" class="form-control" name="editTelefonnummer"
+                                           aria-label="Telefonnummer" required id="displaytelefonnummerEdit">
                                 </div>
                             </div>
                         </div>
                         <div class="row mt-5">
-
                             <div class="col-10 newsletter">
                                 <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
                                     und regelmäßig mit Neuigkeiten und Angeboten
