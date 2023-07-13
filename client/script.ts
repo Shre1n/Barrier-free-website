@@ -2,7 +2,6 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
-let currentUser: Map<string, string> = new Map<string, string>();
 document.addEventListener("DOMContentLoaded", () => {
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -10,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
+    const deleteUser = document.querySelector("#userdelete") as HTMLButtonElement;
+    const deletecheck = document.querySelector("#userdeletecheck") as HTMLButtonElement;
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -40,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
 
-    //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
 });
 
 function addUser(event: Event): void {
@@ -123,18 +123,19 @@ function addUser(event: Event): void {
     }
 }
 
-
-function delUser(): void {
+function delUser(event: Event): void {
     event.preventDefault();
+    console.log("Möchte Löschen")
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
         console.log(res);
+        window.location.reload();
         signOff();
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
 }
 
-function editUser(): void {
+function editUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 

@@ -148,3 +148,6 @@
 .breadcrumb-container p{
     font-weight: Bold;
 }
+.show{
+    display: block !important;
+}

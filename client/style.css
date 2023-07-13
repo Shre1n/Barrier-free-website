@@ -424,3 +424,7 @@ body {
     border-radius: 2.5em !important;
     transition: transform .1s;
 }
+
+#userdeletecheck{
+    display: none;
+}
