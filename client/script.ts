@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
     const editButtonUser = (document.querySelector("#editIconUser")as HTMLElement);
+    const save = document.querySelector("#speichernNutzerDaten") as HTMLButtonElement;
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -37,11 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
+    save.addEventListener("click", editUser)
 
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
     editButtonUser.addEventListener("click", (event: Event)=>{
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+        console.log("Wird jetzt angezeigt")
         UserEditForm.style.display="block";
         UserProfilForm.style.display="none";
     })
@@ -138,26 +141,27 @@ function delUser(): void {
     });
 }
 
-function editUser(): void {
+function editUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("vornameNeu") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("nachnameNeu") as HTMLInputElement).value;
-    const passwort: String = (document.getElementById("passwortNeu") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("postleitzahlNeu") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("ortNeu") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("strasseNeu") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("hausnummerNeu") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("telefonnummerNeu") as HTMLInputElement).value;
+    const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
+    const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value;
+    const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value;
+    const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value;
+    const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value;
+    const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value;
+    const telefonnummer: String = (document.getElementById("displaytelefonnummerEdit") as HTMLInputElement).value;
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
+    const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+    const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+
 
     axios.put("/user", {
         anrede:anrede,
         vorname:vorname,
         nachname:nachname,
-        passwort:passwort,
         postleitzahl:postleitzahl,
         ort:ort,
         strasse:strasse,
@@ -167,6 +171,9 @@ function editUser(): void {
     }).then((res: AxiosResponse) => {
         console.log(res);
         form.reset();
+        UserEditForm.style.display="none";
+        UserProfilForm.style.display="block";
+
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400) {
             document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
@@ -286,7 +293,8 @@ function renderUserEdit(userData){
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 
-    editUser();
+
+
 }
 
 
