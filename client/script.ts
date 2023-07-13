@@ -3,6 +3,7 @@
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
+    checkLogin();
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
@@ -46,9 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
 
-    deletecheck.addEventListener("click", delUser);
     abmelden.addEventListener("click", signOff);
 
+
+
+
+    // Nur auf Profilseite oder ganz UNTEN!
+    deletecheck.addEventListener("click", delUser);
 });
 
 function addUser(event: Event): void {
@@ -208,11 +213,14 @@ function signIn(event: Event): void {
         profil.style.display="inline-block";
         registrieren.style.display="none";
         document.getElementById("loginError").innerText = "";
+        checkLogin();
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
             document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
+        checkLogin();
     });
+    checkLogin();
 }
 
 function signOff(): void {
@@ -224,6 +232,8 @@ function signOff(): void {
     }).catch((reason: AxiosError) => {
         console.log(reason);
     });
+    checkLogin();
+
 }
 
 function getUser(){
@@ -240,6 +250,8 @@ function getUser(){
         console.log(res);
         currentUser = new Map<string, string>();
     });
+    checkLogin();
+
 }
 
 function renderUserProfile(userData) {
@@ -266,6 +278,46 @@ function renderUserProfile(userData) {
     telefonnummerElement.innerText = userData.telefonnummer;
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
+    checkLogin();
+
+}
+
+async function checkLogin() {
+    const abmelden = document.querySelector("#abmelden");
+
+
+
+
+    try {
+        const response = await fetch("/login",
+            {
+                method:"GET"
+            });
+        const data = await response.json();
+
+        if(response.status == 200) {
+            const rolle = data.rolle;
+            abmelden.classList.remove("d-none");
+
+
+
+
+
+        } else {
+            abmelden.classList.add("d-none");
+
+        }
+
+
+
+
+    } catch (e) {
+
+    }
+
+
+
+
 }
 
 
