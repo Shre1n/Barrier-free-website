@@ -128,7 +128,7 @@ function postUser(req: express.Request, res: express.Response): void {
     const vorname: string = req.body.vorname;
     const nachname: string = req.body.nachname;
     const email: string = req.body.email;
-    const passwort: string = req.body.passwort;
+    const passwort: string = req.session.passwort;
     const postleitzahl: string = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
@@ -233,6 +233,12 @@ function putUser(req: express.Request, res: express.Response): void {
 
     const email: string = req.session.email;
 
+    const {error} = validateUser(false, req.body);
+
+    if (error) {
+        res.status(403).json(error.details[0].message);
+        console.log(error.details[0].message);
+    }else{
 
     const data: [string, string, string, string, string, string, string, string, string, string] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, telefonnummer, newsletter, email];
     const {error} = validateEditUser(false, req.body);
@@ -271,6 +277,7 @@ function deleteUser(req: express.Request, res: express.Response): void {
             res.send("User successfully deleted!");
         }
     });
+    }
 }
 
 
