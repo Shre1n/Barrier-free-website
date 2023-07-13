@@ -7,13 +7,261 @@ Content-Type: application/json
   "anrede": "Herr",
   "vorname": "Max",
   "nachname": "Mustermann",
+  "email": "10Peter@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "02345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Insekt",
+  "vorname": "Max",
+  "nachname": "Mustermann",
   "email": "max.mustermann@hotmail.de",
   "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
   "hnr": "1",
-  "telefonnummer": "0176 1956285"
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "1.peter",
+  "nachname": "Mustermann",
+  "email": "1peter@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "2.peter",
+  "email": "peter2mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "1peter@@hotmail.com",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "klein@outlook.de",
+  "passwort": "8901GH",
+  "postleitzahl": "069",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users mit falsches Mail Pattern @@
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "123456",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Hamburg 1",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am 1ten Peter",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "5peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "304b-404",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users (Max Mustermann)
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "80peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "51231234",
+  "newsletter": "Nein"
 }
 
 ###
@@ -45,9 +293,17 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-  "vorname": "Muster",
-  "nachname": "Maxmann",
-  "passwort": "54321"
+  "anrede": "Herr",
+  "vorname": "Peter",
+  "nachname": "Mustermann",
+  "email": "10Peter@hotmail.de",
+  "passwort": "123456",
+  "postleitzahl": "02345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
 }
 
 ### Bearbeiten eines Users (nur Passwort)
@@ -61,7 +317,7 @@ Content-Type: application/json
 }
 
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users
@@ -107,8 +363,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "maik@tester.de",
-  "password": "1234"
+  "email": "robin.hahn99@outlook.de",
+  "passwort": "12345"
 }
 ###
 
@@ -119,6 +375,10 @@ POST http://localhost:8080/signout HTTP/2
 
 ###
 
+###
+GET http://localhost:8080/user
+Content-Type: application/json
+###
 
 
 
@@ -192,7 +452,7 @@ Content-Type: application/json
 }
 
 ### Löschen eines Users
-DELETE /user HTTP/2
+DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
 ### Auslesen eines nicht vorhanden Users

@@ -45,10 +45,15 @@
         <div class="col-sm-6">
             <div class="row rowHeader text-center align-items-center justify-content-end">
                 <div class="col-lg-3 col-sm-6 col-6">
-                    <i id="registrieren" type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
+                    <i id="abmelden"  type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
                 </div>
-                <div id="profil" type="button" class="col-lg-3 col-sm-6 col-6">
-                    <i class="far fa-user headericon iconborder"></i>
+                <div  type="button" class="col-lg-3 col-sm-6 col-6">
+                    <a href="profilseite.html">
+                        <i id="profilseite" class="far fa-user headericon iconborder"></i>
+                    </a>
+                </div>
+                <div type="button" class="col-lg-3 col-sm-6 col-6">
+                    <i id="registrieren" class="far fa-user headericon iconborder"></i>
                 </div>
                 <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
                     <i class="fas fa-shopping-bag headericon iconborder"></i>
@@ -85,29 +90,29 @@
                     </div>
                     <div class="row ">
                         <div class="col-4 nutzerdaten">
-                            <p>Anrede:Herr </p>
-                            <p>Nachname:Mustermann </p>
-                            <p>Vorname:Max</p>
-                            <p>Straße:Musterstraße </p>
-                            <p>Hausnummer:1 </p>
-                            <p>PLZ:12345 </p>
-                            <p>Ort:Musterstadt </p>
-                            <p>Handynummer:123456789 </p>
-                            <p>Email:musteremail </p>
-                            <p>Newsletter erhalten?: Ja </p>
+                            <p>Anrede:</p>
+                            <p>Nachname:</p>
+                            <p>Vorname:</p>
+                            <p>Straße:</p>
+                            <p>Hausnummer:</p>
+                            <p>PLZ:</p>
+                            <p>Ort:</p>
+                            <p>Handynummer:</p>
+                            <p>Email:</p>
+                            <p>Newsletter erhalten?:</p>
                         </div>
                         <div class="col-2">
                             <!--hier kommt Nutzer Info von Spiel in Merkliste--->
-                            <p id="anrede"></p>
-                            <p id="nachname"></p>
-                            <p id="vorname"></p>
-                            <p id="strasse"></p>
-                            <p id="hausnummer"></p>
-                            <p id="PLZ"></p>
-                            <p id="ort"></p>
-                            <p id="handynummer"></p>
-                            <p id="email"></p>
-                            <p id="newsletter"></p>
+                            <p id="displayanrede"></p>
+                            <p id="displaynachname"></p>
+                            <p id="displayvorname"></p>
+                            <p id="displaystrasse"></p>
+                            <p id="displayhausnummer"></p>
+                            <p id="displayPLZ"></p>
+                            <p id="displayort"></p>
+                            <p id="displaytelefonnummer"></p>
+                            <p id="displayemail"></p>
+                            <p id="displaynewsletter"></p>
                         </div>
                     </div>
                 </div>
@@ -159,12 +164,16 @@
                             <input disabled type="text" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-sm" value="mustermail">
                         </div>
+                        <div>
+                            <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
+                        </div>
                         <div id="passwortNeu" class="input-group input-group-sm mb-3">
                             <input type="password" class="form-control" aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-sm" value="passwort">
                         </div>
                     </div>
                     <div class="row mt-5">
+
                         <div class="col-10 newsletter">
                             <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
                                 und regelmäßig mit Neuigkeiten und Angeboten
@@ -529,6 +538,37 @@
         </div>
     </section>
 </div>
+
+<!--- Popup für Nutzer löschen --->
+
+<div class="modal fade" id="ModalNutzerlöschen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sind Sie sicher?</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormNutzerlöschen">
+                <div class="modal-body">
+                    <span>
+                        Es werden alle Ihre Nutzerdaten, inklusive Ihrer Merkliste, unwiderruflich gelöscht und Sie gelangen zurrück zur Startseite.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button id="nutzerlöschenbestätigen" type="submit" class="btn btn-primary bbutton">
+                        Ja, löschen
+                    </button>
+                    <button id="nutzerlöschenabbrechen" type="button" class="btn btn-primary abbrechenButton">
+                        Abbrechen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <footer class="container-fluid containerFooter">
     <div class="row">
         <div class="col-sm-6">
