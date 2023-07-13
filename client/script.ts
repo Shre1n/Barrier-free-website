@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
     const abmelden = document.querySelector("#abmelden");
-    const editButtonUser = (document.querySelector("#editIconUser")as HTMLElement);
-    const save = document.querySelector("#speichernNutzerDaten") as HTMLButtonElement;
+    const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
+    const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
+    const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -27,27 +28,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (loginform) {
-        loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
+        loginform.addEventListener("click", () => {
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
     }
 
     getUser();
 
-    document.getElementById("modalForm").addEventListener("submit", addUser);
-    document.getElementById("modalFormlogin").addEventListener("submit", signIn);
-    abmelden.addEventListener("click", signOff);
-    save.addEventListener("click", editUser)
-
     //getUser liest Nutzerdaten, fügt diese bei Profilseite ein
-    editButtonUser.addEventListener("click", (event: Event)=>{
+    editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
         console.log("Wird jetzt angezeigt")
-        UserEditForm.style.display="block";
-        UserProfilForm.style.display="none";
+        UserEditForm.style.display = "block";
+        UserProfilForm.style.display = "none";
     })
+
+
+    document.getElementById("modalForm").addEventListener("submit", addUser);
+    document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+    abmelden.addEventListener("click", signOff);
+    saveEdit.addEventListener("click", editUser);
+    cancelEdit.addEventListener("click", hideEditUser);
+
+
 });
 
 function addUser(event: Event): void {
@@ -143,12 +148,14 @@ function delUser(): void {
 
 function editUser(event: Event): void {
     event.preventDefault();
+    console.log("klick")
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
     const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value;
     const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value;
+    const email: String = (document.getElementById("displayemailEdit") as HTMLInputElement).value;
     const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value;
     const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value;
     const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value;
@@ -157,28 +164,53 @@ function editUser(event: Event): void {
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
 
+    if (checkbox.checked) {
+        axios.put("/user", {
+            anrede: anrede,
+            vorname: vorname,
+            nachname: nachname,
+            postleitzahl: postleitzahl,
+            email: email,
+            ort: ort,
+            strasse: strasse,
+            hnr: hnr,
+            telefonnummer: telefonnummer,
+            checkbox: "Ja"
+        }).then((res: AxiosResponse) => {
+            console.log(res);
+            form.reset();
+            UserEditForm.style.display = "none";
+            UserProfilForm.style.display = "block";
 
-    axios.put("/user", {
-        anrede:anrede,
-        vorname:vorname,
-        nachname:nachname,
-        postleitzahl:postleitzahl,
-        ort:ort,
-        strasse:strasse,
-        hnr:hnr,
-        telefonnummer:telefonnummer,
-        checkbox:checkbox
-    }).then((res: AxiosResponse) => {
-        console.log(res);
-        form.reset();
-        UserEditForm.style.display="none";
-        UserProfilForm.style.display="block";
+        }).catch((reason: AxiosError) => {
+            if (reason.response.status == 400) {
+                document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
+            }
+        });
+    } else {
+        axios.put("/user", {
+            anrede: anrede,
+            vorname: vorname,
+            nachname: nachname,
+            postleitzahl: postleitzahl,
+            email: email,
+            ort: ort,
+            strasse: strasse,
+            hnr: hnr,
+            telefonnummer: telefonnummer,
+            checkbox: "Nein"
+        }).then((res: AxiosResponse) => {
+            console.log(res);
+            form.reset();
+            UserEditForm.style.display = "none";
+            UserProfilForm.style.display = "block";
 
-    }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400) {
-            document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
-        }
-    });
+        }).catch((reason: AxiosError) => {
+            if (reason.response.status == 400) {
+                document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
+            }
+        });
+    }
 }
 
 /**
@@ -194,9 +226,9 @@ function signIn(event: Event): void {
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
-    const logout = (document.querySelector("#abmelden")as HTMLElement);
-    const profil= (document.querySelector("#profilseite") as HTMLElement);
-    const registrieren= (document.querySelector("#registrieren") as HTMLElement);
+    const logout = (document.querySelector("#abmelden") as HTMLElement);
+    const profil = (document.querySelector("#profilseite") as HTMLElement);
+    const registrieren = (document.querySelector("#registrieren") as HTMLElement);
 
     console.log("dhewhui");
     axios.post("/signin", {
@@ -206,13 +238,13 @@ function signIn(event: Event): void {
         console.log(res);
         console.log(email + " " + passwort + " ist angemeldet.");
         modalFensterUserLogin.hide();
-        logout.style.display="inline-block";
-        profil.style.display="inline-block";
-        registrieren.style.display="none";
+        logout.style.display = "inline-block";
+        profil.style.display = "inline-block";
+        registrieren.style.display = "none";
         form.reset();
         document.getElementById("loginError").innerText = "";
     }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400){
+        if (reason.response.status == 400) {
             document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
     });
@@ -236,7 +268,7 @@ function getUser(){
         console.log("Hier");
         const userData = res.data;
         console.log(userData);
-        if (userData.rollenid === 3){
+        if (userData.rollenid === 3) {
             renderUserProfile(userData);
             renderUserEdit(userData);
         }
@@ -270,7 +302,8 @@ function renderUserProfile(userData) {
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
 }
-function renderUserEdit(userData){
+
+function renderUserEdit(userData) {
     const vornameElementEdit = document.getElementById('displayvornameEdit') as HTMLInputElement;
     const nachnameElementEdit = document.getElementById('displaynachnameEdit') as HTMLInputElement;
     const emailElementEdit = document.getElementById('displayemailEdit') as HTMLInputElement;
@@ -294,6 +327,13 @@ function renderUserEdit(userData){
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 
 
+}
+function hideEditUser(){
+    const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+    const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+    console.log("Wird jetzt angezeigt")
+    UserEditForm.style.display = "none";
+    UserProfilForm.style.display = "block";
 
 }
 

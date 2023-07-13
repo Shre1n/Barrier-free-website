@@ -294,7 +294,7 @@ Content-Type: application/json
 
 {
   "anrede": "Herr",
-  "vorname": "Peter",
+  "vorname": "Manni",
   "nachname": "Mustermann",
   "email": "max.mustermann@hotmail.de",
   "passwort": "12345",

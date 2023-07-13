@@ -218,7 +218,7 @@ function putUser(req: express.Request, res: express.Response): void {
     const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
     const nachname: string = req.body.nachname;
-    const passwort: string = req.body.passwort;
+    const passwort: string = req.session.passwort;
     const postleitzahl: string = req.body.postleitzahl;
     const ort: string = req.body.ort;
     const strasse: string = req.body.strasse;
