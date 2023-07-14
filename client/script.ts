@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
 
-
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -47,15 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
     getUser();
     getProduct();
 
-
-
-
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
-
 
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
@@ -64,9 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
     })
-
-
-
 
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
@@ -394,48 +386,56 @@ function getProduct(){
         const productData = res.data;
         console.log(productData);
         renderGamesVerteiler(productData);
-        renderGamesDetail (productData);
         console.log(res);
     });
 }
 function renderGamesVerteiler(productData){
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
-
+    let p;
     const JsonContent =productData
     console.log(JsonContent);
-    for (let p = 0; p < JsonContent.length; p++) {
+    for (p = 0; p < JsonContent.length; p++) {
+        const productID = JsonContent[p].ID;
     spiele.innerHTML +=`
-                <div class="col">
-                    <div class="col cardindex">
+                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
                                 <i class="far fa-bookmark bookmarks bicon"></i>
+                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
                                 <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
                                      alt="${JsonContent[p].Produktname}">
+                                     </a>
                             </div>
                             <div class="card-body">
+                             <a href ="produktdetail.html" class="cardbodytext">
                                 <div class="container cardword">
                                     <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}</span>
+                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}€</span>
                                     </h5>
                                 </div>
+                                </a>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
                                         class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
                             </div>
                         </div>
-                    </div>
                 </div>
     `
     }
 }
+/* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
+function renderGamesDetail(event){
+    event.preventDefault();
 
-function renderGamesDetail(productData){
-    console.log(productData);
+    console.log("irgendwas rein");
+
+    const productId = event.target.getAttribute("data-product-id");
     //Detailseite mit einem Div versehen
-    const detail = document.querySelector("#detail") as HTMLDivElement;
-    const JsonContent =productData
-    detail.innerHTML=`
+    const detailseite = document.querySelector("#detailseitedisplay") as HTMLDivElement;
+    console.log(productId);
+
+
+        detailseite.innerHTML=`
     <div class="container-fluid abstandtop">
     <div class="row">
         <div class="col-6">
@@ -443,7 +443,7 @@ function renderGamesDetail(productData){
                 <div class="row">
                     <div class="col-12">
                         <div class="img-container">
-                        <img id="bildtactiletowers" src="${JsonContent.Bilder}" class="img-fluid" alt="${JsonContent.Produktname}">
+                        <img id="bildtactiletowers" src="${productId[0].Bilder}" class="img-fluid" alt="${productId[0].Produktname}">
                         </div>
                     </div>
                     <div class="col-12">
@@ -473,7 +473,7 @@ function renderGamesDetail(productData){
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-9 bree40G">
-                    ${JsonContent.Produktname}
+                    ${productId[0].Produktname}
                 </div>
                 <div class="col-2">
                     <i class="far fa-bookmark bookmarks bicon"></i>
@@ -489,7 +489,7 @@ function renderGamesDetail(productData){
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-9 belleza15G mt-3">
-                    ${JsonContent.Kurzbeschreibung}
+                    ${productId[0].Kurzbeschreibung}
                 </div>
                 <div class="col-2"></div>
             </div>
@@ -499,7 +499,7 @@ function renderGamesDetail(productData){
                     Button
                 </div>
                 <div class="col-4 text-end bree40G">
-                    ${JsonContent.Preis}
+                    ${productId[0].Preis}
                 </div>
                 <div class="col-1"></div>
                 <div class="col-1"></div>
@@ -538,7 +538,7 @@ function renderGamesDetail(productData){
         <div class="col-1 mb-3"></div>
         <div class="col-1 mb-3"></div>
         <div class="col-10 belleza25 mb-5">
-            ${JsonContent.Produktbeschreibung}
+            ${productId[0].Produktbeschreibung}
         </div>
         <div class="col-1 mb-3"></div>
         <div class="col-1 mb-3"></div>
@@ -548,14 +548,15 @@ function renderGamesDetail(productData){
         <div class="col-1 mb-3"></div>
         <div class="col-1 mb-3"></div>
         <div class="col-10 belleza25">
-         ${JsonContent.Lieferumfang}
+         ${productId[0].Lieferumfang}
         </div>
         <div class="col-1 mb-3"></div>
     </div>
 </div>
     `
+    console.log (productId[0]);
 }
-
+*/
 
 
 
