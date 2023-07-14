@@ -398,7 +398,7 @@ function renderGames(productData){
     console.log(productData);
     const spiele = document.querySelector(".spiele") as HTMLDivElement;
     console.log("renderGames")
-    for ()
+
     spiele.innerHTML=`<div class="container text-center ">
             <div class="row row-cols-3">
                 <div class="col">
