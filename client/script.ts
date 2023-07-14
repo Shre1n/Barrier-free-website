@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getUser();
     getProduct();
 
+
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
@@ -385,6 +386,7 @@ function getProduct(){
         console.log("Hier Produkt");
         const productData = res.data;
         console.log(productData);
+        startseiteRender(productData);
         renderGamesVerteiler(productData);
         console.log(res);
     });
@@ -392,10 +394,9 @@ function getProduct(){
 function renderGamesVerteiler(productData){
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
-    let p;
     const JsonContent =productData
     console.log(JsonContent);
-    for (p = 0; p < JsonContent.length; p++) {
+    for (let p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
     spiele.innerHTML +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
@@ -422,6 +423,118 @@ function renderGamesVerteiler(productData){
                 </div>
     `
     }
+}
+/*function startseiteRender(productData){
+    console.log("StartseiteRender")
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
+    const JsonContent = productData
+    console.log(JsonContent);
+        startseiteRender.innerHTML =`
+                        <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                             <div class="card cardbp">
+                                 <div class="container-fluid merken">
+                                     <i class="far fa-bookmark bookmarks bicon"></i>
+                                        <a href="produktdetail.html">
+                                         <img src="${JsonContent[0].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[0].Produktname}">
+                                        </a>
+                                </div>
+                              <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">${JsonContent[0].Produktname}<br/>${JsonContent[0].Preis}</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag" id="${JsonContent[0].ID}"></i>
+                            </button>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                             <div class="card cardbp">
+                                 <div class="container-fluid merken">
+                                     <i class="far fa-bookmark bookmarks bicon"></i>
+                                        <a href="produktdetail.html">
+                                         <img src="${JsonContent[1].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[1].Produktname}">
+                                        </a>
+                                </div>
+                              <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">${JsonContent[1].Produktname}<br/>${JsonContent[1].Preis}</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag" id="${JsonContent[1].ID}"></i>
+                            </button>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                             <div class="card cardbp">
+                                 <div class="container-fluid merken">
+                                     <i class="far fa-bookmark bookmarks bicon"></i>
+                                        <a href="produktdetail.html">
+                                         <img src="${JsonContent[2].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[2].Produktname}">
+                                        </a>
+                                </div>
+                              <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">${JsonContent[2].Produktname}<br/>${JsonContent[0].Preis}</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag" id="${JsonContent[2].ID}"></i>
+                            </button>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                             <div class="card cardbp">
+                                 <div class="container-fluid merken">
+                                     <i class="far fa-bookmark bookmarks bicon"></i>
+                                        <a href="produktdetail.html">
+                                         <img src="${JsonContent[3].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[3].Produktname}">
+                                        </a>
+                                </div>
+                              <div class="card-body">
+                            <div class="container cardword">
+                                <i class="fas fa-circle availability"></i>
+                                <h5 class="card-title font40 cardfont">${JsonContent[3].Produktname}<br/>${JsonContent[3].Preis}</h5>
+                            </div>
+                            <button type="button" class="btn btn-primary bbuttoncard"><i
+                                    class="fas fa-shopping-bag bicon bag" id="${JsonContent[3].ID}"></i>
+                            </button>
+                        </div>
+    `
+}*/
+function startseiteRender(productData) {
+    console.log("StartseiteRender");
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
+    const JsonContent = productData;
+    console.log(JsonContent);
+
+    let htmlContent = "";
+
+    for (let i = 0; i < JsonContent.length - 2; i++) {
+        htmlContent += `
+      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+        <div class="card cardbp">
+          <div class="container-fluid merken">
+            <i class="far fa-bookmark bookmarks bicon"></i>
+            <a href="produktdetail.html">
+              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="container cardword">
+              <i class="fas fa-circle availability"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+            </div>
+            <button type="button" class="btn btn-primary bbuttoncard">
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+
+    startseiteRender.innerHTML = htmlContent;
 }
 /* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
 function renderGamesDetail(event){
