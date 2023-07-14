@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+        getUser();
         console.log("Wird jetzt angezeigt")
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
