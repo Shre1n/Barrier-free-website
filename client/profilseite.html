@@ -84,16 +84,17 @@
     </section>
 
     <section class="container mt-5">
-        <div class="row">
-            <div class="col-4 text-end">
-                <div class="row border border-dark  rounded">
+        <div class="row grid gap-3">
+            <!-- Nutzerdaten -->
+            <div class="col-lg-4 col-md-6 col-sm-12 text-end" id="profilUser">
+                <div class="row border border-dark rounded">
                     <div class="col-1"></div>
                     <div class="col-10 text-center bree20G mb-3">
                         Nutzerdaten
                     </div>
                     <div class="col-1">
                         <div class="align-text-center">
-                            <i class="fas fa-edit" id="editIconUser"></i>
+                            <i class="fas fa-edit headerIconB" type="button" id="editIconUser"></i>
                         </div>
                     </div>
 
@@ -180,7 +181,7 @@
 
                     <div class="col-1 mb-2"></div>
                     <div class="col-5 mb-2">
-                        Newsletter erhalten?
+                        Newsletter erhalten:
                     </div>
                     <div class="col-5 text-start mb-2">
                         <div id="displaynewsletter"></div>
@@ -189,23 +190,8 @@
                 </div>
             </div>
 
-            <div class="col-4">
-                <div class="row text-center">
-                    <div class="col">
-                        test
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-4">
-                <div class="row text-center">
-                    <div class="col">
-                        test
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-4 text-end ">
+            <!-- Editieren -->
+            <div class="col-lg-4 col-md-6 col-sm-12 text-end" id="editUser">
                 <div class="row border border-dark  rounded">
                     <div class="col-12 text-center bree20G mb-3">
                         Nutzerdaten bearbeiten
@@ -332,8 +318,130 @@
 
                 </div>
             </div>
+
+            <!-- Merkliste -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="row text-center mb-3">
+                    <div class="col bree20G">
+                        Merkliste
+                    </div>
+                </div>
+                <div class="row border border-dark rounded">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col">
+                                <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row imgHöhe">
+                            <div class="col-10 mb-4">
+                                <span id="tactileTowers" class="bree20G">Tactile Towers</span>
+                            </div>
+                            <div class="col-2 mb-4">
+                                <i id="trashMerkliste" class=" fas fa-solid fa-trash" type="button"></i>
+                            </div>
+                            <div class="col-10 mb-4">
+                                <span id="kurzBechreibung">
+                                    Tactile Towers ist ein Spiel,
+                                    bei dem unter Zeitdruck eine
+                                    Figur aus Einzelteilen richtig
+                                    gestapelt werden muss.
+                                </span>
+                            </div>
+                            <div class="col-2 mb-4"></div>
+                            <div class="col-6">
+                                <i class="fas fa-shopping-bag headerIconB" type="button"></i>
+                            </div>
+                            <div class="col-6 text-end">
+                                59,99€
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bestellungen -->
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="row text-center mb-3">
+                    <div class="col bree20G">
+                        Bestellungen
+                    </div>
+                </div>
+                <div class="row text-center border border-dark rounded">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Datum:
+                            </div>
+                            <div class="col-5 text-start">
+                                01.01.23
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Bestellnummer:
+                            </div>
+                            <div class="col-5 text-start">
+                                12345
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Bestellstatus:
+                            </div>
+                            <div class="col-5 text-start">
+                                Versand
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Sendungsnummer:
+                            </div>
+                            <div class="col-5 text-start">
+                                123456789
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Gesamtpreis:
+                            </div>
+                            <div class="col-5 text-start">
+                                83,98€
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Artikelanzahl:
+                            </div>
+                            <div class="col-5 text-start">
+                                2
+                            </div>
+                            <div class="col-1"></div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5 text-end">
+                                Artikel:
+                            </div>
+                            <div class="col-5 text-start">
+                                Shake 'n Match <br/> Augenmaske
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+</div>
+
 
         <!--
         <div class="row mt-5">
@@ -459,7 +567,7 @@
 
                                     </div>
                                     <div class="col-auto">
-                                        <i id="trashMerkliste" class=" fas fa-solid fa-trash"></i>
+                                        <i id="trashMerkliste" class="fas fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>

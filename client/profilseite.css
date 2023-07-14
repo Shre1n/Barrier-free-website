@@ -164,3 +164,13 @@
 #gehtweg{
     display: none;
 }
+
+.imgHöhe {
+    height: 13em;
+}
+
+.headerIconB {
+    color: #3D93A6 !important;
+    scale: 120%;
+    transition: transform .1s;
+}
