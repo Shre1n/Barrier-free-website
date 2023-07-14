@@ -6,7 +6,6 @@ import * as path from "path";
 import Joi = require('joi');
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
-import {func} from "joi";
 
 
 // Ergänzt/Überlädt den Sessionstore
