@@ -199,7 +199,7 @@ function delUser(event: Event): void {
 
 function editUser(event: Event): void {
     event.preventDefault();
-    console.log("klick")
+    console.log("klick");
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
@@ -414,7 +414,8 @@ function renderUserEdit(userData) {
 function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-    console.log("Wird jetzt angezeigt")
+    console.log("Wird jetzt angezeigt");
+    getUser();
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
 
