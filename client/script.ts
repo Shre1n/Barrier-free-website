@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    const spiele = document.querySelector("#spiele");
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+    spiele.addEventListener("click", getProduct);
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
 });
@@ -147,6 +148,17 @@ function addUser(event: Event): void {
     } else {
         document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
     }
+}
+
+function getProduct(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier");
+        const productData = res.data;
+        console.log(productData);
+        console.log(res);
+    });
 }
 
 function delUser(event: Event): void {
