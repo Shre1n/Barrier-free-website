@@ -384,6 +384,11 @@ function hideEditUser(){
 
 }
 
+function bilderwechsel(smallImg){
+    const fullImg = document.getElementById("bildtactiletowers");
+    smallImg.addEventListener("click", () => {
+        fullImg.src = smallImg.src;
+    }
 
 /*
  async function displayProfile() {
