@@ -5,7 +5,7 @@ import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
 //Install Displayable Chart option
-import {Chart} from 'chart.js';
+
 
 
 // Ergänzt/Überlädt den Sessionstore
@@ -348,7 +348,6 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
         next();
-        console.log("Lüppt")
     } else {
         res.status(401);
         res.send("User is not logged in! ")

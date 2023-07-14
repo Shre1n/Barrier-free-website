@@ -309,6 +309,7 @@ function signIn(event: Event): void {
 function signOff(): void {
     console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
+        checkLogin();
         window.location.href = "/startseite.html";
         console.log(res);
         console.log("hab abgemeldet")
@@ -435,8 +436,10 @@ function getProduct(){
         renderGamesVerteiler(productData);
         console.log(res);
     });
+    checkLogin();
 }
 function renderGamesVerteiler(productData){
+    checkLogin();
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
@@ -469,8 +472,10 @@ function renderGamesVerteiler(productData){
                 </div>
     `
     }
+    checkLogin();
 }
 function startseiteRender(productData) {
+    checkLogin();
     console.log("StartseiteRender");
     console.log(productData);
     const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
@@ -502,8 +507,10 @@ function startseiteRender(productData) {
       </div>
     `;
     }
+    checkLogin();
    // startseiteRender.innerHTML = htmlContent;
 }
+
 /* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
 function renderGamesDetail(event){
     event.preventDefault();
