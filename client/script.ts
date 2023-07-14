@@ -2,10 +2,12 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+let modalFensterWarenkorb: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    let warenkorb = document.querySelector("#warenkorb");
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -34,6 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUser.hide();
             modalFensterUserLogin.show();
         });
+    }
+    if (warenkorb){
+        warenkorb.addEventListener("click", ()=>{
+            modalFensterWarenkorb.show();
+        })
     }
 
     if (deleteUser){

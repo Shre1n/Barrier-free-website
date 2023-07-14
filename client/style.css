@@ -120,7 +120,6 @@
 .bbutton {
     background-color: #3D93A6 !important;
     color: #FFFFFF !important;
-    border-color: #3D93A6 !important;
     border-radius: 2.5em !important;
     width: 7.46em;
     height: 2em;
@@ -482,5 +481,9 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+}
+.warenkorb2{
+    position: absolute;
+    z-index: 3 !important;
 }
 

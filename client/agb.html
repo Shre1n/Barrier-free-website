@@ -80,7 +80,7 @@
   <br/>
   Angebot und Vertragsschluss<br/>
   Unsere Angebote auf der Website stellen eine unverbindliche Aufforderung an Sie dar, Waren zu bestellen.<br/>
-  Aufgrund unserer Lieferantenstruktur beträgt die maximale Bestellmenge 20 Einheiten pro Produkt. <br/>
+  Aufgrund unserer Lieferantenstruktur beträgt die maximale Bestellmenge 5 Einheiten pro Produkt. <br/>
   Durch das Absenden Ihrer Bestellung geben Sie ein verbindliches Angebot zum Kauf der ausgewählten Waren ab.<br/>
   Der Vertrag kommt zustande, wenn wir Ihre Bestellung durch eine Auftragsbestätigung per E-Mail annehmen.<br/>
   <br/>
@@ -295,6 +295,67 @@
           <button id="registerUser" type="submit" class="btn btn-primary bbutton">
             Registrieren
           </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Warenkorb</h5>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="modalFormWarenkorb">
+        <div class="modal-body">
+          <div class="row border border-dark rounded">
+            <div class="col-4">
+              <div class="row">
+                <div class="col">
+                  <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="row imgHöhe">
+                <div class="col-10 mb-4">
+                  <span id="tactileTowers" class="bree20G">Tactile Towers</span>
+                </div>
+                <div class="col-2 mb-4">
+                  <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                </div>
+                <div class="col-10 mb-4">
+                                <span id="kurzBechreibung">
+                                    Tactile Towers ist ein Spiel,
+                                    bei dem unter Zeitdruck eine
+                                    Figur aus Einzelteilen richtig
+                                    gestapelt werden muss.
+                                </span>
+                </div>
+                <div class="col-2 mb-4"></div>
+                <div class="col-6">
+                  <label for=menge></label>
+                  <select id="menge" class="btn bbutton text-center" required>
+                    <option value="1" class="menge">1</option>
+                    <option value="2" class="menge">2</option>
+                    <option value="3" class="menge">3</option>
+                    <option value="4" class="menge">4</option>
+                    <option value="5" class="menge">5</option>
+                  </select>
+                </div>
+                <div class="col-6 text-end">
+                  59,99€
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="zurKasse" type="submit" class="btn bbutton">
+              Zur Kasse
+            </button>
+          </div>
         </div>
       </form>
     </div>

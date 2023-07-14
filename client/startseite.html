@@ -44,33 +44,35 @@
         <div class="col-sm-6">
             <div class="row rowHeader text-center align-items-center justify-content-end">
                 <div class="col-lg-3 col-sm-6 col-6">
-                    <i  id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
+                    <i id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-6">
                     <div id="profilseite">
                         <a href="profilseite.html">
-                            <i  class="far fa-user headericon iconborder"></i>
+                            <i class="far fa-user headericon iconborder"></i>
                         </a>
                     </div>
                     <i id="registrieren" class="far fa-user headericon iconborder"></i>
                 </div>
-                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
+                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
+                     data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
                     <i class="fas fa-shopping-bag headericon iconborder"></i>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+
 <!--Seiteninhalt-->
 <section class="suchleiste">
-    <div class="container-fluid suche">
+    <div class="container-fluid position-relative suche">
         <form class="d-flex searchbar" role="search">
             <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche" aria-label="Search">
             <i class="fas fa-search bicon lupe"></i>
         </form>
     </div>
 </section>
-<section class="bilderkarussell">
+<section class="bilderkarussell position-relative">
     <div class="karussell">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -100,6 +102,7 @@
         </div>
     </div>
 </section>
+
 <section class="headlinekat">
     <div class="container text-center startu">
         <div class="col headline">
@@ -319,7 +322,7 @@
                     <div class="row">
                         <div class="col-2">
                             <label for=anrede></label>
-                            <select id="anrede" class="bbutton text-center" required>
+                            <select id="anrede" class="btn bbutton text-center" required>
                                 <option value="Herr" class="anrede">Herr</option>
                                 <option value="Frau" class="anrede">Frau</option>
                             </select>
@@ -392,7 +395,7 @@
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
-                            <input id=ort type="text"  name="ort"
+                            <input id=ort type="text" name="ort"
                                    placeholder="Ort" class="form-control" required>
                             <br>
                             <span id="ortErr"></span>
@@ -403,14 +406,14 @@
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
-                            <input id=passwort type="password"  name="passwort" placeholder="Passwort"
+                            <input id=passwort type="password" name="passwort" placeholder="Passwort"
                                    class="form-control" required>
                             <br>
                             <span id="passwortErr"></span>
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
-                            <input id=passwortcheck type="password"  name="passwort" placeholder="Passwort wiederholen"
+                            <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
                                    class="form-control" required>
                             <br>
                             <span id="passwortCheckErr"></span>
@@ -421,9 +424,9 @@
                         </div>
                         <div class="col-5">
                             <label for="checkNewsletter">
-                            </label><input  class="form-check-input" type="checkbox" name="newsletter"
-                                            value="newsletter"
-                                            id="checkNewsletter">
+                            </label><input class="form-check-input" type="checkbox" name="newsletter"
+                                           value="newsletter"
+                                           id="checkNewsletter">
                         </div>
                         <div class="col-5">
                             <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
@@ -449,53 +452,113 @@
         </div>
     </div>
 </div>
-
-
-
-<!--Footer-->
-<footer class="container-fluid containerFooter">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="row rowFooter text-center align-items-center">
-                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                    <a href="impressum.html" class="linksW">Impressum</a>
-                </div>
-                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                    <a href="agb.html" class="linksW">AGB</a>
-                </div>
-                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                    <a href="datenschutz.html" class="linksW">Datenschutz</a>
-                </div>
-                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                    <a href="aboutus.html" class="linksW">Über uns</a>
-                </div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warenkorb</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-        </div>
-        <div class="col-sm-6 d-none d-sm-block">
-            <div class="row rowFooter text-center justify-content-end align-items-center">
-                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                    <a href="https://www.instagram.com/cofit_/%22%3E">
-                        <i class="wIcon fab fa-instagram"></i>
-                    </a>
+            <form id="modalFormWarenkorb">
+                <div class="modal-body">
+                    <div class="row border border-dark rounded">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="row imgHöhe">
+                                <div class="col-10 mb-4">
+                                    <span id="tactileTowers" class="bree20G">Tactile Towers</span>
+                                </div>
+                                <div class="col-2 mb-4">
+                                    <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                                </div>
+                                <div class="col-10 mb-4">
+                                <span id="kurzBechreibung">
+                                    Tactile Towers ist ein Spiel,
+                                    bei dem unter Zeitdruck eine
+                                    Figur aus Einzelteilen richtig
+                                    gestapelt werden muss.
+                                </span>
+                                </div>
+                                <div class="col-2 mb-4"></div>
+                                <div class="col-6">
+                                    <label for=menge></label>
+                                    <select id="menge" class="btn bbutton text-center" required>
+                                        <option value="1" class="menge">1</option>
+                                        <option value="2" class="menge">2</option>
+                                        <option value="3" class="menge">3</option>
+                                        <option value="4" class="menge">4</option>
+                                        <option value="5" class="menge">5</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 text-end">
+                                    59,99€
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="zurKasse" type="submit" class="btn bbutton">
+                            Zur Kasse
+                        </button>
+                    </div>
                 </div>
-                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                    <a href="https://www.youtube.com/channel/UCJlqftXPpRnLLzp21D_S8EQ%22%3E">
-                        <i class="wIcon fab fa-youtube"></i>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                    <a href="https://twitter.com/hausuebungwep1%22%3E">
-                        <i class="wIcon fab fa-twitter"></i>
-                    </a>
-                </div>
-                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                    <a href="https://www.facebook.com/profile.php?id=100087414318077%22%3E">
-                        <i class="wIcon fab fa-facebook-f"></i>
-                    </a>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
-</footer>
+</div>
+
+
+        <!--Footer-->
+        <footer class="container-fluid containerFooter">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row rowFooter text-center align-items-center">
+                        <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                            <a href="impressum.html" class="linksW">Impressum</a>
+                        </div>
+                        <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                            <a href="agb.html" class="linksW">AGB</a>
+                        </div>
+                        <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                            <a href="datenschutz.html" class="linksW">Datenschutz</a>
+                        </div>
+                        <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                            <a href="aboutus.html" class="linksW">Über uns</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 d-none d-sm-block">
+                    <div class="row rowFooter text-center justify-content-end align-items-center">
+                        <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                            <a href="https://www.instagram.com/cofit_/%22%3E">
+                                <i class="wIcon fab fa-instagram"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                            <a href="https://www.youtube.com/channel/UCJlqftXPpRnLLzp21D_S8EQ%22%3E">
+                                <i class="wIcon fab fa-youtube"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                            <a href="https://twitter.com/hausuebungwep1%22%3E">
+                                <i class="wIcon fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                            <a href="https://www.facebook.com/profile.php?id=100087414318077%22%3E">
+                                <i class="wIcon fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 </body>
 </html>
