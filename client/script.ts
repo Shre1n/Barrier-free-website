@@ -410,13 +410,13 @@ function renderGames(productData){
                         <div class="card cardbp">
                             <div class="container-fluid merken">
                                 <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="${JsonContent[p].Bilder}}" class="card-img-top cardpicp"
+                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
                                      alt="placeholder">
                             </div>
                             <div class="card-body">
                                 <div class="container cardword">
                                     <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">${JsonContent[p].ProduktName}<br/><span id="price">${JsonContent[p].Preis}</span>
+                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}</span>
                                     </h5>
                                 </div>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
