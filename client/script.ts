@@ -31,15 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (loginform) {
         loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
     }
 
     if (deleteUser){
         deleteUser.addEventListener("click", () => {
-           deleteUser.style.display = "none";
-           deletecheck.style.display = "block";
+            deleteUser.style.display = "none";
+            deletecheck.style.display = "block";
         });
     }
 
@@ -394,11 +394,12 @@ function getProduct(){
 function renderGamesVerteiler(productData){
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
+    let p;
     const JsonContent =productData
     console.log(JsonContent);
-    for (let p = 0; p < JsonContent.length; p++) {
+    for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-    spiele.innerHTML +=`
+        spiele.innerHTML +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -456,8 +457,7 @@ function startseiteRender(productData) {
       </div>
     `;
     }
-
-    startseiteRender.innerHTML = htmlContent;
+   // startseiteRender.innerHTML = htmlContent;
 }
 /* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
 function renderGamesDetail(event){
