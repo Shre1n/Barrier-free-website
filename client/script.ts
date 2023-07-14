@@ -390,15 +390,15 @@ function getProduct(){
         console.log("Hier Produkt");
         const productData = res.data;
         console.log(productData);
-        renderGames;
+        renderGames(productData);
         console.log(res);
     });
 }
-function renderGames(event: Event){
-    event.preventDefault();
+function renderGames(productData){
+    console.log(productData);
     const spiele = document.querySelector(".spiele") as HTMLDivElement;
     console.log("renderGames")
-
+    for ()
     spiele.innerHTML=`<div class="container text-center ">
             <div class="row row-cols-3">
                 <div class="col">
