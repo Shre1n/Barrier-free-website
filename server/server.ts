@@ -88,9 +88,8 @@ app.post("/bewertungen", checkLogin);
 app.get("/user", checkLogin, getUser);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
-app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
-app.get("/product", getAllProducts);
+app.get("/product", getProduct);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
@@ -277,17 +276,23 @@ function deleteUser(req: express.Request, res: express.Response): void {
 //Produkt Routen
 
 function getProduct(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 1";
 
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
 
 }
-
-function getAllProducts(req: express.Request, res: express.Response): void {
-
-}
-
 function editProduct(req: express.Request, res: express.Response): void {
 
 }
