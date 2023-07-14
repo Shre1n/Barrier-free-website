@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
-    //const spiele = document.querySelector("#spiele") as HTMLButtonElement;
-    const produkteAnzeigen = document.querySelector("#produkteanzeigen") as HTMLButtonElement;
+
+
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
-    //spiele.addEventListener("click", getProduct);
-    produkteAnzeigen.addEventListener("click", getProduct);
+
+
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -393,11 +393,12 @@ function getProduct(){
         console.log("Hier Produkt");
         const productData = res.data;
         console.log(productData);
-        renderGames(productData);
+        renderGamesVerteiler(productData);
+        renderGamesDetail (productData);
         console.log(res);
     });
 }
-function renderGames(productData){
+function renderGamesVerteiler(productData){
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
 
@@ -411,7 +412,7 @@ function renderGames(productData){
                             <div class="container-fluid merken">
                                 <i class="far fa-bookmark bookmarks bicon"></i>
                                 <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
-                                     alt="placeholder">
+                                     alt="${JsonContent[p].Produktname}">
                             </div>
                             <div class="card-body">
                                 <div class="container cardword">
@@ -429,6 +430,131 @@ function renderGames(productData){
     }
 }
 
+function renderGamesDetail(productData){
+    console.log(productData);
+    //Detailseite mit einem Div versehen
+    const detail = document.querySelector("#detail") as HTMLDivElement;
+    const JsonContent =productData
+    detail.innerHTML=`
+    <div class="container-fluid abstandtop">
+    <div class="row">
+        <div class="col-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="img-container">
+                        <img id="bildtactiletowers" src="${JsonContent.Bilder}" class="img-fluid" alt="${JsonContent.Produktname}">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers1.png"">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers2.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers3.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers4.png">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 bree40G">
+                    ${JsonContent.Produktname}
+                </div>
+                <div class="col-2">
+                    <i class="far fa-bookmark bookmarks bicon"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9">
+                    <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 belleza15G mt-3">
+                    ${JsonContent.Kurzbeschreibung}
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button
+                </div>
+                <div class="col-4 text-end bree40G">
+                    ${JsonContent.Preis}
+                </div>
+                <div class="col-1"></div>
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button2
+                </div>
+                <div class="col-4 text-end">
+                    <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <button id="expresscheckout" type="submit" class="btn btn-primary bbutton">
+                        Expresscheckout
+                    </button>
+                </div>
+                <div class="col-5">
+                    <button id="warenkorbdetail" type="submit" class="btn btn-primary bbutton">
+                        Warenkorb
+                    </button>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <div class="row ms-3 me-3">
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Produktbeschreibung
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25 mb-5">
+            ${JsonContent.Produktbeschreibung}
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Lieferumfang
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25">
+         ${JsonContent.Lieferumfang}
+        </div>
+        <div class="col-1 mb-3"></div>
+    </div>
+</div>
+    `
+}
 
 
 
