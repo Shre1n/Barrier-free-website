@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
-    const spiele = document.querySelector("#spiele") as HTMLButtonElement;
+    //const spiele = document.querySelector("#spiele") as HTMLButtonElement;
+    const produkteAnzeigen = document.querySelector("#produkteanzeigen") as HTMLButtonElement;
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     getUser();
+    getProduct();
 
 
 
@@ -53,7 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
-    spiele.addEventListener("click", getProduct);
+    //spiele.addEventListener("click", getProduct);
+    produkteAnzeigen.addEventListener("click", getProduct);
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -396,23 +399,24 @@ function getProduct(){
 }
 function renderGames(productData){
     console.log(productData);
-    const spiele = document.querySelector(".spiele") as HTMLDivElement;
-    console.log("renderGames")
+    const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
 
-    spiele.innerHTML=`<div class="container text-center ">
-            <div class="row row-cols-3">
-                <div class="col">
+    const JsonContent =productData
+    console.log(JsonContent);
+    for (let p = 0; JsonContent.length; p++) {
+    spiele.innerHTML=`
+    <div class="col">
                     <div class="col cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
                                 <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                <img src="${JsonContent[p].Bilder}}" class="card-img-top cardpicp"
                                      alt="placeholder">
                             </div>
                             <div class="card-body">
                                 <div class="container cardword">
                                     <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">Tactile Towers<br/>59,99€
+                                    <h5 class="card-title font40 cardfont">${JsonContent[p].ProduktName}<br/><span id="price">${JsonContent[p].Preis}</span>
                                     </h5>
                                 </div>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
@@ -421,82 +425,8 @@ function renderGames(productData){
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="col cardindex">
-                        <div class="card cardbp">
-                            <div class="container-fluid merken">
-                                <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
-                                     alt="placeholder">
-                            </div>
-                            <div class="card-body">
-                                <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">Shake 'n Match<br/>79,99€
-                                    </h5>
-                                </div>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col cardindex">
-                        <div class="card cardbp">
-                            <div class="container-fluid merken">
-                                <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                            </div>
-                            <div class="card-body">
-                                <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">Shape Seekers<br/>29,99€</h5>
-                                </div>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col cardindex">
-                        <div class="card cardbp">
-                            <div class="container-fluid merken">
-                                <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                            </div>
-                            <div class="card-body">
-                                <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">Color Cube<br/>19,99€</h5>
-                                </div>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="col cardindex">
-                        <div class="card cardbp">
-                            <div class="container-fluid merken">
-                                <i class="far fa-bookmark bookmarks bicon"></i>
-                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                            </div>
-                            <div class="card-body">
-                                <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">QubyX<br/>12,99€</h5>
-                                </div>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+    `
+    }
 }
 
 
