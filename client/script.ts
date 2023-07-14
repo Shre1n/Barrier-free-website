@@ -403,9 +403,9 @@ function renderGames(productData){
 
     const JsonContent =productData
     console.log(JsonContent);
-    for (let p = 0; JsonContent.length; p++) {
-    spiele.innerHTML=`
-    <div class="col">
+    for (let p = 0; p < JsonContent.length; p++) {
+    spiele.innerHTML +=`
+                <div class="col">
                     <div class="col cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -420,7 +420,7 @@ function renderGames(productData){
                                     </h5>
                                 </div>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
                             </div>
                         </div>
                     </div>
