@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     getUser();
-
-
+    getProduct();
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -62,9 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
     })
-
-
-
 
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
@@ -420,36 +416,232 @@ function hideEditUser(){
     UserProfilForm.style.display = "block";
 
 }
+function getProduct(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        console.log(productData);
+        startseiteRender(productData);
+        renderGamesVerteiler(productData);
+        console.log(res);
+    });
+}
+function renderGamesVerteiler(productData){
+    console.log(productData);
+    const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
+    const JsonContent =productData
+    console.log(JsonContent);
+    for (let p = 0; p < JsonContent.length; p++) {
+        const productID = JsonContent[p].ID;
+    spiele.innerHTML +=`
+                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
+                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
+                                     alt="${JsonContent[p].Produktname}">
+                                     </a>
+                            </div>
+                            <div class="card-body">
+                             <a href ="produktdetail.html" class="cardbodytext">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}€</span>
+                                    </h5>
+                                </div>
+                                </a>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
+                            </div>
+                        </div>
+                </div>
+    `
+    }
+}
+function startseiteRender(productData) {
+    console.log("StartseiteRender");
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
+    const JsonContent = productData;
+    console.log(JsonContent);
+
+    let htmlContent = "";
+
+    for (let i = 0; i < JsonContent.length - 2; i++) {
+        htmlContent += `
+      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+        <div class="card cardbp">
+          <div class="container-fluid merken">
+            <i class="far fa-bookmark bookmarks bicon"></i>
+            <a href="produktdetail.html">
+              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="container cardword">
+              <i class="fas fa-circle availability"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+            </div>
+            <button type="button" class="btn btn-primary bbuttoncard">
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+
+    startseiteRender.innerHTML = htmlContent;
+}
+/* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
+function renderGamesDetail(event){
+    event.preventDefault();
+
+    console.log("irgendwas rein");
+
+    const productId = event.target.getAttribute("data-product-id");
+    //Detailseite mit einem Div versehen
+    const detailseite = document.querySelector("#detailseitedisplay") as HTMLDivElement;
+    console.log(productId);
 
 
-/*
- async function displayProfile() {
-     const DisplayUser = document.getElementById('nutzerProfil')
-     const DisplayCeo = document.getElementById('ceoProfil')
-     const DisplayAdmin = document.getElementById('adminProfil')
+        detailseite.innerHTML=`
+    <div class="container-fluid abstandtop">
+    <div class="row">
+        <div class="col-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="img-container">
+                        <img id="bildtactiletowers" src="${productId[0].Bilder}" class="img-fluid" alt="${productId[0].Produktname}">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers1.png"">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers2.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers3.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers4.png">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 bree40G">
+                    ${productId[0].Produktname}
+                </div>
+                <div class="col-2">
+                    <i class="far fa-bookmark bookmarks bicon"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9">
+                    <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 belleza15G mt-3">
+                    ${productId[0].Kurzbeschreibung}
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button
+                </div>
+                <div class="col-4 text-end bree40G">
+                    ${productId[0].Preis}
+                </div>
+                <div class="col-1"></div>
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button2
+                </div>
+                <div class="col-4 text-end">
+                    <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <button id="expresscheckout" type="submit" class="btn btn-primary bbutton">
+                        Expresscheckout
+                    </button>
+                </div>
+                <div class="col-5">
+                    <button id="warenkorbdetail" type="submit" class="btn btn-primary bbutton">
+                        Warenkorb
+                    </button>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-     try {
-         const res: Response = await fetch("/user", {method: "GET"});
-         const json = await res.json();
-         if (json.rollenid === "1") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = false;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "2") {
-             DisplayCeo.hidden = false;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "3") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = false;
-         }
-     } catch (err) {
-         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-     }
- }
+<div class="container-fluid mt-5">
+    <div class="row ms-3 me-3">
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Produktbeschreibung
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25 mb-5">
+            ${productId[0].Produktbeschreibung}
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Lieferumfang
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25">
+         ${productId[0].Lieferumfang}
+        </div>
+        <div class="col-1 mb-3"></div>
+    </div>
+</div>
+    `
+    console.log (productId[0]);
+}
+*/
 
- */
 
 
 
+
+
+
+
+
+/*function bilderwechsel(smallImg){
+    const fullImg = document.getElementById("bildtactiletowers");
+    smallImg.addEventListener("click", () => {
+        fullImg.src = smallImg.src;
+    })
+}*/

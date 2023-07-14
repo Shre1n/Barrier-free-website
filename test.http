@@ -473,3 +473,14 @@ Host: localhost
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
+
+
+
+### GET all Products
+
+GET /product
+Host: localhost:8080
+Content-Type: application/json
+
+
+###
