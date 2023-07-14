@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
-
+    const spiele = document.querySelector("#spiele") as HTMLButtonElement;
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
-
+    spiele.addEventListener("click", getProduct);
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -383,41 +383,135 @@ function hideEditUser(){
     UserProfilForm.style.display = "block";
 
 }
+function getProduct(){
+    axios.get("/product",{
 
-function bilderwechsel(smallImg){
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        console.log(productData);
+        renderGames;
+        console.log(res);
+    });
+}
+function renderGames(event: Event){
+    event.preventDefault();
+    const spiele = document.querySelector(".spiele") as HTMLDivElement;
+    console.log("renderGames")
+
+    spiele.innerHTML=`<div class="container text-center ">
+            <div class="row row-cols-3">
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                     alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Tactile Towers<br/>59,99€
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                     alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Shake 'n Match<br/>79,99€
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Shape Seekers<br/>29,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Color Cube<br/>19,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">QubyX<br/>12,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*function bilderwechsel(smallImg){
     const fullImg = document.getElementById("bildtactiletowers");
     smallImg.addEventListener("click", () => {
         fullImg.src = smallImg.src;
-    }
-
-/*
- async function displayProfile() {
-     const DisplayUser = document.getElementById('nutzerProfil')
-     const DisplayCeo = document.getElementById('ceoProfil')
-     const DisplayAdmin = document.getElementById('adminProfil')
-
-     try {
-         const res: Response = await fetch("/user", {method: "GET"});
-         const json = await res.json();
-         if (json.rollenid === "1") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = false;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "2") {
-             DisplayCeo.hidden = false;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "3") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = false;
-         }
-     } catch (err) {
-         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-     }
- }
-
- */
-
-
-
+    })
+}*/
