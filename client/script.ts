@@ -73,6 +73,30 @@ function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+    passwortErr.innerText = "";
+    passwortCheckErr.innerText = "";
+
     //Attribute von User
     const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
@@ -103,12 +127,14 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
+            modalFensterUser.hide();
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
+
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -132,12 +158,13 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
+            modalFensterUser.hide();
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -148,6 +175,14 @@ function addUser(event: Event): void {
         document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
     }
 }
+
+function getErrorMessage(data){
+    const firstSpace = data.indexOf(" ");
+    const firstword = data.substring(0,firstSpace);
+    const caselower = firstword.toLowerCase();
+    (document.getElementById(`${caselower}Err`).innerText= data);
+}
+
 
 function delUser(event: Event): void {
     event.preventDefault();

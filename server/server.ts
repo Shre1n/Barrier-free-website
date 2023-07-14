@@ -6,7 +6,6 @@ import * as path from "path";
 import Joi = require('joi');
 //Install Displayable Chart option
 import {Chart} from 'chart.js';
-import {func} from "joi";
 
 
 // Ergänzt/Überlädt den Sessionstore
@@ -372,6 +371,7 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         email: Joi.string()
+            // Email pattern Sonderzeichen sind NOCH erlaubt
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
             .message("Email muss in folgendem Format sein: test@test.test")
             .min(2)
@@ -403,7 +403,7 @@ function validateUser(isPut, user) {
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456")
             .min(5)
             .required(),
         newsletter: Joi.string()
