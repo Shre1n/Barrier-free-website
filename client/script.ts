@@ -206,6 +206,27 @@ function editUser(event: Event): void {
     console.log("klick");
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
     const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value;
@@ -237,6 +258,7 @@ function editUser(event: Event): void {
             console.log(res);
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -259,6 +281,7 @@ function editUser(event: Event): void {
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -321,6 +344,7 @@ function signOff(): void {
 }
 
 function getUser(){
+
     axios.get("/user",{
 
     }).then((res:AxiosResponse) => {
@@ -413,8 +437,6 @@ function renderUserEdit(userData) {
     telefonnummerElementEdit.value = userData.telefonnummer;
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
-
-
 }
 function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
