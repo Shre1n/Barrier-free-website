@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     getUser();
     getProduct();
+    getProduct2();
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -480,8 +481,19 @@ function getProduct(){
         console.log("Hier Produkt");
         const productData = res.data;
         console.log(productData);
-        startseiteRender(productData);
         renderGamesVerteiler(productData);
+        console.log(res);
+    });
+    checkLogin();
+}
+function getProduct2(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        console.log(productData);
+        startseiteRender(productData);
         console.log(res);
     });
     checkLogin();
@@ -492,10 +504,11 @@ function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
     const JsonContent =productData
+    let htmlContent = "";
     console.log(JsonContent);
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-        spiele.innerHTML +=`
+        htmlContent +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -520,6 +533,7 @@ function renderGamesVerteiler(productData){
                 </div>
     `
     }
+    spiele.innerHTML = htmlContent;
     checkLogin();
 }
 function startseiteRender(productData) {
@@ -556,7 +570,7 @@ function startseiteRender(productData) {
     `;
     }
     checkLogin();
-   // startseiteRender.innerHTML = htmlContent;
+   startseiteRender.innerHTML = htmlContent;
 }
 
 /* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
