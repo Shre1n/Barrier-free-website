@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    document.getElementById("warenkorb").addEventListener("click", () =>{
+        getCart();
+    });
+
     getUser();
     getProduct();
 
@@ -69,6 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
     })
+
+
 
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
@@ -514,7 +520,7 @@ function renderGamesVerteiler(productData){
                                 </div>
                                 </a>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
+                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
                             </div>
                         </div>
                 </div>
@@ -558,6 +564,31 @@ function startseiteRender(productData) {
     checkLogin();
    // startseiteRender.innerHTML = htmlContent;
 }
+
+
+function getCart(){
+    axios.get("/cart",{
+
+    }).then((res:AxiosResponse) => {
+
+        console.log(res);
+    });
+    checkLogin();
+}
+
+function putCart(produktName,menge, method)  {
+
+    axios.put("/cart", {
+        produktName: produktName,
+        produktMenge: menge,
+        method: method
+    }).then((res:AxiosResponse) => {
+
+        console.log(res);
+    });
+}
+
+
 
 /* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
 function renderGamesDetail(event){
