@@ -498,6 +498,7 @@ function getProduct2(){
     });
     checkLogin();
 }
+
 function renderGamesVerteiler(productData){
     checkLogin();
     console.log(productData);
@@ -536,6 +537,7 @@ function renderGamesVerteiler(productData){
     spiele.innerHTML = htmlContent;
     checkLogin();
 }
+
 function startseiteRender(productData) {
     checkLogin();
     console.log("StartseiteRender");

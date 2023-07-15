@@ -483,4 +483,19 @@ Host: localhost:8080
 Content-Type: application/json
 
 
+### GET all AddOns
+
+
+GET /addons
+Host: localhost:8080
+Content-Type: application/json
+
+
+### GET all SpareParts
+
+
+GET /spareparts
+Host: localhost:8080
+Content-Type: application/json
+
 ###

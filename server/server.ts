@@ -89,6 +89,8 @@ app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
+app.get("/addons" ,getAddons);
+app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
@@ -100,6 +102,8 @@ app.put("/ceo/product/:id", editProduct);
 app.post("/ceo", postCeo);
 app.post("/ceo/product", postProduct);
 app.get("/ceo/product/:name", getProduct);
+app.get("/ceo/product/:name" ,getAddons);
+app.get("/ceo/product/:name", getSpareParts);
 app.get("/ceo/bewertungen", getAllRatings);
 app.get("/ceo/bewertungen/:id", getProductRating);
 app.post("/ceo/signin", signIn);
@@ -110,6 +114,8 @@ app.get("/ceo/signout", signOut);
 app.get("/admin/user", getUser);
 app.post("/admin", postAdmin);
 app.get("/admin/product", getProduct);
+app.get("/admin/product" ,getAddons);
+app.get("/admin/product", getSpareParts);
 app.post("/admin/signin", signIn);
 app.get("/admin/signout", signOut);
 app.delete("/admin/user/:username", deleteUser);
@@ -276,6 +282,34 @@ function deleteUser(req: express.Request, res: express.Response): void {
 
 function getProduct(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 1";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+function getAddons(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+function getSpareParts(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
 
     // Führe die Datenbankabfrage aus
     connection.query(sql, (err, results) => {
