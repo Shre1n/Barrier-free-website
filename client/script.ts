@@ -4,8 +4,13 @@ let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
-    modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
-    modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    try {
+        modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
+        modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    } catch (e) {
+        console.log(e)
+    }
+
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
@@ -13,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteUser = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
     const deletecheck = document.querySelector("#userdeletecheck") as HTMLElement;
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
+ // attempt   const weiterButtonBestellung = (document.querySelector("#weiterButtonBestellung") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
 
@@ -42,8 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
            deletecheck.style.display = "block";
         });
     }
+    //TEST, falls try catch scheitert
+    if (window.location.href =="http://localhost:8080/bestellabschluss.html") +{
 
-    getUser();
+    }
+
+
+    //Alle Listener für die Bestellseite
+    try{
+        lieferAdresseRendern();
+        //enable input
+        document.getElementById("editLieferadresseBtn").addEventListener("click", ()=> {toggleEditLieferadresse(false)});
+        document.getElementById("postLieferadresseForm").addEventListener("submit", updateLieferAdresse);
+        document.getElementById("displayRechnungsadresse").addEventListener("submit", updateRechnungsadresse);
+        document.getElementById("checkRechnungsadresse").addEventListener("change",toggleRechnungsadresse);
+    } catch(e) {
+        console.log(e)
+    }
+
+    try {
+        getUser();
+    } catch (e) {
+        console.log(e)
+    }
 
 
 
@@ -346,7 +373,7 @@ async function checkLogin() {
 
         }
     } catch (e) {
-
+        console.log(e)
     }
 }
 
@@ -383,6 +410,145 @@ function hideEditUser(){
     UserProfilForm.style.display = "block";
 
 }
+
+async function lieferAdresseRendern() {
+    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+    try {
+        const response = await fetch("/user",
+            {
+                method:"GET"
+            });
+        const userData = await response.json();
+
+        if(response.status == 200) {
+            anredeElement.value = userData.anrede;
+            vornameElement.value = userData.vorname;
+            nachnameElement.value = userData.nachname;
+            plzElement.value = userData.postleitzahl;
+            ortElement.value = userData.ort;
+            strasseElement.value = userData.strasse;
+            hnrElement.value = userData.hnr;
+            checkLogin();
+        } else {
+
+        }
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
+// Attempt
+async function updateRechnungsadresse() {
+    const anredeElement = document.getElementById('displayRechnungAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayRechnungVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayRechnungNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayRechnungPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayRechnungOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayRechnungStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayRechnungHnr') as HTMLInputElement;
+    try {
+        await fetch("/rechnungsadresse",
+            {
+                method:"PUT",
+                body: JSON.stringify({
+                    anrede: anredeElement.value,
+                    vorname: vornameElement.value,
+                    nachname: nachnameElement.value,
+                    postleitzahl: plzElement.value,
+                    ort: ortElement.value,
+                    strasse: strasseElement.value,
+                    hnr: hnrElement.value
+                })
+            });
+    } catch (e) {
+        console.log(e)
+    }
+    checkLogin();
+}
+
+function toggleEditLieferadresse(toggle: boolean) {
+    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+    const button = document.getElementById('lieferAdBtn') as HTMLButtonElement;
+    anredeElement.disabled = toggle;
+    vornameElement.disabled = toggle;
+    nachnameElement.disabled = toggle;
+    plzElement.disabled = toggle;
+    ortElement.disabled = toggle;
+    strasseElement.disabled = toggle;
+    hnrElement.disabled = toggle;
+    if(toggle){
+        button.classList.add("d-none");
+    } else {
+        button.classList.remove("d-none");
+    }
+}
+
+
+async function updateLieferAdresse() {
+    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+
+    try {
+        await fetch("/lieferadresse",
+            {
+                method:"PUT",
+                body: JSON.stringify({
+                    anrede: anredeElement.value,
+                    vorname: vornameElement.value,
+                    nachname: nachnameElement.value,
+                    postleitzahl: plzElement.value,
+                    ort: ortElement.value,
+                    strasse: strasseElement.value,
+                    hnr: hnrElement.value
+                })
+            });
+        toggleEditLieferadresse(true);
+
+    } catch (e) {
+        console.log(e)
+    }
+    checkLogin();
+
+}
+
+function toggleRechnungsadresse(e:Event) {
+    const rechnungsForm = document.getElementById("displayRechnungsadresse");
+
+    //target wird als HTMLInputElement festgelegt
+    const target = e.target as HTMLInputElement;
+
+    //Überprüfen, checkbox ausgewählt ist
+    if(target.checked) {
+        rechnungsForm.classList.remove("d-none");
+    } else {
+        rechnungsForm.classList.add("d-none");
+    }
+}
+
+
+
+
+
+
+
 
 
 /*

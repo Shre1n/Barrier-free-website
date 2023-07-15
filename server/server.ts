@@ -16,7 +16,9 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
-        rollenid: number
+        rollenid: number;
+        nutzerId: number;
+        bestellID: number;
     }
 }
 
@@ -94,7 +96,9 @@ app.get("/product", getAllProducts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-app.get("/login",checkLogin, isLoggedIn)
+app.get("/login", checkLogin, isLoggedIn);
+app.put("/lieferadresse", checkLogin, putLieferadresse);
+app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
 
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
@@ -120,7 +124,6 @@ app.put("/admin/user/:username", disableUser);
 
 //SITE
 // Angezeigte Webseite
-
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -312,10 +315,12 @@ function signIn(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
+                req.session.nutzerId = result[0].ID;
+                req.session.bestellID = 1;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -412,6 +417,7 @@ function validateUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
+
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
@@ -483,7 +489,57 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+}
+
+
+function putLieferadresse(req: express.Request, res: express.Response) {
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+
+    if (anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+        res.status(400);
+        res.json({message: "Fülle alle Felder aus!"});
+    } else {
+        const param: [string, string, string, string, string, string, string, number] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, req.session.bestellID];
+        const sql: string = `UPDATE Bestellungen SET LieferAnrede = ?, LieferVorname = ?, LieferNachname = ?, LieferPostleitzahl = ?, LieferOrt = ?, LieferStraße = ?, LieferHausNr = ? WHERE ID = ?;`;
+        query(sql, param).then((result) => {
+            res.sendStatus(200);
+        }).catch((err: mysql.MysqlError) => {
+            res.sendStatus(500);
+            console.log(err);
+        });
+    }
+}
+
+function putRechnungsadresse(req: express.Request, res: express.Response) {
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+
+    if (anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+        res.status(400);
+        res.json({message: "Fülle alle Felder aus!"});
+    } else {
+        const param: [string, string, string, string, string, string, string, number] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, req.session.bestellID];
+        const sql: string = `UPDATE Bestellungen SET RechnungAnrede = ?, RechnungVorname = ?, RechnungNachname = ?, RechnungPostleitzahl = ?, RechnungOrt = ?, RechnungStraße = ?, RechnungHausNr = ? WHERE ID = ?;`;
+        query(sql, param).then((result) => {
+            res.sendStatus(200);
+        }).catch((err: mysql.MysqlError) => {
+            res.sendStatus(500);
+            console.log(err);
+        });
+    }
+
 }
 
 
