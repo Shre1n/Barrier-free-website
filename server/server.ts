@@ -362,52 +362,53 @@ function validateUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
-            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test")
+            .message("Email muss in folgendem Format sein: test@test.test.")
             .min(2)
             .required(),
         passwort: Joi.string()
             .pattern(/.{3,}/)
-            .message("Muss größer als 3 Zeichen sein")
+            .message("Passwort muss größer als 3 Zeichen sein.")
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
-            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
             .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
             .min(1)
+            .max(5)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456")
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
             .min(5)
             .required(),
         newsletter: Joi.string()
@@ -420,47 +421,47 @@ function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
-            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test")
+            .message("Email muss in folgendem Format sein: test@test.test.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
-            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
             .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
             .min(1)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
             .min(5)
             .required(),
         newsletter: Joi.string()

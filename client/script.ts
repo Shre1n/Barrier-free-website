@@ -102,6 +102,8 @@ function addUser(event: Event): void {
     passwortErr.innerText = "";
     passwortCheckErr.innerText = "";
 
+
+
     //Attribute von User
     const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
@@ -115,6 +117,7 @@ function addUser(event: Event): void {
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
     const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
+
     if (checkbox.checked && passwort === passwortcheck) {
         //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
@@ -239,6 +242,29 @@ function editUser(event: Event): void {
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+
+    if (vorname === ""){
+        vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (nachname === ""){
+        nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (postleitzahl === ""){
+        postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (ort === ""){
+        ortErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (strasse === ""){
+        strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }if (hnr === ""){
+        hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (telefonnummer === ""){
+        telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+
+
 
     if (checkbox.checked) {
         axios.put("/user", {
