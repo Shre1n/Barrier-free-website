@@ -1,5 +1,5 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
-
+let idsArray = [];
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
@@ -508,7 +508,8 @@ function renderGamesVerteiler(productData){
     let htmlContent = "";
     console.log(JsonContent);
     for (p = 0; p < JsonContent.length; p++) {
-        const productID = JsonContent[p].ID;
+        const productID = JsonContent[p].ID + 1;
+        idsArray.push(productID);
         htmlContent +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
@@ -571,144 +572,68 @@ function startseiteRender(productData) {
       </div>
     `;
     }
+    renderGamesDetail(event);
     checkLogin();
    startseiteRender.innerHTML = htmlContent;
 }
 
-/* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
-function renderGamesDetail(event){
+/*Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
+function renderGamesDetail(event: Event) {
     event.preventDefault();
-
-    console.log("irgendwas rein");
-
-    const productId = event.target.getAttribute("data-product-id");
-    //Detailseite mit einem Div versehen
     const detailseite = document.querySelector("#detailseitedisplay") as HTMLDivElement;
-    console.log(productId);
+    for (let i = 0; i < idsArray.length; i++) {
+        const id = idsArray[i];
+        console.log(id);
+        const product = JsonContent.find(item => item.ID === id); // JsonContent anhand der ID finden
 
-
-        detailseite.innerHTML=`
-    <div class="container-fluid abstandtop">
-    <div class="row">
-        <div class="col-6">
-            <div class="container-fluid">
+        detailseite.innerHTML = `
+            <!-- Verwenden Sie product anstelle von idsArray[0] für den Zugriff auf die Eigenschaften -->
+            <div class="container-fluid abstandtop">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="img-container">
-                        <img id="bildtactiletowers" src="${productId[0].Bilder}" class="img-fluid" alt="${productId[0].Produktname}">
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row justify-content-center">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-2 produktbillderklein">
-                                <img src="/img/tactiletowers1.png"">
-                            </div>
-                            <div class="col-2 produktbillderklein">
-                                <img src="/img/tactiletowers2.png">
-                            </div>
-                            <div class="col-2 produktbillderklein">
-                                <img src="/img/tactiletowers3.png">
-                            </div>
-                            <div class="col-2 produktbillderklein">
-                                <img src="/img/tactiletowers4.png">
-                            </div>
-                            <div class="col-2">
+                    <div class="col-6">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="img-container">
+                                        <img id="bildtactiletowers" src="${product.Bilder}" class="img-fluid" alt="${product.Produktname}">
+                                    </div>
+                                </div>
+                                <!-- ... -->
                             </div>
                         </div>
                     </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-9 bree40G">
+                                ${product.Produktname}
+                            </div>
+                            <!-- ... -->
+                        </div>
+                        <!-- ... -->
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6">
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-9 bree40G">
-                    ${productId[0].Produktname}
-                </div>
-                <div class="col-2">
-                    <i class="far fa-bookmark bookmarks bicon"></i>
+            <div class="container-fluid mt-5">
+                <div class="row ms-3 me-3">
+                    <div class="col-1 mb-3"></div>
+                    <div class="col-10 mb-3 bree40G">
+                        Produktbeschreibung
+                    </div>
+                    <div class="col-1 mb-3"></div>
+                    <div class="col-1 mb-3"></div>
+                    <div class="col-10 belleza25 mb-5">
+                        ${product.Produktbeschreibung}
+                    </div>
+                    <!-- ... -->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-9">
-                    <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
-                </div>
-                <div class="col-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-9 belleza15G mt-3">
-                    ${productId[0].Kurzbeschreibung}
-                </div>
-                <div class="col-2"></div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-6">
-                    Button
-                </div>
-                <div class="col-4 text-end bree40G">
-                    ${productId[0].Preis}
-                </div>
-                <div class="col-1"></div>
-                <div class="col-1"></div>
-                <div class="col-6">
-                    Button2
-                </div>
-                <div class="col-4 text-end">
-                    <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
-                </div>
-                <div class="col-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-5">
-                    <button id="expresscheckout" type="submit" class="btn btn-primary bbutton">
-                        Expresscheckout
-                    </button>
-                </div>
-                <div class="col-5">
-                    <button id="warenkorbdetail" type="submit" class="btn btn-primary bbutton">
-                        Warenkorb
-                    </button>
-                </div>
-                <div class="col-1"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid mt-5">
-    <div class="row ms-3 me-3">
-        <div class="col-1 mb-3"></div>
-        <div class="col-10 mb-3 bree40G">
-            Produktbeschreibung
-        </div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-10 belleza25 mb-5">
-            ${productId[0].Produktbeschreibung}
-        </div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-10 mb-3 bree40G">
-            Lieferumfang
-        </div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-1 mb-3"></div>
-        <div class="col-10 belleza25">
-         ${productId[0].Lieferumfang}
-        </div>
-        <div class="col-1 mb-3"></div>
-    </div>
-</div>
-    `
-    console.log (productId[0]);
+        `;
+    }
 }
-*/
+ */
+
+
 
 
 
