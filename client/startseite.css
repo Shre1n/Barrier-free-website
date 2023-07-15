@@ -50,3 +50,6 @@
     border-right-color: #FFFFFF;
     margin-top: 4.375em;
 }
+.bilderkarussell{
+    z-index: 1;
+}

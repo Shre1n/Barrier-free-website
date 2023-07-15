@@ -391,8 +391,8 @@ POST http://localhost:8080/signin
 Content-Type: application/json
 
 {
-  "email": "maik@tester.de",
-  "password": "1234"
+  "email": "jannis.kempf@hotmail.de",
+  "passwort": "123"
 }
 ###
 
@@ -473,6 +473,40 @@ Host: localhost
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
+
+
+
+### GET all Products
+
+GET /product
+Host: localhost:8080
+Content-Type: application/json
+
+###
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+"email": "jannis.kempf@hotmail.de",
+"passwort": "123"
+}
+###
+
+###
+
+### Produkt Warenkorb hinzufügen
+GET /cart
+Host: localhost:8080
+Content-Type: application/json
+###
+
+### Produkt Warenkorb hinzufügen
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
+{"produktName": "Tactile Towers", "produktMenge":  1, "method":  "add"}
+###
 
 
 
