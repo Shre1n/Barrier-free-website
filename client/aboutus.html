@@ -19,12 +19,12 @@
     <div class="col-sm-6 d-none d-sm-block">
       <div class="row rowHeader text-center align-items-center">
         <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
-          <a  href="startseite.html">
+          <a href="startseite.html">
             <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
           </a>
         </div>
         <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
-          <a href="verteilerseite.html" class="linksW">
+          <a href="verteilerseite.html" class="linksW" id="spiele">
             Spiele
           </a>
         </div>
@@ -43,12 +43,18 @@
     <div class="col-sm-6">
       <div class="row rowHeader text-center align-items-center justify-content-end">
         <div class="col-lg-3 col-sm-6 col-6">
-          <i id="abmelden" type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
+          <i id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
         </div>
-        <div id="profil" type="button" class="col-lg-3 col-sm-6 col-6">
-          <i  id="registrieren" class="far fa-user headericon iconborder"></i>
+        <div class="col-lg-3 col-sm-6 col-6">
+          <div id="profilseite">
+            <a href="profilseite.html">
+              <i class="far fa-user headericon iconborder"></i>
+            </a>
+          </div>
+          <i id="registrieren" class="far fa-user headericon iconborder"></i>
         </div>
-        <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
+        <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
+             data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
           <i class="fas fa-shopping-bag headericon iconborder"></i>
         </div>
       </div>
@@ -70,10 +76,11 @@
   <div class="font40 zentriert">
     Über uns
   </div>
+<div class="container align-items-center">
   <div class="row aboutusnamen">
-    <div class="col-1">
-    </div>
-    <div class="col-2">
+    <div class="col-xl-1"></div>
+
+    <div class="col-xl-2 col-lg-4">
       <div class="card">
         <img class="card-img-top fotos" src="/img/aaron.png" alt="Aaron Schmidt">
         <div class="card-body">
@@ -81,7 +88,7 @@
         </div>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-xl-2 col-lg-4">
       <div class="card">
         <img class="card-img-top fotos" src="/img/yannick.png" alt="Yannick Kissel">
         <div class="card-body">
@@ -89,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-xl-2 col-lg-4">
       <div class="card">
         <img class="card-img-top fotos" src="/img/jannis.png" alt="Jannis Kempf">
         <div class="card-body">
@@ -97,7 +104,7 @@
         </div>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-xl-2 col-lg-4">
       <div class="card">
         <img class="card-img-top fotos" src="/img/robin.png" alt="Robin Hahn">
         <div class="card-body">
@@ -105,18 +112,18 @@
         </div>
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-xl-2 col-lg-4">
       <div class="card">
         <img class="card-img-top fotos" src="/img/jonas.png" alt="Jonas Paul Thiele">
         <div class="card-body">
           <h5 class="card-title">Jonas Paul Thiele</h5>
         </div>
       </div>
-      <div class="col-1">
-      </div>
     </div>
+    <div class="col-xl-1"></div>
+    <div class="col-lg-2 d-lg-none d-xl-block d-sm-none d-md-block d-none d-sm-block"></div>
   </div>
-
+</div>
   <div class="row">
     <div class="col-1">
     </div>
@@ -319,6 +326,67 @@
           <button id="registerUser" type="submit" class="btn btn-primary bbutton">
             Registrieren
           </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Warenkorb</h5>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="modalFormWarenkorb">
+        <div class="modal-body">
+          <div class="row border border-dark rounded">
+            <div class="col-4">
+              <div class="row">
+                <div class="col">
+                  <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="row imgHöhe">
+                <div class="col-10 mb-4">
+                  <span id="tactileTowers" class="bree20G">Tactile Towers</span>
+                </div>
+                <div class="col-2 mb-4">
+                  <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                </div>
+                <div class="col-10 mb-4">
+                                <span id="kurzBechreibung">
+                                    Tactile Towers ist ein Spiel,
+                                    bei dem unter Zeitdruck eine
+                                    Figur aus Einzelteilen richtig
+                                    gestapelt werden muss.
+                                </span>
+                </div>
+                <div class="col-2 mb-4"></div>
+                <div class="col-6">
+                  <label for=menge></label>
+                  <select id="menge" class="btn bbutton text-center" required>
+                    <option value="1" class="menge">1</option>
+                    <option value="2" class="menge">2</option>
+                    <option value="3" class="menge">3</option>
+                    <option value="4" class="menge">4</option>
+                    <option value="5" class="menge">5</option>
+                  </select>
+                </div>
+                <div class="col-6 text-end">
+                  59,99€
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="zurKasse" type="submit" class="btn bbutton">
+              Zur Kasse
+            </button>
+          </div>
         </div>
       </form>
     </div>

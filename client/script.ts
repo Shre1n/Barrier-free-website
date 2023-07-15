@@ -2,10 +2,12 @@
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+let modalFensterWarenkorb: bootstrap.Modal;
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
-    const spiele = document.querySelector("#spiele");
+    let warenkorb = document.querySelector("#warenkorb");
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -32,21 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (loginform) {
         loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
+    }
+    if (warenkorb){
+        warenkorb.addEventListener("click", ()=>{
+            modalFensterWarenkorb.show();
+        })
     }
 
     if (deleteUser){
         deleteUser.addEventListener("click", () => {
-           deleteUser.style.display = "none";
-           deletecheck.style.display = "block";
+            deleteUser.style.display = "none";
+            deletecheck.style.display = "block";
         });
     }
 
     getUser();
-
-
+    getProduct();
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -58,14 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+        getUser();
         console.log("Wird jetzt angezeigt")
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
     })
 
-
-
-    spiele.addEventListener("click", getProduct);
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
 });
@@ -73,6 +77,32 @@ document.addEventListener("DOMContentLoaded", () => {
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+    passwortErr.innerText = "";
+    passwortCheckErr.innerText = "";
+
+
 
     //Attribute von User
     const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
@@ -87,6 +117,7 @@ function addUser(event: Event): void {
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
     const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
+
     if (checkbox.checked && passwort === passwortcheck) {
         //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
@@ -104,12 +135,14 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
+            modalFensterUser.hide();
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
+
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -133,12 +166,13 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
+            modalFensterUser.hide();
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
@@ -150,16 +184,13 @@ function addUser(event: Event): void {
     }
 }
 
-function getProduct(){
-    axios.get("/product",{
-
-    }).then((res:AxiosResponse) => {
-        console.log("Hier");
-        const productData = res.data;
-        console.log(productData);
-        console.log(res);
-    });
+function getErrorMessage(data){
+    const firstSpace = data.indexOf(" ");
+    const firstword = data.substring(0,firstSpace);
+    const caselower = firstword.toLowerCase();
+    (document.getElementById(`${caselower}Err`).innerText= data);
 }
+
 
 function delUser(event: Event): void {
     event.preventDefault();
@@ -175,8 +206,29 @@ function delUser(event: Event): void {
 
 function editUser(event: Event): void {
     event.preventDefault();
-    console.log("klick")
+    console.log("klick");
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
 
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
@@ -190,6 +242,29 @@ function editUser(event: Event): void {
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+
+    if (vorname === ""){
+        vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (nachname === ""){
+        nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (postleitzahl === ""){
+        postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (ort === ""){
+        ortErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (strasse === ""){
+        strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }if (hnr === ""){
+        hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (telefonnummer === ""){
+        telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+
+
 
     if (checkbox.checked) {
         axios.put("/user", {
@@ -209,6 +284,7 @@ function editUser(event: Event): void {
             console.log(res);
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -231,6 +307,7 @@ function editUser(event: Event): void {
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -281,6 +358,7 @@ function signIn(event: Event): void {
 function signOff(): void {
     console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
+        checkLogin();
         window.location.href = "/startseite.html";
         console.log(res);
         console.log("hab abgemeldet")
@@ -292,6 +370,7 @@ function signOff(): void {
 }
 
 function getUser(){
+
     axios.get("/user",{
 
     }).then((res:AxiosResponse) => {
@@ -384,47 +463,248 @@ function renderUserEdit(userData) {
     telefonnummerElementEdit.value = userData.telefonnummer;
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
-
-
 }
 function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-    console.log("Wird jetzt angezeigt")
+    console.log("Wird jetzt angezeigt");
+    getUser();
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
 
 }
+function getProduct(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        console.log(productData);
+        startseiteRender(productData);
+        renderGamesVerteiler(productData);
+        console.log(res);
+    });
+    checkLogin();
+}
+function renderGamesVerteiler(productData){
+    checkLogin();
+    console.log(productData);
+    const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
+    let p;
+    const JsonContent =productData
+    console.log(JsonContent);
+    for (p = 0; p < JsonContent.length; p++) {
+        const productID = JsonContent[p].ID;
+        spiele.innerHTML +=`
+                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
+                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
+                                     alt="${JsonContent[p].Produktname}">
+                                     </a>
+                            </div>
+                            <div class="card-body">
+                             <a href ="produktdetail.html" class="cardbodytext">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}€</span>
+                                    </h5>
+                                </div>
+                                </a>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
+                            </div>
+                        </div>
+                </div>
+    `
+    }
+    checkLogin();
+}
+function startseiteRender(productData) {
+    checkLogin();
+    console.log("StartseiteRender");
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
+    const JsonContent = productData;
+    console.log(JsonContent);
+
+    let htmlContent = "";
+
+    for (let i = 0; i < JsonContent.length - 2; i++) {
+        htmlContent += `
+      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+        <div class="card cardbp">
+          <div class="container-fluid merken">
+            <i class="far fa-bookmark bookmarks bicon"></i>
+            <a href="produktdetail.html">
+              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="container cardword">
+              <i class="fas fa-circle availability"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+            </div>
+            <button type="button" class="btn btn-primary bbuttoncard">
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+    checkLogin();
+   // startseiteRender.innerHTML = htmlContent;
+}
+
+/* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
+function renderGamesDetail(event){
+    event.preventDefault();
+
+    console.log("irgendwas rein");
+
+    const productId = event.target.getAttribute("data-product-id");
+    //Detailseite mit einem Div versehen
+    const detailseite = document.querySelector("#detailseitedisplay") as HTMLDivElement;
+    console.log(productId);
 
 
-/*
- async function displayProfile() {
-     const DisplayUser = document.getElementById('nutzerProfil')
-     const DisplayCeo = document.getElementById('ceoProfil')
-     const DisplayAdmin = document.getElementById('adminProfil')
+        detailseite.innerHTML=`
+    <div class="container-fluid abstandtop">
+    <div class="row">
+        <div class="col-6">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="img-container">
+                        <img id="bildtactiletowers" src="${productId[0].Bilder}" class="img-fluid" alt="${productId[0].Produktname}">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row justify-content-center">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers1.png"">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers2.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers3.png">
+                            </div>
+                            <div class="col-2 produktbillderklein">
+                                <img src="/img/tactiletowers4.png">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 bree40G">
+                    ${productId[0].Produktname}
+                </div>
+                <div class="col-2">
+                    <i class="far fa-bookmark bookmarks bicon"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9">
+                    <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 belleza15G mt-3">
+                    ${productId[0].Kurzbeschreibung}
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button
+                </div>
+                <div class="col-4 text-end bree40G">
+                    ${productId[0].Preis}
+                </div>
+                <div class="col-1"></div>
+                <div class="col-1"></div>
+                <div class="col-6">
+                    Button2
+                </div>
+                <div class="col-4 text-end">
+                    <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-5">
+                    <button id="expresscheckout" type="submit" class="btn btn-primary bbutton">
+                        Expresscheckout
+                    </button>
+                </div>
+                <div class="col-5">
+                    <button id="warenkorbdetail" type="submit" class="btn btn-primary bbutton">
+                        Warenkorb
+                    </button>
+                </div>
+                <div class="col-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-     try {
-         const res: Response = await fetch("/user", {method: "GET"});
-         const json = await res.json();
-         if (json.rollenid === "1") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = false;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "2") {
-             DisplayCeo.hidden = false;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "3") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = false;
-         }
-     } catch (err) {
-         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-     }
- }
+<div class="container-fluid mt-5">
+    <div class="row ms-3 me-3">
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Produktbeschreibung
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25 mb-5">
+            ${productId[0].Produktbeschreibung}
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 mb-3 bree40G">
+            Lieferumfang
+        </div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-1 mb-3"></div>
+        <div class="col-10 belleza25">
+         ${productId[0].Lieferumfang}
+        </div>
+        <div class="col-1 mb-3"></div>
+    </div>
+</div>
+    `
+    console.log (productId[0]);
+}
+*/
 
- */
 
 
 
+
+
+
+
+
+/*function bilderwechsel(smallImg){
+    const fullImg = document.getElementById("bildtactiletowers");
+    smallImg.addEventListener("click", () => {
+        fullImg.src = smallImg.src;
+    })
+}*/
