@@ -3,12 +3,11 @@
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
-
 let shoppingCart:Object[] = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
-    getCart();
+
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -23,9 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
+    const modalFormWarenkorb = document.querySelector("#ModalWarenkorb");
+
     warenkorb.addEventListener("click", () => {
         warenkorbRender();
     });
+    modalFormWarenkorb.addEventListener("click", deleteWarenkorb);
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -45,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
             modalFensterUserLogin.show();
         });
     }
+
     if (warenkorb){
         warenkorb.addEventListener("click", ()=>{
             modalFensterWarenkorb.show();
@@ -618,6 +621,8 @@ function startseiteRender(productData) {
 }
 
 function warenkorbRender() {
+    getCart();
+    console.log(getCart, "MAAAAAAAAAAAAAAAAAAAAAn");
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
     console.log("heer")
     console.log(shoppingCart);
@@ -635,35 +640,35 @@ function warenkorbRender() {
         let produkt = shoppingCart[i];
         console.log(produkt)
         modalFormWarenkorb.innerHTML += `
+<div data-pos="${i}">
         <div class="col-4">
-                        <div class="row">
-                            <div class="col">
-                                <img src="${produkt.bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <div class="row imgHöhe">
-                            <div class="col-10 mb-4">
-                                <span id="tactileTowers" class="bree20G">${produkt.produktName}</span>
-                            </div>
-                            <div class="col-2 mb-4">
-                                <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
-                            </div>
-                            <div class="col-10 mb-4">
-                            <span id="kurzBechreibung">${produkt.kurzbeschreibung}
-                            </span>
-                            </div>
-                            <div class="col-2 mb-4"></div>
-                            <div class="col-6">
-                                <label for=menge>Menge: </label>
-                                <input type="number" id="menge" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}">
-                                <span id="bestandErr"></span>
-                            </div>
-                            <div id=preis class="col-6 text-end">
-                            </div>
-                        </div>
-                    </div>
+             <div class="row">
+                   <div class="col">
+                        <img src="${produkt.bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                   </div>
+             </div>
+        </div>
+        <div class="col-8">
+             <div class="row imgHöhe">
+                  <div class="col-10 mb-4">
+                       <span id="tactileTowers" class="bree20G">${produkt.produktName}</span>
+                  </div>
+                  <div class="col-2 mb-4">
+                       <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                  </div>
+                  <div class="col-10 mb-4">
+                       <span id="kurzBechreibung">${produkt.kurzbeschreibung}</span>
+                  </div>
+                  <div class="col-2 mb-4"></div>
+                  <div class="col-6">
+                       <label for=menge>Menge: </label>
+                       <input type="number" id="menge" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}">
+                       <span id="bestandErr"></span>
+                  </div>
+                  <div id=preis class="col-6 text-end"></div>
+             </div>
+        </div
+</div>
         `
     }
     modalFormWarenkorb.innerHTML += `
@@ -676,6 +681,21 @@ function warenkorbRender() {
             </div>
     
     `
+
+
+}
+function deleteWarenkorb(event: Event): void {
+    getCart();
+    console.log("versucht zu löschen");
+    const target: HTMLElement = (event.target as HTMLElement).closest(".fa-trash");
+
+    if (target) {
+        const position = Number(target.parentElement.parentElement.parentElement.parentElement.dataset.pos);
+        shoppingCart.splice(position, 1);
+        console.log(shoppingCart);
+    }
+
+    warenkorbRender();
 }
 
 
