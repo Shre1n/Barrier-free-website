@@ -58,7 +58,7 @@
     display: flex;
 }
 .sortby{
-    margin-left: 19em;
+    margin-top: 2em;
     background-color: #3D93A6 !important;
     color: #FFFFFF !important;
     border-color: #707070 !important;
@@ -186,5 +186,11 @@
     justify-content: center !important;
     align-items: center!important;
     margin-bottom: 2em;
+    margin-top: 2em;
+}
+.gehweg{
+    display: none;
+}
+.sort{
     margin-top: 2em;
 }
