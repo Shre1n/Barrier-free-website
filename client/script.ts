@@ -536,7 +536,6 @@ function renderGamesVerteiler(productData){
     console.log(JsonContent);
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID + 1;
-        idsArray.push(productID);
         htmlContent +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
@@ -565,20 +564,6 @@ function renderGamesVerteiler(productData){
     spiele.innerHTML = htmlContent;
     checkLogin();
 }
-
-
-
-
-
-
-
-/*
-        document.getElementById("warenkorb").addEventListener("click", () => {
-            warenkorbRender(productData);
-        });
-*/
-
-
 
 function startseiteRender(productData) {
     checkLogin();
