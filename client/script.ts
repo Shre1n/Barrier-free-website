@@ -3,8 +3,12 @@ let idsArray = [];
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
+
+let index: number;
+
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
+
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
     modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
@@ -51,6 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    document.getElementById("warenkorb").addEventListener("click", () =>{
+        getCart();
+    });
+
     getUser();
     getProduct();
     getProduct2();
@@ -70,6 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
     })
+
+
 
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
@@ -492,8 +502,12 @@ function getProduct2(){
     }).then((res:AxiosResponse) => {
         console.log("Hier Produkt");
         const productData = res.data;
+        if (productData.Bestand === ""){
+            document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
+        }
         console.log(productData);
         startseiteRender(productData);
+        renderGamesVerteiler(productData);
         console.log(res);
     });
     checkLogin();
@@ -524,12 +538,12 @@ function renderGamesVerteiler(productData){
                              <a href ="produktdetail.html" class="cardbodytext">
                                 <div class="container cardword">
                                     <i class="fas fa-circle availability"></i>
-                                    <h5 class="card-title font40 cardfont">${JsonContent[p].Produktname}<br/><span id="price">${JsonContent[p].Preis}€</span>
+                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
                                     </h5>
                                 </div>
                                 </a>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" id="${JsonContent[p].ID}"></i></button>
+                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
                             </div>
                         </div>
                 </div>
@@ -538,6 +552,23 @@ function renderGamesVerteiler(productData){
     spiele.innerHTML = htmlContent;
     checkLogin();
 }
+
+
+
+
+function handleBagIconClick(event) {
+    const clickedProductId = event.target.dataset.productId;// Die Produkt-ID aus dem data-Attribut extrahieren
+    index = clickedProductId-1;
+    console.log(event.target.dataset.productName);
+}
+
+/*
+        document.getElementById("warenkorb").addEventListener("click", () => {
+            warenkorbRender(productData);
+        });
+*/
+
+
 
 function startseiteRender(productData) {
     checkLogin();
@@ -576,6 +607,90 @@ function startseiteRender(productData) {
    startseiteRender.innerHTML = htmlContent;
 }
 
+function warenkorbRender(productData) {
+    const JsonContent = productData;
+    console.log(JsonContent);
+    console.log(index);
+
+
+    const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
+
+    // Wenn auf shopping cart mehrmals gedrückt wird, wird die zahl in menge um 1 größer
+    // Nutzer kann max bis zum Bestand der von getProdukt() kommt Bestellen.
+    //
+
+        modalFormWarenkorb.innerHTML += `
+            <div class="modal-body">
+                <div class="row border border-dark rounded">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col">
+                                <img src="${JsonContent[index].Bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row imgHöhe">
+                            <div class="col-10 mb-4">
+                                <span id="tactileTowers" class="bree20G">${JsonContent[index].Produktname}</span>
+                            </div>
+                            <div class="col-2 mb-4">
+                                <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                            </div>
+                            <div class="col-10 mb-4">
+                            <span id="kurzBechreibung">${JsonContent[index].Kurzbeschreibung}
+                            </span>
+                            </div>
+                            <div class="col-2 mb-4"></div>
+                            <div class="col-6">
+                                <label for=menge>Menge: </label>
+                                <input type="number" id="menge" name="menge" min="1" max="${JsonContent[index].Bestand}" value="1">
+                                <span id="bestandErr"></span>
+                            </div>
+                            <div id=preis class="col-6 text-end">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <div class="modal-footer">
+                <button id="zurKasse" type="submit" class="btn bbutton">
+                    Zur Kasse
+                </button>
+            </div>
+    `
+}
+
+
+function getCart(){
+    axios.get("/cart",{
+
+    }).then((res:AxiosResponse) => {
+        const productData = res.data;
+        console.log(productData);
+        console.log(res);
+
+    });
+    checkLogin();
+}
+
+function putCart(produktName,menge, method)  {
+
+    axios.put("/cart", {
+        produktName: produktName,
+        produktMenge: menge,
+        method: method
+    }).then((res:AxiosResponse) => {
+        getCart();
+        index = 0;
+        console.log(res);
+    });
+}
+
+
+
+/* Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
+function renderGamesDetail(event){
 /*Funktion ist später dazu da die Produkte auf der Detailseite anzuzeigen
 function renderGamesDetail(event: Event) {
     event.preventDefault();

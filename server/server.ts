@@ -4,8 +4,8 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
+import {string} from "joi";
 //Install Displayable Chart option
-
 
 
 // Ergänzt/Überlädt den Sessionstore
@@ -15,7 +15,8 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
-        rollenid: number
+        rollenid: number;
+        cart: Object[];
     }
 }
 
@@ -94,8 +95,12 @@ app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-app.get("/login",checkLogin, isLoggedIn)
+app.get("/login", checkLogin, isLoggedIn)
 
+app.get("/cart", getCart);
+app.post("/cart", postCart);
+app.delete("/cart", deleteCart);
+app.put("/cart", putCart);
 // Routen für CEO
 // Beim anlegen Rolle mit schicken
 app.put("/ceo/product/:id", editProduct);
@@ -124,7 +129,6 @@ app.put("/admin/user/:username", disableUser);
 
 //SITE
 // Angezeigte Webseite
-
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -315,7 +319,7 @@ function getSpareParts(req: express.Request, res: express.Response): void {
     connection.query(sql, (err, results) => {
         if (err) {
             // Bei einem Fehler sende eine Fehlerantwort an den Client
-            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
         } else {
             // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
             res.json(results);
@@ -323,9 +327,55 @@ function getSpareParts(req: express.Request, res: express.Response): void {
     });
 }
 
+function postCart(req: express.Request, res: express.Response): void {
+
+}
+
+function getCart(req: express.Request, res: express.Response): void {
+    res.send(req.session.cart);
+}
+
+function putCart(req: express.Request, res: express.Response): void {
+
+    if (req.body.produktName === "" || req.body.produktMenge === "" || isNaN(req.body.produktMenge) || req.body.method === "") {
+        res.status(400).send("Produkt Name oder Produkt Menge sind fehlerhaft.");
+        return;
+    }
+
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+    const produktMethod: string = req.body.method;
+
+    query("SELECT Preis FROM Produktliste WHERE Produktname = ?", [produktName])
+        .then((result: any) => {
+            if (result.length === 1) {
+                for (let i = 0; i < req.session.cart.length; i++) {
+                    if (req.session.cart[i].produktName.includes(produktName)) {
+                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
+                        res.sendStatus(200);
+                        return;
+                    }
+                }
+                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}}`));
+                res.sendStatus(200);
+            } else {
+                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+            }
+
+        }).catch((err) => {
+        res.status(500).send("Internal Server Error");
+        console.log(err);
+    });
+}
+
+function deleteCart(req: express.Request, res: express.Response): void {
+
+}
+
 function postProduct(req: express.Request, res: express.Response): void {
 
 }
+
 function editProduct(req: express.Request, res: express.Response): void {
 
 }
@@ -354,6 +404,7 @@ function signIn(req: express.Request, res: express.Response): void {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
+                req.session.cart = [];
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -451,6 +502,7 @@ function validateUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
+
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
@@ -522,7 +574,7 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
 
