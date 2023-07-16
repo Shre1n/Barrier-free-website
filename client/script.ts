@@ -572,7 +572,6 @@ function startseiteRender(productData) {
       </div>
     `;
     }
-    renderGamesDetail(event);
     checkLogin();
    startseiteRender.innerHTML = htmlContent;
 }
