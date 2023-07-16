@@ -492,21 +492,6 @@ Content-Type: application/json
 }
 ###
 
-### GET all AddOns
-
-
-GET /addons
-Host: localhost:8080
-Content-Type: application/json
-
-
-### GET all SpareParts
-
-
-GET /spareparts
-Host: localhost:8080
-Content-Type: application/json
-
 ###
 
 ### Produkt Warenkorb hinzufügen
@@ -520,5 +505,24 @@ PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
+{"produktName": "Shake n Match", "produktMenge":  5, "method":  "change"}
+###
+
+### Produkt Warenkorb hinzufügen
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
 {"produktName": "Tactile Towers", "produktMenge":  5, "method":  "change"}
+###
+
+
+###
+DELETE /cart/Tactile Towers
+Host: localhost:8080
+Content-Type: application/json
+
+
+
+
 ###
