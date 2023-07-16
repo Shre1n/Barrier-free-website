@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     getUser();
     getProduct();
+    getProduct2();
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -507,11 +508,28 @@ function getProduct(){
         if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
-        startseiteRender(productData);
         renderGamesVerteiler(productData);
     });
     checkLogin();
 }
+function getProduct2(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        if (productData.Bestand === ""){
+            document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
+        }
+        console.log(productData);
+        startseiteRender(productData);
+        renderGamesVerteiler(productData);
+        console.log(res);
+    });
+    checkLogin();
+}
+
+
 function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
@@ -548,8 +566,11 @@ function renderGamesVerteiler(productData){
 
 function startseiteRender(productData) {
     checkLogin();
+    console.log("StartseiteRender");
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
     const JsonContent = productData;
-
+    console.log(JsonContent);
 
     let htmlContent = "";
 
@@ -569,7 +590,7 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
             </div>
             <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[i].ID}"></i>
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
             </button>
           </div>
         </div>
@@ -577,8 +598,9 @@ function startseiteRender(productData) {
     `;
     }
     checkLogin();
-
+    startseiteRender.innerHTML = htmlContent;
 }
+
 
 
 
