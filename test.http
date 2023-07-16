@@ -505,5 +505,5 @@ PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
-{"produktName": "Tactile Towers", "produktMenge":  1, "method":  "add"}
+{"produktName": "Tactile Towers", "produktMenge":  5, "method":  "change"}
 ###

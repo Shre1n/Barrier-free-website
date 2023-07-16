@@ -95,10 +95,10 @@ app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
 app.get("/login", checkLogin, isLoggedIn)
 
-app.get("/cart", getCart);
-app.post("/cart", postCart);
-app.delete("/cart", deleteCart);
-app.put("/cart", putCart);
+app.get("/cart", checkLogin, getCart);
+app.post("/cart", checkLogin, postCart);
+app.delete("/cart", checkLogin, deleteCart);
+app.put("/cart", checkLogin, putCart);
 
 
 //SITE

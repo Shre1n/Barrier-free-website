@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
-            console.log(document.getElementById("modalForm"));
         });
     }
     if (signupform) {
@@ -55,10 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.getElementById("warenkorb").addEventListener("click", () =>{
-        getCart();
-    });
-
     getUser();
     getProduct();
 
@@ -68,6 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
+
+
 
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
@@ -146,6 +143,7 @@ function addUser(event: Event): void {
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             modalFensterUser.hide();
+            document.getElementById("angelegt").innerText = "Nutzer Erfolgreich angelegt!";
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
@@ -176,10 +174,11 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-            modalFensterUser.hide();
+            document.getElementById("angelegt").innerText = "Nutzer Erfolgreich angelegt!";
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
+            modalFensterUser.hide();
             document.getElementById("registrierenError").innerText = "";
         }).catch((reason: AxiosError) => {
             getErrorMessage(reason.response.data);
@@ -199,6 +198,10 @@ function getErrorMessage(data){
     const firstword = data.substring(0,firstSpace);
     const caselower = firstword.toLowerCase();
     (document.getElementById(`${caselower}Err`).innerText= data);
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
 }
 
 
@@ -218,6 +221,10 @@ function editUser(event: Event): void {
     event.preventDefault();
     console.log("klick");
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
     const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
@@ -493,6 +500,7 @@ function getProduct(){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         console.log(productData);
+
         startseiteRender(productData);
         renderGamesVerteiler(productData);
         console.log(res);
@@ -533,16 +541,11 @@ function renderGamesVerteiler(productData){
                 </div>
     `
     }
-    checkLogin();
 }
 
 
 
-function handleBagIconClick(event) {
-    const clickedProductId = event.target.dataset.productId;// Die Produkt-ID aus dem data-Attribut extrahieren
-    index = clickedProductId-1;
-    console.log(event.target.dataset.productName);
-}
+
 
 /*
         document.getElementById("warenkorb").addEventListener("click", () => {
@@ -589,22 +592,24 @@ function startseiteRender(productData) {
    // startseiteRender.innerHTML = htmlContent;
 }
 
-function warenkorbRender(productData) {
-    const JsonContent = productData;
-    console.log(JsonContent);
-    console.log(index);
-
-
+function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
 
     // Wenn auf shopping cart mehrmals gedrückt wird, wird die zahl in menge um 1 größer
     // Nutzer kann max bis zum Bestand der von getProdukt() kommt Bestellen.
-    //
-
-        modalFormWarenkorb.innerHTML += `
-            <div class="modal-body">
+    //Löscht die Inhalte des Warenkorbmodals
+    modalFormWarenkorb.innerHTML = "";
+    modalFormWarenkorb.innerHTML = `
+    <div class="modal-body">
                 <div class="row border border-dark rounded">
-                    <div class="col-4">
+    `
+    console.log(shoppingCart)
+    console.log("t")
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let produkt = shoppingCart[i];
+        console.log(produkt)
+        modalFormWarenkorb.innerHTML += `
+        <div class="col-4">
                         <div class="row">
                             <div class="col">
                                 <img src="${JsonContent[index].Bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
@@ -633,13 +638,17 @@ function warenkorbRender(productData) {
                             </div>
                         </div>
                     </div>
-                </div>
+        `
+    }
+    modalFormWarenkorb.innerHTML += `
+    </div>
             </div>   
             <div class="modal-footer">
                 <button id="zurKasse" type="submit" class="btn bbutton">
                     Zur Kasse
                 </button>
             </div>
+    
     `
 }
 
@@ -648,8 +657,6 @@ function getCart(){
     axios.get("/cart",{
 
     }).then((res:AxiosResponse) => {
-        const productData = res.data;
-        console.log(productData);
         console.log(res);
 
     });
@@ -664,7 +671,6 @@ function putCart(produktName,menge, method)  {
         method: method
     }).then((res:AxiosResponse) => {
         getCart();
-        index = 0;
         console.log(res);
     });
 }
