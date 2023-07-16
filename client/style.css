@@ -410,9 +410,14 @@ body {
 }
 /* Footer */
 
+.fehler{
+    z-index: 2 !important;
+}
+
 .containerFooter {
     background-color: #A37F5F !important;
     position: absolute;
+    z-index: 1;
     left: 0;
     bottom: 0;
     width: 100%;

@@ -4,7 +4,6 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
-import {string} from "joi";
 //Install Displayable Chart option
 
 
@@ -90,8 +89,6 @@ app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
-app.get("/addons" ,getAddons);
-app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
@@ -99,36 +96,8 @@ app.get("/login", checkLogin, isLoggedIn)
 
 app.get("/cart", checkLogin, getCart);
 app.post("/cart", checkLogin, postCart);
-app.delete("/cart", checkLogin, deleteCart);
+app.delete("/cart/:productName", checkLogin, deleteCart);
 app.put("/cart", checkLogin, putCart);
-app.get("/cart", getCart);
-app.post("/cart", postCart);
-app.delete("/cart", deleteCart);
-app.put("/cart", putCart);
-// Routen für CEO
-// Beim anlegen Rolle mit schicken
-app.put("/ceo/product/:id", editProduct);
-app.post("/ceo", postCeo);
-app.post("/ceo/product", postProduct);
-app.get("/ceo/product/:name", getProduct);
-app.get("/ceo/product/:name" ,getAddons);
-app.get("/ceo/product/:name", getSpareParts);
-app.get("/ceo/bewertungen", getAllRatings);
-app.get("/ceo/bewertungen/:id", getProductRating);
-app.post("/ceo/signin", signIn);
-app.get("/ceo/signout", signOut);
-
-// Routen für Admin
-// Beim anlegen Rolle mit schicken
-app.get("/admin/user", getUser);
-app.post("/admin", postAdmin);
-app.get("/admin/product", getProduct);
-app.get("/admin/product" ,getAddons);
-app.get("/admin/product", getSpareParts);
-app.post("/admin/signin", signIn);
-app.get("/admin/signout", signOut);
-app.delete("/admin/user/:username", deleteUser);
-app.put("/admin/user/:username", disableUser);
 
 
 //SITE
@@ -276,7 +245,7 @@ function deleteUser(req: express.Request, res: express.Response): void {
     connection.query(query, [logeedinUser], (err, result) => {
         if (err) {
             res.status(500);
-            res.send("There went something wrong!")
+            res.send("There went something wrong!");
             console.log("deleteUser" + err);
         } else {
             res.status(200);
@@ -295,7 +264,7 @@ function getProduct(req: express.Request, res: express.Response): void {
     connection.query(sql, (err, results) => {
         if (err) {
             // Bei einem Fehler sende eine Fehlerantwort an den Client
-            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
         } else {
             // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
             res.json(results);
@@ -374,6 +343,54 @@ function putCart(req: express.Request, res: express.Response): void {
 
 function deleteCart(req: express.Request, res: express.Response): void {
 
+function postCart(req: express.Request, res: express.Response): void {
+
+}
+
+function getCart(req: express.Request, res: express.Response): void {
+    res.send(req.session.cart);
+}
+
+function putCart(req: express.Request, res: express.Response): void {
+
+    if (req.body.produktName === "" || req.body.produktMenge === "" || isNaN(req.body.produktMenge) || req.body.method === "") {
+        res.status(400).send("Produkt Name oder Produkt Menge sind fehlerhaft.");
+        return;
+    }
+
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+    const produktMethod: string = req.body.method;
+
+    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
+        .then((result: any) => {
+            if (result.length === 1) {
+                for (let i = 0; i < req.session.cart.length; i++) {
+                    if (req.session.cart[i].produktName.includes(produktName)) {
+                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
+                        res.sendStatus(200);
+                        return;
+                    }
+                }
+                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
+                res.sendStatus(200);
+            } else {
+                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+            }
+
+        }).catch((err) => {
+        res.status(500).send("Internal Server Error");
+        console.log(err);
+    });
+}
+
+function deleteCart(req: express.Request, res: express.Response): void {
+    const productNameToDelete: string = req.params.productName;
+    // Finde das Produkt im Warenkorb und entferne es
+    req.session.cart = req.session.cart.filter(
+        (product) => product.produktName !== productNameToDelete
+    );
+    res.sendStatus(200);
 }
 
 function postProduct(req: express.Request, res: express.Response): void {

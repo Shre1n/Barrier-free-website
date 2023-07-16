@@ -312,7 +312,7 @@
 
                     <div class="col-1 mb-2"></div>
                     <div class="col-10 d-grid mb-2">
-                        <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
+                        <button id="nutzerlöschenbutton" class="btn btn-danger nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
                         <button  id="userdeletecheck" class="btn btn-danger nutzerlöschenbutton">Ich bin sicher!</button>
                     </div>
                     <div class="col-1 mb-2"></div>
@@ -326,8 +326,37 @@
                     </div>
                     <div class="col-1 mb-3"></div>
 
+                    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Message</strong>
+                            </div>
+                            <div class="toast-body">
+                                <span id="anredeErr"></span>
+                                <span id="vornameErr"></span>
+                                <span id="nachnameErr"></span>
+                                <span id="emailErr"></span>
+                                <span id="telefonnummerErr"></span>
+                                <span id="strasseErr"></span>
+                                <span id="hausnummerErr"></span>
+                                <span id="postleitzahlErr"></span>
+                                <span id="ortErr"></span>
+                                <span id="passwortErr"></span>
+                                <span id="passwortCheckErr"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+            </div>
+            <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+                <div id="erfolgreich" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Message</strong>
+                    </div>
+                    <div class="toast-body">
+                        <span id="angelegt"></span>
+                    </div>
+                </div>
             </div>
 
             <!-- Merkliste -->
