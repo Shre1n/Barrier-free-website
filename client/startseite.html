@@ -327,14 +327,14 @@
                                 <option value="Frau" class="anrede">Frau</option>
                             </select>
                             <br>
-                            <span id="anredeErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=vorname></label>
                             <input id=vorname type="text" name="vorname"
                                    placeholder="Vorname" class="form-control" required>
                             <br>
-                            <span id="vornameErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=nachname></label>
@@ -343,7 +343,7 @@
                             <input id=nachname type="text"
                                    name="nachname" placeholder="Nachname" class="form-control" required>
                             <br>
-                            <span id="nachnameErr"></span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -355,14 +355,14 @@
                             <input id=email type="email" name="email"
                                    placeholder="Email" class="form-control" required>
                             <br>
-                            <span id="emailErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=telefonnummer></label>
                             <input id=telefonnummer type="text" name="telefonnummer"
                                    placeholder="Telefon" class="form-control" required>
                             <br>
-                            <span id="telefonnummerErr"></span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -373,14 +373,14 @@
                             <input id=strasse type="text" name="strasse"
                                    placeholder="Straße" class="form-control" required>
                             <br>
-                            <span id="strasseErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=hausnummer></label>
                             <input id=hausnummer type="text"
                                    placeholder="Hausnummer" class="form-control" required>
                             <br>
-                            <span id="hausnummerErr"></span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -391,14 +391,14 @@
                             <input id=postleitzahl type="text" name="postleitzahl"
                                    placeholder="Postleitzahl" class="form-control" required>
                             <br>
-                            <span id="postleitzahlErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
                             <input id=ort type="text" name="ort"
                                    placeholder="Ort" class="form-control" required>
                             <br>
-                            <span id="ortErr"></span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -409,14 +409,14 @@
                             <input id=passwort type="password" name="passwort" placeholder="Passwort"
                                    class="form-control" required>
                             <br>
-                            <span id="passwortErr"></span>
+
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
                             <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
                                    class="form-control" required>
                             <br>
-                            <span id="passwortCheckErr"></span>
+
                         </div>
                     </div>
                     <div class="row">
@@ -451,7 +451,34 @@
             </form>
         </div>
     </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Error bei der Eingabe</strong>
+            </div>
+            <div class="toast-body">
+                <span id="anredeErr"></span>
+                <span id="vornameErr"></span>
+                <span id="nachnameErr"></span>
+                <span id="emailErr"></span>
+                <span id="telefonnummerErr"></span>
+                <span id="strasseErr"></span>
+                <span id="hausnummerErr"></span>
+                <span id="postleitzahlErr"></span>
+                <span id="ortErr"></span>
+                <span id="passwortErr"></span>
+                <span id="passwortCheckErr"></span>
+                <span id="angelegt"></span>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
 <div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

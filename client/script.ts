@@ -1,13 +1,14 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
-let idsArray = [];
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
 
-let index: number;
+let shoppingCart:Object[] = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
+    getCart();
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -22,11 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
+    warenkorb.addEventListener("click", () => {
+        warenkorbRender();
+    });
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
-            console.log(document.getElementById("modalForm"));
         });
     }
     if (signupform) {
@@ -55,10 +58,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.getElementById("warenkorb").addEventListener("click", () =>{
-        getCart();
-    });
-
     getUser();
     getProduct();
     getProduct2();
@@ -69,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     abmelden.addEventListener("click", signOff);
     saveEdit.addEventListener("click", editUser);
     cancelEdit.addEventListener("click", hideEditUser);
+
+
 
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
@@ -147,6 +148,7 @@ function addUser(event: Event): void {
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             modalFensterUser.hide();
+            document.getElementById("angelegt").innerText = "Nutzer Erfolgreich angelegt!";
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
@@ -177,10 +179,11 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-            modalFensterUser.hide();
+            document.getElementById("angelegt").innerText = "Nutzer Erfolgreich angelegt!";
             console.log(res);
             //reset der Form zum Eintragen
             form.reset();
+            modalFensterUser.hide();
             document.getElementById("registrierenError").innerText = "";
         }).catch((reason: AxiosError) => {
             getErrorMessage(reason.response.data);
@@ -200,6 +203,10 @@ function getErrorMessage(data){
     const firstword = data.substring(0,firstSpace);
     const caselower = firstword.toLowerCase();
     (document.getElementById(`${caselower}Err`).innerText= data);
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
 }
 
 
@@ -219,6 +226,10 @@ function editUser(event: Event): void {
     event.preventDefault();
     console.log("klick");
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
     const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
@@ -501,11 +512,13 @@ function getProduct2(){
 
     }).then((res:AxiosResponse) => {
         console.log("Hier Produkt");
-        const productData = res.data;
+        const productData = res.data
+
         if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         console.log(productData);
+
         startseiteRender(productData);
         renderGamesVerteiler(productData);
         console.log(res);
@@ -556,11 +569,8 @@ function renderGamesVerteiler(productData){
 
 
 
-function handleBagIconClick(event) {
-    const clickedProductId = event.target.dataset.productId;// Die Produkt-ID aus dem data-Attribut extrahieren
-    index = clickedProductId-1;
-    console.log(event.target.dataset.productName);
-}
+
+
 
 /*
         document.getElementById("warenkorb").addEventListener("click", () => {
@@ -596,7 +606,7 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
             </div>
             <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+              <i class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[i].ID}"></i>
             </button>
           </div>
         </div>
@@ -607,57 +617,64 @@ function startseiteRender(productData) {
    startseiteRender.innerHTML = htmlContent;
 }
 
-function warenkorbRender(productData) {
-    const JsonContent = productData;
-    console.log(JsonContent);
-    console.log(index);
-
-
+function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
-
+    console.log("heer")
+    console.log(shoppingCart);
     // Wenn auf shopping cart mehrmals gedrückt wird, wird die zahl in menge um 1 größer
     // Nutzer kann max bis zum Bestand der von getProdukt() kommt Bestellen.
-    //
-
-        modalFormWarenkorb.innerHTML += `
-            <div class="modal-body">
+    //Löscht die Inhalte des Warenkorbmodals
+    modalFormWarenkorb.innerHTML = "";
+    modalFormWarenkorb.innerHTML = `
+    <div class="modal-body">
                 <div class="row border border-dark rounded">
-                    <div class="col-4">
+    `
+    console.log(shoppingCart)
+    console.log("t")
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let produkt = shoppingCart[i];
+        console.log(produkt)
+        modalFormWarenkorb.innerHTML += `
+        <div class="col-4">
                         <div class="row">
                             <div class="col">
-                                <img src="${JsonContent[index].Bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                                <img src="${produkt.bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
                             </div>
                         </div>
                     </div>
                     <div class="col-8">
                         <div class="row imgHöhe">
                             <div class="col-10 mb-4">
-                                <span id="tactileTowers" class="bree20G">${JsonContent[index].Produktname}</span>
+                                <span id="tactileTowers" class="bree20G">${produkt.produktName}</span>
                             </div>
                             <div class="col-2 mb-4">
                                 <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
                             </div>
                             <div class="col-10 mb-4">
-                            <span id="kurzBechreibung">${JsonContent[index].Kurzbeschreibung}
+                            <span id="kurzBechreibung">${produkt.kurzbeschreibung}
                             </span>
                             </div>
                             <div class="col-2 mb-4"></div>
                             <div class="col-6">
                                 <label for=menge>Menge: </label>
-                                <input type="number" id="menge" name="menge" min="1" max="${JsonContent[index].Bestand}" value="1">
+                                <input type="number" id="menge" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}">
                                 <span id="bestandErr"></span>
                             </div>
                             <div id=preis class="col-6 text-end">
                             </div>
                         </div>
                     </div>
-                </div>
+        `
+    }
+    modalFormWarenkorb.innerHTML += `
+    </div>
             </div>   
             <div class="modal-footer">
                 <button id="zurKasse" type="submit" class="btn bbutton">
                     Zur Kasse
                 </button>
             </div>
+    
     `
 }
 
@@ -666,10 +683,8 @@ function getCart(){
     axios.get("/cart",{
 
     }).then((res:AxiosResponse) => {
-        const productData = res.data;
-        console.log(productData);
         console.log(res);
-
+        shoppingCart = res.data;
     });
     checkLogin();
 }
@@ -682,7 +697,6 @@ function putCart(produktName,menge, method)  {
         method: method
     }).then((res:AxiosResponse) => {
         getCart();
-        index = 0;
         console.log(res);
     });
 }

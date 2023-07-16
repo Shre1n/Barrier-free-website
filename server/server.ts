@@ -97,6 +97,10 @@ app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
 app.get("/login", checkLogin, isLoggedIn)
 
+app.get("/cart", checkLogin, getCart);
+app.post("/cart", checkLogin, postCart);
+app.delete("/cart", checkLogin, deleteCart);
+app.put("/cart", checkLogin, putCart);
 app.get("/cart", getCart);
 app.post("/cart", postCart);
 app.delete("/cart", deleteCart);
@@ -346,7 +350,7 @@ function putCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
     const produktMethod: string = req.body.method;
 
-    query("SELECT Preis FROM Produktliste WHERE Produktname = ?", [produktName])
+    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
                 for (let i = 0; i < req.session.cart.length; i++) {
@@ -356,7 +360,7 @@ function putCart(req: express.Request, res: express.Response): void {
                         return;
                     }
                 }
-                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}}`));
+                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
                 res.sendStatus(200);
             } else {
                 res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
