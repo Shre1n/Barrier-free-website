@@ -225,6 +225,8 @@
     width: 15em;
     border-radius: 0 !important;
     border-color: #707070;
+    object-fit: cover;
+    object-position: 40%;
 }
 
 .cardfont {
