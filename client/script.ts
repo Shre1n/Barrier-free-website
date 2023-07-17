@@ -699,6 +699,9 @@ function updatePrice(event) {
     const priceElement = document.getElementById(`preis${index}`);
     priceElement.innerHTML = `<span>${subtotal.toFixed(2)} €</span>`;
 
+    // Speichern der Preisänderung mit putCart
+    putCart(produkt.produktName, quantity, "change");
+
     calculateTotalPrice();
 }
 
