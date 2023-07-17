@@ -375,7 +375,7 @@ function signIn(event: Event): void {
         checkLogin();
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
-            document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
+            document.getElementById("loginError").innerText = "Email oder Passwort ist falsch."
         }
         checkLogin();
     });
