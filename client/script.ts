@@ -1,16 +1,24 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
+interface WarenkorbProdukt{
+    produktName: string;
+    kurzbeschreibung: string;
+    preis:number;
+    bilder:string;
+    bestand: number;
+    produktMenge: number;
+}
 
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
 
-let shoppingCart:Object[] = [];
+let shoppingCart:WarenkorbProdukt[] = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
-    getCart().then(r => {});
+    getCart();
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -71,24 +79,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
-    saveEdit.addEventListener("click", (event:Event) => {
-        editUser(event);
-    });
-    cancelEdit.addEventListener("click", hideEditUser);
+
+    try{
+        saveEdit.addEventListener("click", (event:Event) => {
+            editUser(event);
+        });
+        cancelEdit.addEventListener("click", hideEditUser);
+        editButtonUser.addEventListener("click", (event: Event) => {
+            const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+            const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+            getUser();
+            UserEditForm.style.display = "block";
+            UserProfilForm.style.display = "none";
+        });
+        // Nur auf Profilseite oder ganz UNTEN!
+        deletecheck.addEventListener("click", delUser);
+    } catch (e) {
+        console.log(e)
+    }
 
 
 
-    editButtonUser.addEventListener("click", (event: Event) => {
-        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
-        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-        getUser();
-        UserEditForm.style.display = "block";
-        UserProfilForm.style.display = "none";
-    });
 
 
-    // Nur auf Profilseite oder ganz UNTEN!
-    deletecheck.addEventListener("click", delUser);
 });
 
 function addUser(event: Event): void {
@@ -578,7 +591,7 @@ function renderGamesVerteiler(productData){
                                 </div>
                                 </a>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
                             </div>
                         </div>
                 </div>
@@ -714,11 +727,17 @@ async function deleteItemFromWarenkorb(event: Event): Promise<void> {
 
 
 async function getCart(){
-    await axios.get("/cart",{
+    await fetch("/cart",{
+        method: "GET"
+    }).then(async (res)=>{
+        const data = await res.json();
+        shoppingCart = data.warenkorb;
 
-    }).then((res:AxiosResponse) => {
-        shoppingCart = res.data;
-    });
+    })
+        .catch((e)=>{
+        console.log(e)
+
+    })
     checkLogin();
 }
 
@@ -740,4 +759,14 @@ function deleteProductFromCart(productName) {
             // Fehler beim Löschen des Produkts
             console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
         });
+}
+
+function postCart(produktName,menge, method){
+    axios.post("/cart", {
+        produktName: produktName,
+        produktMenge: menge,
+        method: method
+    }).then(async () => {
+        await getCart();
+    });
 }

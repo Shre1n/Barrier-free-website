@@ -522,7 +522,12 @@ DELETE /cart/Tactile Towers
 Host: localhost:8080
 Content-Type: application/json
 
+### Produkt Warenkorb hinzufügen
+POST /cart
+Host: localhost:8080
+Content-Type: application/json
 
+{"produktName": "Tactile Towers", "produktMenge":  1, "method":  "add"}
 
 
 ###

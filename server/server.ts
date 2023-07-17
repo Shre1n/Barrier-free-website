@@ -4,8 +4,19 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
+import * as cluster from "cluster";
+import {string} from "joi";
 //Install Displayable Chart option
 
+
+class WarenkorbProdukt{
+    produktName: string;
+    kurzbeschreibung: string;
+    preis:number;
+    bilder:string;
+    bestand: number;
+    produktMenge: number;
+}
 
 // Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
@@ -16,6 +27,7 @@ declare module "express-session" {
         id: string;
         rollenid: number;
         cart: Object[];
+        nutzerid: number;
     }
 }
 
@@ -89,7 +101,7 @@ app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
-app.get("/addons" ,getAddons);
+app.get("/addons", getAddons);
 app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
@@ -97,7 +109,7 @@ app.get("/bewertungen/:name", getProductRating);
 app.get("/login", checkLogin, isLoggedIn)
 
 app.get("/cart", checkLogin, getCart);
-app.post("/cart", checkLogin, postCart);
+app.post("/cart", checkLogin, itemAlreadyInCart, postCart);
 app.delete("/cart/:productName", checkLogin, deleteCart);
 app.put("/cart", checkLogin, putCart);
 
@@ -273,6 +285,7 @@ function getProduct(req: express.Request, res: express.Response): void {
         }
     });
 }
+
 function getAddons(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
 
@@ -280,13 +293,14 @@ function getAddons(req: express.Request, res: express.Response): void {
     connection.query(sql, (err, results) => {
         if (err) {
             // Bei einem Fehler sende eine Fehlerantwort an den Client
-            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
         } else {
             // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
             res.json(results);
         }
     });
 }
+
 function getSpareParts(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
 
@@ -305,10 +319,105 @@ function getSpareParts(req: express.Request, res: express.Response): void {
 
 function postCart(req: express.Request, res: express.Response): void {
 
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT * FROM Produktliste WHERE Produktname = ?;", [produktName])
+        .then((result:any)=>{
+            const produktID:number = Number(result[0].ID);
+            const newQuery: string = 'INSERT INTO Warenkorb (NutzerID, ProduktID, menge) VALUES (?,?,?);'
+
+            const data: [number, number, number] = [
+                req.session.nutzerid,
+                produktID,
+                produktMenge
+            ];
+
+            query(newQuery, data).then((result: any) => {
+                res.sendStatus(201);
+            }).catch((e) => {
+                console.log(e);
+                res.sendStatus(500);
+            });
+
+
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+
+
+
+
+
 }
 
 function getCart(req: express.Request, res: express.Response): void {
-    res.send(req.session.cart);
+
+
+    query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
+        .then((results: any) => {
+            if(results.length !== 0) {
+                const warenkorbArray: WarenkorbProdukt[] = [];
+
+                for(const r of results){
+                    let product: WarenkorbProdukt = new WarenkorbProdukt();
+                    product.produktName = r.Produktname;
+                    product.kurzbeschreibung = r.Kurzbeschreibung;
+                    product.bilder = r.Bilder;
+                    product.preis = r.Preis;
+                    product.produktMenge = r.Menge;
+                    product.bestand = r.Bestand;
+                    warenkorbArray.push(product);
+                }
+
+
+
+                res.status(200).json({warenkorb: warenkorbArray })
+            } else {
+                res.status(400).send("Keine Produkte im Warenkorb!")
+            }
+        })
+        .catch((e) => {
+            console.log(e);
+            res.sendStatus(500);
+        });
+}
+
+function itemAlreadyInCart(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const produktName: string = req.body.produktName;
+    const produktMethod: string = req.body.method;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
+        .then((result: any) => {
+            query("SELECT * FROM Warenkorb WHERE NutzerID = ? AND ProduktID = ?;", [req.session.nutzerid, result[0].ID])
+                .then((results: any) => {
+                    if(results.length == 1) {
+                        if(produktMethod == "add") {
+                            query("UPDATE Warenkorb SET Menge = Menge + ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                                .then(()=>{
+                                    res.status(200).send("Warenkorb geupdatet!")
+                                })
+                                .catch((e) => {
+                                    console.log(e);
+                                    res.sendStatus(500);
+                                });
+                        } else {
+                            res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
+                        }
+                    } else {
+                        next();
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.sendStatus(500);
+                });
+        }).catch((e) => {
+        console.log(e);
+        res.sendStatus(500);
+    });
 }
 
 function putCart(req: express.Request, res: express.Response): void {
@@ -322,20 +431,22 @@ function putCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
     const produktMethod: string = req.body.method;
 
-    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
-                for (let i = 0; i < req.session.cart.length; i++) {
-                    if (req.session.cart[i].produktName.includes(produktName)) {
-                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
-                        res.sendStatus(200);
-                        return;
-                    }
+                if(produktMethod == "change") {
+                    query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                        .then(()=>{
+                            res.status(200).send("Warenkorb geupdatet!")
+                        })
+                        .catch(() => {
+                            res.sendStatus(500);
+                        });
+                } else {
+                    res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
                 }
-                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
-                res.sendStatus(200);
             } else {
-                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+                res.status(500).send("Produkt ist nicht im Warenkorb!");
             }
 
         }).catch((err) => {
@@ -381,11 +492,12 @@ function signIn(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
                 req.session.cart = [];
+                req.session.nutzerid = result[0].ID;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
