@@ -431,12 +431,12 @@ function validateUser(isPut, user) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
             .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
             .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
@@ -467,10 +467,10 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
-            .max(5)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
