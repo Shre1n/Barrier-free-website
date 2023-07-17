@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    const zurKasseBtn = document.getElementById("zurKasse") as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
 
     warenkorb.addEventListener("click", () => {
@@ -73,7 +74,37 @@ document.addEventListener("DOMContentLoaded", () => {
     getUser();
     getProduct();
     getProduct2();
+    //Alle Listener für die Bestellseite
+    try {
+        lieferUndRechnungsAdresseRendern();
+        //enable input
+        document.getElementById("editLieferadresseBtn").addEventListener("click", () => {
+            toggleEditLieferadresse(false)
+        });
+        document.getElementById("lieferAdBtnCancel").addEventListener("click", () => {
+            toggleEditLieferadresse(true);
+            lieferUndRechnungsAdresseRendern();
+        });
+        document.getElementById("postLieferadresseForm").addEventListener("submit", updateLieferAdresse);
+        document.getElementById("checkRechnungsadresse").addEventListener("change", toggleRechnungsadresse);
+        document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
 
+        //  document.getElementById("bestellungAbschliessen").addEventListener("click", toggleDanke);
+
+
+    } catch (e) {
+        console.log(e)
+    }
+
+
+    try {
+        zurKasseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "bestellabschluss.html"
+        })
+    } catch (e) {
+        console.log(e)
+    }
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
@@ -843,4 +874,297 @@ function postCart(produktName,menge, method){
     }).then(async () => {
         await getCart();
     });
+}
+async function lieferUndRechnungsAdresseRendern() {
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
+    const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+
+    try {
+        const response = await fetch("/bestellung",
+            {
+                method: "GET"
+            });
+        const res: Bestellung = await response.json();
+        console.log("GetBestellung!!!!!!!");
+        console.log(res);
+        const lieferadresse = res.lieferadresse;
+
+        if (response.status == 200) {
+            anredeElement.value = lieferadresse.anrede;
+            anredeDisplayElement.value = lieferadresse.anrede;
+            vornameElement.value = lieferadresse.vorname;
+            nachnameElement.value = lieferadresse.nachname;
+            plzElement.value = lieferadresse.postleitzahl;
+            ortElement.value = lieferadresse.ort;
+            strasseElement.value = lieferadresse.strasse;
+            hnrElement.value = lieferadresse.hnr;
+
+            checkLogin();
+        } else {
+
+        }
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
+// Attempt
+async function updateRechnungsadresse() {
+    const anredeElement = document.getElementById('displayRechnungAnrede') as HTMLSelectElement;
+    const vornameElement = document.getElementById('displayRechnungVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayRechnungNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayRechnungPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayRechnungOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayRechnungStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayRechnungHnr') as HTMLInputElement;
+    try {
+        const response = await fetch("/rechnungsadresse",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    anrede: anredeElement.value,
+                    vorname: vornameElement.value,
+                    nachname: nachnameElement.value,
+                    postleitzahl: plzElement.value,
+                    ort: ortElement.value,
+                    strasse: strasseElement.value,
+                    hnr: hnrElement.value
+                })
+            });
+
+        if (response.status == 400 || response.status == 403) {
+            const data = await response.json();
+            alert(data.message)
+        }
+    } catch (e) {
+        console.log(e)
+    }
+    checkLogin();
+}
+
+
+function toggleEditLieferadresse(toggle: boolean) {
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
+    const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+    const button = document.getElementById('lieferAdBtn') as HTMLButtonElement;
+    const button2 = document.getElementById('lieferAdBtnCancel') as HTMLButtonElement;
+    vornameElement.disabled = toggle;
+    nachnameElement.disabled = toggle;
+    plzElement.disabled = toggle;
+    ortElement.disabled = toggle;
+    strasseElement.disabled = toggle;
+    hnrElement.disabled = toggle;
+    if (toggle) {
+        button.classList.add("d-none");
+        button2.classList.add("d-none");
+        anredeElement.classList.add("d-none");
+        anredeDisplayElement.classList.remove("d-none");
+    } else {
+        button.classList.remove("d-none");
+        button2.classList.remove("d-none");
+        anredeElement.classList.remove("d-none");
+        anredeDisplayElement.classList.add("d-none");
+    }
+}
+
+
+async function updateLieferAdresse(e: Event) {
+    e.preventDefault();
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
+    const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
+    const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
+    const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
+    const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
+    const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
+    const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
+
+    try {
+        const response = await fetch("/lieferadresse",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    anrede: anredeElement.value,
+                    vorname: vornameElement.value,
+                    nachname: nachnameElement.value,
+                    postleitzahl: plzElement.value,
+                    ort: ortElement.value,
+                    strasse: strasseElement.value,
+                    hnr: hnrElement.value
+                })
+            });
+        if (response.status == 400 || response.status == 403) {
+            const data = await response.json();
+            alert(data.message)
+        } else {
+            toggleEditLieferadresse(true);
+
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
+    checkLogin();
+    lieferUndRechnungsAdresseRendern()
+}
+
+function toggleRechnungsadresse(e: Event) {
+    const rechnungsForm = document.getElementById("displayRechnungsadresse");
+
+    //target wird als HTMLInputElement festgelegt
+    const target = e.target as HTMLInputElement;
+
+    //Überprüfen, checkbox ausgewählt ist
+    if (target.checked) {
+        rechnungsForm.classList.remove("d-none");
+    } else {
+        rechnungsForm.classList.add("d-none");
+    }
+}
+
+async function createBestellung() {
+    const zahlungsMethodePayPal = document.getElementById('zahlungsMethodePayPal') as HTMLInputElement;
+    const zahlungsMethodeSofort = document.getElementById('zahlungsMethodeSofort') as HTMLInputElement;
+
+    let selectedValue: string;
+
+    // Überprüfen, welche Zahlungsmethode ausgewählt wurde
+    if (zahlungsMethodePayPal.checked) {
+        selectedValue = zahlungsMethodePayPal.value;
+    } else if (zahlungsMethodeSofort.checked) {
+        selectedValue = zahlungsMethodeSofort.value;
+    }
+
+    const checkboxRechnung = document.getElementById("checkRechnungsadresse") as HTMLInputElement;
+    if (checkboxRechnung.checked) {
+        try {
+            await updateRechnungsadresse()
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    try {
+        const response = await fetch("/bestellung", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                zahlungsmethode: selectedValue
+            })
+        });
+        const data = await response.json();
+
+        if (response.status == 400) {
+            alert(data.message)
+        } else {
+            window.location.href = "DankefürBestellung.html";
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function bestellabschlussProdukteRender(event: Event) {
+    event.preventDefault();
+    console.log("Abschluss")
+    const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
+    let endpreis = 0; // Variable für den Gesamtpreis
+
+    // Löscht die Inhalte des Warenkorbmodals
+    bestellabschlussProdukte.innerHTML = "";
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let produkt = shoppingCart[i];
+        const subtotal = produkt.preis * produkt.produktMenge; // Teilsumme für das aktuelle Produkt
+        endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
+
+        bestellabschlussProdukte.innerHTML += `
+        <div class="card mb-3 checkoutcard">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="${produkt.bilder}" class="img-fluid rounded-start" alt="${produkt.produktName}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="card-title">${produkt.produktName}</h5>
+                            </div>
+                            <div class="col-1">
+                                <i class=" fas fa-solid fa-trash"></i>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <p class="card-text">${produkt.kurzbeschreibung}</p>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-secondary bree20">${produkt.produktMenge}</button>
+                                    <div class="btn-group" role="group">
+                                        <label for="menge">Menge: </label>
+                                        <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 checkoutcradrechts">
+                                <div id="preis${i}">
+                                    <span>${subtotal.toFixed(2)} €</span>
+                                   </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+    }
+
+    bestellabschlussProdukte.innerHTML += `
+        <div class="align-items-end">
+            <p class="text-end gesamtpreis abstandtop"> ${endpreis}</p>
+            <div class="row">
+                <div class="col text-end">
+                <a id="bestellungAbschliessen" class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                    Bestellung abschließen
+                </a>
+                </div>
+            </div>
+        </div>`;
+
+    const quantityInputs = document.querySelectorAll("input[name='menge']");
+    quantityInputs.forEach((input) => {
+        input.addEventListener("input", updatePrice);
+    });
+
+    const deleteButtons = document.querySelectorAll(".fa-trash");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", deleteItemFromWarenkorb);
+    });
+
+    document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
+
+
 }
