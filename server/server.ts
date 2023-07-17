@@ -26,6 +26,7 @@ class WarenkorbProdukt{
     bestand: number;
     produktMenge: number;
 }
+const warenkorbArray: WarenkorbProdukt[] = [];
 
 // Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
@@ -835,7 +836,7 @@ function postBestellung(req: express.Request, res: express.Response) {
     const zahlungsmethode = req.body.zahlungsmethode;
 
 
-    if(req.session.cart.length == 0) {
+    if(warenkorbArray.length === 0) {
         res.status(400).json({message: "Mit leerem Warenkorb kann keine Bestellung abgeschlossen werden!"})
     } else {
         if(zahlungsmethode == "PayPal" || zahlungsmethode == "SofortUeberweisung") {
