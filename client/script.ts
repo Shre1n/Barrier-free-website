@@ -1137,6 +1137,8 @@ function bestellabschlussProdukteRender() {
         endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
 
         bestellabschlussProdukte.innerHTML += `
+            <div class="row border border-dark rounded">
+          <div class="col-4">
             <div class="row mt-3">
               <div class="col">
                 <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
@@ -1164,6 +1166,8 @@ function bestellabschlussProdukteRender() {
                 <span>${subtotal.toFixed(2)} €</span>
               </div>
             </div>
+          </div>
+        </div>
         `;
     }
 
