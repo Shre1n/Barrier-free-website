@@ -606,73 +606,116 @@ function startseiteRender(productData) {
 
 function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
+    let endpreis = 0; // Variable für den Gesamtpreis
 
-    // Wenn auf shopping cart mehrmals gedrückt wird, wird die zahl in menge um 1 größer
-    // Nutzer kann max bis zum Bestand der von getProdukt() kommt Bestellen.
-    //Löscht die Inhalte des Warenkorbmodals
+    // Löscht die Inhalte des Warenkorbmodals
     modalFormWarenkorb.innerHTML = "";
     modalFormWarenkorb.innerHTML = `
     <div class="modal-body">
-         <div class="row border border-dark rounded">
-    `
+      <div class="row border border-dark rounded">
+    `;
 
     for (let i = 0; i < shoppingCart.length; i++) {
         let produkt = shoppingCart[i];
-        // @ts-ignore
+        const subtotal = produkt.preis * produkt.produktMenge; // Teilsumme für das aktuelle Produkt
+        endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
+
         modalFormWarenkorb.innerHTML += `
-        <div class="modal-body" data-position="${i}">
-             <div class="row border border-dark rounded">
-                <div class="col-4">
-                    <div class="row mt-3">
-                        <div class="col">
-                            <img src="${produkt.bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-8 mb-3">
-                    <div class="row imgHöhe">
-                        <div class="col-10 mb-4">
-                            <span class="bree20G">${produkt.produktName}</span>
-                        </div>
-                        <div class="col-2 mb-4">
-                            <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
-                        </div>
-                        <div class="col-10 mb-4">
-                        <span >${produkt.kurzbeschreibung}
-                        </span>
-                        </div>
-                        <div class="col-2 mb-4"></div>
-                        <div class="col-6">
-                            <label for=menge>Menge: </label>
-                            <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}">
-                            <span id="bestandErr"></span>
-                        </div>
-                        <div id=preis class="col-6 text-end">
-                        </div>
-                    </div>
-                </div>
+      <div class="modal-body" data-position="${i}">
+        <div class="row border border-dark rounded">
+          <div class="col-4">
+            <div class="row mt-3">
+              <div class="col">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.name}" class="placeholdermerkliste img-fluid imgHöhe">
+              </div>
             </div>
+          </div>
+          <div class="col-8 mb-3">
+            <div class="row imgHöhe">
+              <div class="col-10 mb-4">
+                <span class="bree20G">${produkt.produktName}</span>
+              </div>
+              <div class="col-2 mb-4">
+                <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
+              </div>
+              <div class="col-10 mb-4">
+                <span>${produkt.kurzbeschreibung}</span>
+              </div>
+              <div class="col-2 mb-4"></div>
+              <div class="col-6">
+                <label for="menge">Menge: </label>
+                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                <span id="bestandErr"></span>
+              </div>
+              <div id="preis${i}" class="col-6 text-end">
+                <span>${subtotal.toFixed(2)} €</span>
+              </div>
+            </div>
+          </div>
         </div>
-        `
+      </div>
+    `;
     }
+
     modalFormWarenkorb.innerHTML += `
     </div>
-            </div>   
-            <div class="modal-footer">
-                <button id="zurKasse" type="submit" class="btn bbutton">
-                    Zur Kasse
-                </button>
-            </div>
-    
-    `
+    </div>
+    <div class="modal-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col-2 text-end" id="summe">
+            ${endpreis.toFixed(2)} €
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8"></div>
+          <div class="col-4 text-end">
+            <button id="zurKasse" type="submit" class="btn bbutton mt-3">
+              Zur Kasse
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
 
-        // Finde alle Elemente mit der Klasse ".fa-trash" und füge ein Klickereignis hinzu
-        const deleteButtons = document.querySelectorAll(".fa-trash");
-        deleteButtons.forEach((button) => {
-            button.addEventListener("click", deleteItemFromWarenkorb);
-        });
+    const quantityInputs = document.querySelectorAll("input[name='menge']");
+    quantityInputs.forEach((input) => {
+        input.addEventListener("input", updatePrice);
+    });
 
+    const deleteButtons = document.querySelectorAll(".fa-trash");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", deleteItemFromWarenkorb);
+    });
+}
 
+function updatePrice(event) {
+    const input = event.target;
+    const quantity = parseInt(input.value);
+    const index = input.dataset.index;
+    const produkt = shoppingCart[index];
+    const subtotal = produkt.preis * quantity;
+    const priceElement = document.getElementById(`preis${index}`);
+    priceElement.innerHTML = `<span>${subtotal.toFixed(2)} €</span>`;
+
+    calculateTotalPrice();
+}
+
+function calculateTotalPrice() {
+    let endpreis = 0;
+
+    const priceElements = document.querySelectorAll("[id^='preis']");
+    priceElements.forEach((element) => {
+        const subtotalText = element.textContent;
+        const subtotal = parseFloat(subtotalText);
+        endpreis += subtotal;
+    });
+
+    const endpreisElement = document.getElementById("summe");
+    if (endpreisElement) {
+        endpreisElement.innerHTML = `${endpreis.toFixed(2)} €`;
+    }
 }
 
 async function deleteItemFromWarenkorb(event: Event): Promise<void> {
