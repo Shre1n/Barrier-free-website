@@ -375,7 +375,7 @@ function signIn(event: Event): void {
         checkLogin();
     }).catch((reason: AxiosError) => {
         if (reason.response.status == 400){
-            document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
+            document.getElementById("loginError").innerText = "Email oder Passwort ist falsch."
         }
         checkLogin();
     });
@@ -703,9 +703,9 @@ function warenkorbRender() {
     <div class="modal-footer">
       <div class="container">
         <div class="row">
-          <div class="col-10"></div>
-          <div class="col-2 text-end" id="summe">
-            ${endpreis.toFixed(2)} €
+          <div class="col-5"></div>
+          <div class="col-7 text-end" id="summe">
+          Gesamtwert: ${endpreis.toFixed(2)} €
           </div>
         </div>
         <div class="row">
