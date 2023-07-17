@@ -570,7 +570,8 @@ function signIn(req: express.Request, res: express.Response): void {
             console.log("500 in catch");
             res.sendStatus(500);
         });
-    }
+    })
+}
 }
 
 

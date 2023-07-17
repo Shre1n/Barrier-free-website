@@ -541,7 +541,7 @@ Content-Type: application/json
   "strasse": "Am Musterweg",
   "hnr": "1"
 }
-{"produktName": "Shake n Match", "produktMenge":  1, "method":  "add"}
+
 
 
 ### Posten einer Rechnungsadresse
