@@ -37,7 +37,7 @@ let modalFensterWarenkorb: bootstrap.Modal;
 
 let shoppingCart:WarenkorbProdukt[] = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",  () => {
     checkLogin();
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     warenkorb.addEventListener("click", () => {
         warenkorbRender();
+
     });
 
     if (registrieren) {
@@ -121,6 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
         zurKasseBtn.addEventListener("click", (e) => {
             e.preventDefault();
             window.location.href = "bestellabschluss.html"
+
+
         })
     } catch (e) {
         console.log(e)
@@ -871,6 +874,7 @@ async function getCart(){
         const data = await res.json();
         shoppingCart = data.warenkorb;
         warenkorbRender();
+        bestellabschlussProdukteRender();
     }).catch((e)=>{
         console.log(e);
     });
@@ -943,6 +947,7 @@ async function lieferUndRechnungsAdresseRendern() {
     } catch (e) {
         console.log(e)
     }
+
 
 }
 
@@ -1117,8 +1122,8 @@ async function createBestellung() {
     }
 }
 
-function bestellabschlussProdukteRender(event: Event) {
-    event.preventDefault();
+function bestellabschlussProdukteRender() {
+
     console.log("Abschluss")
     const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
@@ -1132,44 +1137,33 @@ function bestellabschlussProdukteRender(event: Event) {
         endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
 
         bestellabschlussProdukte.innerHTML += `
-        <div class="card mb-3 checkoutcard">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <img src="${produkt.bilder}" class="img-fluid rounded-start" alt="${produkt.produktName}">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5 class="card-title">${produkt.produktName}</h5>
-                            </div>
-                            <div class="col-1">
-                                <i class=" fas fa-solid fa-trash"></i>
-                            </div>
-                            <div class="col-1">
-                            </div>
-                        </div>
-                        <p class="card-text">${produkt.kurzbeschreibung}</p>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                    <button type="button" class="btn btn-secondary bree20">${produkt.produktMenge}</button>
-                                    <div class="btn-group" role="group">
-                                        <label for="menge">Menge: </label>
-                                        <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 checkoutcradrechts">
-                                <div id="preis${i}">
-                                    <span>${subtotal.toFixed(2)} €</span>
-                                   </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row mt-3">
+              <div class="col">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="col-8 mb-3">
+            <div class="row imgHöhe">
+              <div class="col-10 mb-4">
+                <span class="bree20G">${produkt.produktName}</span>
+              </div>
+              <div class="col-2 mb-4">
+                <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
+              </div>
+              <div class="col-10 mb-4">
+                <span>${produkt.kurzbeschreibung}</span>
+              </div>
+              <div class="col-2 mb-4"></div>
+              <div class="col-6">
+                <label for="menge">Menge: </label>
+                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                <span id="bestandErr"></span>
+              </div>
+              <div id="preis${i}" class="col-6 text-end">
+                <span>${subtotal.toFixed(2)} €</span>
+              </div>
+            </div>
         `;
     }
 
@@ -1187,13 +1181,14 @@ function bestellabschlussProdukteRender(event: Event) {
 
     const quantityInputs = document.querySelectorAll("input[name='menge']");
     quantityInputs.forEach((input) => {
-        input.addEventListener("input", updatePrice);
+        input.addEventListener("change", updatePrice);
     });
 
     const deleteButtons = document.querySelectorAll(".fa-trash");
     deleteButtons.forEach((button) => {
         button.addEventListener("click", deleteItemFromWarenkorb);
     });
+
 
     document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
 
