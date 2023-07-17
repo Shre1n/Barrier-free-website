@@ -54,7 +54,7 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div id="bestellungContainer" class="container-fluid">
     <div class="row">
         <div class="col-1 borderCol"></div>
         <div class="col-4 noPad">
@@ -94,35 +94,35 @@
                     </div>
                     <div class="row"></div>
                     <form type="submit" id="postLieferadresseForm">
+                        <select id="editLieferAnrede" class="mb-2 d-none bbutton text-center anredeDropdown" required>
+                            <option value="Herr" class="anrede">Herr</option>
+                            <option value="Frau" class="anrede">Frau</option>
+                        </select>
                         <input id="displayLieferAnrede" class="row" disabled>
-                        <input id="displayLieferNachname" class="row" disabled>
                         <input id="displayLieferVorname" class="row" disabled>
+                        <input id="displayLieferNachname" class="row" disabled>
                         <input id="displayLieferStraße" class="row" disabled>
                         <input id="displayLieferHnr" class="row" disabled>
                         <input id="displayLieferPLZ" class="row" disabled>
                         <input id="displayLieferOrt" class="row" disabled>
-                        <button id="lieferAdBtn" type="submit" class="bbutton d-none">Speichern</button>
+                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
+                        <a id="lieferAdBtnCancel" type="" class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</a>
                     </form>
 <!-- attempt -->
                     <form id="displayRechnungsadresse" class="col d-none">
-                        <div class="row mt-3 mb-3"><h3 class="noPadleft">Rechnungsadresse</h3></div>
-                        <label for=anredeNeu></label>
-                        <select id="anredeNeu" class="bbutton text-center mb-2 anredeDropdown" required>
+                        <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
+                        <label for=displayRechnungAnrede></label>
+                        <select id="displayRechnungAnrede" class="bbutton text-center mb-2 anredeDropdown" required>
                             <option value="Herr" class="anrede">Herr</option>
                             <option value="Frau" class="anrede">Frau</option>
                         </select>
-                    <input id="displayRechnungNachname" class="row mb-2">
                     <input id="displayRechnungVorname" class="row mb-2">
+                    <input id="displayRechnungNachname" class="row mb-2">
                     <input id="displayRechnungStraße" class="row mb-2">
                     <input id="displayRechnungHnr" class="row mb-2">
                     <input id="displayRechnungPLZ" class="row mb-2">
                     <input id="displayRechnungOrt" class="row mb-2">
-                    <input id="displayRechnungTelefonnummer" class="row mb-2">
-                    <input id="displayRechnungEmail" class="row mb-2">
                         <div class="row">
-                            <div class="col-6 mt-3">
-                                <button id="saveEdit" class="bbutton">Speichern</button>
-                            </div>
                         </div>
                 </form>
 
@@ -133,8 +133,8 @@
                         <div class="row">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                       id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                       value="PayPal" id="zahlungsMethodePayPal">
+                                <label class="form-check-label" for="zahlungsMethodePayPal">
                                     <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
                                 </label>
                             </div>
@@ -142,10 +142,9 @@
                     </div>
                     <div class="row">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                   id="flexRadioDefault2"
-                                   checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <input class="form-check-input" type="radio" name="zahlungsMehode"
+                                  value="SofortUeberweisung" id="zahlungsMethodeSofort">
+                            <label class="form-check-label" for="zahlungsMethodeSofort">
                                 <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg" alt="placeholder">
                             </label>
                         </div>
@@ -291,10 +290,10 @@
         <div class="align-items-end">
             <p class="text-end gesamtpreis abstandtop"> 139,98€</p>
             <div class="row">
-                <div class="col-9">
-                </div>
-                <div class="col-3 btn btn-primary button1 wbutton text-right font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
-                    Weiter
+                <div class="col text-end">
+                <a id="bestellungAbschliessen" class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss" href="DankefürBestellung.html">
+                    Bestellung abschließen
+                </a>
                 </div>
             </div>
 
@@ -302,20 +301,6 @@
     </div>
 </div>
 
-<section class="container-xxl">
-    <div class="text-center bree75">
-        Danke für Ihren Einkauf
-    </div>
-    <div class="text-center">
-        <i class="heartcolor fas fa-heart fa-10x"></i>
-    </div>
-    <div class="text-center">
-        <h5 class="lieferung belleza40"> vorraussichtliche Lieferung: <span id="lieferung"></span></h5>
-    </div>
-    <div class="text-center">
-        <button class="weiterEinkaufen belleza25">Weiter Einkaufen</button>
-    </div>
-</section>
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -420,6 +405,7 @@
         </div>
     </div>
 </div>
+</div>
 <!--Footer-->
 <footer class="container-fluid containerFooter">
     <div class="row">
@@ -466,6 +452,5 @@
     </div>
 </footer>
 
-</div>
 </body>
 </html>

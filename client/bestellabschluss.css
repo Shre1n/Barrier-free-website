@@ -1,15 +1,16 @@
 .weiterEinkaufen{
-    margin-top: 2em;
-    font-size: 2em;
-    background-color: #3D93A6;
-    color: white;
-    border-radius: 2em;
-    border:0;
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 9.5em !important;
+    height: 2.5em;
+    transition: transform .1s;
 }
 
 .heartcolor{
     margin-top:0.5em;
-    color: #3D93A6;
+    color: #3D93A6; !important;
 }
 
 .lieferung{
@@ -80,8 +81,14 @@
     margin-bottom: 2em;
 }
 
-.weiterbuttonbestellabschluss{
-    scale: 1.5;
+.weiterButtonBestellabschluss{
+    background-color: #3D93A6 !important;
+    color: #FFFFFF !important;
+    border-color: #3D93A6 !important;
+    border-radius: 2.5em !important;
+    width: 11.5em !important;
+    height: 2.5em;
+    transition: transform .1s;
 }
 
 #firstCheckoutCard {
@@ -110,15 +117,28 @@
 
 }
 
-input:disabled {
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
-    color: inherit;
-    margin-left: -0.5rem;
+input:disabled, select:disabled {
+    border: none !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: inherit !important;
+    margin-left: -0.5rem !important;
 }
 
 .anredeDropdown {
     margin-left: -0.8rem;
+}
+
+.saveButton {
+    margin-left: -0.6rem;
+}
+
+.cancelButton {
+    background-color: #707070 !important;
+    color: #FFFFFF !important;
+    border-radius: 2.5em !important;
+    width: 7.46em;
+    height: 2em;
+    transition: transform .1s;
 }

@@ -4,8 +4,18 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
+import {func} from "joi";
 //Install Displayable Chart option
 
+class Adresse {
+    anrede: string;
+    vorname: string;
+    nachname: string;
+    postleitzahl: string;
+    ort: string;
+    strasse: string;
+    hnr: string;
+}
 
 // Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
@@ -16,6 +26,8 @@ declare module "express-session" {
         id: string;
         rollenid: number;
         cart: Object[];
+        lieferadresse: Adresse;
+        rechnungsadresse: Adresse;
         nutzerId: number;
         bestellID: number;
     }
@@ -97,6 +109,8 @@ app.get("/bewertungen/:name", getProductRating);
 app.get("/login", checkLogin, isLoggedIn)
 app.put("/lieferadresse", checkLogin, putLieferadresse);
 app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
+app.post("/bestellung", checkLogin, postBestellung);
+app.get("/bestellung", checkLogin, getBestellung)
 
 app.get("/cart", getCart);
 app.post("/cart", postCart);
@@ -349,13 +363,40 @@ function signIn(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT * FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
                 req.session.cart = [];
                 req.session.nutzerId = result[0].ID;
-                req.session.bestellID = 1;
+
+                const anrede: string = result[0].Anrede;
+                const vorname: string = result[0].Vorname;
+                const nachname: string = result[0].Nachname;
+                const postleitzahl: string = result[0].Postleitzahl;
+                const ort: string = result[0].Ort;
+                const strasse: string = result[0].Straße;
+                const hnr: string = result[0].HausNr;
+
+                const lieferadresse: Adresse = new Adresse();
+                lieferadresse.anrede = anrede;
+                lieferadresse.vorname = vorname;
+                lieferadresse.nachname = nachname;
+                lieferadresse.postleitzahl = postleitzahl;
+                lieferadresse.ort = ort;
+                lieferadresse.strasse = strasse;
+                lieferadresse.hnr = hnr;
+                req.session.lieferadresse = lieferadresse;
+
+                const rechnungsadresse: Adresse = new Adresse();
+                rechnungsadresse.anrede = anrede;
+                rechnungsadresse.vorname = vorname;
+                rechnungsadresse.nachname = nachname;
+                rechnungsadresse.postleitzahl = postleitzahl;
+                rechnungsadresse.ort = ort;
+                rechnungsadresse.strasse = strasse;
+                rechnungsadresse.hnr = hnr;
+                req.session.rechnungsadresse = rechnungsadresse;
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -538,18 +579,31 @@ function putLieferadresse(req: express.Request, res: express.Response) {
     const strasse: string = req.body.strasse;
     const hnr: string = req.body.hnr;
 
-    if (anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+    if (anrede == undefined || vorname == undefined || nachname == undefined || postleitzahl == undefined || ort == undefined || strasse == undefined || hnr == undefined || anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
         res.status(400);
         res.json({message: "Fülle alle Felder aus!"});
     } else {
-        const param: [string, string, string, string, string, string, string, number] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, req.session.bestellID];
-        const sql: string = `UPDATE Bestellungen SET LieferAnrede = ?, LieferVorname = ?, LieferNachname = ?, LieferPostleitzahl = ?, LieferOrt = ?, LieferStraße = ?, LieferHausNr = ? WHERE ID = ?;`;
-        query(sql, param).then((result) => {
-            res.sendStatus(200);
-        }).catch((err: mysql.MysqlError) => {
-            res.sendStatus(500);
-            console.log(err);
-        });
+
+        const lieferadresse: Adresse = new Adresse();
+        lieferadresse.anrede = anrede;
+        lieferadresse.vorname = vorname;
+        lieferadresse.nachname = nachname;
+        lieferadresse.postleitzahl = postleitzahl;
+        lieferadresse.ort = ort;
+        lieferadresse.strasse = strasse;
+        lieferadresse.hnr = hnr;
+        req.session.lieferadresse = lieferadresse;
+        const rechnungsadresse: Adresse = new Adresse();
+        rechnungsadresse.anrede = anrede;
+        rechnungsadresse.vorname = vorname;
+        rechnungsadresse.nachname = nachname;
+        rechnungsadresse.postleitzahl = postleitzahl;
+        rechnungsadresse.ort = ort;
+        rechnungsadresse.strasse = strasse;
+        rechnungsadresse.hnr = hnr;
+        req.session.rechnungsadresse = rechnungsadresse;
+        res.sendStatus(200);
+
     }
 }
 
@@ -562,10 +616,23 @@ function putRechnungsadresse(req: express.Request, res: express.Response) {
     const strasse: string = req.body.strasse;
     const hnr: string = req.body.hnr;
 
-    if (anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+    if (anrede == undefined || vorname == undefined || nachname == undefined || postleitzahl == undefined || ort == undefined || strasse == undefined || hnr == undefined || anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
         res.status(400);
         res.json({message: "Fülle alle Felder aus!"});
     } else {
+
+        const rechnungsadresse: Adresse = new Adresse();
+        rechnungsadresse.anrede = anrede;
+        rechnungsadresse.vorname = vorname;
+        rechnungsadresse.nachname = nachname;
+        rechnungsadresse.postleitzahl = postleitzahl;
+        rechnungsadresse.ort = ort;
+        rechnungsadresse.strasse = strasse;
+        rechnungsadresse.hnr = hnr;
+        req.session.rechnungsadresse = rechnungsadresse;
+        res.sendStatus(200);
+
+        /*
         const param: [string, string, string, string, string, string, string, number] = [anrede, vorname, nachname, postleitzahl, ort, strasse, hnr, req.session.bestellID];
         const sql: string = `UPDATE Bestellungen SET RechnungAnrede = ?, RechnungVorname = ?, RechnungNachname = ?, RechnungPostleitzahl = ?, RechnungOrt = ?, RechnungStraße = ?, RechnungHausNr = ? WHERE ID = ?;`;
         query(sql, param).then((result) => {
@@ -574,8 +641,44 @@ function putRechnungsadresse(req: express.Request, res: express.Response) {
             res.sendStatus(500);
             console.log(err);
         });
+        */
     }
 
+}
+
+function postBestellung(req: express.Request, res: express.Response) {
+    const anredeL: string = req.session.lieferadresse.anrede;
+    const vornameL: string =  req.session.lieferadresse.vorname;
+    const nachnameL: string =  req.session.lieferadresse.nachname;
+    const postleitzahlL: string =  req.session.lieferadresse.postleitzahl;
+    const ortL: string =  req.session.lieferadresse.ort;
+    const strasseL: string = req.session.lieferadresse.strasse;
+    const hnrL: string =  req.session.lieferadresse.hnr;
+    const anredeR: string = req.session.rechnungsadresse.anrede;
+    const vornameR: string =  req.session.rechnungsadresse.vorname;
+    const nachnameR: string =  req.session.rechnungsadresse.nachname;
+    const postleitzahlR: string =  req.session.rechnungsadresse.postleitzahl;
+    const ortR: string =  req.session.rechnungsadresse.ort;
+    const strasseR: string = req.session.rechnungsadresse.strasse;
+    const hnrR: string =  req.session.rechnungsadresse.hnr;
+    const date = new Date().toISOString().split('T')[0];;
+
+
+    const param: [string, string, string, string, string, string, string, string, string, string, string, string, string, string, number, string, string] = [anredeL, vornameL, nachnameL, postleitzahlL, ortL, strasseL, hnrL, anredeR, vornameR, nachnameR, postleitzahlR, ortR, strasseR, hnrR, req.session.nutzerId, "offen", date];
+    const sql: string = `INSERT INTO Bestellungen (LieferAnrede, LieferVorname, LieferNachname, LieferPostleitzahl, LieferOrt, LieferStraße, LieferHausNr, RechnungAnrede, RechnungVorname, RechnungNachname, RechnungPostleitzahl, RechnungOrt, RechnungStraße, RechnungHausNr, UserID, Status, Bestelldatum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    query(sql, param).then((result) => {
+        res.sendStatus(200);
+    }).catch((err: mysql.MysqlError) => {
+        res.sendStatus(500);
+        console.log(err);
+    });
+
+
+
+}
+
+function getBestellung(req: express.Request, res: express.Response) {
+    res.status(200).json({lieferadresse: req.session.lieferadresse, rechnungsadresse: req.session.rechnungsadresse});
 }
 
 

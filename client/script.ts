@@ -1,4 +1,25 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
+interface Bestellung {
+    lieferadresse: {
+        anrede: string;
+        vorname: string;
+        nachname: string;
+        postleitzahl: string;
+        ort: string;
+        strasse: string;
+        hnr: string;
+    };
+    rechnungsadresse: {
+        anrede: string;
+        vorname: string;
+        nachname: string;
+        postleitzahl: string;
+        ort: string;
+        strasse: string;
+        hnr: string;
+    };
+
+}
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
@@ -8,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
         modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
         modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
-        modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
-    } catch (e){
+        modalFensterWarenkorb = new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
+    } catch (e) {
         console.log(e)
     }
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
@@ -19,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteUser = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
     const deletecheck = document.querySelector("#userdeletecheck") as HTMLElement;
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
- // attempt   const weiterButtonBestellung = (document.querySelector("#weiterButtonBestellung") as HTMLElement);
+    // attempt   const weiterButtonBestellung = (document.querySelector("#weiterButtonBestellung") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
-    const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    const cancelEdit = document.querySelector("#cancelEditButton") as HTMLButtonElement;
+    const zurKasseBtn = document.querySelector("#zurKasse") as HTMLElement;
     let warenkorb = document.querySelector("#warenkorb");
 
     if (registrieren) {
@@ -38,18 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (loginform) {
-        loginform.addEventListener("click", () =>{
+        loginform.addEventListener("click", () => {
             modalFensterUser.hide();
             modalFensterUserLogin.show();
         });
     }
-    if (warenkorb){
-        warenkorb.addEventListener("click", ()=>{
+    if (warenkorb) {
+        warenkorb.addEventListener("click", () => {
             modalFensterWarenkorb.show();
         })
     }
 
-    if (deleteUser){
+    if (deleteUser) {
         deleteUser.addEventListener("click", () => {
             deleteUser.style.display = "none";
             deletecheck.style.display = "block";
@@ -57,19 +79,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Alle Listener für die Bestellseite
-    try{
-        lieferAdresseRendern();
+    try {
+        lieferUndRechnungsAdresseRendern();
         //enable input
-        document.getElementById("editLieferadresseBtn").addEventListener("click", ()=> {toggleEditLieferadresse(false)});
+        document.getElementById("editLieferadresseBtn").addEventListener("click", () => {
+            toggleEditLieferadresse(false)
+        });
+        document.getElementById("lieferAdBtnCancel").addEventListener("click", () => {
+            toggleEditLieferadresse(true);
+            lieferUndRechnungsAdresseRendern();
+        });
         document.getElementById("postLieferadresseForm").addEventListener("submit", updateLieferAdresse);
-        document.getElementById("displayRechnungsadresse").addEventListener("submit", updateRechnungsadresse);
-        document.getElementById("checkRechnungsadresse").addEventListener("change",toggleRechnungsadresse);
-    } catch(e) {
+        document.getElementById("checkRechnungsadresse").addEventListener("change", toggleRechnungsadresse);
+        document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
+      //  document.getElementById("bestellungAbschliessen").addEventListener("click", toggleDanke);
+
+
+    } catch (e) {
+        console.log(e)
+    }
+
+
+    try {
+        zurKasseBtn.addEventListener("click", () => {
+            window.location.href = "bestellabschluss.html"
+        })
+    } catch (e) {
         console.log(e)
     }
 
     try {
-        document.getElementById("warenkorb").addEventListener("click", () =>{
+        document.getElementById("warenkorb").addEventListener("click", () => {
             getCart();
         });
 
@@ -78,7 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
         console.log(e)
     }
-
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -97,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
 });
@@ -107,16 +145,16 @@ function addUser(event: Event): void {
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
-    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
-    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
-    const emailErr = document.querySelector("#emailErr")as HTMLElement;
-    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
-    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
-    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
-    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
-    const ortErr = document.querySelector("#ortErr")as HTMLElement;
-    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
-    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const emailErr = document.querySelector("#emailErr") as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr") as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr") as HTMLElement;
 
     anredeErr.innerText = "";
     vornameErr.innerText = "";
@@ -129,7 +167,6 @@ function addUser(event: Event): void {
     ortErr.innerText = "";
     passwortErr.innerText = "";
     passwortCheckErr.innerText = "";
-
 
 
     //Attribute von User
@@ -212,11 +249,11 @@ function addUser(event: Event): void {
     }
 }
 
-function getErrorMessage(data){
+function getErrorMessage(data) {
     const firstSpace = data.indexOf(" ");
-    const firstword = data.substring(0,firstSpace);
+    const firstword = data.substring(0, firstSpace);
     const caselower = firstword.toLowerCase();
-    (document.getElementById(`${caselower}Err`).innerText= data);
+    (document.getElementById(`${caselower}Err`).innerText = data);
 }
 
 
@@ -237,14 +274,14 @@ function editUser(event: Event): void {
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
-    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
-    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
-    const emailErr = document.querySelector("#emailErr")as HTMLElement;
-    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
-    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
-    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
-    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
-    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const emailErr = document.querySelector("#emailErr") as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
 
 
     anredeErr.innerText = "";
@@ -270,27 +307,27 @@ function editUser(event: Event): void {
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
 
-    if (vorname === ""){
+    if (vorname === "") {
         vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (nachname === ""){
+    if (nachname === "") {
         nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (postleitzahl === ""){
+    if (postleitzahl === "") {
         postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (ort === ""){
+    if (ort === "") {
         ortErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (strasse === ""){
+    if (strasse === "") {
         strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
-    }if (hnr === ""){
+    }
+    if (hnr === "") {
         hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (telefonnummer === ""){
+    if (telefonnummer === "") {
         telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-
 
 
     if (checkbox.checked) {
@@ -355,9 +392,9 @@ function signIn(event: Event): void {
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
-    const logout = (document.querySelector("#abmelden")as HTMLElement);
-    const profil= (document.querySelector("#profilseite") as HTMLElement);
-    const registrieren= (document.querySelector("#registrieren") as HTMLElement);
+    const logout = (document.querySelector("#abmelden") as HTMLElement);
+    const profil = (document.querySelector("#profilseite") as HTMLElement);
+    const registrieren = (document.querySelector("#registrieren") as HTMLElement);
 
     console.log("dhewhui");
     axios.post("/signin", {
@@ -374,7 +411,7 @@ function signIn(event: Event): void {
         document.getElementById("loginError").innerText = "";
         checkLogin();
     }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400){
+        if (reason.response.status == 400) {
             document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
         checkLogin();
@@ -395,10 +432,8 @@ function signOff(): void {
 
 }
 
-function getUser(){
-    axios.get("/user",{
-
-    }).then((res:AxiosResponse) => {
+function getUser() {
+    axios.get("/user", {}).then((res: AxiosResponse) => {
         console.log("Hier");
         const userData = res.data;
         console.log(userData);
@@ -447,16 +482,16 @@ async function checkLogin() {
     try {
         const response = await fetch("/login",
             {
-                method:"GET"
+                method: "GET"
             });
         const data = await response.json();
 
-        if(response.status == 200) {
+        if (response.status == 200) {
             const rolle = data.rolle;
 
             abmelden.classList.remove("d-none");
-            registrieren.style.display="none";
-            profil.style.display="inline-block";
+            registrieren.style.display = "none";
+            profil.style.display = "inline-block";
         } else {
             abmelden.classList.add("d-none");
 
@@ -489,7 +524,8 @@ function renderUserEdit(userData) {
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 }
-function hideEditUser(){
+
+function hideEditUser() {
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
     console.log("Wird jetzt angezeigt");
@@ -498,10 +534,9 @@ function hideEditUser(){
     UserProfilForm.style.display = "block";
 
 }
-function getProduct(){
-    axios.get("/product",{
 
-    }).then((res:AxiosResponse) => {
+function getProduct() {
+    axios.get("/product", {}).then((res: AxiosResponse) => {
         console.log("Hier Produkt");
         const productData = res.data;
         console.log(productData);
@@ -511,16 +546,17 @@ function getProduct(){
     });
     checkLogin();
 }
-function renderGamesVerteiler(productData){
+
+function renderGamesVerteiler(productData) {
     checkLogin();
     console.log(productData);
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
-    const JsonContent =productData
+    const JsonContent = productData
     console.log(JsonContent);
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-        spiele.innerHTML +=`
+        spiele.innerHTML += `
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -547,6 +583,7 @@ function renderGamesVerteiler(productData){
     }
     checkLogin();
 }
+
 function startseiteRender(productData) {
     checkLogin();
     console.log("StartseiteRender");
@@ -581,27 +618,25 @@ function startseiteRender(productData) {
     `;
     }
     checkLogin();
-   // startseiteRender.innerHTML = htmlContent;
+    // startseiteRender.innerHTML = htmlContent;
 }
 
 
-function getCart(){
-    axios.get("/cart",{
-
-    }).then((res:AxiosResponse) => {
+function getCart() {
+    axios.get("/cart", {}).then((res: AxiosResponse) => {
 
         console.log(res);
     });
     checkLogin();
 }
 
-function putCart(produktName,menge, method)  {
+function putCart(produktName, menge, method) {
 
     axios.put("/cart", {
         produktName: produktName,
         produktMenge: menge,
         method: method
-    }).then((res:AxiosResponse) => {
+    }).then((res: AxiosResponse) => {
 
         console.log(res);
     });
@@ -752,29 +787,36 @@ function renderGamesDetail(event){
 }*/
 
 
-async function lieferAdresseRendern() {
-    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+async function lieferUndRechnungsAdresseRendern() {
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
+    const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
     const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
     const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
     const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
     const ortElement = document.getElementById('displayLieferOrt') as HTMLInputElement;
     const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
     const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
-    try {
-        const response = await fetch("/user",
-            {
-                method:"GET"
-            });
-        const userData = await response.json();
 
-        if(response.status == 200) {
-            anredeElement.value = userData.anrede;
-            vornameElement.value = userData.vorname;
-            nachnameElement.value = userData.nachname;
-            plzElement.value = userData.postleitzahl;
-            ortElement.value = userData.ort;
-            strasseElement.value = userData.strasse;
-            hnrElement.value = userData.hnr;
+    try {
+        const response = await fetch("/bestellung",
+            {
+                method: "GET"
+            });
+        const res: Bestellung = await response.json();
+        console.log("GetBestellung!!!!!!!");
+        console.log(res);
+        const lieferadresse = res.lieferadresse;
+
+        if (response.status == 200) {
+            anredeElement.value = lieferadresse.anrede;
+            anredeDisplayElement.value = lieferadresse.anrede;
+            vornameElement.value = lieferadresse.vorname;
+            nachnameElement.value = lieferadresse.nachname;
+            plzElement.value = lieferadresse.postleitzahl;
+            ortElement.value = lieferadresse.ort;
+            strasseElement.value = lieferadresse.strasse;
+            hnrElement.value = lieferadresse.hnr;
+
             checkLogin();
         } else {
 
@@ -787,7 +829,7 @@ async function lieferAdresseRendern() {
 
 // Attempt
 async function updateRechnungsadresse() {
-    const anredeElement = document.getElementById('displayRechnungAnrede') as HTMLInputElement;
+    const anredeElement = document.getElementById('displayRechnungAnrede') as HTMLSelectElement;
     const vornameElement = document.getElementById('displayRechnungVorname') as HTMLInputElement;
     const nachnameElement = document.getElementById('displayRechnungNachname') as HTMLInputElement;
     const plzElement = document.getElementById('displayRechnungPLZ') as HTMLInputElement;
@@ -795,9 +837,12 @@ async function updateRechnungsadresse() {
     const strasseElement = document.getElementById('displayRechnungStraße') as HTMLInputElement;
     const hnrElement = document.getElementById('displayRechnungHnr') as HTMLInputElement;
     try {
-        await fetch("/rechnungsadresse",
+        const response = await fetch("/rechnungsadresse",
             {
-                method:"PUT",
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
                 body: JSON.stringify({
                     anrede: anredeElement.value,
                     vorname: vornameElement.value,
@@ -808,14 +853,21 @@ async function updateRechnungsadresse() {
                     hnr: hnrElement.value
                 })
             });
+
+        if (response.status == 400) {
+            alert(response.body)
+        }
     } catch (e) {
         console.log(e)
     }
     checkLogin();
+
 }
 
+
 function toggleEditLieferadresse(toggle: boolean) {
-    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
+    const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
     const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
     const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
     const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
@@ -823,23 +875,30 @@ function toggleEditLieferadresse(toggle: boolean) {
     const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
     const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
     const button = document.getElementById('lieferAdBtn') as HTMLButtonElement;
-    anredeElement.disabled = toggle;
+    const button2 = document.getElementById('lieferAdBtnCancel') as HTMLButtonElement;
     vornameElement.disabled = toggle;
     nachnameElement.disabled = toggle;
     plzElement.disabled = toggle;
     ortElement.disabled = toggle;
     strasseElement.disabled = toggle;
     hnrElement.disabled = toggle;
-    if(toggle){
+    if (toggle) {
         button.classList.add("d-none");
+        button2.classList.add("d-none");
+        anredeElement.classList.add("d-none");
+        anredeDisplayElement.classList.remove("d-none");
     } else {
         button.classList.remove("d-none");
+        button2.classList.remove("d-none");
+        anredeElement.classList.remove("d-none");
+        anredeDisplayElement.classList.add("d-none");
     }
 }
 
 
-async function updateLieferAdresse() {
-    const anredeElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
+async function updateLieferAdresse(e: Event) {
+    e.preventDefault();
+    const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
     const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
     const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
     const plzElement = document.getElementById('displayLieferPLZ') as HTMLInputElement;
@@ -848,9 +907,12 @@ async function updateLieferAdresse() {
     const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
 
     try {
-        await fetch("/lieferadresse",
+        const response = await fetch("/lieferadresse",
             {
-                method:"PUT",
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
                 body: JSON.stringify({
                     anrede: anredeElement.value,
                     vorname: vornameElement.value,
@@ -861,25 +923,120 @@ async function updateLieferAdresse() {
                     hnr: hnrElement.value
                 })
             });
-        toggleEditLieferadresse(true);
+        if (response.status == 400) {
+            alert(response.body)
+        } else {
+            toggleEditLieferadresse(true);
+
+        }
 
     } catch (e) {
         console.log(e)
     }
     checkLogin();
-
+    lieferUndRechnungsAdresseRendern()
 }
 
-function toggleRechnungsadresse(e:Event) {
+function toggleRechnungsadresse(e: Event) {
     const rechnungsForm = document.getElementById("displayRechnungsadresse");
 
     //target wird als HTMLInputElement festgelegt
     const target = e.target as HTMLInputElement;
 
     //Überprüfen, checkbox ausgewählt ist
-    if(target.checked) {
+    if (target.checked) {
         rechnungsForm.classList.remove("d-none");
     } else {
         rechnungsForm.classList.add("d-none");
     }
 }
+
+
+const zahlungsMethodePayPal = document.getElementById('zahlungsMethodePayPal') as HTMLInputElement;
+const zahlungsMethodeSofort = document.getElementById('zahlungsMethodeSofort') as HTMLInputElement;
+
+// Event-Listener für das Absenden des Formulars
+document.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    let selectedValue: string | null = null;
+
+    // Überprüfen, welche Zahlungsmethode ausgewählt wurde
+    if (zahlungsMethodePayPal.checked) {
+        selectedValue = zahlungsMethodePayPal.value;
+    } else if (zahlungsMethodeSofort.checked) {
+        selectedValue = zahlungsMethodeSofort.value;
+    }
+
+    if (selectedValue) {
+        // Zahlungsmethode an den Server senden
+        fetch('/savePaymentMethod', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ paymentMethod: selectedValue })
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Zahlungsmethode erfolgreich gespeichert.');
+                } else {
+                    console.log('Fehler beim Speichern der Zahlungsmethode.');
+                }
+            })
+            .catch(error => {
+                console.error('Fehler:', error);
+            });
+    } else {
+        console.log('Keine Zahlungsmethode ausgewählt.');
+    }
+});
+
+
+
+async function createBestellung() {
+//TODO Updates der adressen auslagern. nur die eigenen funktionen nutzen!!!!!!
+
+    const checkboxRechnung = document.getElementById("checkRechnungsadresse") as HTMLInputElement;
+    if (checkboxRechnung.checked) {
+        try {
+            await updateRechnungsadresse()
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    try {
+        const response = await fetch("/bestellung", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({})
+        });
+        const data = await response.json();
+
+    } catch (e) {
+        console.log(e)
+    }
+/*
+    const dankeContainer = document.getElementById('dankeContainer');
+    const bestellungContainer = document.getElementById('bestellungContainer');
+
+
+    dankeContainer.style.display = 'block';
+    bestellungContainer.style.display = 'none';
+    document.getElementById("dankeContainer").classList.remove("d-none");
+*/
+}
+/*
+function toggleDanke(e: Event) {
+    const dankeBestellContainer = document.getElementById("dankeContainer");
+    const bestellungContainer = document.getElementById('dankeContainer') as HTMLElement;
+
+
+    dankeBestellContainer.classList.remove("d-none");
+    bestellungContainer.classList.add("d-none");
+}
+*/
