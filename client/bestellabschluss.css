@@ -142,3 +142,11 @@ input:disabled, select:disabled {
     height: 2em;
     transition: transform .1s;
 }
+
+.dropdownAnrede {
+    color: #FFFFFF;
+}
+
+.anrede option {
+    color: white;
+}

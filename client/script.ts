@@ -22,17 +22,17 @@ interface Bestellung {
 }
 
 
-
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
 
-let shoppingCart:Object[] = [];
+let shoppingCart: Object[] = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
     try {
-        getCart().then(r => {});
+        getCart().then(r => {
+        });
     } catch (e) {
         console.log(e)
     }
@@ -53,11 +53,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit = document.querySelector("#cancelEditButton") as HTMLButtonElement;
-    const zurKasseBtn = document.querySelector("#zurKasse") as HTMLElement;
+    const zurKasseBtn = document.getElementById("zurKasse") as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
+    let zurKasse = document.querySelector("#zurKasse") as HTMLButtonElement;
+
     try {
         warenkorb.addEventListener("click", () => {
             warenkorbRender();
+
+        });
+    } catch (e) {
+        console.log(e)
+    }
+    try {
+        zurKasse.addEventListener("submit", () => {
+            bestellabschlussProdukteRender(event);
+
         });
     } catch (e) {
         console.log(e)
@@ -76,23 +87,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
     if (loginform) {
-        loginform.addEventListener("click", () =>{
+        loginform.addEventListener("click", () => {
             modalFensterUser.hide();
             modalFensterUserLogin.show();
         });
     }
-    if (warenkorb){
-        warenkorb.addEventListener("click", ()=>{
+    if (warenkorb) {
+        warenkorb.addEventListener("click", () => {
             modalFensterWarenkorb.show();
         })
     }
 
-    if (deleteUser){
+    if (deleteUser) {
         deleteUser.addEventListener("click", () => {
-           deleteUser.style.display = "none";
-           deletecheck.style.display = "block";
+            deleteUser.style.display = "none";
+            deletecheck.style.display = "block";
         });
     }
 
@@ -118,7 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("postLieferadresseForm").addEventListener("submit", updateLieferAdresse);
         document.getElementById("checkRechnungsadresse").addEventListener("change", toggleRechnungsadresse);
         document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
-      //  document.getElementById("bestellungAbschliessen").addEventListener("click", toggleDanke);
+
+        //  document.getElementById("bestellungAbschliessen").addEventListener("click", toggleDanke);
 
 
     } catch (e) {
@@ -127,7 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     try {
-        zurKasseBtn.addEventListener("click", () => {
+        zurKasseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
             window.location.href = "bestellabschluss.html"
         })
     } catch (e) {
@@ -148,11 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
-    saveEdit.addEventListener("click", (event:Event) => {
+    saveEdit.addEventListener("click", (event: Event) => {
         editUser(event);
     });
     cancelEdit.addEventListener("click", hideEditUser);
-
 
 
     editButtonUser.addEventListener("click", (event: Event) => {
@@ -164,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-
     // Nur auf Profilseite oder ganz UNTEN!
     deletecheck.addEventListener("click", delUser);
 });
@@ -174,16 +184,16 @@ function addUser(event: Event): void {
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
-    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
-    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
-    const emailErr = document.querySelector("#emailErr")as HTMLElement;
-    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
-    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
-    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
-    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
-    const ortErr = document.querySelector("#ortErr")as HTMLElement;
-    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
-    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const emailErr = document.querySelector("#emailErr") as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr") as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr") as HTMLElement;
 
     anredeErr.innerText = "";
     vornameErr.innerText = "";
@@ -196,7 +206,6 @@ function addUser(event: Event): void {
     ortErr.innerText = "";
     passwortErr.innerText = "";
     passwortCheckErr.innerText = "";
-
 
 
     //Attribute von User
@@ -277,19 +286,19 @@ function addUser(event: Event): void {
     }
 }
 
-function getErrorMessage(data){
+function getErrorMessage(data) {
     const firstSpace = data.indexOf(" ");
-    const firstword = data.substring(0,firstSpace);
+    const firstword = data.substring(0, firstSpace);
     const caselower = firstword.toLowerCase();
-    (document.getElementById(`${caselower}Err`).innerText= data);
+    (document.getElementById(`${caselower}Err`).innerText = data);
 
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample)
     toast.show();
 }
 
-function erfolgreich(){
-    document.getElementById("angelegt").innerText= "Nutzer erfolgreich geändert!";
+function erfolgreich() {
+    document.getElementById("angelegt").innerText = "Nutzer erfolgreich geändert!";
     const toastLiveExample = document.getElementById('erfolgreich');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
@@ -316,15 +325,15 @@ function editUser(event: Event): void {
     toast.show();
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
-    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
-    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
-    const emailErr = document.querySelector("#emailErr")as HTMLElement;
-    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
-    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
-    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
-    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
-    const ortErr = document.querySelector("#ortErr")as HTMLElement;
-    const editCheck = document.querySelector("#angelegt")as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const emailErr = document.querySelector("#emailErr") as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
+    const editCheck = document.querySelector("#angelegt") as HTMLElement;
 
 
     anredeErr.innerText = "";
@@ -351,24 +360,25 @@ function editUser(event: Event): void {
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
 
-    if (vorname === ""){
+    if (vorname === "") {
         vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (nachname === ""){
+    if (nachname === "") {
         nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (postleitzahl === ""){
+    if (postleitzahl === "") {
         postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (ort === ""){
+    if (ort === "") {
         ortErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (strasse === ""){
+    if (strasse === "") {
         strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
-    }if (hnr === ""){
+    }
+    if (hnr === "") {
         hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-    if (telefonnummer === ""){
+    if (telefonnummer === "") {
         telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
 
@@ -434,9 +444,9 @@ function signIn(event: Event): void {
 
     const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
     const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
-    const logout = (document.querySelector("#abmelden")as HTMLElement);
-    const profil= (document.querySelector("#profilseite") as HTMLElement);
-    const registrieren= (document.querySelector("#registrieren") as HTMLElement);
+    const logout = (document.querySelector("#abmelden") as HTMLElement);
+    const profil = (document.querySelector("#profilseite") as HTMLElement);
+    const registrieren = (document.querySelector("#registrieren") as HTMLElement);
 
     axios.post("/signin", {
         email: email,
@@ -451,7 +461,7 @@ function signIn(event: Event): void {
         document.getElementById("loginError").innerText = "";
         checkLogin();
     }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400){
+        if (reason.response.status == 400) {
             document.getElementById("loginError").innerText = "Email oder Passwort ist falsch."
         }
         checkLogin();
@@ -469,11 +479,9 @@ function signOff(): void {
 
 }
 
-function getUser(){
+function getUser() {
 
-    axios.get("/user",{
-
-    }).then((res:AxiosResponse) => {
+    axios.get("/user", {}).then((res: AxiosResponse) => {
 
         const userData = res.data;
 
@@ -522,16 +530,16 @@ async function checkLogin() {
     try {
         const response = await fetch("/login",
             {
-                method:"GET"
+                method: "GET"
             });
         const data = await response.json();
 
-        if(response.status == 200) {
+        if (response.status == 200) {
             const rolle = data.rolle;
 
             abmelden.classList.remove("d-none");
-            registrieren.style.display="none";
-            profil.style.display="inline-block";
+            registrieren.style.display = "none";
+            profil.style.display = "inline-block";
         } else {
             abmelden.classList.add("d-none");
 
@@ -564,7 +572,8 @@ function renderUserEdit(userData) {
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 }
-function hideEditUser(){
+
+function hideEditUser() {
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
     const loeschen = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
@@ -576,44 +585,41 @@ function hideEditUser(){
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
 }
-function getProduct(){
-    axios.get("/product",{
 
-    }).then((res:AxiosResponse) => {
+function getProduct() {
+    axios.get("/product", {}).then((res: AxiosResponse) => {
         const productData = res.data
 
-        if (productData.Bestand === ""){
+        if (productData.Bestand === "") {
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         renderGamesVerteiler(productData);
     });
     checkLogin();
 }
-function getProduct2(){
-    axios.get("/product",{
 
-    }).then((res:AxiosResponse) => {
+function getProduct2() {
+    axios.get("/product", {}).then((res: AxiosResponse) => {
         console.log("Hier Produkt");
         const productData = res.data;
-        if (productData.Bestand === ""){
+        if (productData.Bestand === "") {
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         console.log(productData);
         startseiteRender(productData);
-        renderGamesVerteiler(productData);
         console.log(res);
     });
     checkLogin();
 }
 
 
-function renderGamesVerteiler(productData){
+function renderGamesVerteiler(productData) {
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
     const JsonContent = productData;
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-        spiele.innerHTML +=`
+        spiele.innerHTML += `
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -679,8 +685,6 @@ function startseiteRender(productData) {
 }
 
 
-
-
 function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
@@ -703,7 +707,7 @@ function warenkorbRender() {
           <div class="col-4">
             <div class="row mt-3">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.name}" class="placeholdermerkliste img-fluid imgHöhe">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
               </div>
             </div>
           </div>
@@ -748,7 +752,7 @@ function warenkorbRender() {
         <div class="row">
           <div class="col-8"></div>
           <div class="col-4 text-end">
-            <button id="zurKasse" type="submit" class="btn bbutton mt-3">
+            <button id="zurKasse" class="btn bbutton mt-3">
               Zur Kasse
             </button>
           </div>
@@ -765,6 +769,19 @@ function warenkorbRender() {
     deleteButtons.forEach((button) => {
         button.addEventListener("click", deleteItemFromWarenkorb);
     });
+    const zurKasseBtnRenderd = document.getElementById("zurKasse") as HTMLElement;
+    if(shoppingCart.length !== 0) {
+        zurKasseBtnRenderd.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "bestellabschluss.html"
+        })
+    } else {
+        zurKasseBtnRenderd.addEventListener("click", (e) => {
+            e.preventDefault();
+            alert("Der Warenkorb ist leer!")
+        })
+    }
+
 }
 
 function updatePrice(event) {
@@ -800,23 +817,20 @@ function calculateTotalPrice() {
 
 async function deleteItemFromWarenkorb(event: Event): Promise<void> {
     const target: HTMLElement = event.target as HTMLElement;
-        deleteProductFromCart(target.dataset.trash)
-        await getCart();
-        warenkorbRender();
+    deleteProductFromCart(target.dataset.trash)
+    await getCart();
+    warenkorbRender();
 }
 
 
-
-async function getCart(){
-    await axios.get("/cart",{
-
-    }).then((res:AxiosResponse) => {
+async function getCart() {
+    await axios.get("/cart", {}).then((res: AxiosResponse) => {
         shoppingCart = res.data;
     });
     checkLogin();
 }
 
-function putCart(produktName,menge, method)  {
+function putCart(produktName, menge, method) {
 
     axios.put("/cart", {
         produktName: produktName,
@@ -830,7 +844,8 @@ function putCart(produktName,menge, method)  {
 function deleteProductFromCart(productName) {
     axios
         .delete(`/cart/${productName}`)
-        .then(() => {})
+        .then(() => {
+        })
         .catch((error) => {
             // Fehler beim Löschen des Produkts
             console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
@@ -904,14 +919,14 @@ async function updateRechnungsadresse() {
                 })
             });
 
-        if (response.status == 400) {
-            alert(response.body)
+        if (response.status == 400 || response.status == 403) {
+            const data = await response.json();
+            alert(data.message)
         }
     } catch (e) {
         console.log(e)
     }
     checkLogin();
-
 }
 
 
@@ -973,8 +988,9 @@ async function updateLieferAdresse(e: Event) {
                     hnr: hnrElement.value
                 })
             });
-        if (response.status == 400) {
-            alert(response.body)
+        if (response.status == 400 || response.status == 403) {
+            const data = await response.json();
+            alert(data.message)
         } else {
             toggleEditLieferadresse(true);
 
@@ -1001,15 +1017,11 @@ function toggleRechnungsadresse(e: Event) {
     }
 }
 
+async function createBestellung() {
+    const zahlungsMethodePayPal = document.getElementById('zahlungsMethodePayPal') as HTMLInputElement;
+    const zahlungsMethodeSofort = document.getElementById('zahlungsMethodeSofort') as HTMLInputElement;
 
-const zahlungsMethodePayPal = document.getElementById('zahlungsMethodePayPal') as HTMLInputElement;
-const zahlungsMethodeSofort = document.getElementById('zahlungsMethodeSofort') as HTMLInputElement;
-
-// Event-Listener für das Absenden des Formulars
-document.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    let selectedValue: string | null = null;
+    let selectedValue: string;
 
     // Überprüfen, welche Zahlungsmethode ausgewählt wurde
     if (zahlungsMethodePayPal.checked) {
@@ -1017,35 +1029,6 @@ document.addEventListener('submit', (event) => {
     } else if (zahlungsMethodeSofort.checked) {
         selectedValue = zahlungsMethodeSofort.value;
     }
-
-    if (selectedValue) {
-        // Zahlungsmethode an den Server senden
-        fetch('/savePaymentMethod', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ paymentMethod: selectedValue })
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Zahlungsmethode erfolgreich gespeichert.');
-                } else {
-                    console.log('Fehler beim Speichern der Zahlungsmethode.');
-                }
-            })
-            .catch(error => {
-                console.error('Fehler:', error);
-            });
-    } else {
-        console.log('Keine Zahlungsmethode ausgewählt.');
-    }
-});
-
-
-
-async function createBestellung() {
-//TODO Updates der adressen auslagern. nur die eigenen funktionen nutzen!!!!!!
 
     const checkboxRechnung = document.getElementById("checkRechnungsadresse") as HTMLInputElement;
     if (checkboxRechnung.checked) {
@@ -1063,20 +1046,102 @@ async function createBestellung() {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify({})
+            body: JSON.stringify({
+                zahlungsmethode: selectedValue
+            })
         });
         const data = await response.json();
+
+        if (response.status == 400) {
+            alert(data.message)
+        } else {
+            window.location.href = "DankefürBestellung.html";
+        }
 
     } catch (e) {
         console.log(e)
     }
-    /*
-        const dankeContainer = document.getElementById('dankeContainer');
-        const bestellungContainer = document.getElementById('bestellungContainer');
+}
+
+function bestellabschlussProdukteRender(event: Event) {
+    event.preventDefault();
+    console.log("Abschluss")
+    const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
+    let endpreis = 0; // Variable für den Gesamtpreis
+
+    // Löscht die Inhalte des Warenkorbmodals
+    bestellabschlussProdukte.innerHTML = "";
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let produkt = shoppingCart[i];
+        const subtotal = produkt.preis * produkt.produktMenge; // Teilsumme für das aktuelle Produkt
+        endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
+
+        bestellabschlussProdukte.innerHTML += `
+        <div class="card mb-3 checkoutcard">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="${produkt.bilder}" class="img-fluid rounded-start" alt="${produkt.produktName}">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-10">
+                                <h5 class="card-title">${produkt.produktName}</h5>
+                            </div>
+                            <div class="col-1">
+                                <i class=" fas fa-solid fa-trash"></i>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <p class="card-text">${produkt.kurzbeschreibung}</p>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="btn btn-secondary bree20">${produkt.produktMenge}</button>
+                                    <div class="btn-group" role="group">
+                                        <label for="menge">Menge: </label>
+                                        <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 checkoutcradrechts">
+                                <div id="preis${i}">
+                                    <span>${subtotal.toFixed(2)} €</span>
+                                   </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        }
+
+    bestellabschlussProdukte.innerHTML += `
+        <div class="align-items-end">
+            <p class="text-end gesamtpreis abstandtop"> ${endpreis}</p>
+            <div class="row">
+                <div class="col text-end">
+                <a id="bestellungAbschliessen" class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                    Bestellung abschließen
+                </a>
+                </div>
+            </div>
+        </div>`;
+
+    const quantityInputs = document.querySelectorAll("input[name='menge']");
+    quantityInputs.forEach((input) => {
+        input.addEventListener("input", updatePrice);
+    });
+
+    const deleteButtons = document.querySelectorAll(".fa-trash");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", deleteItemFromWarenkorb);
+    });
+
+    document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
 
 
-        dankeContainer.style.display = 'block';
-        bestellungContainer.style.display = 'none';
-        document.getElementById("dankeContainer").classList.remove("d-none");
-    */
 }
