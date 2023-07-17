@@ -216,6 +216,18 @@
     margin-top: 0.8em;
 }
 
+.availabilityYellow {
+    color: yellow !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
+.availabilityRed {
+    color: red !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
 .cardpicp {
     z-index: -1 !important;
     margin-top: 1em;

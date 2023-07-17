@@ -509,6 +509,7 @@ function getProduct(){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         renderGamesVerteiler(productData);
+        changeAvailability(productData);
     });
     checkLogin();
 }
@@ -524,6 +525,7 @@ function getProduct2(){
         console.log(productData);
         startseiteRender(productData);
         renderGamesVerteiler(productData);
+        changeAvailability(productData);
         console.log(res);
     });
     checkLogin();
@@ -549,7 +551,7 @@ function renderGamesVerteiler(productData){
                             <div class="card-body">
                              <a href ="produktdetail.html" class="cardbodytext">
                                 <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
+                                    <i class="fas fa-circle availabilityIcon"></i>
                                     <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
                                     </h5>
                                 </div>
@@ -586,7 +588,7 @@ function startseiteRender(productData) {
           </div>
           <div class="card-body">
             <div class="container cardword">
-              <i class="fas fa-circle availability"></i>
+              <i class="fas fa-circle availabilityIcon"></i>
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
             </div>
             <button type="button" class="btn btn-primary bbuttoncard">
@@ -758,4 +760,24 @@ function deleteProductFromCart(productName) {
             // Fehler beim Löschen des Produkts
             console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
         });
+}
+
+function changeAvailability(productData) {
+    const JsonContent = productData;
+    const availabilityIcons = document.querySelectorAll(".availabilityIcon");
+
+    availabilityIcons.forEach((icon, index) => {
+        const bestand = JsonContent.Bestand;
+
+        if (bestand === 0) {
+            icon.classList.remove("availability", "availabilityYellow");
+            icon.classList.add("availabilityRed");
+        } else if (bestand >= 50) {
+            icon.classList.remove("availability", "availabilityRed");
+            icon.classList.add("availabilityYellow");
+        } else {
+            icon.classList.remove("availabilityYellow", "availabilityRed");
+            icon.classList.add("availability");
+        }
+    });
 }
