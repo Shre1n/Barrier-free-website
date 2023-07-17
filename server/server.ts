@@ -333,6 +333,10 @@ function postCart(req: express.Request, res: express.Response): void {
                 produktMenge
             ];
 
+            if(produktID === null || produktMenge === null) {
+                res.sendStatus(404);
+            }
+
             query(newQuery, data).then((result: any) => {
                 res.sendStatus(201);
             }).catch((e) => {
@@ -353,12 +357,11 @@ function postCart(req: express.Request, res: express.Response): void {
 }
 
 function getCart(req: express.Request, res: express.Response): void {
-
-
+    const warenkorbArray: WarenkorbProdukt[] = [];
     query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
         .then((results: any) => {
             if(results.length !== 0) {
-                const warenkorbArray: WarenkorbProdukt[] = [];
+
 
                 for(const r of results){
                     let product: WarenkorbProdukt = new WarenkorbProdukt();
@@ -369,14 +372,15 @@ function getCart(req: express.Request, res: express.Response): void {
                     product.produktMenge = r.Menge;
                     product.bestand = r.Bestand;
                     warenkorbArray.push(product);
+
+                    if (r.Produktname === undefined || r.Produktname === "") {
+                        res.sendStatus(404);
+                    }
+
+
                 }
-
-
-
-                res.status(200).json({warenkorb: warenkorbArray })
-            } else {
-                res.status(400).send("Keine Produkte im Warenkorb!")
             }
+            res.status(200).json({warenkorb: warenkorbArray});
         })
         .catch((e) => {
             console.log(e);
@@ -394,10 +398,10 @@ function itemAlreadyInCart(req: express.Request, res: express.Response, next: ex
             query("SELECT * FROM Warenkorb WHERE NutzerID = ? AND ProduktID = ?;", [req.session.nutzerid, result[0].ID])
                 .then((results: any) => {
                     if(results.length == 1) {
-                        if(produktMethod == "add") {
+                        if(produktMethod === "add") {
                             query("UPDATE Warenkorb SET Menge = Menge + ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
                                 .then(()=>{
-                                    res.status(200).send("Warenkorb geupdatet!")
+                                    res.status(200).send("Warenkorb geupdatet!");
                                 })
                                 .catch((e) => {
                                     console.log(e);
@@ -461,16 +465,16 @@ function deleteCart(req: express.Request, res: express.Response): void {
         .then((result: any) => {
             query("DELETE FROM Warenkorb WHERE ProduktID = ? AND NutzerID = ?;", [result[0].ID, req.session.nutzerid])
                 .then(()=>{
-                    res.status(200).send("Produkt aus Warenkorb gelöscht!")
+                    res.status(200).send("Produkt aus Warenkorb gelöscht!");
                 })
                 .catch((e) => {
                     console.log(e);
-                    res.status(500).send("Fehler bei der Produktauswahl!")
+                    res.status(500).send("Fehler bei der Produktauswahl!");
                 });
         }).catch((e)=>{
             console.log(e);
-        res.status(500).send("Fehler bei der Produktauswahl!")
-    })
+        res.status(500).send("Fehler bei der Produktauswahl!");
+    });
 
 }
 

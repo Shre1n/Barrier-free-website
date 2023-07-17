@@ -807,19 +807,12 @@ async function getCart(){
         method: "GET"
     }).then(async (res)=>{
         const data = await res.json();
-        if(res.status==400){
-            console.log(res.body);
-        } else {
-            shoppingCart = data.warenkorb;
-        }
+        shoppingCart = data.warenkorb;
+        warenkorbRender();
+    }).catch((e)=>{
+        console.log(e);
+    });
 
-    })
-        .catch((e)=>{
-            console.log(e)
-
-    })
-
-    setTimeout(()=>{warenkorbRender()},60);
 
 }
 
@@ -834,14 +827,12 @@ async function putCart(produktName,menge, method)  {
 }
 
 async function deleteProductFromCart(productName) {
-    axios
-        .delete(`/cart/${productName}`)
-        .then(() => {})
-        .catch((error) => {
-            // Fehler beim Löschen des Produkts
-            console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
-        });
-    await getCart();
+    try {
+        await axios.delete(`/cart/${productName}`);
+        await getCart();
+    } catch (error) {
+        console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
+    }
 }
 
 function postCart(produktName,menge, method){
