@@ -457,11 +457,21 @@ function putCart(req: express.Request, res: express.Response): void {
 
 function deleteCart(req: express.Request, res: express.Response): void {
     const productNameToDelete: string = req.params.productName;
-    // Finde das Produkt im Warenkorb und entferne es
-    req.session.cart = req.session.cart.filter(
-        (product) => product.produktName !== productNameToDelete
-    );
-    res.sendStatus(200);
+    query("SELECT ID FROM Produktliste WHERE Produktname = ? ", [productNameToDelete])
+        .then((result: any) => {
+            query("DELETE FROM Warenkorb WHERE ProduktID = ? AND NutzerID = ?;", [result[0].ID, req.session.nutzerid])
+                .then(()=>{
+                    res.status(200).send("Produkt aus Warenkorb gelöscht!")
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.status(500).send("Fehler bei der Produktauswahl!")
+                });
+        }).catch((e)=>{
+            console.log(e);
+        res.status(500).send("Fehler bei der Produktauswahl!")
+    })
+
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
