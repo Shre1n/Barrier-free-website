@@ -18,32 +18,31 @@ interface Bestellung {
         strasse: string;
         hnr: string;
     };
-
 }
+
+interface WarenkorbProdukt{
+    produktName: string;
+    kurzbeschreibung: string;
+    preis:number;
+    bilder:string;
+    bestand: number;
+    produktMenge: number;
+}
+
 
 
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
 
-let shoppingCart: Object[] = [];
+let shoppingCart:WarenkorbProdukt[] = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
-    try {
-        getCart().then(r => {
-        });
-    } catch (e) {
-        console.log(e)
-    }
 
-    try {
-        modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
-        modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
-        modalFensterWarenkorb = new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
-    } catch (e) {
-        console.log(e)
-    }
+    modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
+    modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
@@ -55,24 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const cancelEdit = document.querySelector("#cancelEditButton") as HTMLButtonElement;
     const zurKasseBtn = document.getElementById("zurKasse") as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
-    let zurKasse = document.querySelector("#zurKasse") as HTMLButtonElement;
 
-    try {
-        warenkorb.addEventListener("click", () => {
-            warenkorbRender();
-
-        });
-    } catch (e) {
-        console.log(e)
-    }
-    try {
-        zurKasse.addEventListener("submit", () => {
-            bestellabschlussProdukteRender(event);
-
-        });
-    } catch (e) {
-        console.log(e)
-    }
+    warenkorb.addEventListener("click", () => {
+        warenkorbRender();
+    });
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
@@ -106,14 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    try {
-        getUser();
-        getProduct();
-        getProduct2();
-    } catch (e) {
-        console.log(e)
-    }
-
+    getUser();
+    getProduct();
+    getProduct2();
     //Alle Listener für die Bestellseite
     try {
         lieferUndRechnungsAdresseRendern();
@@ -146,37 +126,32 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(e)
     }
 
-    try {
-        document.getElementById("warenkorb").addEventListener("click", () => {
-            getCart();
-        });
+    document.getElementById("modalForm").addEventListener("submit", addUser);
+    document.getElementById("modalFormlogin").addEventListener("submit", signIn);
+    abmelden.addEventListener("click", signOff);
 
-        getUser();
-        getProduct();
+    try{
+        saveEdit.addEventListener("click", (event:Event) => {
+            editUser(event);
+        });
+        cancelEdit.addEventListener("click", hideEditUser);
+        editButtonUser.addEventListener("click", (event: Event) => {
+            const UserEditForm = document.querySelector("#editUser") as HTMLElement;
+            const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+            getUser();
+            UserEditForm.style.display = "block";
+            UserProfilForm.style.display = "none";
+        });
+        // Nur auf Profilseite oder ganz UNTEN!
+        deletecheck.addEventListener("click", delUser);
     } catch (e) {
         console.log(e)
     }
 
-    document.getElementById("modalForm").addEventListener("submit", addUser);
-    document.getElementById("modalFormlogin").addEventListener("submit", signIn);
-    abmelden.addEventListener("click", signOff);
-    saveEdit.addEventListener("click", (event: Event) => {
-        editUser(event);
-    });
-    cancelEdit.addEventListener("click", hideEditUser);
 
 
-    editButtonUser.addEventListener("click", (event: Event) => {
-        const UserEditForm = document.querySelector("#editUser") as HTMLElement;
-        const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-        getUser();
-        UserEditForm.style.display = "block";
-        UserProfilForm.style.display = "none";
-    })
 
 
-    // Nur auf Profilseite oder ganz UNTEN!
-    deletecheck.addEventListener("click", delUser);
 });
 
 function addUser(event: Event): void {
@@ -239,6 +214,7 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
+            erfolgreichRegister();
             modalFensterUser.hide();
             //reset der Form zum Eintragen
             form.reset();
@@ -268,7 +244,7 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-
+            erfolgreichRegister();
             //reset der Form zum Eintragen
             form.reset();
             modalFensterUser.hide();
@@ -297,12 +273,35 @@ function getErrorMessage(data) {
     toast.show();
 }
 
-function erfolgreich() {
-    document.getElementById("angelegt").innerText = "Nutzer erfolgreich geändert!";
+function erfolgreichChange(){
+    document.getElementById("angelegt").innerText= "Nutzer erfolgreich geändert!";
     const toastLiveExample = document.getElementById('erfolgreich');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
+function erfolgreichRegister(){
+    document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
+    const toastLiveExample = document.getElementById('registerErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function erfolgreichEingeloggt() {
+    document.getElementById("loginErfolgreich").innerText= "Sie sind jetzt Angemeldet!";
+    const toastLiveExample = document.getElementById('loginErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function warenkorbErfolgreich() {
+    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    const toastLiveExample = document.getElementById('warenkorbErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
 
 
 function delUser(event: Event): void {
@@ -396,7 +395,7 @@ function editUser(event: Event): void {
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             getUser();
-            erfolgreich();
+            erfolgreichChange();
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
@@ -419,7 +418,7 @@ function editUser(event: Event): void {
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
             getUser();
-            erfolgreich();
+            erfolgreichChange();
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
@@ -452,7 +451,7 @@ function signIn(event: Event): void {
         email: email,
         passwort: passwort
     }).then((res: AxiosResponse) => {
-
+        erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
         profil.style.display = "inline-block";
@@ -461,8 +460,8 @@ function signIn(event: Event): void {
         document.getElementById("loginError").innerText = "";
         checkLogin();
     }).catch((reason: AxiosError) => {
-        if (reason.response.status == 400) {
-            document.getElementById("loginError").innerText = "Email oder Passwort ist falsch."
+        if (reason.response.status == 400){
+            document.getElementById("loginError").innerText = "Passwort oder Email ist falsch."
         }
         checkLogin();
     });
@@ -479,9 +478,11 @@ function signOff(): void {
 
 }
 
-function getUser() {
+function getUser(){
 
-    axios.get("/user", {}).then((res: AxiosResponse) => {
+    axios.get("/user",{
+
+    }).then((res:AxiosResponse) => {
 
         const userData = res.data;
 
@@ -530,22 +531,22 @@ async function checkLogin() {
     try {
         const response = await fetch("/login",
             {
-                method: "GET"
+                method:"GET"
             });
         const data = await response.json();
 
-        if (response.status == 200) {
+        if(response.status == 200) {
             const rolle = data.rolle;
-
+            await getCart();
             abmelden.classList.remove("d-none");
-            registrieren.style.display = "none";
-            profil.style.display = "inline-block";
+            registrieren.style.display="none";
+            profil.style.display="inline-block";
         } else {
             abmelden.classList.add("d-none");
 
         }
     } catch (e) {
-        console.log(e)
+
     }
 }
 
@@ -572,8 +573,7 @@ function renderUserEdit(userData) {
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 }
-
-function hideEditUser() {
+function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
     const loeschen = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
@@ -585,41 +585,58 @@ function hideEditUser() {
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
 }
+function getProduct(){
+    axios.get("/product",{
 
-function getProduct() {
-    axios.get("/product", {}).then((res: AxiosResponse) => {
+    }).then((res:AxiosResponse) => {
         const productData = res.data
 
-        if (productData.Bestand === "") {
+        if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         renderGamesVerteiler(productData);
     });
     checkLogin();
 }
+function getProduct2(){
+    axios.get("/product",{
 
-function getProduct2() {
-    axios.get("/product", {}).then((res: AxiosResponse) => {
+    }).then((res:AxiosResponse) => {
         console.log("Hier Produkt");
         const productData = res.data;
-        if (productData.Bestand === "") {
+        if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
         console.log(productData);
         startseiteRender(productData);
+        renderGamesVerteiler(productData);
         console.log(res);
     });
     checkLogin();
 }
 
 
-function renderGamesVerteiler(productData) {
+function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
     const JsonContent = productData;
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-        spiele.innerHTML += `
+        if (JsonContent[p].Bestand === 0) {
+            continue; // Überspringen Sie die Iteration, wenn der Bestand 0 ist
+        }
+
+        const bestand = JsonContent[p].Bestand;
+        let availabilityClass = "availability";
+        if (bestand === 0) {
+            availabilityClass = "unavailable";
+        } else if (bestand >= 51) {
+            availabilityClass = "availabilityGreen";
+        } else if (bestand >= 1 && bestand <= 50) {
+            availabilityClass = "availabilityYellow";
+        }
+
+        spiele.innerHTML +=`
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -632,17 +649,23 @@ function renderGamesVerteiler(productData) {
                             <div class="card-body">
                              <a href ="produktdetail.html" class="cardbodytext">
                                 <div class="container cardword">
-                                    <i class="fas fa-circle availability"></i>
+                                    <i class="fas fa-circle ${availabilityClass}"></i>
                                     <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
                                     </h5>
                                 </div>
                                 </a>
                                 <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
                             </div>
                         </div>
                 </div>
     `
+
+        const bags = document.querySelectorAll(".bag");
+        bags.forEach((button) => {
+            console.log("🧇");
+            button.addEventListener("click", warenkorbErfolgreich);
+        });
     }
 }
 
@@ -657,7 +680,22 @@ function startseiteRender(productData) {
 
     let htmlContent = "";
 
-    for (let i = 0; i < JsonContent.length - 2; i++) {
+    for (let i = 0; i < 3; i++) {
+        if (i >= JsonContent.length) {
+            break; // Schleife beenden, wenn wir das Ende von JsonContent erreicht haben
+        }
+
+        const bestand = JsonContent[i].Bestand;
+
+        // Änderungen an der Darstellung, wenn der Bestand 0 ist
+        let availabilityClass = "unavailable";
+        if (bestand > 0 && bestand <= 50) {
+            availabilityClass = "availabilityYellow";
+        } else if (bestand >= 51) {
+            availabilityClass = "availabilityGreen";
+        }
+        const priceText = bestand === 0 ? "Ausverkauft" : `${JsonContent[i].Preis} €`;
+
         htmlContent += `
       <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
         <div class="card cardbp">
@@ -669,12 +707,14 @@ function startseiteRender(productData) {
           </div>
           <div class="card-body">
             <div class="container cardword">
-              <i class="fas fa-circle availability"></i>
-              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+              <i class="fas fa-circle ${availabilityClass}"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
+            ${bestand > 0 ? `
             <button type="button" class="btn btn-primary bbuttoncard">
               <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
             </button>
+             ` : ''}
           </div>
         </div>
       </div>
@@ -752,7 +792,7 @@ function warenkorbRender() {
         <div class="row">
           <div class="col-8"></div>
           <div class="col-4 text-end">
-            <button id="zurKasse" class="btn bbutton mt-3">
+            <button id="zurKasse" type="submit" class="btn bbutton mt-3">
               Zur Kasse
             </button>
           </div>
@@ -762,7 +802,7 @@ function warenkorbRender() {
 
     const quantityInputs = document.querySelectorAll("input[name='menge']");
     quantityInputs.forEach((input) => {
-        input.addEventListener("input", updatePrice);
+        input.addEventListener("change", updatePrice);
     });
 
     const deleteButtons = document.querySelectorAll(".fa-trash");
@@ -817,21 +857,28 @@ function calculateTotalPrice() {
 
 async function deleteItemFromWarenkorb(event: Event): Promise<void> {
     const target: HTMLElement = event.target as HTMLElement;
-    deleteProductFromCart(target.dataset.trash)
+    await deleteProductFromCart(target.dataset.trash);
     await getCart();
-    warenkorbRender();
 }
 
 
-async function getCart() {
-    await axios.get("/cart", {}).then((res: AxiosResponse) => {
-        shoppingCart = res.data;
+
+
+async function getCart(){
+    await fetch("/cart",{
+        method: "GET"
+    }).then(async (res)=>{
+        const data = await res.json();
+        shoppingCart = data.warenkorb;
+        warenkorbRender();
+    }).catch((e)=>{
+        console.log(e);
     });
-    checkLogin();
+
+
 }
 
-function putCart(produktName, menge, method) {
-
+async function putCart(produktName,menge, method)  {
     axios.put("/cart", {
         produktName: produktName,
         produktMenge: menge,
@@ -841,17 +888,24 @@ function putCart(produktName, menge, method) {
     });
 }
 
-function deleteProductFromCart(productName) {
-    axios
-        .delete(`/cart/${productName}`)
-        .then(() => {
-        })
-        .catch((error) => {
-            // Fehler beim Löschen des Produkts
-            console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
-        });
+async function deleteProductFromCart(productName) {
+    try {
+        await axios.delete(`/cart/${productName}`);
+        await getCart();
+    } catch (error) {
+        console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
+    }
 }
 
+function postCart(produktName,menge, method){
+    axios.post("/cart", {
+        produktName: produktName,
+        produktMenge: menge,
+        method: method
+    }).then(async () => {
+        await getCart();
+    });
+}
 async function lieferUndRechnungsAdresseRendern() {
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
     const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
@@ -1117,7 +1171,7 @@ function bestellabschlussProdukteRender(event: Event) {
             </div>
         </div>
         `;
-        }
+    }
 
     bestellabschlussProdukte.innerHTML += `
         <div class="align-items-end">

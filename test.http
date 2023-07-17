@@ -518,7 +518,12 @@ Content-Type: application/json
 
 
 ###
-DELETE /cart/Tactile Towers
+DELETE /cart/Shake n Match
+Host: localhost:8080
+Content-Type: application/json
+
+### Produkt Warenkorb hinzufügen
+POST /cart
 Host: localhost:8080
 Content-Type: application/json
 
@@ -536,6 +541,7 @@ Content-Type: application/json
   "strasse": "Am Musterweg",
   "hnr": "1"
 }
+{"produktName": "Shake n Match", "produktMenge":  1, "method":  "add"}
 
 
 ### Posten einer Rechnungsadresse

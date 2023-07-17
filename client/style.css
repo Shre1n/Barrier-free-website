@@ -211,7 +211,29 @@
 }
 
 .availability {
+    text-align: left !important;
+    margin-top: 0.8em !important;
+}
+.unavailable {
+    color: red !important;
+    text-align: left !important;
+    margin-top: 0.8em !important;
+}
+
+.availabilityGreen {
     color: green !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
+.availabilityYellow {
+    color: orange !important;
+    text-align: left !important;
+    margin-top: 0.8em;
+}
+
+.availabilityRed {
+    color: red !important;
     text-align: left !important;
     margin-top: 0.8em;
 }
@@ -490,5 +512,11 @@ body {
 .warenkorb2{
     position: absolute;
     z-index: 3 !important;
+}
+
+
+.toastsBodyBackground{
+    background-color: #3D93A6;
+    color: white; !important;
 }
 

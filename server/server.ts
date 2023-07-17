@@ -4,9 +4,9 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
+import * as cluster from "cluster";
+import {string} from "joi";
 //Install Displayable Chart option
-import {Chart} from 'chart.js';
-import {func} from "joi";
 
 class Adresse {
     anrede: string;
@@ -18,6 +18,15 @@ class Adresse {
     hnr: string;
 }
 
+class WarenkorbProdukt{
+    produktName: string;
+    kurzbeschreibung: string;
+    preis:number;
+    bilder:string;
+    bestand: number;
+    produktMenge: number;
+}
+
 // Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
     //Das Interface deklariert, was in der Session erhalten sein muss
@@ -27,6 +36,7 @@ declare module "express-session" {
         id: string;
         rollenid: number;
         cart: Object[];
+        nutzerid: number;
         lieferadresse: Adresse;
         rechnungsadresse: Adresse;
         nutzerId: number;
@@ -102,11 +112,9 @@ app.post("/bewertungen", checkLogin);
 app.get("/user", checkLogin, getUser);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
-app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
-app.get("/product", getProduct);
-app.get("/addons" ,getAddons);
+app.get("/addons", getAddons);
 app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
@@ -118,7 +126,7 @@ app.post("/bestellung", checkLogin, postBestellung);
 app.get("/bestellung", checkLogin, getBestellung)
 
 app.get("/cart", checkLogin, getCart);
-app.post("/cart", checkLogin, postCart);
+app.post("/cart", checkLogin, itemAlreadyInCart, postCart);
 app.delete("/cart/:productName", checkLogin, deleteCart);
 app.put("/cart", checkLogin, putCart);
 
@@ -295,6 +303,7 @@ function getProduct(req: express.Request, res: express.Response): void {
         }
     });
 }
+
 function getAddons(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
 
@@ -302,13 +311,14 @@ function getAddons(req: express.Request, res: express.Response): void {
     connection.query(sql, (err, results) => {
         if (err) {
             // Bei einem Fehler sende eine Fehlerantwort an den Client
-            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
         } else {
             // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
             res.json(results);
         }
     });
 }
+
 function getSpareParts(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
 
@@ -327,10 +337,109 @@ function getSpareParts(req: express.Request, res: express.Response): void {
 
 function postCart(req: express.Request, res: express.Response): void {
 
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT * FROM Produktliste WHERE Produktname = ?;", [produktName])
+        .then((result:any)=>{
+            const produktID:number = Number(result[0].ID);
+            const newQuery: string = 'INSERT INTO Warenkorb (NutzerID, ProduktID, menge) VALUES (?,?,?);'
+
+            const data: [number, number, number] = [
+                req.session.nutzerid,
+                produktID,
+                produktMenge
+            ];
+
+            if(produktID === null || produktMenge === null) {
+                res.sendStatus(404);
+            }
+
+            query(newQuery, data).then((result: any) => {
+                res.sendStatus(201);
+            }).catch((e) => {
+                console.log(e);
+                res.sendStatus(500);
+            });
+
+
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+
+
+
+
+
 }
 
 function getCart(req: express.Request, res: express.Response): void {
-    res.send(req.session.cart);
+    const warenkorbArray: WarenkorbProdukt[] = [];
+    query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
+        .then((results: any) => {
+            if(results.length !== 0) {
+
+
+                for(const r of results){
+                    let product: WarenkorbProdukt = new WarenkorbProdukt();
+                    product.produktName = r.Produktname;
+                    product.kurzbeschreibung = r.Kurzbeschreibung;
+                    product.bilder = r.Bilder;
+                    product.preis = r.Preis;
+                    product.produktMenge = r.Menge;
+                    product.bestand = r.Bestand;
+                    warenkorbArray.push(product);
+
+                    if (r.Produktname === undefined || r.Produktname === "") {
+                        res.sendStatus(404);
+                    }
+
+
+                }
+            }
+            res.status(200).json({warenkorb: warenkorbArray});
+        })
+        .catch((e) => {
+            console.log(e);
+            res.sendStatus(500);
+        });
+}
+
+function itemAlreadyInCart(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const produktName: string = req.body.produktName;
+    const produktMethod: string = req.body.method;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
+        .then((result: any) => {
+            query("SELECT * FROM Warenkorb WHERE NutzerID = ? AND ProduktID = ?;", [req.session.nutzerid, result[0].ID])
+                .then((results: any) => {
+                    if(results.length == 1) {
+                        if(produktMethod === "add") {
+                            query("UPDATE Warenkorb SET Menge = Menge + ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                                .then(()=>{
+                                    res.status(200).send("Warenkorb geupdatet!");
+                                })
+                                .catch((e) => {
+                                    console.log(e);
+                                    res.sendStatus(500);
+                                });
+                        } else {
+                            res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
+                        }
+                    } else {
+                        next();
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.sendStatus(500);
+                });
+        }).catch((e) => {
+        console.log(e);
+        res.sendStatus(500);
+    });
 }
 
 function putCart(req: express.Request, res: express.Response): void {
@@ -344,21 +453,22 @@ function putCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
     const produktMethod: string = req.body.method;
 
-    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
-                for (let i = 0; i < req.session.cart.length; i++) {
-                    if (req.session.cart[i].
-                    produktName.includes(produktName)) {
-                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
-                        res.sendStatus(200);
-                        return;
-                    }
+                if(produktMethod == "change") {
+                    query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                        .then(()=>{
+                            res.status(200).send("Warenkorb geupdatet!")
+                        })
+                        .catch(() => {
+                            res.sendStatus(500);
+                        });
+                } else {
+                    res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
                 }
-                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
-                res.sendStatus(200);
             } else {
-                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+                res.status(500).send("Produkt ist nicht im Warenkorb!");
             }
 
         }).catch((err) => {
@@ -369,23 +479,28 @@ function putCart(req: express.Request, res: express.Response): void {
 
 function deleteCart(req: express.Request, res: express.Response): void {
     const productNameToDelete: string = req.params.productName;
-    // Finde das Produkt im Warenkorb und entferne es
-    req.session.cart = req.session.cart.filter(
-        (product) => product.produktName !== productNameToDelete
-    );
-    res.sendStatus(200);
+    query("SELECT ID FROM Produktliste WHERE Produktname = ? ", [productNameToDelete])
+        .then((result: any) => {
+            query("DELETE FROM Warenkorb WHERE ProduktID = ? AND NutzerID = ?;", [result[0].ID, req.session.nutzerid])
+                .then(()=>{
+                    res.status(200).send("Produkt aus Warenkorb gelöscht!");
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.status(500).send("Fehler bei der Produktauswahl!");
+                });
+        }).catch((e)=>{
+            console.log(e);
+        res.status(500).send("Fehler bei der Produktauswahl!");
+    });
+
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
 
 }
 
-function getAllProducts(req: express.Request, res: express.Response): void {
-
-}
-
-function
-editProduct(req: express.Request, res: express.Response): void {
+function editProduct(req: express.Request, res: express.Response): void {
 
 }
 
@@ -409,11 +524,13 @@ function signIn(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
+        query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
         query("SELECT * FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
                 req.session.cart = [];
+                req.session.nutzerid = result[0].ID;
                 req.session.nutzerId = result[0].ID;
 
                 const anrede: string = result[0].Anrede;
@@ -472,7 +589,6 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
         next();
-        console.log("Lüppt")
     } else {
         res.status(401);
         res.send("User is not logged in! ")
@@ -490,19 +606,19 @@ function validateUser(isPut, user) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test.")
+            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
             .min(2)
             .required(),
         passwort: Joi.string()
@@ -526,10 +642,10 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
-            .max(5)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
@@ -542,6 +658,7 @@ function validateUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
+
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
@@ -549,13 +666,13 @@ function validateEditUser(isPut, user) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
@@ -580,8 +697,8 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
             .required(),
         telefonnummer: Joi.string()
