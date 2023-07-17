@@ -568,7 +568,7 @@ function renderGamesVerteiler(productData) {
                                 <i class="fas fa-circle ${availabilityClass}"></i>
                                 <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">
                                     ${JsonContent[p].Produktname}<br/>
-                                    <span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
+                                    <span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis} €</span>
                                 </h5>
                             </div>
                         </a>
@@ -607,7 +607,7 @@ function startseiteRender(productData) {
         } else if (bestand >= 51) {
             availabilityClass = "availabilityGreen";
         }
-        const priceText = bestand === 0 ? "Ausverkauft" : JsonContent[i].Preis;
+        const priceText = bestand === 0 ? "Ausverkauft" : `${JsonContent[i].Preis} €`;
 
         htmlContent += `
             <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
