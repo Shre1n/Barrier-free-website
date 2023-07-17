@@ -442,8 +442,8 @@ function validateUser(isPut, user) {
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test.")
+            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
             .min(2)
             .required(),
         passwort: Joi.string()

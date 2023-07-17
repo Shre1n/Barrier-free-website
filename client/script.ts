@@ -84,8 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         getUser();
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
-    })
-
+    });
 
 
     // Nur auf Profilseite oder ganz UNTEN!
@@ -153,6 +152,7 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
+            erfolgreichRegister();
             modalFensterUser.hide();
             //reset der Form zum Eintragen
             form.reset();
@@ -182,7 +182,7 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-
+            erfolgreichRegister();
             //reset der Form zum Eintragen
             form.reset();
             modalFensterUser.hide();
@@ -211,12 +211,35 @@ function getErrorMessage(data){
     toast.show();
 }
 
-function erfolgreich(){
+function erfolgreichChange(){
     document.getElementById("angelegt").innerText= "Nutzer erfolgreich geändert!";
     const toastLiveExample = document.getElementById('erfolgreich');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
+function erfolgreichRegister(){
+    document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
+    const toastLiveExample = document.getElementById('registerErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function erfolgreichEingeloggt() {
+    document.getElementById("loginErfolgreich").innerText= "Sie sind jetzt Angemeldet!";
+    const toastLiveExample = document.getElementById('loginErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function warenkorbErfolgreich() {
+    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    const toastLiveExample = document.getElementById('warenkorbErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
 
 
 function delUser(event: Event): void {
@@ -309,7 +332,7 @@ function editUser(event: Event): void {
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             getUser();
-            erfolgreich();
+            erfolgreichChange();
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
@@ -332,7 +355,7 @@ function editUser(event: Event): void {
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
             getUser();
-            erfolgreich();
+            erfolgreichChange();
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
@@ -365,7 +388,7 @@ function signIn(event: Event): void {
         email: email,
         passwort: passwort
     }).then((res: AxiosResponse) => {
-
+        erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
         profil.style.display = "inline-block";
@@ -560,6 +583,12 @@ function renderGamesVerteiler(productData){
                         </div>
                 </div>
     `
+
+        const bags = document.querySelectorAll(".bag");
+        bags.forEach((button) => {
+            console.log("🧇");
+            button.addEventListener("click", warenkorbErfolgreich);
+        });
     }
 }
 
@@ -694,7 +723,6 @@ async function getCart(){
 }
 
 function putCart(produktName,menge, method)  {
-
     axios.put("/cart", {
         produktName: produktName,
         produktMenge: menge,

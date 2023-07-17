@@ -492,3 +492,9 @@ body {
     z-index: 3 !important;
 }
 
+
+.toastsBodyBackground{
+    background-color: #3D93A6;
+    color: white; !important;
+}
+
