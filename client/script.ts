@@ -565,7 +565,7 @@ function getProduct2(){
 }
 
 
-function renderGamesVerteiler(productData) {
+function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
     const JsonContent = productData;
@@ -585,34 +585,30 @@ function renderGamesVerteiler(productData) {
             availabilityClass = "availabilityYellow";
         }
 
-        spiele.innerHTML += `
-            <div class="col-xl-4 col-lg-6 col-md-12 cardindex bestand">
-                <div class="card cardbp">
-                    <div class="container-fluid merken">
-                        <i class="far fa-bookmark bookmarks bicon"></i>
-                         <a href="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
-                            <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
-                                 alt="${JsonContent[p].Produktname}">
-                         </a>
-                    </div>
-                    <div class="card-body">
-                        <a href="produktdetail.html" class="cardbodytext">
-                            <div class="container cardword">
-                                <i class="fas fa-circle ${availabilityClass}"></i>
-                                <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">
-                                    ${JsonContent[p].Produktname}<br/>
-                                    <span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis} €</span>
-                                </h5>
+        spiele.innerHTML +=`
+                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
+                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
+                                     alt="${JsonContent[p].Produktname}">
+                                     </a>
                             </div>
-                        </a>
-                        <button type="button" class="btn btn-primary bbuttoncard">
-                            <i class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i>
-                        </button>
-                    </div>
+                            <div class="card-body">
+                             <a href ="produktdetail.html" class="cardbodytext">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle ${availabilityClass}"></i>
+                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
+                                    </h5>
+                                </div>
+                                </a>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                            </div>
+                        </div>
                 </div>
-            </div>
-        `;
-
+    `
 
         const bags = document.querySelectorAll(".bag");
         bags.forEach((button) => {
@@ -650,35 +646,32 @@ function startseiteRender(productData) {
         const priceText = bestand === 0 ? "Ausverkauft" : `${JsonContent[i].Preis} €`;
 
         htmlContent += `
-            <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
-                <div class="card cardbp">
-                    <div class="container-fluid merken">
-                        <i class="far fa-bookmark bookmarks bicon"></i>
-                        <a href="produktdetail.html">
-                            <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <div class="container cardword">
-                            <i class="fas fa-circle ${availabilityClass}"></i>
-                            <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
-                        </div>
-                        ${bestand > 0 ? `
-                            <button type="button" class="btn btn-primary bbuttoncard">
-                                <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
-                            </button>
-                        ` : ''}
-                    </div>
-                </div>
+      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+        <div class="card cardbp">
+          <div class="container-fluid merken">
+            <i class="far fa-bookmark bookmarks bicon"></i>
+            <a href="produktdetail.html">
+              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="container cardword">
+              <i class="fas fa-circle ${availabilityClass}"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
-        `;
+            ${bestand > 0 ? `
+            <button type="button" class="btn btn-primary bbuttoncard">
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            </button>
+             ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
     }
-
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
 }
-
-
 
 
 
