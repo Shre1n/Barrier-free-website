@@ -653,7 +653,7 @@ function renderGamesVerteiler(productData){
                              <a href ="produktdetail.html" class="cardbodytext">
                                 <div class="container cardword">
                                     <i class="fas fa-circle ${availabilityClass}"></i>
-                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
+                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis} €</span>
                                     </h5>
                                 </div>
                                 </a>
