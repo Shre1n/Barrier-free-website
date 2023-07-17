@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
-                    <a href="verteilerseite.html" class="linksW">
+                    <a href="verteilerseite.html" class="linksW" id="spiele">
                         Spiele
                     </a>
                 </div>
@@ -45,23 +45,25 @@
         <div class="col-sm-6">
             <div class="row rowHeader text-center align-items-center justify-content-end">
                 <div class="col-lg-3 col-sm-6 col-6">
-                    <i  id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
+                    <i id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
                 </div>
                 <div class="col-lg-3 col-sm-6 col-6">
                     <div id="profilseite">
                         <a href="profilseite.html">
-                            <i  class="far fa-user headericon iconborder"></i>
+                            <i class="far fa-user headericon iconborder"></i>
                         </a>
                     </div>
                     <i id="registrieren" class="far fa-user headericon iconborder"></i>
                 </div>
-                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
+                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
+                     data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
                     <i class="fas fa-shopping-bag headericon iconborder"></i>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+
 
 <!---Hier kommt User Profil setVisibility in script mit block/none---->
 <div id="nutzerProfil">
@@ -213,9 +215,10 @@
                         Nachname:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Nachname" class="form-control" name="editNachname"
+                        <input type="text" class="form-control" name="editNachname"
                                aria-label="Nachname" required id="displaynachnameEdit">
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -223,9 +226,10 @@
                         Vorname:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Vorname" class="form-control" name="editVorname"
+                        <input type="text" class="form-control" name="editVorname"
                                aria-label="Vorname" required id="displayvornameEdit">
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -233,9 +237,10 @@
                         Straße:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Strasse" class="form-control" name="editStrasse"
+                        <input type="text" class="form-control" name="editStrasse"
                                aria-label="Strasse" required id="displaystrasseEdit">
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -243,9 +248,10 @@
                         Hausnummer:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Hausnummer" class="form-control" name="editHausnummer"
-                               aria-label="Hausnummer" required id="displayhausnummerEdit">
+                        <input type="text" class="form-control" name="editHausnummer"
+                               aria-label="Hausnummer"  id="displayhausnummerEdit" required>
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -253,9 +259,10 @@
                         PLZ:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="PLZ" class="form-control" name="editPLZ"
-                               aria-label="PLZ" required id="displayPLZEdit">
+                        <input type="text" class="form-control" name="editPLZ"
+                               aria-label="PLZ" id="displayPLZEdit" required>
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -263,9 +270,10 @@
                         Ort:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Ort" class="form-control" name="editOrt"
+                        <input type="text" class="form-control" name="editOrt"
                                aria-label="Ort" required id="displayortEdit">
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -273,9 +281,10 @@
                         Telefonnummer:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="Telefonnummer" class="form-control" name="editTelefonnummer"
+                        <input type="text" class="form-control" name="editTelefonnummer"
                                aria-label="Telefonnummer" required id="displaytelefonnummerEdit">
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1"></div>
@@ -283,9 +292,10 @@
                         E-mail:
                     </div>
                     <div class="col-5 text-start">
-                        <input type="text" placeholder="E-Mail" class="form-control" name="editEmail"
+                        <input type="text" class="form-control" name="editEmail"
                                aria-label="E-Mail" required id="displayemailEdit" disabled>
                     </div>
+
                     <div class="col-1"></div>
 
                     <div class="col-1 mb-2"></div>
@@ -302,7 +312,7 @@
 
                     <div class="col-1 mb-2"></div>
                     <div class="col-10 d-grid mb-2">
-                        <button id="nutzerlöschenbutton" class="nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
+                        <button id="nutzerlöschenbutton" class="btn btn-danger nutzerlöschenbutton">Mein Benutzerkonto löschen</button>
                         <button  id="userdeletecheck" class="btn btn-danger nutzerlöschenbutton">Ich bin sicher!</button>
                     </div>
                     <div class="col-1 mb-2"></div>
@@ -316,6 +326,36 @@
                     </div>
                     <div class="col-1 mb-3"></div>
 
+                    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Fehler!</strong>
+                            </div>
+                            <div class="toast-body">
+                                <span id="anredeErr"></span>
+                                <span id="vornameErr"></span>
+                                <span id="nachnameErr"></span>
+                                <span id="emailErr"></span>
+                                <span id="telefonnummerErr"></span>
+                                <span id="strasseErr"></span>
+                                <span id="hausnummerErr"></span>
+                                <span id="postleitzahlErr"></span>
+                                <span id="ortErr"></span>
+                                <span id="passwortErr"></span>
+                                <span id="passwortCheckErr"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+                <div id="erfolgreich" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Erfolgreich!</strong>
+                    </div>
+                    <div class="toast-body">
+                        <span id="angelegt"></span>
+                    </div>
                 </div>
             </div>
 
@@ -441,6 +481,9 @@
         </div>
     </section>
 </div>
+
+
+
 
 
         <!--
@@ -1068,6 +1111,68 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warenkorb</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormWarenkorb">
+                <div class="modal-body">
+                    <div class="row border border-dark rounded">
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="row imgHöhe">
+                                <div class="col-10 mb-4">
+                                    <span id="tactileTowers" class="bree20G">Tactile Towers</span>
+                                </div>
+                                <div class="col-2 mb-4">
+                                    <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
+                                </div>
+                                <div class="col-10 mb-4">
+                                <span id="kurzBechreibung">
+                                    Tactile Towers ist ein Spiel,
+                                    bei dem unter Zeitdruck eine
+                                    Figur aus Einzelteilen richtig
+                                    gestapelt werden muss.
+                                </span>
+                                </div>
+                                <div class="col-2 mb-4"></div>
+                                <div class="col-6">
+                                    <label for=menge></label>
+                                    <select id="menge" class="btn bbutton text-center" required>
+                                        <option value="1" class="menge">1</option>
+                                        <option value="2" class="menge">2</option>
+                                        <option value="3" class="menge">3</option>
+                                        <option value="4" class="menge">4</option>
+                                        <option value="5" class="menge">5</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 text-end">
+                                    59,99€
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="zurKasse" type="submit" class="btn bbutton">
+                            Zur Kasse
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <footer class="container-fluid containerFooter">

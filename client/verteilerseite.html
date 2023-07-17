@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="startseite.css">
     <link rel="stylesheet" href="verteilerseite.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
@@ -20,12 +21,12 @@
         <div class="col-sm-6 d-none d-sm-block">
             <div class="row rowHeader text-center align-items-center">
                 <div class="col-lg-3 d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
-                    <a  href="startseite.html">
+                    <a href="startseite.html">
                         <img class="logo svgschatten" src="/img/PlayAbility.svg" alt="PlayAbility">
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
-                    <a href="verteilerseite.html" class="linksW">
+                    <a href="verteilerseite.html" class="linksW" id="spiele">
                         Spiele
                     </a>
                 </div>
@@ -44,22 +45,30 @@
         <div class="col-sm-6">
             <div class="row rowHeader text-center align-items-center justify-content-end">
                 <div class="col-lg-3 col-sm-6 col-6">
-                    <i id="abmelden" type="button" class="fas fa-sign-in-alt headericon iconborder"></i>
+                    <i id="abmelden" type="button" class="fas fa-sign-out-alt headericon iconborder d-none"></i>
                 </div>
-                <div id="profil" type="button" class="col-lg-3 col-sm-6 col-6">
+                <div class="col-lg-3 col-sm-6 col-6">
+                    <div id="profilseite">
+                        <a href="profilseite.html">
+                            <i class="far fa-user headericon iconborder"></i>
+                        </a>
+                    </div>
                     <i id="registrieren" class="far fa-user headericon iconborder"></i>
                 </div>
-                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12">
+                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
+                     data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
                     <i class="fas fa-shopping-bag headericon iconborder"></i>
                 </div>
             </div>
         </div>
     </div>
 </nav>
-<!--Spiele-->
+
+
+<!--Spieleverteilerseite-->
 <div class="container-fluid">
     <div class="pichead2">
-        <img src="/img/placeholder.jpg" alt="placeholder" class="pichead">
+        <img src="/img/spielebanner.png" alt="placeholder" class="pichead">
     </div>
 </div>
 <section class="suchleiste">
@@ -71,87 +80,114 @@
         </form>
     </div>
 </section>
-<section class="addproduct">
-    <div class="addpp">
-    <div class="boxaddp">
-    <form class="ph">
-        <div class="phlinks">
-            <div class="container text-center">
-                <div class="row row-cols-1">
-                    <div class="col">
-                        <div class="card cardph">
-                            <i class="fas fa-upload"></i>
-                            <label for="upload">Bilder hier ablegen </label>
-                            <input type="file" id="upload" name="upload" accept=".jpeg, .jpg, .png, .mp4"
-                                   class="upload">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <button type="submit" value="Produktbilder
+
+<!--Hinzufügenfenster-->
+<div class="gehweg">
+    <section class="addproduct">
+        <div class="addpp">
+            <div class="boxaddp">
+                <form class="ph">
+                    <div class="phlinks">
+                        <div class="container text-center">
+                            <div class="row row-cols-1">
+                                <div class="col">
+                                    <div class="card cardph">
+                                        <i class="fas fa-upload"></i>
+                                        <label for="upload">Bilder hier ablegen </label>
+                                        <input type="file" id="upload" name="upload" accept=".jpeg, .jpg, .png, .mp4"
+                                               class="upload">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" value="Produktbilder
                     hochladen" class="ppicbutton">Produktbilder
-                            hochladen
-                        </button>
-                    </div>
-                    <div class="col">
-                        <input type="text" value="Preis einfügen..." class="preishin">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="phrechts">
-            <div class="container text-center">
-                <div class="row row-cols-2">
-                    <div class="col"><input type="text" value="Produktname einfügen"></div>
-                    <div class="col"><input type="text" value="Farbvarianten benennen"></div>
-                    <div class="col"></div>
-                    <div class="col"><button type="button" value="Weitere Farbvarianten" class="weiteref"><i class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten</button>
-                    </div>
-                </div>
-                <div class="container text-center">
-                    <div class="row row-cols-1">
-                        <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..." class="textfeldph"></div>
-                        <div class="col"><input type="text" value="Kurzbeschreibung einfügen..." class="textfeldph"></div>
-                        <div class="col"><input type="text" value="Lieferumfang einfügen..." class="textfeldph"></div>
-                        <div class="col">
-                        </div>
-                    </div>
-                    <div class="container text-center">
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <div class="mehrladen">
-                                <button type="button" class="cancelp">Abbrechen</button>
+                                        hochladen
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="mehrladen">
-                                <button type="button" class="addp">Produkt
-                                    hinzufügen</button>
+                                <div class="col">
+                                    <input type="text" value="Preis einfügen..." class="preishin">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="phrechts">
+                        <div class="container text-center">
+                            <div class="row row-cols-2">
+                                <div class="col"><input type="text" value="Produktname einfügen"></div>
+                                <div class="col"><input type="text" value="Farbvarianten benennen"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <button type="button" value="Weitere Farbvarianten" class="weiteref"><i
+                                            class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="container text-center">
+                                <div class="row row-cols-1">
+                                    <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..."
+                                                                    class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Kurzbeschreibung einfügen..."
+                                                            class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Lieferumfang einfügen..."
+                                                            class="textfeldph"></div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                                <div class="container text-center">
+                                    <div class="row row-cols-2">
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="cancelp">Abbrechen</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="addp">Produkt
+                                                    hinzufügen
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
-    </div>
-    </div>
-    <div class="plusbutton">
-        <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
-    </div>
-</section>
-<div class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
-       aria-expanded="false">
-        Sortieren nach
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Absteigend</a></li>
-        <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
-    </ul>
+        <div class="plusbutton">
+            <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
+        </div>
+    </section>
 </div>
+
+<!--Spieleverteilerseite Inhalt -->
+<div class="container text-center">
+    <div class="row align-items-start">
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Sortieren nach
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Absteigend</a></li>
+                    <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-8">
+
+        </div>
+    </div>
+</div>
+
 <div class="container verteiler">
-    <div class="col filter">
+
+    <div class="filter col-4  d-sm-none d-md-block d-none d-sm-block">
 
         <div class="filter">
             <p class="font40">Filteroption</p>
@@ -225,510 +261,520 @@
                 Kunststoff
             </label>
         </div>
-
     </div>
-    <div class="container text-center">
-        <div class="row row-cols-3">
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
-                                 alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Tactile Towers<br/>59,99€
-                                </h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
-                                 alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Shake 'n Match<br/>79,99€
-                                </h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Shape Seekers<br/>29,99€</h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Color Cube<br/>19,99€</h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">QubyX<br/>12,99€</h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-group">
-        <div class="container text-center">
-            <div class="row align-items-start">
 
-
-            </div>
+    <div class="container text-center mb-5 ">
+        <div class="row" id="spieleAuflistung">
         </div>
     </div>
 </div>
-<div class="mehrladen">
-    <button type="button" class="bbutton mela">Mehr Laden</button>
-</div>
-<!--Erweiterungen-->
-<div class="container-fluid">
-    <div class="pichead2">
-        <img src="/img/placeholder.jpg" alt="placeholder" class="pichead">
+<!--Vorlage Produktcard
+           <div class="col">
+               <div class="col cardindex">
+                   <div class="card cardbp">
+                       <div class="container-fluid merken">
+                           <i class="far fa-bookmark bookmarks bicon"></i>
+                           <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                alt="placeholder">
+                       </div>
+                       <div class="card-body">
+                           <div class="container cardword">
+                               <i class="fas fa-circle availability"></i>
+                               <h5 class="card-title font40 cardfont" id="productName">Tactile Towers<br/><span
+                                       id="price">59,99€</span>
+                               </h5>
+                           </div>
+                           <button type="button" class="btn btn-primary bbuttoncard"><i
+                                   class="fas fa-shopping-bag bicon bag"></i></button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="col cardindex">
+                   <div class="card cardbp">
+                       <div class="container-fluid merken">
+                           <i class="far fa-bookmark bookmarks bicon"></i>
+                           <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                alt="placeholder">
+                       </div>
+                       <div class="card-body">
+                           <div class="container cardword">
+                               <i class="fas fa-circle availability"></i>
+                               <h5 class="card-title font40 cardfont">Shake 'n Match<br/>79,99€
+                               </h5>
+                           </div>
+                           <button type="button" class="btn btn-primary bbuttoncard"><i
+                                   class="fas fa-shopping-bag bicon bag"></i></button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="col cardindex">
+                   <div class="card cardbp">
+                       <div class="container-fluid merken">
+                           <i class="far fa-bookmark bookmarks bicon"></i>
+                           <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                       </div>
+                       <div class="card-body">
+                           <div class="container cardword">
+                               <i class="fas fa-circle availability"></i>
+                               <h5 class="card-title font40 cardfont">Shape Seekers<br/>29,99€</h5>
+                           </div>
+                           <button type="button" class="btn btn-primary bbuttoncard"><i
+                                   class="fas fa-shopping-bag bicon bag"></i></button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="col cardindex">
+                   <div class="card cardbp">
+                       <div class="container-fluid merken">
+                           <i class="far fa-bookmark bookmarks bicon"></i>
+                           <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                       </div>
+                       <div class="card-body">
+                           <div class="container cardword">
+                               <i class="fas fa-circle availability"></i>
+                               <h5 class="card-title font40 cardfont">Color Cube<br/>19,99€</h5>
+                           </div>
+                           <button type="button" class="btn btn-primary bbuttoncard"><i
+                                   class="fas fa-shopping-bag bicon bag"></i></button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="col cardindex">
+                   <div class="card cardbp">
+                       <div class="container-fluid merken">
+                           <i class="far fa-bookmark bookmarks bicon"></i>
+                           <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                       </div>
+                       <div class="card-body">
+                           <div class="container cardword">
+                               <i class="fas fa-circle availability"></i>
+                               <h5 class="card-title font40 cardfont">QubyX<br/>12,99€</h5>
+                           </div>
+                           <button type="button" class="btn btn-primary bbuttoncard"><i
+                                   class="fas fa-shopping-bag bicon bag"></i></button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           -->
+<div class="gehweg">
+    <!--Erweiterungen-->
+
+
+    <div class="container-fluid">
+        <div class="pichead2">
+            <img src="/img/erweiterungsbanner.png" alt="placeholder" class="pichead">
+        </div>
     </div>
-</div>
-<section class="suchleiste">
-    <div class="container-fluid suche">
-        <form class="d-flex searchbar" role="search">
-            <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
-                   aria-label="Search">
-            <i class="fas fa-search bicon lupe"></i>
-        </form>
-    </div>
-</section>
-<section class="addproduct">
-    <div class="addpp">
-        <div class="boxaddp">
-            <form class="ph">
-                <div class="phlinks">
-                    <div class="container text-center">
-                        <div class="row row-cols-1">
-                            <div class="col">
-                                <div class="card cardph">
-                                    <i class="fas fa-upload"></i>
-                                    <label for="upload">Bilder hier ablegen </label>
-                                    <input type="file" id="uploaderw" name="upload" accept=".jpeg, .jpg, .png, .mp4"
-                                           class="upload">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <button type="submit" value="Produktbilder
-                    hochladen" class="ppicbutton">Produktbilder
-                                    hochladen
-                                </button>
-                            </div>
-                            <div class="col">
-                                <input type="text" value="Preis einfügen..." class="preishin">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="phrechts">
-                    <div class="container text-center">
-                        <div class="row row-cols-2">
-                            <div class="col"><input type="text" value="Produktname einfügen"></div>
-                            <div class="col"><input type="text" value="Farbvarianten benennen"></div>
-                            <div class="col"></div>
-                            <div class="col"><button type="button" value="Weitere Farbvarianten" class="weiteref"><i class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten</button>
-                            </div>
-                        </div>
+    <section class="suchleiste">
+        <div class="container-fluid suche">
+            <form class="d-flex searchbar" role="search">
+                <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
+                       aria-label="Search">
+                <i class="fas fa-search bicon lupe"></i>
+            </form>
+        </div>
+    </section>
+    <section class="addproduct">
+        <div class="addpp">
+            <div class="boxaddp">
+                <form class="ph">
+                    <div class="phlinks">
                         <div class="container text-center">
                             <div class="row row-cols-1">
-                                <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..." class="textfeldph"></div>
-                                <div class="col"><input type="text" value="Kurzbeschreibung einfügen..." class="textfeldph"></div>
-                                <div class="col"><input type="text" value="Lieferumfang einfügen..." class="textfeldph"></div>
                                 <div class="col">
+                                    <div class="card cardph">
+                                        <i class="fas fa-upload"></i>
+                                        <label for="upload">Bilder hier ablegen </label>
+                                        <input type="file" id="uploaderw" name="upload" accept=".jpeg, .jpg, .png, .mp4"
+                                               class="upload">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" value="Produktbilder
+                    hochladen" class="ppicbutton">Produktbilder
+                                        hochladen
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <input type="text" value="Preis einfügen..." class="preishin">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phrechts">
+                        <div class="container text-center">
+                            <div class="row row-cols-2">
+                                <div class="col"><input type="text" value="Produktname einfügen"></div>
+                                <div class="col"><input type="text" value="Farbvarianten benennen"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <button type="button" value="Weitere Farbvarianten" class="weiteref"><i
+                                            class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten
+                                    </button>
                                 </div>
                             </div>
                             <div class="container text-center">
-                                <div class="row row-cols-2">
+                                <div class="row row-cols-1">
+                                    <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..."
+                                                                    class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Kurzbeschreibung einfügen..."
+                                                            class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Lieferumfang einfügen..."
+                                                            class="textfeldph"></div>
                                     <div class="col">
-                                        <div class="mehrladen">
-                                            <button type="button" class="cancelp">Abbrechen</button>
-                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="mehrladen">
-                                            <button type="button" class="addp">Produkt
-                                                hinzufügen</button>
+                                </div>
+                                <div class="container text-center">
+                                    <div class="row row-cols-2">
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="cancelp">Abbrechen</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="addp">Produkt
+                                                    hinzufügen
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div class="plusbutton">
+            <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
+        </div>
+    </section>
+    <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Sortieren nach
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Absteigend</a></li>
+            <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
+        </ul>
+    </div>
+    <div class="container verteiler">
+        <div class="col filter">
+
+            <div class="filter">
+                <p class="font40">Filteroption</p>
+            </div>
+            <div class="filterop">
+                <p>Spiele</p>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault11">
+                <label class="form-check-label" for="flexCheckDefault1">
+                    Shake 'n Match
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault12">
+                <label class="form-check-label" for="flexCheckDefault2">
+                    Tactile Towers
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault13">
+                <label class="form-check-label" for="flexCheckDefault3">
+                    Shape Seekers
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault14">
+                <label class="form-check-label" for="flexCheckDefault4">
+                    Color Cube
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault15">
+                <label class="form-check-label" for="flexCheckDefault5">
+                    QubyX
+                </label>
+            </div>
+        </div>
+        <div class="container text-center">
+            <div class="row row-cols-3">
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                     alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Klangpaar<br/>12,99€
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
+                                     alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Tactile Towers<br/>19,99€
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Karten-Form<br/>12,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
+                            </div>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Augenbinde<br/>3,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-group">
+            <div class="container text-center">
+                <div class="row align-items-start">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mehrladen">
+        <button type="button" class="bbutton mela">Mehr Laden</button>
+    </div>
+    <!--Ersatzteile-->
+    <div class="container-fluid">
+        <div class="pichead2">
+            <img src="/img/ersatzteilebanner.png" alt="placeholder" class="pichead">
+        </div>
+    </div>
+    <section class="suchleiste">
+        <div class="container-fluid suche">
+            <form class="d-flex searchbar" role="search">
+                <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
+                       aria-label="Search">
+                <i class="fas fa-search bicon lupe"></i>
             </form>
         </div>
-    </div>
-    <div class="plusbutton">
-        <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
-    </div>
-</section>
-<div class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
-       aria-expanded="false">
-        Sortieren nach
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Absteigend</a></li>
-        <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
-    </ul>
-</div>
-<div class="container verteiler">
-    <div class="col filter">
-
-        <div class="filter">
-            <p class="font40">Filteroption</p>
-        </div>
-        <div class="filterop">
-            <p>Spiele</p>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault11">
-            <label class="form-check-label" for="flexCheckDefault1">
-                Shake 'n Match
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault12">
-            <label class="form-check-label" for="flexCheckDefault2">
-                Tactile Towers
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault13">
-            <label class="form-check-label" for="flexCheckDefault3">
-                Shape Seekers
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault14">
-            <label class="form-check-label" for="flexCheckDefault4">
-                Color Cube
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault15">
-            <label class="form-check-label" for="flexCheckDefault5">
-                QubyX
-            </label>
-        </div>
-    </div>
-    <div class="container text-center">
-        <div class="row row-cols-3">
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
-                                 alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Klangpaar<br/>12,99€
-                                </h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp"
-                                 alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Tactile Towers<br/>19,99€
-                                </h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Karten-Form<br/>12,99€</h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Augenbinde<br/>3,99€</h5>
-                            </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-group">
-        <div class="container text-center">
-            <div class="row align-items-start">
-
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="mehrladen">
-    <button type="button" class="bbutton mela">Mehr Laden</button>
-</div>
-<!--Ersatzteile-->
-<div class="container-fluid">
-    <div class="pichead2">
-        <img src="/img/placeholder.jpg" alt="placeholder" class="pichead">
-    </div>
-</div>
-<section class="suchleiste">
-    <div class="container-fluid suche">
-        <form class="d-flex searchbar" role="search">
-            <input class="form-control me-2 font16 round" type="search" placeholder="Produktsuche"
-                   aria-label="Search">
-            <i class="fas fa-search bicon lupe"></i>
-        </form>
-    </div>
-</section>
-<section class="addproduct">
-    <div class="addpp">
-        <div class="boxaddp">
-            <form class="ph">
-                <div class="phlinks">
-                    <div class="container text-center">
-                        <div class="row row-cols-1">
-                            <div class="col">
-                                <div class="card cardph">
-                                    <i class="fas fa-upload"></i>
-                                    <label for="upload">Bilder hier ablegen </label>
-                                    <input type="file" id="uploaders" name="upload" accept=".jpeg, .jpg, .png, .mp4"
-                                           class="upload">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <button type="submit" value="Produktbilder
-                    hochladen" class="ppicbutton">Produktbilder
-                                    hochladen
-                                </button>
-                            </div>
-                            <div class="col">
-                                <input type="text" value="Preis einfügen..." class="preishin">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="phrechts">
-                    <div class="container text-center">
-                        <div class="row row-cols-2">
-                            <div class="col"><input type="text" value="Produktname einfügen"></div>
-                            <div class="col"><input type="text" value="Farbvarianten benennen"></div>
-                            <div class="col"></div>
-                            <div class="col"><button type="button" value="Weitere Farbvarianten" class="weiteref"><i class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten</button>
-                            </div>
-                        </div>
+    </section>
+    <section class="addproduct">
+        <div class="addpp">
+            <div class="boxaddp">
+                <form class="ph">
+                    <div class="phlinks">
                         <div class="container text-center">
                             <div class="row row-cols-1">
-                                <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..." class="textfeldph"></div>
-                                <div class="col"><input type="text" value="Kurzbeschreibung einfügen..." class="textfeldph"></div>
-                                <div class="col"><input type="text" value="Lieferumfang einfügen..." class="textfeldph"></div>
                                 <div class="col">
+                                    <div class="card cardph">
+                                        <i class="fas fa-upload"></i>
+                                        <label for="upload">Bilder hier ablegen </label>
+                                        <input type="file" id="uploaders" name="upload" accept=".jpeg, .jpg, .png, .mp4"
+                                               class="upload">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" value="Produktbilder
+                    hochladen" class="ppicbutton">Produktbilder
+                                        hochladen
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <input type="text" value="Preis einfügen..." class="preishin">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phrechts">
+                        <div class="container text-center">
+                            <div class="row row-cols-2">
+                                <div class="col"><input type="text" value="Produktname einfügen"></div>
+                                <div class="col"><input type="text" value="Farbvarianten benennen"></div>
+                                <div class="col"></div>
+                                <div class="col">
+                                    <button type="button" value="Weitere Farbvarianten" class="weiteref"><i
+                                            class="fas fa-plus hinzufuegen"></i> Weitere Farbvarianten
+                                    </button>
                                 </div>
                             </div>
                             <div class="container text-center">
-                                <div class="row row-cols-2">
+                                <div class="row row-cols-1">
+                                    <div class="col pdetail"><input type="text" value="Produktbeschreibung einfügen..."
+                                                                    class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Kurzbeschreibung einfügen..."
+                                                            class="textfeldph"></div>
+                                    <div class="col"><input type="text" value="Lieferumfang einfügen..."
+                                                            class="textfeldph"></div>
                                     <div class="col">
-                                        <div class="mehrladen">
-                                            <button type="button" class="cancelp">Abbrechen</button>
-                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="mehrladen">
-                                            <button type="button" class="addp">Produkt
-                                                hinzufügen</button>
+                                </div>
+                                <div class="container text-center">
+                                    <div class="row row-cols-2">
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="cancelp">Abbrechen</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mehrladen">
+                                                <button type="button" class="addp">Produkt
+                                                    hinzufügen
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+        <div class="plusbutton">
+            <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
+        </div>
+    </section>
+    <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Sortieren nach
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Absteigend</a></li>
+            <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
+        </ul>
     </div>
-    <div class="plusbutton">
-        <button type="button" class="btn pplus"><i class="fas fa-plus plus"></i>Produkt hinzufügen</button>
-    </div>
-</section>
-<div class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle sortby" href="#" role="button" data-bs-toggle="dropdown"
-       aria-expanded="false">
-        Sortieren nach
-    </a>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Absteigend</a></li>
-        <li><a class="dropdown-item" href="#">Aufsteigend</a></li>
-    </ul>
-</div>
-<div class="container verteiler">
-    <div class="col filter">
-        <div class="filter">
-            <p class="font40">Filteroption</p>
+    <div class="container verteiler">
+        <div class="col filter">
+            <div class="filter">
+                <p class="font40">Filteroption</p>
+            </div>
+            <div class="filterop">
+                <p>Spiele</p>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault16">
+                <label class="form-check-label" for="flexCheckDefault1">
+                    Shake 'n Match
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault17">
+                <label class="form-check-label" for="flexCheckDefault2">
+                    Tactile Towers
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault18">
+                <label class="form-check-label" for="flexCheckDefault3">
+                    Shape Seekers
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault19">
+                <label class="form-check-label" for="flexCheckDefault4">
+                    Color Cube
+                </label>
+            </div>
+            <div class="form-check filtercheck">
+                <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault20">
+                <label class="form-check-label" for="flexCheckDefault5">
+                    QubyX
+                </label>
+            </div>
         </div>
-        <div class="filterop">
-            <p>Spiele</p>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault16">
-            <label class="form-check-label" for="flexCheckDefault1">
-                Shake 'n Match
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault17">
-            <label class="form-check-label" for="flexCheckDefault2">
-                Tactile Towers
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault18">
-            <label class="form-check-label" for="flexCheckDefault3">
-                Shape Seekers
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault19">
-            <label class="form-check-label" for="flexCheckDefault4">
-                Color Cube
-            </label>
-        </div>
-        <div class="form-check filtercheck">
-            <input class="form-check-input checkfilter" type="checkbox" value="" id="flexCheckDefault20">
-            <label class="form-check-label" for="flexCheckDefault5">
-                QubyX
-            </label>
-        </div>
-    </div>
-    <div class="container text-center">
-        <div class="row row-cols-3">
-            <div class="col">
-                <div class="col cardindex">
-                    <div class="card cardbp">
-                        <div class="container-fluid merken">
-                            <i class="far fa-bookmark bookmarks bicon"></i>
-                            <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
-                        </div>
-                        <div class="card-body">
-                            <div class="container cardword">
-                                <i class="fas fa-circle availability"></i>
-                                <h5 class="card-title font40 cardfont">Stapelelement<br/>9,99€</h5>
+        <div class="container text-center">
+            <div class="row row-cols-3">
+                <div class="col">
+                    <div class="col cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                <img src="/img/placeholder.jpg" class="card-img-top cardpicp" alt="placeholder">
                             </div>
-                            <button type="button" class="btn btn-primary bbuttoncard"><i
-                                    class="fas fa-shopping-bag bicon bag"></i></button>
+                            <div class="card-body">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont">Stapelelement<br/>9,99€</h5>
+                                </div>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card-group">
-        <div class="container text-center">
-            <div class="row align-items-start">
+        <div class="card-group">
+            <div class="container text-center">
+                <div class="row align-items-start">
 
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="mehrladen">
-    <button type="button" class="bbutton mela">Mehr Laden</button>
+    <div class="mehrladen">
+        <button type="button" class="bbutton mela">Mehr Laden</button>
+    </div>
 </div>
 <div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -850,7 +896,7 @@
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
-                            <input id=ort type="text"  name="ort"
+                            <input id=ort type="text" name="ort"
                                    placeholder="Ort" class="form-control" required>
                             <br>
                         </div>
@@ -860,13 +906,13 @@
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
-                            <input id=passwort type="password"  name="passwort" placeholder="Passwort"
+                            <input id=passwort type="password" name="passwort" placeholder="Passwort"
                                    class="form-control" required>
                             <br>
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
-                            <input id=passwortcheck type="password"  name="passwort" placeholder="Passwort wiederholen"
+                            <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
                                    class="form-control" required>
                             <br>
                         </div>
@@ -876,9 +922,9 @@
                         </div>
                         <div class="col-5">
                             <label for="checkNewsletter">
-                            </label><input  class="form-check-input" type="checkbox" name="newsletter"
-                                            value="newsletter"
-                                            id="checkNewsletter">
+                            </label><input class="form-check-input" type="checkbox" name="newsletter"
+                                           value="newsletter"
+                                           id="checkNewsletter">
                         </div>
                         <div class="col-5">
                             <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
@@ -902,8 +948,34 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warenkorb</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormWarenkorb">
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="warenkorbErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Erfolgreich!</strong>
+        </div>
+        <div class="toast-body">
+            <span id="warenkorbErfolgreich"></span>
+        </div>
+    </div>
+</div>
+
+
 <!--Footer-->
-<footer class="container-fluid containerFooter">
+<footer class="container-fluid containerFooter mt-5">
     <div class="row">
         <div class="col-sm-6">
             <div class="row rowFooter text-center align-items-center">
@@ -935,7 +1007,7 @@
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">
                     <a href="https://twitter.com/hausuebungwep1%22%3E">
-                        <i class="wIcon fab fa-twitter" ></i>
+                        <i class="wIcon fab fa-twitter"></i>
                     </a>
                 </div>
                 <div class="col-lg-2 col-sm-6 d-none d-sm-block">

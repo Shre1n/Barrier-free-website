@@ -1,11 +1,20 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
+
+
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
+let modalFensterWarenkorb: bootstrap.Modal;
+
+let shoppingCart:Object[] = [];
+
 document.addEventListener("DOMContentLoaded", () => {
     checkLogin();
+    getCart().then(r => {});
+
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
+    modalFensterWarenkorb= new bootstrap.Modal(document.getElementById("ModalWarenkorb"));
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const signupform = document.querySelector("#signupform");
     const loginform = document.querySelector("#loginform");
@@ -15,11 +24,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const editButtonUser = (document.querySelector("#editIconUser") as HTMLElement);
     const saveEdit = document.querySelector("#saveEdit") as HTMLButtonElement;
     const cancelEdit= document.querySelector("#cancelEditButton")as HTMLButtonElement;
+    let warenkorb = document.querySelector("#warenkorb");
+
+    warenkorb.addEventListener("click", () => {
+        warenkorbRender();
+    });
 
     if (registrieren) {
         registrieren.addEventListener("click", () => {
             modalFensterUserLogin.show();
-            console.log(document.getElementById("modalForm"));
         });
     }
     if (signupform) {
@@ -29,41 +42,49 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+
     if (loginform) {
         loginform.addEventListener("click", () =>{
-           modalFensterUser.hide();
-           modalFensterUserLogin.show();
+            modalFensterUser.hide();
+            modalFensterUserLogin.show();
         });
+    }
+    if (warenkorb){
+        warenkorb.addEventListener("click", ()=>{
+            modalFensterWarenkorb.show();
+        })
     }
 
     if (deleteUser){
         deleteUser.addEventListener("click", () => {
-           deleteUser.style.display = "none";
-           deletecheck.style.display = "block";
+            deleteUser.style.display = "none";
+            deletecheck.style.display = "block";
         });
     }
 
     getUser();
-
-
+    getProduct();
+    getProduct2();
 
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
     document.getElementById("modalFormlogin").addEventListener("submit", signIn);
     abmelden.addEventListener("click", signOff);
-    saveEdit.addEventListener("click", editUser);
+    saveEdit.addEventListener("click", (event:Event) => {
+        editUser(event);
+    });
     cancelEdit.addEventListener("click", hideEditUser);
+
+
 
     editButtonUser.addEventListener("click", (event: Event) => {
         const UserEditForm = document.querySelector("#editUser") as HTMLElement;
         const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
         getUser();
-        console.log("Wird jetzt angezeigt")
         UserEditForm.style.display = "block";
         UserProfilForm.style.display = "none";
-    })
-
-
+    });
 
 
     // Nur auf Profilseite oder ganz UNTEN!
@@ -73,6 +94,32 @@ document.addEventListener("DOMContentLoaded", () => {
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const passwortErr = document.querySelector("#passwortErr")as HTMLElement;
+    const passwortCheckErr = document.querySelector("#passwortCheckErr")as HTMLElement;
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+    passwortErr.innerText = "";
+    passwortCheckErr.innerText = "";
+
+
 
     //Attribute von User
     const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
@@ -87,6 +134,7 @@ function addUser(event: Event): void {
     const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
     const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
+
     if (checkbox.checked && passwort === passwortcheck) {
         //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
@@ -104,17 +152,18 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
-            console.log(res);
+            erfolgreichRegister();
+            modalFensterUser.hide();
             //reset der Form zum Eintragen
             form.reset();
             document.getElementById("registrierenError").innerText = "";
-            modalFensterUser.hide();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
             //Error Ausgabe in Console
-            console.log(reason);
+
         });
     } else if (passwort === passwortcheck) {
 //routen aufruf welcher an den Server uebermittelt wird
@@ -133,39 +182,107 @@ function addUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-            console.log(res);
+            erfolgreichRegister();
             //reset der Form zum Eintragen
             form.reset();
-            document.getElementById("registrierenError").innerText = "";
             modalFensterUser.hide();
+            document.getElementById("registrierenError").innerText = "";
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
             //Error Ausgabe in Console
-            console.log(reason);
+
         });
     } else {
         document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
     }
 }
 
+function getErrorMessage(data){
+    const firstSpace = data.indexOf(" ");
+    const firstword = data.substring(0,firstSpace);
+    const caselower = firstword.toLowerCase();
+    (document.getElementById(`${caselower}Err`).innerText= data);
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show();
+}
+
+function erfolgreichChange(){
+    document.getElementById("angelegt").innerText= "Nutzer erfolgreich geändert!";
+    const toastLiveExample = document.getElementById('erfolgreich');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function erfolgreichRegister(){
+    document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
+    const toastLiveExample = document.getElementById('registerErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function erfolgreichEingeloggt() {
+    document.getElementById("loginErfolgreich").innerText= "Sie sind jetzt Angemeldet!";
+    const toastLiveExample = document.getElementById('loginErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function warenkorbErfolgreich() {
+    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    const toastLiveExample = document.getElementById('warenkorbErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
+
+
 function delUser(event: Event): void {
     event.preventDefault();
-    console.log("Möchte Löschen")
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
-        console.log(res);
+
         signOff();
         window.location.href = "/startseite.html";
     }).catch((reason: AxiosError) => {
-        console.log(reason);
+
     });
 }
 
 function editUser(event: Event): void {
     event.preventDefault();
-    console.log("klick")
     const form: HTMLFormElement = event.target as HTMLFormElement;
+
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr")as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr")as HTMLElement;
+    const emailErr = document.querySelector("#emailErr")as HTMLElement;
+    const telefonnummerErr = document.querySelector("#telefonnummerErr")as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr")as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr")as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr")as HTMLElement;
+    const ortErr = document.querySelector("#ortErr")as HTMLElement;
+    const editCheck = document.querySelector("#angelegt")as HTMLElement;
+
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    emailErr.innerText = "";
+    telefonnummerErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+    editCheck.innerText = "";
 
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
     const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
@@ -179,6 +296,27 @@ function editUser(event: Event): void {
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
+
+    if (vorname === ""){
+        vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (nachname === ""){
+        nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (postleitzahl === ""){
+        postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (ort === ""){
+        ortErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (strasse === ""){
+        strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }if (hnr === ""){
+        hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (telefonnummer === ""){
+        telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
 
     if (checkbox.checked) {
         axios.put("/user", {
@@ -194,10 +332,11 @@ function editUser(event: Event): void {
             newsletter: "Ja"
         }).then((res: AxiosResponse) => {
             getUser();
+            erfolgreichChange();
             hideEditUser();
-            console.log(res);
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -215,11 +354,12 @@ function editUser(event: Event): void {
             telefonnummer: telefonnummer,
             newsletter: "Nein"
         }).then((res: AxiosResponse) => {
-            console.log(res);
             getUser();
+            erfolgreichChange();
             hideEditUser();
             form.reset();
         }).catch((reason: AxiosError) => {
+            getErrorMessage(reason.response.data);
             if (reason.response.status == 500) {
                 document.getElementById("updateError").innerText = "Eingabe nicht akzeptiert!"
             }
@@ -244,13 +384,11 @@ function signIn(event: Event): void {
     const profil= (document.querySelector("#profilseite") as HTMLElement);
     const registrieren= (document.querySelector("#registrieren") as HTMLElement);
 
-    console.log("dhewhui");
     axios.post("/signin", {
         email: email,
         passwort: passwort
     }).then((res: AxiosResponse) => {
-        console.log(res);
-        console.log(email + " " + passwort + " ist angemeldet.");
+        erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
         profil.style.display = "inline-block";
@@ -268,30 +406,28 @@ function signIn(event: Event): void {
 }
 
 function signOff(): void {
-    console.log("will abmelden")
     axios.post("/signout").then((res: AxiosResponse) => {
+        checkLogin();
         window.location.href = "/startseite.html";
-        console.log(res);
-        console.log("hab abgemeldet")
     }).catch((reason: AxiosError) => {
-        console.log(reason);
     });
     checkLogin();
 
 }
 
 function getUser(){
+
     axios.get("/user",{
 
     }).then((res:AxiosResponse) => {
-        console.log("Hier");
+
         const userData = res.data;
-        console.log(userData);
+
         if (userData.rollenid === 3) {
             renderUserProfile(userData);
             renderUserEdit(userData);
         }
-        console.log(res);
+
     });
     checkLogin();
 
@@ -373,47 +509,235 @@ function renderUserEdit(userData) {
     telefonnummerElementEdit.value = userData.telefonnummer;
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
-
-
 }
 function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
-    console.log("Wird jetzt angezeigt")
+    const loeschen = document.querySelector("#nutzerlöschenbutton") as HTMLElement;
+    const loeschenCheck = document.querySelector("#userdeletecheck") as HTMLElement;
+    getUser();
+
+    loeschen.style.display = "block";
+    loeschenCheck.style.display = "none";
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
+}
+function getProduct(){
+    axios.get("/product",{
 
+    }).then((res:AxiosResponse) => {
+        const productData = res.data
+
+        if (productData.Bestand === ""){
+            document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
+        }
+        renderGamesVerteiler(productData);
+    });
+    checkLogin();
+}
+function getProduct2(){
+    axios.get("/product",{
+
+    }).then((res:AxiosResponse) => {
+        console.log("Hier Produkt");
+        const productData = res.data;
+        if (productData.Bestand === ""){
+            document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
+        }
+        console.log(productData);
+        startseiteRender(productData);
+        renderGamesVerteiler(productData);
+        console.log(res);
+    });
+    checkLogin();
 }
 
 
-/*
- async function displayProfile() {
-     const DisplayUser = document.getElementById('nutzerProfil')
-     const DisplayCeo = document.getElementById('ceoProfil')
-     const DisplayAdmin = document.getElementById('adminProfil')
+function renderGamesVerteiler(productData){
+    const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
+    let p;
+    const JsonContent = productData;
+    for (p = 0; p < JsonContent.length; p++) {
+        const productID = JsonContent[p].ID;
+        spiele.innerHTML +=`
+                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                        <div class="card cardbp">
+                            <div class="container-fluid merken">
+                                <i class="far fa-bookmark bookmarks bicon"></i>
+                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
+                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
+                                     alt="${JsonContent[p].Produktname}">
+                                     </a>
+                            </div>
+                            <div class="card-body">
+                             <a href ="produktdetail.html" class="cardbodytext">
+                                <div class="container cardword">
+                                    <i class="fas fa-circle availability"></i>
+                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
+                                    </h5>
+                                </div>
+                                </a>
+                                <button type="button" class="btn btn-primary bbuttoncard"><i
+                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                            </div>
+                        </div>
+                </div>
+    `
 
-     try {
-         const res: Response = await fetch("/user", {method: "GET"});
-         const json = await res.json();
-         if (json.rollenid === "1") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = false;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "2") {
-             DisplayCeo.hidden = false;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = true;
-         } else if (json.rollenid === "3") {
-             DisplayCeo.hidden = true;
-             DisplayAdmin.hidden = true;
-             DisplayUser.hidden = false;
-         }
-     } catch (err) {
-         console.log(err.message ? err.message : "Es ist ein Fehler aufgetreten")
-     }
- }
-
- */
+        const bags = document.querySelectorAll(".bag");
+        bags.forEach((button) => {
+            console.log("🧇");
+            button.addEventListener("click", warenkorbErfolgreich);
+        });
+    }
+}
 
 
+function startseiteRender(productData) {
+    checkLogin();
+    console.log("StartseiteRender");
+    console.log(productData);
+    const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
+    const JsonContent = productData;
+    console.log(JsonContent);
 
+    let htmlContent = "";
+
+    for (let i = 0; i < JsonContent.length - 2; i++) {
+        htmlContent += `
+      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+        <div class="card cardbp">
+          <div class="container-fluid merken">
+            <i class="far fa-bookmark bookmarks bicon"></i>
+            <a href="produktdetail.html">
+              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="container cardword">
+              <i class="fas fa-circle availability"></i>
+              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+            </div>
+            <button type="button" class="btn btn-primary bbuttoncard">
+              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+    checkLogin();
+    startseiteRender.innerHTML = htmlContent;
+}
+
+
+
+
+function warenkorbRender() {
+    const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
+
+    // Wenn auf shopping cart mehrmals gedrückt wird, wird die zahl in menge um 1 größer
+    // Nutzer kann max bis zum Bestand der von getProdukt() kommt Bestellen.
+    //Löscht die Inhalte des Warenkorbmodals
+    modalFormWarenkorb.innerHTML = "";
+    modalFormWarenkorb.innerHTML = `
+    <div class="modal-body">
+         <div class="row border border-dark rounded">
+    `
+
+    for (let i = 0; i < shoppingCart.length; i++) {
+        let produkt = shoppingCart[i];
+        // @ts-ignore
+        modalFormWarenkorb.innerHTML += `
+        <div class="modal-body" data-position="${i}">
+             <div class="row border border-dark rounded">
+                <div class="col-4">
+                    <div class="row mt-3">
+                        <div class="col">
+                            <img src="${produkt.bilder}" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 mb-3">
+                    <div class="row imgHöhe">
+                        <div class="col-10 mb-4">
+                            <span class="bree20G">${produkt.produktName}</span>
+                        </div>
+                        <div class="col-2 mb-4">
+                            <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
+                        </div>
+                        <div class="col-10 mb-4">
+                        <span >${produkt.kurzbeschreibung}
+                        </span>
+                        </div>
+                        <div class="col-2 mb-4"></div>
+                        <div class="col-6">
+                            <label for=menge>Menge: </label>
+                            <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}">
+                            <span id="bestandErr"></span>
+                        </div>
+                        <div id=preis class="col-6 text-end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+    modalFormWarenkorb.innerHTML += `
+    </div>
+            </div>   
+            <div class="modal-footer">
+                <button id="zurKasse" type="submit" class="btn bbutton">
+                    Zur Kasse
+                </button>
+            </div>
+    
+    `
+
+        // Finde alle Elemente mit der Klasse ".fa-trash" und füge ein Klickereignis hinzu
+        const deleteButtons = document.querySelectorAll(".fa-trash");
+        deleteButtons.forEach((button) => {
+            button.addEventListener("click", deleteItemFromWarenkorb);
+        });
+
+
+}
+
+async function deleteItemFromWarenkorb(event: Event): Promise<void> {
+    const target: HTMLElement = event.target as HTMLElement;
+        deleteProductFromCart(target.dataset.trash)
+        await getCart();
+        warenkorbRender();
+}
+
+
+
+async function getCart(){
+    await axios.get("/cart",{
+
+    }).then((res:AxiosResponse) => {
+        shoppingCart = res.data;
+    });
+    checkLogin();
+}
+
+function putCart(produktName,menge, method)  {
+    axios.put("/cart", {
+        produktName: produktName,
+        produktMenge: menge,
+        method: method
+    }).then(async () => {
+        await getCart();
+    });
+}
+
+function deleteProductFromCart(productName) {
+    axios
+        .delete(`/cart/${productName}`)
+        .then(() => {})
+        .catch((error) => {
+            // Fehler beim Löschen des Produkts
+            console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
+        });
+}

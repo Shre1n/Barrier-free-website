@@ -120,7 +120,6 @@
 .bbutton {
     background-color: #3D93A6 !important;
     color: #FFFFFF !important;
-    border-color: #3D93A6 !important;
     border-radius: 2.5em !important;
     width: 7.46em;
     height: 2em;
@@ -248,6 +247,9 @@
 }
 
 .bbuttoncard {
+    justify-content: center !important ;
+    align-items: center !important;
+    display: flex   !important;
     margin-left: 14em;
     margin-top: -0.7em;
     background-color: #FFFFFF !important;
@@ -255,10 +257,7 @@
     border-color: #707070 !important;
     border-radius: 2.5em !important;
     width: 2em;
-    height: 2em;^
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    height: 2em;
     transition: transform .1s;
     z-index: 2;
 }
@@ -369,6 +368,14 @@ body {
     padding: 10px;
     box-shadow: 2px 2px 5px #707070;
 }
+.stern {
+     color: #A37F5F !important;
+}
+
+.sternhohl {
+    color: #A37F5F !important;
+
+}
 /* Header */
 
 
@@ -403,9 +410,14 @@ body {
 }
 /* Footer */
 
+.fehler{
+    z-index: 2 !important;
+}
+
 .containerFooter {
     background-color: #A37F5F !important;
     position: absolute;
+    z-index: 1;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -426,3 +438,63 @@ body {
 #userdeletecheck{
     display: none;
 }
+
+/* Produktdetailseite */
+
+.produktbillderklein img {
+    height: 3em;
+    margin-top: 1em;
+    cursor: pointer;
+    display: block;
+    padding: 0.2em;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.6;
+}
+.produktbillderklein img:hover {
+    height: 3em;
+    margin-top: 1em;
+    cursor: pointer;
+    display: block;
+    padding: 0.2em;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 1;
+    scale: 1.1;
+}
+
+.zentriert {
+    justify-content: center;
+}
+
+.abstandtop {
+    margin-top: 2em;
+}
+
+.abstandbottum {
+    margin-bottom: 5em;
+}
+.img {
+    position: relative;
+}
+.cardbodytext{
+    text-decoration: none !important;
+}
+.bag{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.warenkorb2{
+    position: absolute;
+    z-index: 3 !important;
+}
+
+
+.toastsBodyBackground{
+    background-color: #3D93A6;
+    color: white; !important;
+}
+

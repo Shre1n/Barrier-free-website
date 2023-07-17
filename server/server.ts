@@ -5,8 +5,6 @@ import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
 //Install Displayable Chart option
-import {Chart} from 'chart.js';
-import {func} from "joi";
 
 
 // Ergänzt/Überlädt den Sessionstore
@@ -16,7 +14,8 @@ declare module "express-session" {
         email: string;
         passwort: string;
         id: string;
-        rollenid: number
+        rollenid: number;
+        cart: Object[];
     }
 }
 
@@ -88,39 +87,23 @@ app.post("/bewertungen", checkLogin);
 app.get("/user", checkLogin, getUser);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
-app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
-app.get("/product", getAllProducts);
+app.get("/product", getProduct);
+app.get("/addons" ,getAddons);
+app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
-app.get("/login",checkLogin, isLoggedIn)
+app.get("/login", checkLogin, isLoggedIn)
 
-// Routen für CEO
-// Beim anlegen Rolle mit schicken
-app.put("/ceo/product/:id", editProduct);
-app.post("/ceo", postCeo);
-app.post("/ceo/product", postProduct);
-app.get("/ceo/product/:name", getProduct);
-app.get("/ceo/bewertungen", getAllRatings);
-app.get("/ceo/bewertungen/:id", getProductRating);
-app.post("/ceo/signin", signIn);
-app.get("/ceo/signout", signOut);
-
-// Routen für Admin
-// Beim anlegen Rolle mit schicken
-app.get("/admin/user", getUser);
-app.post("/admin", postAdmin);
-app.get("/admin/product", getProduct);
-app.post("/admin/signin", signIn);
-app.get("/admin/signout", signOut);
-app.delete("/admin/user/:username", deleteUser);
-app.put("/admin/user/:username", disableUser);
+app.get("/cart", checkLogin, getCart);
+app.post("/cart", checkLogin, postCart);
+app.delete("/cart/:productName", checkLogin, deleteCart);
+app.put("/cart", checkLogin, putCart);
 
 
 //SITE
 // Angezeigte Webseite
-
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -264,7 +247,7 @@ function deleteUser(req: express.Request, res: express.Response): void {
     connection.query(query, [logeedinUser], (err, result) => {
         if (err) {
             res.status(500);
-            res.send("There went something wrong!")
+            res.send("There went something wrong!");
             console.log("deleteUser" + err);
         } else {
             res.status(200);
@@ -277,14 +260,100 @@ function deleteUser(req: express.Request, res: express.Response): void {
 //Produkt Routen
 
 function getProduct(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 1";
 
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+function getAddons(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+function getSpareParts(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+
+
+function postCart(req: express.Request, res: express.Response): void {
+
+}
+
+function getCart(req: express.Request, res: express.Response): void {
+    res.send(req.session.cart);
+}
+
+function putCart(req: express.Request, res: express.Response): void {
+
+    if (req.body.produktName === "" || req.body.produktMenge === "" || isNaN(req.body.produktMenge) || req.body.method === "") {
+        res.status(400).send("Produkt Name oder Produkt Menge sind fehlerhaft.");
+        return;
+    }
+
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+    const produktMethod: string = req.body.method;
+
+    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
+        .then((result: any) => {
+            if (result.length === 1) {
+                for (let i = 0; i < req.session.cart.length; i++) {
+                    if (req.session.cart[i].produktName.includes(produktName)) {
+                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
+                        res.sendStatus(200);
+                        return;
+                    }
+                }
+                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
+                res.sendStatus(200);
+            } else {
+                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+            }
+
+        }).catch((err) => {
+        res.status(500).send("Internal Server Error");
+        console.log(err);
+    });
+}
+
+function deleteCart(req: express.Request, res: express.Response): void {
+    const productNameToDelete: string = req.params.productName;
+    // Finde das Produkt im Warenkorb und entferne es
+    req.session.cart = req.session.cart.filter(
+        (product) => product.produktName !== productNameToDelete
+    );
+    res.sendStatus(200);
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
-
-}
-
-function getAllProducts(req: express.Request, res: express.Response): void {
 
 }
 
@@ -316,6 +385,7 @@ function signIn(req: express.Request, res: express.Response): void {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
+                req.session.cart = [];
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -344,7 +414,6 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
         next();
-        console.log("Lüppt")
     } else {
         res.status(401);
         res.send("User is not logged in! ")
@@ -359,51 +428,53 @@ function validateUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
-            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test")
+            // Email pattern Sonderzeichen sind NOCH erlaubt
+            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
             .min(2)
             .required(),
         passwort: Joi.string()
             .pattern(/.{3,}/)
-            .message("Muss größer als 3 Zeichen sein")
+            .message("Passwort muss größer als 3 Zeichen sein.")
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
-            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
             .min(5)
             .required(),
         newsletter: Joi.string()
@@ -412,51 +483,52 @@ function validateUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
+
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau)$/)
-            .message("Bei Anrede ist nur Herr oder Frau erlaubt.")
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test")
+            .message("Email muss in folgendem Format sein: test@test.test.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
-            .message("Muss zwischen 1-5 Zeichen lang sein und darf nur Zahlen beinhalten")
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
             .min(1)
             .max(5)
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ortsangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Straßenangabe darf keine Zahlen enthalten und muss mindestens 2 Zeichen lang sein")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
-            .message("Telefonnummer muss darf keine Buchstaben enthalten")
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
             .min(5)
             .required(),
         newsletter: Joi.string()
@@ -483,27 +555,5 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
-
-
-/*
-const query = 'SELECT Email FROM Nutzerliste where RollenID = ?;';
-connection.query(query, [userId], (err, result) => {
-    if (err) {
-        console.error('Nutzerrolle konnte nicht gelesen werden:', err);
-    } else {
-        if (result.length > 0) {
-            const Rolle = result[0].RollenID;
-            // Store the user role in a variable or session for future use
-            // Example: req.session.userRole = userRole;
-        } else {
-            console.error('Nutzer nicht gefunden');
-            // Handle the case when the user is not found or the role is not defined
-        }
-    }
-});
- */
-
-
-
