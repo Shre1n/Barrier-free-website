@@ -532,36 +532,53 @@ function getProduct2(){
 }
 
 
-function renderGamesVerteiler(productData){
+function renderGamesVerteiler(productData) {
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
     const JsonContent = productData;
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
-        spiele.innerHTML +=`
-                    <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
-                        <div class="card cardbp">
-                            <div class="container-fluid merken">
-                                <i class="far fa-bookmark bookmarks bicon"></i>
-                                 <a href ="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
-                                <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
-                                     alt="${JsonContent[p].Produktname}">
-                                     </a>
+        if (JsonContent[p].Bestand === 0) {
+            continue; // Überspringen Sie die Iteration, wenn der Bestand 0 ist
+        }
+
+        const bestand = JsonContent[p].Bestand;
+        let availabilityClass = "availability";
+        if (bestand === 0) {
+            availabilityClass = "unavailable";
+        } else if (bestand >= 51) {
+            availabilityClass = "availabilityGreen";
+        } else if (bestand >= 1 && bestand <= 50) {
+            availabilityClass = "availabilityYellow";
+        }
+
+        spiele.innerHTML += `
+            <div class="col-xl-4 col-lg-6 col-md-12 cardindex bestand">
+                <div class="card cardbp">
+                    <div class="container-fluid merken">
+                        <i class="far fa-bookmark bookmarks bicon"></i>
+                         <a href="produktdetail.html" class="detailseiteaufruf" data-product-id="${productID}">
+                            <img src="${JsonContent[p].Bilder}" class="card-img-top cardpicp"
+                                 alt="${JsonContent[p].Produktname}">
+                         </a>
+                    </div>
+                    <div class="card-body">
+                        <a href="produktdetail.html" class="cardbodytext">
+                            <div class="container cardword">
+                                <i class="fas fa-circle ${availabilityClass}"></i>
+                                <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">
+                                    ${JsonContent[p].Produktname}<br/>
+                                    <span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
+                                </h5>
                             </div>
-                            <div class="card-body">
-                             <a href ="produktdetail.html" class="cardbodytext">
-                                <div class="container cardword">
-                                    <i class="fas fa-circle availabilityIcon"></i>
-                                    <h5 class="card-title font40 cardfont" data-product-id="${JsonContent[p].Produktname}">${JsonContent[p].Produktname}<br/><span data-product-id="${JsonContent[p].Preis}">${JsonContent[p].Preis}€</span>
-                                    </h5>
-                                </div>
-                                </a>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
-                            </div>
-                        </div>
+                        </a>
+                        <button type="button" class="btn btn-primary bbuttoncard">
+                            <i class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="putCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i>
+                        </button>
+                    </div>
                 </div>
-    `
+            </div>
+        `;
     }
 }
 
@@ -576,32 +593,53 @@ function startseiteRender(productData) {
 
     let htmlContent = "";
 
-    for (let i = 0; i < JsonContent.length - 2; i++) {
+    for (let i = 0; i < 3; i++) {
+        if (i >= JsonContent.length) {
+            break; // Schleife beenden, wenn wir das Ende von JsonContent erreicht haben
+        }
+
+        const bestand = JsonContent[i].Bestand;
+
+        // Änderungen an der Darstellung, wenn der Bestand 0 ist
+        let availabilityClass = "unavailable";
+        if (bestand > 0 && bestand <= 50) {
+            availabilityClass = "availabilityYellow";
+        } else if (bestand >= 51) {
+            availabilityClass = "availabilityGreen";
+        }
+        const priceText = bestand === 0 ? "Ausverkauft" : JsonContent[i].Preis;
+
         htmlContent += `
-      <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
-        <div class="card cardbp">
-          <div class="container-fluid merken">
-            <i class="far fa-bookmark bookmarks bicon"></i>
-            <a href="produktdetail.html">
-              <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
-            </a>
-          </div>
-          <div class="card-body">
-            <div class="container cardword">
-              <i class="fas fa-circle availabilityIcon"></i>
-              <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${JsonContent[i].Preis}</h5>
+            <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
+                <div class="card cardbp">
+                    <div class="container-fluid merken">
+                        <i class="far fa-bookmark bookmarks bicon"></i>
+                        <a href="produktdetail.html">
+                            <img src="${JsonContent[i].Bilder}" class="card-img-top cardpicp" alt="${JsonContent[i].Produktname}">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="container cardword">
+                            <i class="fas fa-circle ${availabilityClass}"></i>
+                            <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
+                        </div>
+                        ${bestand > 0 ? `
+                            <button type="button" class="btn btn-primary bbuttoncard">
+                                <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
+        `;
     }
+
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
 }
+
+
+
 
 
 
@@ -762,22 +800,10 @@ function deleteProductFromCart(productName) {
         });
 }
 
-function changeAvailability(productData) {
-    const JsonContent = productData;
-    const availabilityIcons = document.querySelectorAll(".availabilityIcon");
 
-    availabilityIcons.forEach((icon, index) => {
-        const bestand = JsonContent.Bestand;
 
-        if (bestand === 0) {
-            icon.classList.remove("availability", "availabilityYellow");
-            icon.classList.add("availabilityRed");
-        } else if (bestand >= 50) {
-            icon.classList.remove("availability", "availabilityRed");
-            icon.classList.add("availabilityYellow");
-        } else {
-            icon.classList.remove("availabilityYellow", "availabilityRed");
-            icon.classList.add("availability");
-        }
-    });
-}
+
+
+
+
+

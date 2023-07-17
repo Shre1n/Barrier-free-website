@@ -211,13 +211,23 @@
 }
 
 .availability {
+    text-align: left !important;
+    margin-top: 0.8em !important;
+}
+.unavailable {
+    color: red !important;
+    text-align: left !important;
+    margin-top: 0.8em !important;
+}
+
+.availabilityGreen {
     color: green !important;
     text-align: left !important;
     margin-top: 0.8em;
 }
 
 .availabilityYellow {
-    color: yellow !important;
+    color: orange !important;
     text-align: left !important;
     margin-top: 0.8em;
 }
