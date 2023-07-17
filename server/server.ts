@@ -4,8 +4,9 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
-import {func} from "joi";
 //Install Displayable Chart option
+import {Chart} from 'chart.js';
+import {func} from "joi";
 
 class Adresse {
     anrede: string;
@@ -101,8 +102,12 @@ app.post("/bewertungen", checkLogin);
 app.get("/user", checkLogin, getUser);
 app.post("/signin", signIn);
 app.post("/signout", signOut);
+app.get("/product/:name", getProduct);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
+app.get("/product", getProduct);
+app.get("/addons" ,getAddons);
+app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
@@ -112,14 +117,15 @@ app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
 app.post("/bestellung", checkLogin, postBestellung);
 app.get("/bestellung", checkLogin, getBestellung)
 
-app.get("/cart", getCart);
-app.post("/cart", postCart);
-app.delete("/cart", deleteCart);
-app.put("/cart", putCart);
+app.get("/cart", checkLogin, getCart);
+app.post("/cart", checkLogin, postCart);
+app.delete("/cart/:productName", checkLogin, deleteCart);
+app.put("/cart", checkLogin, putCart);
 
 
 //SITE
 // Angezeigte Webseite
+
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -263,7 +269,7 @@ function deleteUser(req: express.Request, res: express.Response): void {
     connection.query(query, [logeedinUser], (err, result) => {
         if (err) {
             res.status(500);
-            res.send("There went something wrong!")
+            res.send("There went something wrong!");
             console.log("deleteUser" + err);
         } else {
             res.status(200);
@@ -289,6 +295,35 @@ function getProduct(req: express.Request, res: express.Response): void {
         }
     });
 }
+function getAddons(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+function getSpareParts(req: express.Request, res: express.Response): void {
+    const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
+
+    // Führe die Datenbankabfrage aus
+    connection.query(sql, (err, results) => {
+        if (err) {
+            // Bei einem Fehler sende eine Fehlerantwort an den Client
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
+        } else {
+            // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
+            res.json(results);
+        }
+    });
+}
+
 
 function postCart(req: express.Request, res: express.Response): void {
 
@@ -309,7 +344,7 @@ function putCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
     const produktMethod: string = req.body.method;
 
-    query("SELECT Preis FROM Produktliste WHERE Produktname = ?", [produktName])
+    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
                 for (let i = 0; i < req.session.cart.length; i++) {
@@ -319,7 +354,7 @@ function putCart(req: express.Request, res: express.Response): void {
                         return;
                     }
                 }
-                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}}`));
+                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
                 res.sendStatus(200);
             } else {
                 res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
@@ -332,10 +367,19 @@ function putCart(req: express.Request, res: express.Response): void {
 }
 
 function deleteCart(req: express.Request, res: express.Response): void {
-
+    const productNameToDelete: string = req.params.productName;
+    // Finde das Produkt im Warenkorb und entferne es
+    req.session.cart = req.session.cart.filter(
+        (product) => product.produktName !== productNameToDelete
+    );
+    res.sendStatus(200);
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
+
+}
+
+function getAllProducts(req: express.Request, res: express.Response): void {
 
 }
 
@@ -397,6 +441,7 @@ function signIn(req: express.Request, res: express.Response): void {
                 rechnungsadresse.strasse = strasse;
                 rechnungsadresse.hnr = hnr;
                 req.session.rechnungsadresse = rechnungsadresse;
+                req.session.cart = [];
                 res.sendStatus(200);
             } else {
                 console.log("500 in else");
@@ -425,6 +470,7 @@ function signOut(req: express.Request, res: express.Response): void {
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
         next();
+        console.log("Lüppt")
     } else {
         res.status(401);
         res.send("User is not logged in! ")
@@ -494,7 +540,6 @@ function validateUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
-
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
@@ -566,7 +611,7 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
 

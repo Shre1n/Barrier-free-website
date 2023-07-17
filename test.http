@@ -505,10 +505,22 @@ PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
-{"produktName": "Tactile Towers", "produktMenge":  1, "method":  "add"}
+{"produktName": "Shake n Match", "produktMenge":  5, "method":  "change"}
+###
+
+### Produkt Warenkorb hinzufügen
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
+{"produktName": "Tactile Towers", "produktMenge":  5, "method":  "change"}
 ###
 
 
+###
+DELETE /cart/Tactile Towers
+Host: localhost:8080
+Content-Type: application/json
 
 ### Posten einer Lieferadresse
 PUT /lieferadresse HTTP/2
@@ -516,13 +528,13 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-"anrede": "Insekt",
-"vorname": "Max",
-"nachname": "Mustermann",
-"postleitzahl": "12345",
-"ort":"Musterstadt",
-"strasse": "Am Musterweg",
-"hnr": "1"
+  "anrede": "Insekt",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1"
 }
 
 
