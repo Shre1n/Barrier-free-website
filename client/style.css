@@ -511,5 +511,9 @@ body {
     text-decoration: none;
     margin-top: 10em;
 }
-
-
+.breadpfeil{
+    color: #707070 !important;
+}
+.abstandtopklein{
+    padding-top: 1em;
+}
