@@ -41,6 +41,12 @@
     font-size: 1.25em;
     color: #FFFFFF !important;
 }
+.breebutton {
+    font-family: "Bree Serif", serif !important;
+    font-size: 0.5em;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
 
 .bree20G {
     font-family: "Bree Serif", serif !important;
@@ -474,7 +480,9 @@ body {
 }
 
 .zentriert {
-    justify-content: center;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
 }
 
 .abstandtop {

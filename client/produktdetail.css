@@ -5,3 +5,14 @@
     border-radius: 2em;
     border:0;
 }
+.detailsection {
+   padding-top: 12em;
+}
+#expresscheckout{
+    align-items: center;
+    text-align: center;
+}
+.ppicon{
+    height: 1em;
+    width: auto;
+}
