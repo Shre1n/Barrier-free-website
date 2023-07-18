@@ -1,5 +1,6 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
 
+//Definierung der Struktur "Bestellung"
 interface Bestellung {
     lieferadresse: {
         anrede: string;
@@ -31,7 +32,7 @@ interface WarenkorbProdukt{
 }
 
 
-
+//Modalfenster von Bootstrap
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
 let modalFensterWarenkorb: bootstrap.Modal;
@@ -39,6 +40,7 @@ let modalFensterWarenkorb: bootstrap.Modal;
 let shoppingCart:WarenkorbProdukt[] = [];
 
 document.addEventListener("DOMContentLoaded",  () => {
+    //checkt ob der Nutzer eingeloggt ist
     checkLogin();
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded",  () => {
     const zurKasseBtn = document.getElementById("zurKasse") as HTMLButtonElement;
     let warenkorb = document.querySelector("#warenkorb");
 
+    //Wenn auf Warenkorb geklickt wird, wird das READ ausgeführt
     warenkorb.addEventListener("click", () => {
         warenkorbRender();
 
@@ -94,7 +97,9 @@ document.addEventListener("DOMContentLoaded",  () => {
     }
 
     getUser();
+    //dient zum Rendern der Verteilerseite
     getProduct();
+    //dient zum Rendern der Startseite
     getProduct2();
     //Alle Listener für die Bestellseite
     try {
@@ -215,11 +220,11 @@ function getCurrentPageName(url: string): string {
 
     return ''; // Rückgabe eines leeren Strings, wenn kein Seitenname vorhanden ist
 }
-
+//CREATE USER
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
-
+    //liest die Inputfelder aus
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
     const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
     const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
@@ -259,9 +264,11 @@ function addUser(event: Event): void {
     const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value.trim();
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
 
+    //Checked ob die Passwörter gleich sind und die Checkbox des Newsltter gecheckt ist
     if (checkbox.checked && passwort === passwortcheck) {
         //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
+        //POST METHODE
         axios.post("/user", {
             //JSON Body
             anrede: anrede,
@@ -288,6 +295,7 @@ function addUser(event: Event): void {
             }
 
         });
+        //Passwort ist gleich aber Checkbox ist nicht checked
     } else if (passwort === passwortcheck) {
 //routen aufruf welcher an den Server uebermittelt wird
         //Axios dient als Middleware
@@ -319,6 +327,7 @@ function addUser(event: Event): void {
 
         });
     } else {
+        //Passwörter stimmen nicht überein
         document.getElementById('passwortErr').innerText = "Passwörter stimmen nicht überein";
         const toastLiveExample = document.getElementById('liveToast');
         const toast = new bootstrap.Toast(toastLiveExample)
@@ -327,6 +336,7 @@ function addUser(event: Event): void {
     }
 }
 
+//Definierung der Toasts
 function getErrorMessage(data){
     const firstSpace = data.indexOf(" ");
     const firstword = data.substring(0, firstSpace);
@@ -399,18 +409,18 @@ function lieferCheckErr() {
 
 
 
-
+//DELETE USER
 function delUser(event: Event): void {
     event.preventDefault();
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
-
+        //Der Nutzer wird abgemeldet und auf die Startseite geworfen
         signOff();
         window.location.href = "/startseite.html";
     }).catch((reason: AxiosError) => {
 
     });
 }
-
+//UPDATE USER
 function editUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -442,6 +452,7 @@ function editUser(event: Event): void {
     ortErr.innerText = "";
     editCheck.innerText = "";
 
+    //Auslesen der Inputfelder
     const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value.trim();
     const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value.trim();
     const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value.trim();
@@ -476,7 +487,7 @@ function editUser(event: Event): void {
     if (telefonnummer === "") {
         telefonnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
     }
-
+    //Überprüfung ob die Newsletter Checkbox gechecked ist
     if (checkbox.checked) {
         axios.put("/user", {
             anrede: anrede,
@@ -532,7 +543,7 @@ function editUser(event: Event): void {
  * Meldet den jetzigen User ab und setzt die Session des Users auf null
  *
  */
-
+//ANMELDEN
 function signIn(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -551,6 +562,7 @@ function signIn(event: Event): void {
     }).then((res: AxiosResponse) => {
         erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
+        //Buttons werden angezeigt
         logout.style.display = "inline-block";
         warenkorb.style.display="inline-block";
         profil.style.display = "inline-block";
@@ -567,7 +579,7 @@ function signIn(event: Event): void {
     });
     checkLogin();
 }
-
+//AUSLOGGEN
 function signOff(): void {
     axios.post("/signout").then((res: AxiosResponse) => {
         checkLogin();
@@ -577,7 +589,7 @@ function signOff(): void {
     checkLogin();
 
 }
-
+//READ USER
 function getUser(){
 
     axios.get("/user",{
@@ -608,7 +620,7 @@ function renderUserProfile(userData) {
     const telefonnummerElement = document.getElementById('displaytelefonnummer');
     const newsletterElement = document.getElementById("displaynewsletter");
     const nameElement = document.getElementById("nutzerName");
-
+    //Nutzerdaten werden auf Profilseite ausgefüllt
     anredeElement.innerText = userData.anrede;
     vornameElement.innerText = userData.vorname;
     nachnameElement.innerText = userData.nachname;
@@ -637,15 +649,18 @@ async function checkLogin() {
                 method:"GET"
             });
         const data = await response.json();
-
+    //Wenn der Status 200 ist dann ist der Nutzer angemeldet
         if(response.status == 200) {
             const rolle = data.rolle;
+            //Warenkorb wird aus der Datenbank übertragen
             await getCart();
+            //Buttons werden angezeigt
             abmelden.classList.remove("d-none");
             warenkorb.classList.remove("d-none");
             registrieren.style.display="none";
             profil.style.display="inline-block";
         } else {
+            //Buttons werden nicht angezeigt
             abmelden.classList.add("d-none");
             warenkorb.classList.add("d-none");
         }
@@ -689,6 +704,7 @@ function hideEditUser(){
     UserEditForm.style.display = "none";
     UserProfilForm.style.display = "block";
 }
+//READ Product
 function getProduct(){
     axios.get("/product",{
 
@@ -702,7 +718,7 @@ function getProduct(){
     });
     checkLogin();
 }
-
+//READ Product (Es gab fehler beim Render der Startseite und Verteilerseite deswegen zwei GetProduct, die die Seiten rendern
 function getProduct2(){
     axios.get("/product",{
 
@@ -718,7 +734,7 @@ function getProduct2(){
     });
     checkLogin();
 }
-
+//DELETE Warenkorb nach Bestellung
 function delAllCartItems() {
     fetch("/deleteAll", {
         method: "DELETE"
@@ -733,7 +749,7 @@ function delAllCartItems() {
 
 
 
-
+//Render Verteilerseite
 function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
@@ -741,9 +757,9 @@ function renderGamesVerteiler(productData){
     for (p = 0; p < JsonContent.length; p++) {
         const productID = JsonContent[p].ID;
         if (JsonContent[p].Bestand === 0) {
-            continue; // Überspringen Sie die Iteration, wenn der Bestand 0 ist
+            continue; // Überspringen der Iteration, wenn der Bestand 0 ist
         }
-
+        //Anzeige Grün, Gelb, Rot je nach Bestand
         const bestand = JsonContent[p].Bestand;
         let availabilityClass = "availability";
         if (bestand === 0) {
@@ -786,7 +802,7 @@ function renderGamesVerteiler(productData){
     }
 }
 
-
+//Startseite
 function startseiteRender(productData) {
     checkLogin();
 
@@ -795,7 +811,7 @@ function startseiteRender(productData) {
 
 
     let htmlContent = "";
-
+//Nur 3 Produkte sollen angezeigt werden
     for (let i = 0; i < 3; i++) {
         if (i >= JsonContent.length) {
             break; // Schleife beenden, wenn wir das Ende von JsonContent erreicht haben
@@ -834,7 +850,7 @@ function startseiteRender(productData) {
         </div>
       </div>
     `;
-
+//Wenn der Bestand 0 ist wird der Preis ausgetauscht und das Warenkorb Icon ist nicht mehr zusehen
 
     }
     checkLogin();
@@ -846,7 +862,7 @@ function startseiteRender(productData) {
 
 }
 
-
+//Warenkorb
 function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
@@ -949,33 +965,33 @@ function warenkorbRender() {
 }
 
 function updatePrice(event) {
-    const input = event.target;
-    const quantity = parseInt(input.value);
-    const index = input.dataset.index;
-    const produkt = shoppingCart[index];
-    const subtotal = produkt.preis * quantity;
-    const priceElement = document.getElementById(`preis${index}`);
-    priceElement.innerHTML = `<span>${subtotal.toFixed(2)} €</span>`;
+    const input = event.target; // Das ausgelöste Eingabeelement wird abgerufen
+    const quantity = parseInt(input.value); // Die eingegebene Menge wird als Ganzzahl interpretiert
+    const index = input.dataset.index; // Der Index des Elements im Warenkorb wird aus dem "data-index"-Attribut abgerufen
+    const produkt = shoppingCart[index]; // Das entsprechende Produkt im Warenkorb wird anhand des Indexes abgerufen
+    const subtotal = produkt.preis * quantity; // Die Zwischensumme wird berechnet
+    const priceElement = document.getElementById(`preis${index}`); // Das HTML-Element, das den Preis anzeigt, wird abgerufen
+    priceElement.innerHTML = `<span>${subtotal.toFixed(2)} €</span>`; // Der Inhalt des priceElements wird aktualisiert
 
     // Speichern der Preisänderung mit putCart
-    putCart(produkt.produktName, quantity, "change");
+    putCart(produkt.produktName, quantity, "change"); // Die Preisänderung wird im Warenkorb gespeichert
 
-    calculateTotalPrice();
+    calculateTotalPrice(); // Der Gesamtpreis des Warenkorbs wird neu berechnet
 }
 
 function calculateTotalPrice() {
-    let endpreis = 0;
+    let endpreis = 0; // Variable zur Speicherung des Gesamtpreises
 
-    const priceElements = document.querySelectorAll("[id^='preis']");
-    priceElements.forEach((element) => {
-        const subtotalText = element.textContent;
-        const subtotal = parseFloat(subtotalText);
-        endpreis += subtotal;
+    const priceElements = document.querySelectorAll("[id^='preis']");  // Alle HTML-Elemente abrufen, deren IDs mit "preis" beginnen
+    priceElements.forEach((element) => { // Schleife über jedes gefundene Element
+        const subtotalText = element.textContent;  // Textinhalt des Elements abrufen, der den Zwischensummenbetrag enthält
+        const subtotal = parseFloat(subtotalText); // Den Zwischensummenbetrag als Gleitkommazahl interpretieren
+        endpreis += subtotal; // Den Zwischensummenbetrag zum Gesamtpreis addieren
     });
 
-    const endpreisElement = document.getElementById("summe");
-    if (endpreisElement) {
-        endpreisElement.innerHTML = `${endpreis.toFixed(2)} €`;
+    const endpreisElement = document.getElementById("summe"); // Das HTML-Element abrufen, das den Gesamtpreis anzeigen soll
+    if (endpreisElement) { // Überprüfen, ob das Element gefunden wurde
+        endpreisElement.innerHTML = `${endpreis.toFixed(2)} €`; // Den Gesamtpreis in das HTML-Element einfügen
     }
 }
 
