@@ -1141,7 +1141,7 @@ function bestellabschlussProdukteRender() {
           <div class="col-4">
             <div class="row">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid">
               </div>
             </div>
           </div>
@@ -1156,12 +1156,12 @@ function bestellabschlussProdukteRender() {
               <div class="col-10 mb-4">
                 <span>${produkt.kurzbeschreibung}</span>
               </div>
-              <div class="col-8 mb-1>
+              <div class="col-6 mb-1>
                 <label for="menge">Menge: </label>
                 <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
                 <span id="bestandErr"></span>
               </div>
-              <div id="preis${i}" class="col-4 text-end">
+              <div id="preis${i}" class="col-6 text-end">
                 <span>${subtotal.toFixed(2)} €</span>
               </div>
             </div>
