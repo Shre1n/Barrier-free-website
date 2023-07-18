@@ -81,6 +81,7 @@
         </nav>
     </div>
 
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-6">
@@ -149,9 +150,13 @@
                     <div class="row">
                         <div class="col-1"></div>
                         <div class="col-6">
-                            <input name="farbe" type="radio" checked>
-                                Holzfraben
-                            </input>
+                            <input type="radio" class="btn-check farbauswahlchecked" name="options" id="option2"
+                                   autocomplete="off" checked>
+                            <label class="btn btn-secondary farbauswahlchecked" for="option2">Holzfarben</label>
+                            <input type="radio" class="btn-check farbauswahl" name="options" id="option3"
+                                   autocomplete="off" disabled>
+                            <label class="btn btn-secondary farbauswahl" for="option3">Bunt (zur Zeit nicht
+                                verfügbar)</label>
                         </div>
                         <div class="col-4 text-end bree40G">
                             79,99€
@@ -159,35 +164,31 @@
                         <div class="col-1"></div>
                         <div class="col-1"></div>
                         <div class="col-6">
-                            <input type="radio" name="farbe">
-                            Bunt
-                            </input>
+
                         </div>
                         <div class="col-4 text-end">
                             <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
                         </div>
                         <div class="col-1"></div>
                     </div>
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-1">
                         </div>
                         <div class="col-5">
                             <div class="row">
-                                <button id="expresscheckout" class="btn btn-primary bbutton">
-                                    <div class="row">
-                                        <div class="col-2 mb-3">
-                                            <img src="/img/ppicon.png" class="ppicon">
-                                        </div>
-                                        <div class="col-9 mb-3">
-                                            <a>Expresscheckout</a>
-                                        </div>
-                                    </div>
+                                <button href="DankeFürBestellung.html" id="ppbutton" class="btn btn-primary bbutton">
+
+                                    <img src="/img/ppicon.png" class="ppicon">
+
+
+                                    <a class="ppbuttonschrift"> Expresscheckout</a>
                                 </button>
                             </div>
                         </div>
                         <div class="col-5">
                             <button id="warenkorbdetail" type="submit" class="btn btn-primary bbutton">
-                                Warenkorb
+                                <i id="warenkobicon" class="fas fa-shopping-bag"></i>
+                                Zum Warenkorb hinzufügen
                             </button>
                         </div>
                         <div class="col-1"></div>
@@ -197,15 +198,14 @@
             </div>
         </div>
 
-        <div class="container-fluid mt-5">
+        <div class="container mt-5">
             <div class="row ms-3 me-3">
-                <div class="col-1 mb-3"></div>
-                <div class="col-10 mb-3 bree40G">
+
+                <div class="container-fluid mb-3 bree40G">
                     Produktbeschreibung
                 </div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-10 belleza25 mb-5">
+
+                <div class="container-fluid belleza25 mb-5">
                     Das Ziel des Spiels Tactile Towers ist, eine Figur aus Einzelteilen mit Zeitdruck nachzubauen,
                     indem diese richtig gestapelt werden. Zur Vorlage dazu dient ein kleines, hölzernes Modell mit
                     verschiedenen Oberflächenbeschaffenheiten. Durch die verschiedenen Tastwahrnehmungen können die
@@ -216,14 +216,13 @@
                     ein Mitspieler das Endergebnis überprüfen kann. Außerdem liegen dem Spiel Augenmasken bei, da es
                     für den Spielablauf relevant ist, dass kein Mitspieler die Möglichkeit hat, die Vorlage zu sehen.
                 </div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-10 mb-3 bree40G">
+
+
+                <div class="container-fluid mb-3 bree40G">
                     Lieferumfang
                 </div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-1 mb-3"></div>
-                <div class="col-10 belleza25">
+
+                <div class="container-fluid belleza25">
                     100 hölzerne Punkteklötzchen <br/>
                     60 hölzerne Bauelemente <br/>
                     15 hölzerne Modelle <br/>
@@ -231,15 +230,14 @@
                     1 extra laute Sanduhr aus Plastik <br/>
                     Spielanleitung <br/>
                 </div>
-                <div class="col-1 mb-3"></div>
+
             </div>
         </div>
 
     </div>
-    <div class="container-fluid mt-4 abstandbottum">
+    <div class="container-fluid mt-4 abstandbottum randfilter">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6 text-center bree40G">
+            <div class="container-fluid text-center bree40G">
                 Bewertungen
             </div>
 
@@ -251,16 +249,17 @@
 
             -->
         </div>
+        <div class="container-fluid">
         <div class="row">
-
-
-            <div class="col-2">
-                <div class="row ms-3">
+            <div class="col-1 mb-3">
+                <div class="row">
                     <div class="col-12 bree20G">
                         Filteroptionen
                     </div>
                     <div class="col-9 mt-4">
-                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                        <i class="fas fa-star stern sternfilter"></i><i class="fas fa-star stern sternfilter"></i><i
+                            class="fas fa-star stern sternfilter"></i><i class="fas fa-star stern sternfilter"></i><i
+                            class="fas fa-star stern sternfilter"></i>
                     </div>
                     <div class="col-3 mt-4">
                         <label for="checkSterneFilterFünf">
@@ -268,7 +267,8 @@
                                        id="checkSterneFilterFünf">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
+                            class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterVier">
@@ -276,7 +276,8 @@
                                        id="checkSterneFilterVier">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
+                            class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterDrei">
@@ -320,75 +321,84 @@
                     </div>
                 </div>
             </div>
+            <div class="col-10 mb-3">
+                <div class="col-2">
 
-            <div class="col-10">
-                <div class="row ms-3">
-                    <div class="col-12 bree20G">
-                        Fabian Neumann
-                    </div>
-                    <div class="col-10">
-                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
-                            class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
-                            class="fas fa-star stern"></i>
-                    </div>
+                    <div class="row"></div>
+                    <div class="col mb-3"></div>
+                </div>
 
-                    <!-- Bearbeiten Icon
-                    <div class="col-2">
-                        Icon
-                    </div>
-                    -->
+                <div class="container-fluid">
+                    <div class="row ms-3">
+                        <div class="col-12 bree20G">
+                            Fabian Neumann
+                        </div>
+                        <div class="col-10">
+                            <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
+                                class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
+                                class="fas fa-star stern"></i>
+                        </div>
 
-                    <div class="col-12 mt-3 belleza15G">
-                        Ich habe vor kurzem das Spiel Tactile Towers erworben und war von der einzigartigen
-                        Spielmechanik und dem Konzept begeistert. Das Ziel des Spiels ist es, unter Zeitdruck
-                        eine Figur aus Einzelteilen nachzubauen, indem man sie richtig stapelt. Die Vorlage
-                        für den Bau ist ein kleines, hölzernes Modell mit verschiedenen Oberflächenbeschaffenheiten,
-                        die sich taktisch erfühlen lassen. <br/>
+                        <!-- Bearbeiten Icon
+                        <div class="col-2">
+                            Icon
+                        </div>
+                        -->
 
-                        Die verschiedenen Tastwahrnehmungen ermöglichen es, die Einzelteile zu differenzieren
-                        und den Tower präzise nachzubauen. Es gibt verschiedene Schwierigkeitsstufen für die
-                        zu bauenden Figuren, was das Spiel sowohl für Anfänger als auch für erfahrene Spieler
-                        interessant macht. Zusätzlich können individuell angepasste Zeitvorgaben das Anforderungslevel
-                        variieren, was die Herausforderung weiter erhöht. <br/>
+                        <div class="container-fluid mt-3 belleza15G">
+                            Ich habe vor kurzem das Spiel Tactile Towers erworben und war von der einzigartigen
+                            Spielmechanik und dem Konzept begeistert. Das Ziel des Spiels ist es, unter Zeitdruck
+                            eine Figur aus Einzelteilen nachzubauen, indem man sie richtig stapelt. Die Vorlage
+                            für den Bau ist ein kleines, hölzernes Modell mit verschiedenen Oberflächenbeschaffenheiten,
+                            die sich taktisch erfühlen lassen. <br/>
 
-                        Das Spielmaterial ist von guter Qualität und die Holzfiguren sind solide verarbeitet.
-                        Die verschiedenen Oberflächenbeschaffenheiten bieten ein angenehmes taktiles Erlebnis.
-                        Die Spielanleitung ist klar und verständlich geschrieben, sodass man schnell mit dem
-                        Spielen beginnen kann. <br/>
+                            Die verschiedenen Tastwahrnehmungen ermöglichen es, die Einzelteile zu differenzieren
+                            und den Tower präzise nachzubauen. Es gibt verschiedene Schwierigkeitsstufen für die
+                            zu bauenden Figuren, was das Spiel sowohl für Anfänger als auch für erfahrene Spieler
+                            interessant macht. Zusätzlich können individuell angepasste Zeitvorgaben das
+                            Anforderungslevel
+                            variieren, was die Herausforderung weiter erhöht. <br/>
 
-                        Der einzige Grund, warum ich diesem Spiel keine volle Punktzahl gebe, ist die Tatsache,
-                        dass es zwingend einen Mitspieler benötigt, um das Endergebnis zu überprüfen.
-                        Wenn man alleine spielt oder keine weitere Person zur Verfügung hat, kann man
-                        das Spiel nicht in vollem Umfang genießen. <br/>
+                            Das Spielmaterial ist von guter Qualität und die Holzfiguren sind solide verarbeitet.
+                            Die verschiedenen Oberflächenbeschaffenheiten bieten ein angenehmes taktiles Erlebnis.
+                            Die Spielanleitung ist klar und verständlich geschrieben, sodass man schnell mit dem
+                            Spielen beginnen kann. <br/>
 
-                        Alles in allem ist Tactile Towers ein herausforderndes und taktiles Spiel,
-                        das Teamarbeit und Geschicklichkeit erfordert. Die verschiedenen Schwierigkeitsstufen
-                        und die Möglichkeit, die Zeitvorgaben anzupassen, sorgen für langanhaltenden Spielspaß.
-                        Ich kann das Spiel allen empfehlen, die gerne knifflige Aufgaben lösen und gemeinsam
-                        mit Freunden oder Familie spielerische Herausforderungen meistern möchten.
+                            Der einzige Grund, warum ich diesem Spiel keine volle Punktzahl gebe, ist die Tatsache,
+                            dass es zwingend einen Mitspieler benötigt, um das Endergebnis zu überprüfen.
+                            Wenn man alleine spielt oder keine weitere Person zur Verfügung hat, kann man
+                            das Spiel nicht in vollem Umfang genießen. <br/>
+
+                            Alles in allem ist Tactile Towers ein herausforderndes und taktiles Spiel,
+                            das Teamarbeit und Geschicklichkeit erfordert. Die verschiedenen Schwierigkeitsstufen
+                            und die Möglichkeit, die Zeitvorgaben anzupassen, sorgen für langanhaltenden Spielspaß.
+                            Ich kann das Spiel allen empfehlen, die gerne knifflige Aufgaben lösen und gemeinsam
+                            mit Freunden oder Familie spielerische Herausforderungen meistern möchten.
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-2 mb-3"></div>
-            <div class="col-10">
-                <div class="row ms-3">
-                    <div class="col-12 bree20G">
-                        Fabian Neumann
+                <div class="col-2 mb-3"></div>
+                <div class="container-fluid">
+                    <div class="row ms-3">
+                        <div class="col-12 bree20G">
+                            Sabine Fröhlich
+                        </div>
+                        <div class="col-10">
+                            <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
+                                class="fas fa-star stern"></i>
+                        </div>
+
+
+                        <div class="container-fluid mt-3 belleza15G">
+                            Geht so. Hatte mir mehr erhofft bei dem Preis.
+                        </div>
+
                     </div>
-                    <div class="col-10">
-                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i
-                            class="fas fa-star stern"></i>
-                    </div>
-
-
-                    <div class="col-12 mt-3 belleza15G">
-                        Geht so. Hatte mir mehr erhofft bei dem Preis.
-                    </div>
-
                 </div>
+                <div class="col-1 mb-3"></div>
             </div>
-
+        </div>
         </div>
     </div>
 

@@ -110,32 +110,92 @@
             <div class="col-1 borderCol"></div>
             <div class="col-xl-4 col-lg-12 mb-3">
                 <div class="row border border-secondary">
-                    <div class="col ms-3 colMinus">
+                    <div class="col">
                         <div class="row">
                             <div class="col borderCol font25">Lieferangaben</div>
                             <div class="col d-flex justify-content-end align-items-center">
                                 <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
                             </div>
                         </div>
-                        <div class="row"></div>
-                        <form type="submit" id="postLieferadresseForm">
-                            <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
-                                <option value="Herr" class="anrede">Herr</option>
-                                <option value="Frau" class="anrede">Frau</option>
-                            </select>
-                            <input id="displayLieferAnrede" class="row" disabled>
-                            <input id="displayLieferVorname" class="row" disabled>
-                            <input id="displayLieferNachname" class="row" disabled>
-                            <input id="displayLieferStraße" class="row" disabled>
-                            <input id="displayLieferHnr" class="row" disabled>
-                            <input id="displayLieferPLZ" class="row" disabled>
-                            <input id="displayLieferOrt" class="row" disabled>
+                        <div class="row text-break"></div>
+                        <form type="submit" id="postLieferadresseForm" class="text-break">
                             <div class="row">
-                            <div class="col-6">
-                            <button id="lieferAdBtnCancel" type="button" class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</button>
-                            </div>
-                            <div class="col-6">
-                            <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
+                                        <option value="Herr" class="anrede">Herr</option>
+                                        <option value="Frau" class="anrede">Frau</option>
+                                    </select>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferAnrede" class="text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferNachname" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferVorname" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferStraße" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferHnr" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferPLZ" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferOrt" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button id="lieferAdBtnCancel" type="button"
+                                                class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">
+                                            Speichern
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -143,81 +203,137 @@
                         <form id="displayRechnungsadresse" class="col d-none">
                             <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
                             <label for=displayRechnungAnrede></label>
-                            <select id="displayRechnungAnrede" class="text-center mb-2" required>
-                                <option value="Herr" class="anrede">Herr</option>
-                                <option value="Frau" class="anrede">Frau</option>
-                            </select>
-                            <input id="displayRechnungVorname" class="row mb-2" placeholder="Vorname">
-                            <input id="displayRechnungNachname" class="row mb-2" placeholder="Nachname">
-                            <input id="displayRechnungStraße" class="row mb-2" placeholder="Straße">
-                            <input id="displayRechnungHnr" class="row mb-2" placeholder="Hausnummer">
-                            <input id="displayRechnungPLZ" class="row mb-2" placeholder="PLZ">
-                            <input id="displayRechnungOrt" class="row mb-2" placeholder="Ort">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <select id="displayRechnungAnrede" class="text-center mb-2" required>
+                                        <option value="Herr" class="anrede">Herr</option>
+                                        <option value="Frau" class="anrede">Frau</option>
+                                    </select>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungVorname" class="col-12 mb-2 text-break"
+                                           placeholder="Vorname">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungNachname" class="col-12 mb-2 text-break"
+                                           placeholder="Nachname">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungStraße" class="col-12 mb-2 text-break"
+                                           placeholder="Straße">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungHnr" class="col-12 mb-2 text-break"
+                                           placeholder="Hausnummer">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                            <input id="displayRechnungPLZ" class="col-12 mb-2 text-break"
+                                   placeholder="PLZ">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                            <input id="displayRechnungOrt" class="col-12 mb-2 text-break"
+                                   placeholder="Ort">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
                             <div class="row">
                             </div>
-                        </form>
+                    </div>
+                    </form>
 
-                        <div class="container-fluid">
-                            <div class="row"></div>
-                            <div class="row mb-1">
-                                <div class="row topPad botPad mt-3">Zahlungsarten</div>
-                                <div class="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                               value="PayPal" id="zahlungsMethodePayPal" checked>
-                                        <label class="form-check-label" for="zahlungsMethodePayPal">
-                                            <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="container-fluid">
+                        <div class="row"></div>
+                        <div class="row mb-1">
+                            <div class="row topPad botPad mt-3">Zahlungsarten</div>
                             <div class="row">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                           value="SofortUeberweisung" id="zahlungsMethodeSofort">
-                                    <label class="form-check-label" for="zahlungsMethodeSofort">
-                                        <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg"
-                                             alt="placeholder">
+                                           value="PayPal" id="zahlungsMethodePayPal" checked>
+                                    <label class="form-check-label" for="zahlungsMethodePayPal">
+                                        <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row topPad">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                                <label class="form-check-label font16" for="flexCheckDefault1">
-                                    Ich erkläre mich mit den AGB von PlayAbility einverstanden.
-                                </label>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                                <label class="form-check-label font16" for="flexCheckDefault2">
-                                    Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert habe.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-check">
-                                <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
-                                <label class="form-check-label font16" for="checkRechnungsadresse">
-                                    Rechnungsadresse weicht von Lieferadresse ab.
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       value="SofortUeberweisung" id="zahlungsMethodeSofort">
+                                <label class="form-check-label" for="zahlungsMethodeSofort">
+                                    <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg"
+                                         alt="placeholder">
                                 </label>
                             </div>
                         </div>
                     </div>
+                    <div class="row topPad">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                            <label class="form-check-label font16" for="flexCheckDefault1">
+                                Ich erkläre mich mit den AGB von PlayAbility einverstanden.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row topPad">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                            <label class="form-check-label font16" for="flexCheckDefault2">
+                                Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert
+                                habe.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row topPad">
+                        <div class="form-check">
+                            <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
+                            <label class="form-check-label font16" for="checkRechnungsadresse">
+                                Rechnungsadresse weicht von Lieferadresse ab.
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-2"></div>
-            <div id="bestellabschlussProdukte" class="col-xl-4 col-lg-12">
-                <a id="bestellungAbschliessen"
-                   class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
-                    Bestellung abschließen
-                </a>
-            </div>
+        </div>
+        <div class="col-2"></div>
+        <div id="bestellabschlussProdukte" class="col-xl-4 col-lg-12">
+            <a id="bestellungAbschliessen"
+               class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                Bestellung abschließen
+            </a>
         </div>
     </div>
+</div>
 </div>
 
 

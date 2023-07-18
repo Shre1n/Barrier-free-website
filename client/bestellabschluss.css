@@ -99,6 +99,7 @@
     padding-bottom: 0.5em;
 }
 .topPad {
+    padding-left: 0.7em;
     padding-top: 1em;
 }
 .gesamtpreis{
@@ -123,7 +124,6 @@ input:disabled, select:disabled {
     padding: 0 !important;
     margin: 0 !important;
     color: inherit !important;
-    margin-left: -0.5rem !important;
 }
 
 .anredeDropdown {
