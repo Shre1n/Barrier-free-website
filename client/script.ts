@@ -171,7 +171,13 @@ window.addEventListener('DOMContentLoaded', () => {
         previousPageLink.style.display = 'none'; // Verstecke den Link, wenn keine vorherige Seite vorhanden ist
     }
 
-    currentPageLink.textContent = getCurrentPageName(currentURL);
+    const currentPageName = getCurrentPageName(currentURL);
+    currentPageLink.textContent = currentPageName;
+
+    // Überprüfung, ob vorherige Seite und aktuelle Seite gleich sind
+    if (previousPageLink.textContent === currentPageName) {
+        previousPageLink.style.display = 'none'; // Verstecke den Link, um Duplikate zu vermeiden
+    }
 });
 
 function getPreviousPageName(url: string): string {
@@ -675,7 +681,7 @@ function delAllCartItems() {
     fetch("/deleteAll", {
         method: "DELETE"
     }).then((res) => {
-        window.location.href = "DankefürBestellung.html";
+        window.location.href = "Bestellung.html.html";
     }).catch((e) => {
         console.log(e);
     });

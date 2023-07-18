@@ -135,7 +135,8 @@ input:disabled, select:disabled {
 }
 
 .cancelButton {
-    color: #707070 !important;
+    color: #FFFFFF !important;
+    background-color: #707070 !important;
     border-radius: 2.5em !important;
     width: 7.46em;
     height: 2em;
@@ -148,4 +149,12 @@ input:disabled, select:disabled {
 
 .anrede option {
     color: white;
+}
+
+.lieferangabenMargin {
+    margin-left: 0.8rem;
+}
+
+#editIconUser {
+    color: #3D93A6 !important;
 }
