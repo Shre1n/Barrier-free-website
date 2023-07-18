@@ -522,6 +522,13 @@ DELETE /cart/Shake n Match
 Host: localhost:8080
 Content-Type: application/json
 
+###
+DELETE /deleteAll
+Host: localhost:8080
+Content-Type: application/json
+
+
+
 ### Produkt Warenkorb hinzufügen
 POST /cart
 Host: localhost:8080

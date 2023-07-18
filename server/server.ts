@@ -126,7 +126,8 @@ app.get("/login", checkLogin, isLoggedIn)
 app.put("/lieferadresse", checkLogin, putLieferadresse);
 app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
 app.post("/bestellung", checkLogin, postBestellung);
-app.get("/bestellung", checkLogin, getBestellung)
+app.get("/bestellung", checkLogin, getBestellung);
+app.delete("/deleteAll",checkLogin, deleteCartAll);
 
 app.get("/cart", checkLogin, getCart);
 app.post("/cart", checkLogin, itemAlreadyInCart, postCart);
@@ -470,6 +471,17 @@ function putCart(req: express.Request, res: express.Response): void {
         }).catch((err) => {
         res.status(500).send("Internal Server Error");
         console.log(err);
+    });
+}
+
+
+function deleteCartAll(req: express.Request, res: express.Response): void {
+    query("DELETE FROM Warenkorb WHERE NutzerID = ?;", [req.session.nutzerid])
+        .then((result: any) => {
+            res.status(200).send("Alle Produkte im Warenkorb wurden entfernt!");
+        }).catch((e) => {
+            console.log(e);
+            res.status(500).send("Fehler beim Warenkorb löschen!");
     });
 }
 
@@ -848,7 +860,6 @@ function postBestellung(req: express.Request, res: express.Response) {
 
                     res.sendStatus(404);
                 }
-
             }
             if (results.length === 0) {
                 res.status(400).json({message: "Mit leerem Warenkorb kann keine Bestellung abgeschlossen werden!"})
@@ -894,6 +905,7 @@ function postBestellung(req: express.Request, res: express.Response) {
             }
             res.status(200).send({"message": results});
         });
+
 }
 
 function getBestellung(req: express.Request, res: express.Response) {

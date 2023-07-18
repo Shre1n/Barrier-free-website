@@ -644,6 +644,7 @@ function getProduct(){
     });
     checkLogin();
 }
+
 function getProduct2(){
     axios.get("/product",{
 
@@ -660,6 +661,20 @@ function getProduct2(){
     });
     checkLogin();
 }
+
+function delAllCartItems() {
+    fetch("/deleteAll", {
+        method: "DELETE"
+    }).then((res) => {
+        window.location.href = "DankefürBestellung.html";
+    }).catch((e) => {
+        console.log(e);
+    });
+}
+
+
+
+
 
 
 function renderGamesVerteiler(productData){
@@ -1238,7 +1253,7 @@ function bestellabschlussProdukteRender() {
     });
 
 
-    document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
+    document.getElementById("bestellungAbschliessen").addEventListener("click", delAllCartItems);
 
 
 }
