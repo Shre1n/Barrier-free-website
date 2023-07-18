@@ -107,8 +107,10 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         });
         document.getElementById("lieferAdBtnCancel").addEventListener("click", () => {
+            const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
             toggleEditLieferadresse(true);
             lieferUndRechnungsAdresseRendern();
+            hideden.style.display="block";
         });
         document.getElementById("postLieferadresseForm").addEventListener("submit", updateLieferAdresse);
         document.getElementById("checkRechnungsadresse").addEventListener("change", toggleRechnungsadresse);
@@ -1121,13 +1123,13 @@ async function updateRechnungsadresse() {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({
-                    anrede: anredeElement.value.trim(),
-                    vorname: vornameElement.value.trim(),
-                    nachname: nachnameElement.value.trim(),
-                    postleitzahl: plzElement.value.trim(),
-                    ort: ortElement.value.trim(),
-                    strasse: strasseElement.value.trim(),
-                    hnr: hnrElement.value.trim()
+                    anrede: anredeElement.trim(),
+                    vorname: vornameElement.trim(),
+                    nachname: nachnameElement.trim(),
+                    postleitzahl: plzElement.trim(),
+                    ort: ortElement.trim(),
+                    strasse: strasseElement.trim(),
+                    hnr: hnrElement.trim()
                 })
             });
 
