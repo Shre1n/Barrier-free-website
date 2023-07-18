@@ -679,7 +679,6 @@ function getProduct2(){
     axios.get("/product",{
 
     }).then((res:AxiosResponse) => {
-        console.log("Hier Produkt");
         const productData = res.data;
         if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
@@ -754,7 +753,6 @@ function renderGamesVerteiler(productData){
 
         const bags = document.querySelectorAll(".bag");
         bags.forEach((button) => {
-            console.log("🧇");
             button.addEventListener("click", warenkorbErfolgreich);
         });
     }
@@ -763,7 +761,6 @@ function renderGamesVerteiler(productData){
 
 function startseiteRender(productData) {
     checkLogin();
-    console.log("StartseiteRender");
     console.log(productData);
     const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
     const JsonContent = productData;
@@ -815,9 +812,7 @@ function startseiteRender(productData) {
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
     const bags = document.querySelectorAll(".bag");
-    console.log("yeaaaahss")
     bags.forEach((button) => {
-        console.log("🧇");
         button.addEventListener("click", erfolgreichWarenkorbStart);
     });
 
@@ -1024,7 +1019,6 @@ async function lieferUndRechnungsAdresseRendern() {
                 method: "GET"
             });
         const res: Bestellung = await response.json();
-        console.log("GetBestellung!!!!!!!");
         console.log(res);
         const lieferadresse = res.lieferadresse;
 
@@ -1222,8 +1216,6 @@ async function createBestellung() {
 }
 
 function bestellabschlussProdukteRender() {
-
-    console.log("Abschluss");
     const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
 
