@@ -560,7 +560,7 @@ Content-Type: application/json
 
 {
   "anrede": "Frau",
-  "vorname": "Max",
+  "vorname": "Max/1",
   "nachname": "Mustermann",
   "postleitzahl": "12345",
   "ort":"Musterstadt",

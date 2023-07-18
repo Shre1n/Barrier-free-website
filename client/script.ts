@@ -100,7 +100,10 @@ document.addEventListener("DOMContentLoaded",  () => {
         lieferUndRechnungsAdresseRendern();
         //enable input
         document.getElementById("editLieferadresseBtn").addEventListener("click", () => {
+           const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
             toggleEditLieferadresse(false)
+            hideden.style.display="none";
+
         });
         document.getElementById("lieferAdBtnCancel").addEventListener("click", () => {
             toggleEditLieferadresse(true);
@@ -353,6 +356,7 @@ function erfolgreichEingeloggt() {
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
 
 function warenkorbErfolgreich() {
     document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
@@ -1013,6 +1017,7 @@ function postCart(produktName,menge, method){
         await getCart();
     });
 }
+
 async function lieferUndRechnungsAdresseRendern() {
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
     const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
@@ -1083,7 +1088,8 @@ async function updateRechnungsadresse() {
 
         if (response.status == 400 || response.status == 403) {
             const data = await response.json();
-            alert(data.message)
+            //getErrorMessage(data);
+            alert(data.message);
         }
     } catch (e) {
         console.log(e)

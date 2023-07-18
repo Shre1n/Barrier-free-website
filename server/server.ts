@@ -622,12 +622,12 @@ function validateUser(isPut, user) {
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
@@ -663,7 +663,7 @@ function validateUser(isPut, user) {
             .max(20)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^[+]\d{5,}|[0]\d{4,}$/)
+            .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
             .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
             .required(),
         newsletter: Joi.string()
@@ -681,12 +681,12 @@ function validateEditUser(isPut, user) {
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
@@ -717,7 +717,7 @@ function validateEditUser(isPut, user) {
             .max(20)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^[+]\d{5,}|[0]\d{4,}$/)
+            .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
             .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
             .required(),
         newsletter: Joi.string()
@@ -927,12 +927,12 @@ function validateAdress(adresse: Adresse) {
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
