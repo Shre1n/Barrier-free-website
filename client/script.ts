@@ -713,3 +713,12 @@ function deleteProductFromCart(productName) {
             console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
         });
 }
+
+/* Bilderwechsel Produktdetailseite
+
+function bildwechsel (productbildklein){
+    const großProduktbild = document.getElementById(bildtactiletowers);
+    großProduktbild.src = productbildklein.src;
+}
+*/
+

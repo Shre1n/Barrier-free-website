@@ -83,11 +83,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-6">
+
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="img-container">
-                                <img id="bildtactiletowers" src="/img/tactiletowers2.png" class="img-fluid"
+                                <img id="produktbildgross" src="/img/tactiletowers2.png" class="img-fluid"
                                      alt="Produktbild">
                             </div>
                         </div>
@@ -96,16 +98,16 @@
                                 <div class="col-2">
                                 </div>
                                 <div class="col-2 produktbillderklein">
-                                    <img src="/img/tactiletowers1.png"">
+                                    <img id="bild1" src="/img/tactiletowers1.png" onclick="bildwechsel(this)">
                                 </div>
                                 <div class="col-2 produktbillderklein">
-                                    <img src="/img/tactiletowers2.png">
+                                    <img id="bild2" src="/img/tactiletowers2.png" onclick="bildwechsel(this)">
                                 </div>
                                 <div class="col-2 produktbillderklein">
-                                    <img src="/img/tactiletowers3.png">
+                                    <img id="bild3" src="/img/tactiletowers3.png" onclick="bildwechsel(this)">
                                 </div>
                                 <div class="col-2 produktbillderklein">
-                                    <img src="/img/tactiletowers4.png">
+                                    <img id="bild4" src="/img/tactiletowers4.png" onclick="bildwechsel(this)">
                                 </div>
                                 <div class="col-2">
                                 </div>
@@ -113,6 +115,8 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="col-6">
                 <div class="row">
@@ -144,7 +148,9 @@
                     <div class="row">
                         <div class="col-1"></div>
                         <div class="col-6">
-                            Button
+                            <input name="farbe" type="radio" checked>
+                                Holzfraben
+                            </input>
                         </div>
                         <div class="col-4 text-end bree40G">
                             79,99€
@@ -152,7 +158,9 @@
                         <div class="col-1"></div>
                         <div class="col-1"></div>
                         <div class="col-6">
-                            Button2
+                            <input type="radio" name="farbe">
+                            Bunt
+                            </input>
                         </div>
                         <div class="col-4 text-end">
                             <i id="avilabilityIcon" class="fas fa-circle availability"></i> Auf Lager
@@ -242,9 +250,8 @@
 
             -->
         </div>
-        <div class="row zentriert">
+        <div class="row">
 
-            <!-- filteroptionen
 
             <div class="col-2">
                 <div class="row ms-3">
@@ -252,7 +259,7 @@
                         Filteroptionen
                     </div>
                     <div class="col-9 mt-4">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-4">
                         <label for="checkSterneFilterFünf">
@@ -260,7 +267,7 @@
                                        id="checkSterneFilterFünf">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterVier">
@@ -268,7 +275,7 @@
                                        id="checkSterneFilterVier">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterDrei">
@@ -276,7 +283,7 @@
                                        id="checkSterneFilterDrei">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star stern"></i><i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterZwei">
@@ -284,7 +291,7 @@
                                        id="checkSterneFilterZwei">
                     </div>
                     <div class="col-9 mt-3">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star stern"></i>
                     </div>
                     <div class="col-3 mt-3">
                         <label for="checkSterneFilterEins">
@@ -312,8 +319,6 @@
                     </div>
                 </div>
             </div>
-
-            -->
 
             <div class="col-10">
                 <div class="row ms-3">
@@ -364,6 +369,7 @@
                 </div>
             </div>
 
+            <div class="col-2 mb-3"></div>
             <div class="col-10">
                 <div class="row ms-3">
                     <div class="col-12 bree20G">
@@ -374,11 +380,6 @@
                             class="fas fa-star stern"></i>
                     </div>
 
-                    <!-- Bearbeiten Icon
-                    <div class="col-2">
-                        Icon
-                    </div>
-                    -->
 
                     <div class="col-12 mt-3 belleza15G">
                         Geht so. Hatte mir mehr erhofft bei dem Preis.
