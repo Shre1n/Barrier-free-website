@@ -1110,9 +1110,10 @@ async function createBestellung() {
             })
         });
         const data = await response.json();
-
+        console.log(data);
+        await getCart();
         if (response.status == 400) {
-            alert(data.message)
+            alert(data.message);
         } else {
             window.location.href = "DankefürBestellung.html";
         }
@@ -1124,7 +1125,7 @@ async function createBestellung() {
 
 function bestellabschlussProdukteRender() {
 
-    console.log("Abschluss")
+    console.log("Abschluss");
     const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
 
