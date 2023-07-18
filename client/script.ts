@@ -504,6 +504,7 @@ function signIn(event: Event): void {
     const logout = (document.querySelector("#abmelden") as HTMLElement);
     const profil = (document.querySelector("#profilseite") as HTMLElement);
     const registrieren = (document.querySelector("#registrieren") as HTMLElement);
+    const warenkorb = (document.querySelector("#warenkorb") as HTMLElement);
 
     axios.post("/signin", {
         email: email,
@@ -513,6 +514,7 @@ function signIn(event: Event): void {
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
         profil.style.display = "inline-block";
+        warenkorb.style.display="inline-block";
         registrieren.style.display = "none";
         form.reset();
         document.getElementById("loginError").innerText = "";

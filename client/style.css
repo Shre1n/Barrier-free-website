@@ -418,6 +418,9 @@ body {
 #profilseite{
     display: none;
 }
+#warenkorb{
+    display: none;
+}
 
 .rowHeader {
     height: 6.25em;
