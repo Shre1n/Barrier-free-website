@@ -346,6 +346,18 @@ function warenkorbErfolgreich() {
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+function BestellungErr() {
+    document.getElementById("bestellungErrMessage").innerText= "Der Warenkorb muss min. 1 Produkt enthalten!";
+    const toastLiveExample = document.getElementById('BestellungErr');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+function BestellungCheckErr() {
+    document.getElementById("bestellungErrCheckMessage").innerText= "Bitte bestätigen Sie die Datenschutzbestimmung und die AGBs";
+    const toastLiveExample = document.getElementById('BestellungErrCheck');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
 
 
 
@@ -1258,9 +1270,11 @@ function bestellabschlussProdukteRender() {
         const datenschutz = document.querySelector("#Datenschutzcheck") as HTMLInputElement;
         getCart();
         if (shoppingCart.length === 0) {
-            alert("Warenkorb darf nicht leer sein");
+            BestellungErr();
         } else if( agb.checked && datenschutz.checked) {
             delAllCartItems();
+        }else{
+            BestellungCheckErr();
         }
     });
 }
