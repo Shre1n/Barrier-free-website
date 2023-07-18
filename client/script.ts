@@ -772,8 +772,8 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
             ${bestand > 0 ? `
-            <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
+            <button type="button" class="btn btn-primary bbuttoncard bag">
+              <i class="fas fa-shopping-bag bicon" id="${JsonContent[i].ID}"></i>
             </button>
              ` : ''}
           </div>
