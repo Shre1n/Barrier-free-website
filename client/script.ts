@@ -1,6 +1,4 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
-
-
 interface Bestellung {
     lieferadresse: {
         anrede: string;
@@ -328,6 +326,15 @@ function erfolgreichChange(){
     toast.show();
 }
 
+function erfolgreichWarenkorbStart(){
+    document.getElementById("warenkorbErfolgreichStart").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
+    const toastLiveExample = document.getElementById('warenkorbErfolgStart');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
+
 function erfolgreichRegister(){
     document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
     const toastLiveExample = document.getElementById('registerErfolg');
@@ -348,12 +355,7 @@ function warenkorbErfolgreich() {
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
-function keinWarenkorbDa() {
-    document.getElementById("warenkorbError").innerText= "Bitte melden Sie sich an, um etwas zum Warenkorb hinzuzufügen";
-    const toastLiveExample = document.getElementById('warenkorbErr');
-    const toast = new bootstrap.Toast(toastLiveExample);
-    toast.show();
-}
+
 function BestellungErr() {
     document.getElementById("bestellungErrMessage").innerText= "Der Warenkorb muss min. 1 Produkt enthalten!";
     const toastLiveExample = document.getElementById('BestellungErr');
@@ -743,18 +745,18 @@ function renderGamesVerteiler(productData){
                                     </h5>
                                 </div>
                                 </a>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                                <button type="button" class="btn btn-primary bbuttoncard bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon" ></i></button>
                             </div>
                         </div>
                 </div>
     `
 
-            const bags = document.querySelectorAll(".bag");
-            bags.forEach((button) => {
-                button.addEventListener("click", warenkorbErfolgreich);
-            })
-
+        const bags = document.querySelectorAll(".bag");
+        bags.forEach((button) => {
+            console.log("🧇");
+            button.addEventListener("click", warenkorbErfolgreich);
+        });
     }
 }
 
@@ -800,17 +802,25 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
             ${bestand > 0 ? `
-            <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
-            </button>
+            <button type="button" class="btn btn-primary bbuttoncard bag" data-product-id="${JsonContent[i].ID}" data-productName="${JsonContent[i].Produktname}" onclick="postCart('${JsonContent[i].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon" ></i></button>
              ` : ''}
           </div>
         </div>
       </div>
     `;
+
+
     }
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
+    const bags = document.querySelectorAll(".bag");
+    console.log("yeaaaahss")
+    bags.forEach((button) => {
+        console.log("🧇");
+        button.addEventListener("click", erfolgreichWarenkorbStart);
+    });
+
 }
 
 
@@ -1230,7 +1240,7 @@ function bestellabschlussProdukteRender() {
           <div class="col-4">
             <div class="row">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="cardpicp placeholdermerkliste img-fluid">
               </div>
             </div>
           </div>
@@ -1247,7 +1257,7 @@ function bestellabschlussProdukteRender() {
               </div>
               <div class="col-6 mb-1>
                 <label for="menge">Menge: </label>
-                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}" onkeydown="return false">
+                <input onKeyDown="return false" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
                 <span id="bestandErr"></span>
               </div>
               <div id="preis${i}" class="col-6 text-end">
@@ -1294,4 +1304,6 @@ function bestellabschlussProdukteRender() {
         }
     });
 }
+
+
 
