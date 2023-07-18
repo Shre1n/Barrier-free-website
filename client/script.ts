@@ -106,6 +106,15 @@ document.addEventListener("DOMContentLoaded",  () => {
             hideden.style.display="none";
 
         });
+
+        document.getElementById("lieferAdBtn").addEventListener("click", () => {
+            const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
+            toggleEditLieferadresse(true);
+            lieferUndRechnungsAdresseRendern();
+            hideden.style.display="block";
+        });
+
+
         document.getElementById("lieferAdBtnCancel").addEventListener("click", () => {
             const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
             toggleEditLieferadresse(true);
