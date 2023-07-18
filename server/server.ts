@@ -658,14 +658,13 @@ function validateUser(isPut, user) {
             .required(),
         hnr: Joi.string()
             .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an.")
             .min(1)
             .max(20)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
+            .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
             .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
-            .min(5)
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
@@ -717,9 +716,8 @@ function validateEditUser(isPut, user) {
             .min(1)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
+            .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
             .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
-            .min(5)
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
