@@ -772,9 +772,8 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
             ${bestand > 0 ? `
-            <button type="button" class="btn btn-primary bbuttoncard bag">
-              <i class="fas fa-shopping-bag bicon" id="${JsonContent[i].ID}"></i>
-            </button>
+            <button type="button" class="btn btn-primary bbuttoncard bag" data-product-id="${JsonContent[i].ID}" data-productName="${JsonContent[i].Produktname}" onclick="postCart('${JsonContent[i].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon" ></i></button>
              ` : ''}
           </div>
         </div>
