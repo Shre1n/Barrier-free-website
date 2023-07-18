@@ -90,83 +90,52 @@
      -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="col-1 borderCol"></div>
+            <div class="col-4">
                 <div class="row border border-secondary">
-                    <div class="col">
+                    <div class="col ms-3 colMinus">
                         <div class="row">
                             <div class="col borderCol font25">Lieferangaben</div>
                             <div class="col d-flex justify-content-end align-items-center">
                                 <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
                             </div>
                         </div>
-                        <div class="row">
-                        <!--<form type="submit" id="postLieferadresseForm">
-                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern
-                            </button>
-                            <a id="lieferAdBtnCancel" type=""
-                               class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</a>
-                               <select id="editLieferAnrede" class="mb-2 d-none bbutton text-center anredeDropdown"
-                                    required>
+                        <div class="row"></div>
+                        <form type="submit" id="postLieferadresseForm">
+                            <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
                                 <option value="Herr" class="anrede">Herr</option>
                                 <option value="Frau" class="anrede">Frau</option>
-                            </select>-->
-                            <div class="col-6 text-end">
-                                Anrede:
-                            </div>
-                            <div class="col-5 text-start">
+                            </select>
                             <input id="displayLieferAnrede" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                Vorname:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferVorname" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                Nachname:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferNachname" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                Straße:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferStraße" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                Hausnummer:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferHnr" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                PLZ:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferPLZ" class="row" disabled>
-                            </div>
-                            <div class="col-6 text-end">
-                                Ort:
-                            </div>
-                            <div class="col-5 text-start">
                             <input id="displayLieferOrt" class="row" disabled>
+                            <div class="row">
+                            <div class="col-6">
+                            <button id="lieferAdBtnCancel" type="button" class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</button>
                             </div>
-                        </div>
+                            <div class="col-6">
+                            <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
+                                </div>
+                            </div>
+                        </form>
                         <!-- attempt -->
                         <form id="displayRechnungsadresse" class="col d-none">
                             <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
                             <label for=displayRechnungAnrede></label>
-                            <select id="displayRechnungAnrede" class="bbutton text-center mb-2 anredeDropdown" required>
+                            <select id="displayRechnungAnrede" class="text-center mb-2" required>
                                 <option value="Herr" class="anrede">Herr</option>
                                 <option value="Frau" class="anrede">Frau</option>
                             </select>
-                            <input id="displayRechnungVorname" class="row mb-2">
-                            <input id="displayRechnungNachname" class="row mb-2">
-                            <input id="displayRechnungStraße" class="row mb-2">
-                            <input id="displayRechnungHnr" class="row mb-2">
-                            <input id="displayRechnungPLZ" class="row mb-2">
-                            <input id="displayRechnungOrt" class="row mb-2">
+                            <input id="displayRechnungVorname" class="row mb-2" placeholder="Vorname">
+                            <input id="displayRechnungNachname" class="row mb-2" placeholder="Nachname">
+                            <input id="displayRechnungStraße" class="row mb-2" placeholder="Straße">
+                            <input id="displayRechnungHnr" class="row mb-2" placeholder="Hausnummer">
+                            <input id="displayRechnungPLZ" class="row mb-2" placeholder="PLZ">
+                            <input id="displayRechnungOrt" class="row mb-2" placeholder="Ort">
                             <div class="row">
                             </div>
                         </form>
@@ -208,8 +177,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
                                 <label class="form-check-label font16" for="flexCheckDefault2">
-                                    Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert
-                                    habe.
+                                    Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert habe.
                                 </label>
                             </div>
                         </div>
@@ -224,124 +192,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-1"></div>
-            <div id="bestellabschlussProdukte" class="col-lg-6 col-md-12">
+            <div class="col-2"></div>
+            <div id="bestellabschlussProdukte" class="col-4">
+                <a id="bestellungAbschliessen"
+                   class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                    Bestellung abschließen
+                </a>
             </div>
-            <!--
-                  <div class="card mb-3 checkoutcard">
-                      <div class="row g-0">
-                          <div class="col-md-6">
-                              <img src="/img/placeholder.jpg" class="img-fluid rounded-start checkoutcardbild" alt="...">
-                          </div>
-                          <div class="col-md-6">
-                              <div class="card-body">
-                                  <div class="row">
-                                      <div class="col-10">
-                                          <h5 class="card-title">Tactile Towers</h5>
-                                      </div>
-                                      <div class="col-1">
-                                          <i class=" fas fa-solid fa-trash"></i>
-                                      </div>
-                                      <div class="col-1">
-                                      </div>
-                                  </div>
-                                  <p class="card-text">Tactile Towers ist ein Spiel,
-                                      bei dem unter Zeitdruck eine
-                                      Figur aus Einzelteilen richtig
-                                      gestapelt werden muss.
-                                      Trainiere deine taktile
-                                      Wahrnehmung und
-                                      Geschicklichkeit in diesem
-                                      spannenden Spiel!</p>
-                                  <div class="row">
-                                      <div class="col-8">
-                                          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                              <button type="button" class="btn btn-secondary bree20">1</button>
-                                              <div class="btn-group" role="group">
-                                                  <button id="btnGroupDrop2" type="button"
-                                                          class="btn btn-secondary dropdown-toggle bree20"
-                                                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                      Menge
-                                                  </button>
-                                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                      <a class="dropdown-item" href="#">1</a>
-                                                      <a class="dropdown-item" href="#">2</a>
-                                                      <a class="dropdown-item" href="#">3</a>
-                                                      <a class="dropdown-item" href="#">4</a>
-                                                      <a class="dropdown-item" href="#">5</a>
-                                                      <a class="dropdown-item" href="#">6</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-4 checkoutcradrechts">
-                                          79,99€
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="card mb-3 checkoutcard">
-                      <div class="row g-0">
-                          <div class="col-md-6">
-                              <img src="/img/placeholder.jpg" class="img-fluid rounded-start" alt="...">
-                          </div>
-                          <div class="col-md-6">
-                              <div class="card-body">
-                                  <div class="row">
-                                      <div class="col-10">
-                                          <h5 class="card-title">Tactile Towers</h5>
-                                      </div>
-                                      <div class="col-1">
-                                          <i class=" fas fa-solid fa-trash"></i>
-                                      </div>
-                                      <div class="col-1">
-                                      </div>
-                                  </div>
-                                  <p class="card-text">Tactile Towers ist ein Spiel,
-                                      bei dem unter Zeitdruck eine
-                                      Figur aus Einzelteilen richtig
-                                      gestapelt werden muss.
-                                      Trainiere deine taktile
-                                      Wahrnehmung und
-                                      Geschicklichkeit in diesem
-                                      spannenden Spiel!</p>
-                                  <div class="row">
-                                      <div class="col-8">
-                                          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                              <button type="button" class="btn btn-secondary bree20">1</button>
-                                              <div class="btn-group" role="group">
-                                                  <button id="btnGroupDrop1" type="button"
-                                                          class="btn btn-secondary dropdown-toggle bree20"
-                                                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                      Menge
-                                                  </button>
-                                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                      <a class="dropdown-item" href="#">1</a>
-                                                      <a class="dropdown-item" href="#">2</a>
-                                                      <a class="dropdown-item" href="#">3</a>
-                                                      <a class="dropdown-item" href="#">4</a>
-                                                      <a class="dropdown-item" href="#">5</a>
-                                                      <a class="dropdown-item" href="#">6</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-4 checkoutcradrechts">
-                                          79,99€
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="align-items-end">
-                      <p class="text-end gesamtpreis abstandtop"> 139,98€</p>
-                      <div class="row">
-                          <div class="col text-end">
-                          -->
-
         </div>
     </div>
 </div>
