@@ -326,6 +326,15 @@ function erfolgreichChange(){
     toast.show();
 }
 
+function erfolgreichWarenkorbStart(){
+    document.getElementById("warenkorbErfolgreichStart").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    const toastLiveExample = document.getElementById('warenkorbErfolgStart');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
+
 function erfolgreichRegister(){
     document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
     const toastLiveExample = document.getElementById('registerErfolg');
@@ -779,9 +788,18 @@ function startseiteRender(productData) {
         </div>
       </div>
     `;
+
+
     }
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
+    const bags = document.querySelectorAll(".bag");
+    console.log("yeaaaahss")
+    bags.forEach((button) => {
+        console.log("🧇");
+        button.addEventListener("click", erfolgreichWarenkorbStart);
+    });
+
 }
 
 
