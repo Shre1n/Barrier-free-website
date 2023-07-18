@@ -304,6 +304,10 @@ function addUser(event: Event): void {
 
         });
     } else {
+        document.getElementById('passwortErr').innerText = "Passwörter stimmen nicht überein";
+        const toastLiveExample = document.getElementById('liveToast');
+        const toast = new bootstrap.Toast(toastLiveExample)
+        toast.show();
         document.getElementById("registrierenError").innerText = "Passwörter stimmen nicht überein.";
     }
 }
@@ -327,6 +331,7 @@ function erfolgreichChange(){
 }
 
 function erfolgreichRegister(){
+
     document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
     const toastLiveExample = document.getElementById('registerErfolg');
     const toast = new bootstrap.Toast(toastLiveExample);
