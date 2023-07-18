@@ -1,4 +1,6 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
+
+
 interface Bestellung {
     lieferadresse: {
         anrede: string;
@@ -341,8 +343,14 @@ function erfolgreichEingeloggt() {
 }
 
 function warenkorbErfolgreich() {
-    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
     const toastLiveExample = document.getElementById('warenkorbErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+function keinWarenkorbDa() {
+    document.getElementById("warenkorbError").innerText= "Bitte melden Sie sich an, um etwas zum Warenkorb hinzuzufügen";
+    const toastLiveExample = document.getElementById('warenkorbErr');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
@@ -504,7 +512,8 @@ function signIn(event: Event): void {
     const logout = (document.querySelector("#abmelden") as HTMLElement);
     const profil = (document.querySelector("#profilseite") as HTMLElement);
     const registrieren = (document.querySelector("#registrieren") as HTMLElement);
-    const warenkorb = (document.querySelector("#warenkorb") as HTMLElement);
+    const warenkorb = (document.querySelector("#warenkorbiconheader") as HTMLElement);
+
 
     axios.post("/signin", {
         email: email,
@@ -513,9 +522,10 @@ function signIn(event: Event): void {
         erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
-        profil.style.display = "inline-block";
         warenkorb.style.display="inline-block";
+        profil.style.display = "inline-block";
         registrieren.style.display = "none";
+
         form.reset();
         document.getElementById("loginError").innerText = "";
         checkLogin();
@@ -588,6 +598,9 @@ async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const profil = document.querySelector("#profilseite") as HTMLElement;
+    const warenkorb = (document.querySelector("#warenkorbiconheader") as HTMLElement);
+
+
     try {
         const response = await fetch("/login",
             {
@@ -599,11 +612,12 @@ async function checkLogin() {
             const rolle = data.rolle;
             await getCart();
             abmelden.classList.remove("d-none");
+            warenkorb.classList.remove("d-none");
             registrieren.style.display="none";
             profil.style.display="inline-block";
         } else {
             abmelden.classList.add("d-none");
-
+            warenkorb.classList.add("d-none");
         }
     } catch (e) {
 
@@ -736,11 +750,11 @@ function renderGamesVerteiler(productData){
                 </div>
     `
 
-        const bags = document.querySelectorAll(".bag");
-        bags.forEach((button) => {
-            console.log("🧇");
-            button.addEventListener("click", warenkorbErfolgreich);
-        });
+            const bags = document.querySelectorAll(".bag");
+            bags.forEach((button) => {
+                button.addEventListener("click", warenkorbErfolgreich);
+            })
+
     }
 }
 
