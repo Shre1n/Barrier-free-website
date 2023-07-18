@@ -715,8 +715,8 @@ function renderGamesVerteiler(productData){
                                     </h5>
                                 </div>
                                 </a>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                                <button type="button" class="btn btn-primary bbuttoncard" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon bag" ></i></button>
                             </div>
                         </div>
                 </div>
