@@ -1206,7 +1206,7 @@ async function createBestellung() {
         if (response.status == 400) {
             alert(data.message);
         } else {
-            window.location.href = "DankefürBestellung.html";
+            window.location.href = "Bestellung.html";
         }
 
     } catch (e) {
