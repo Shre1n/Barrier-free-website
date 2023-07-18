@@ -113,7 +113,7 @@
                         <input id="displayLieferPLZ" class="row" disabled>
                         <input id="displayLieferOrt" class="row" disabled>
                         <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
-                        <a id="lieferAdBtnCancel" type="" class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</a>
+                        <a id="lieferAdBtnCancel" type="" class="btn-secondary mt-2 ms-1 d-none cancelButton">Abbrechen</a>
                     </form>
                     <!-- attempt -->
                     <form id="displayRechnungsadresse" class="col d-none">
@@ -123,12 +123,12 @@
                             <option value="Herr" class="anrede">Herr</option>
                             <option value="Frau" class="anrede">Frau</option>
                         </select>
-                        <input id="displayRechnungVorname" class="row mb-2">
-                        <input id="displayRechnungNachname" class="row mb-2">
-                        <input id="displayRechnungStraße" class="row mb-2">
-                        <input id="displayRechnungHnr" class="row mb-2">
-                        <input id="displayRechnungPLZ" class="row mb-2">
-                        <input id="displayRechnungOrt" class="row mb-2">
+                        <input id="displayRechnungVorname" class="row mb-2" value="Vorname">
+                        <input id="displayRechnungNachname" class="row mb-2" value="Nachname">
+                        <input id="displayRechnungStraße" class="row mb-2" value="Straße">
+                        <input id="displayRechnungHnr" class="row mb-2" value="Hausnummer">
+                        <input id="displayRechnungPLZ" class="row mb-2" value="Postleitzahl">
+                        <input id="displayRechnungOrt" class="row mb-2" value="Ort">
                         <div class="row">
                         </div>
                     </form>
@@ -307,6 +307,9 @@
             </a>
         </div>
         </div>
+    <div class="row mt-1 mb-1">
+        <div class="col"></div>
+    </div>
 </div>
 
 <div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
