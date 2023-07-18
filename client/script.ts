@@ -230,17 +230,17 @@ function addUser(event: Event): void {
 
 
     //Attribute von User
-    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value;
-    const email: String = (document.getElementById("email") as HTMLInputElement).value;
-    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("ort") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
-    const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
+    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value.trim();
+    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value.trim();
+    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value.trim();
+    const email: String = (document.getElementById("email") as HTMLInputElement).value.trim();
+    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value.trim();
+    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value.trim();
+    const ort: String = (document.getElementById("ort") as HTMLInputElement).value.trim();
+    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value.trim();
+    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value.trim();
+    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value.trim();
+    const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value.trim();
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
 
     if (checkbox.checked && passwort === passwortcheck) {
@@ -404,15 +404,15 @@ function editUser(event: Event): void {
     ortErr.innerText = "";
     editCheck.innerText = "";
 
-    const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value;
-    const email: String = (document.getElementById("displayemailEdit") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("displaytelefonnummerEdit") as HTMLInputElement).value;
+    const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value.trim();
+    const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value.trim();
+    const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value.trim();
+    const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value.trim();
+    const email: String = (document.getElementById("displayemailEdit") as HTMLInputElement).value.trim();
+    const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value.trim();
+    const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value.trim();
+    const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value.trim();
+    const telefonnummer: String = (document.getElementById("displaytelefonnummerEdit") as HTMLInputElement).value.trim();
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -499,8 +499,8 @@ function signIn(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
-    const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
-    const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
+    const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value.trim();
+    const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value.trim();
     const logout = (document.querySelector("#abmelden") as HTMLElement);
     const profil = (document.querySelector("#profilseite") as HTMLElement);
     const registrieren = (document.querySelector("#registrieren") as HTMLElement);
@@ -1040,13 +1040,13 @@ async function updateRechnungsadresse() {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({
-                    anrede: anredeElement.value,
-                    vorname: vornameElement.value,
-                    nachname: nachnameElement.value,
-                    postleitzahl: plzElement.value,
-                    ort: ortElement.value,
-                    strasse: strasseElement.value,
-                    hnr: hnrElement.value
+                    anrede: anredeElement.value.trim(),
+                    vorname: vornameElement.value.trim(),
+                    nachname: nachnameElement.value.trim(),
+                    postleitzahl: plzElement.value.trim(),
+                    ort: ortElement.value.trim(),
+                    strasse: strasseElement.value.trim(),
+                    hnr: hnrElement.value.trim()
                 })
             });
 
@@ -1110,13 +1110,13 @@ async function updateLieferAdresse(e: Event) {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({
-                    anrede: anredeElement.value,
-                    vorname: vornameElement.value,
-                    nachname: nachnameElement.value,
-                    postleitzahl: plzElement.value,
-                    ort: ortElement.value,
-                    strasse: strasseElement.value,
-                    hnr: hnrElement.value
+                    anrede: anredeElement.value.trim(),
+                    vorname: vornameElement.value.trim(),
+                    nachname: nachnameElement.value.trim(),
+                    postleitzahl: plzElement.value.trim(),
+                    ort: ortElement.value.trim(),
+                    strasse: strasseElement.value.trim(),
+                    hnr: hnrElement.value.trim()
                 })
             });
         if (response.status == 400 || response.status == 403) {
