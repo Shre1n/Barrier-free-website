@@ -749,17 +749,17 @@ function warenkorbRender() {
         <div class="row border border-dark rounded">
           <div class="col-4">
             <div class="row mt-3">
-              <div class="col">
+              <div class="col d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block">
                 <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
               </div>
             </div>
           </div>
-          <div class="col-8 mb-3">
+          <div class="col-lg-8 mb-3 col-md-12">
             <div class="row imgHöhe">
               <div class="col-10 mb-4">
                 <span class="bree20G">${produkt.produktName}</span>
               </div>
-              <div class="col-2 mb-4">
+              <div class="col-2 mb-4 text-end">
                 <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
               </div>
               <div class="col-10 mb-4">
