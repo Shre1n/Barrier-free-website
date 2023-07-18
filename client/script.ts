@@ -102,7 +102,8 @@ document.addEventListener("DOMContentLoaded",  () => {
         //enable input
         document.getElementById("editLieferadresseBtn").addEventListener("click", () => {
            const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
-            toggleEditLieferadresse(false)
+
+            toggleEditLieferadresse(false);
             hideden.style.display="none";
 
         });
@@ -1155,6 +1156,7 @@ async function updateRechnungsadresse() {
 
 
 function toggleEditLieferadresse(toggle: boolean) {
+    const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
     const anredeDisplayElement = document.getElementById('displayLieferAnrede') as HTMLInputElement;
     const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
@@ -1176,17 +1178,21 @@ function toggleEditLieferadresse(toggle: boolean) {
         button2.classList.add("d-none");
         anredeElement.classList.add("d-none");
         anredeDisplayElement.classList.remove("d-none");
+        hideden.style.display="block";
     } else {
         button.classList.remove("d-none");
         button2.classList.remove("d-none");
         anredeElement.classList.remove("d-none");
         anredeDisplayElement.classList.add("d-none");
+        hideden.style.display="none";
     }
 }
 
 
 async function updateLieferAdresse(e: Event) {
     e.preventDefault();
+    const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
+
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
     const vornameElement = document.getElementById('displayLieferVorname') as HTMLInputElement;
     const nachnameElement = document.getElementById('displayLieferNachname') as HTMLInputElement;
@@ -1231,9 +1237,10 @@ async function updateLieferAdresse(e: Event) {
         if (response.status == 400 || response.status == 403) {
             const data = await response.json();
             getErrorMessage(data);
-           // alert(data.message);
+            hideden.style.display= "none";
         } else {
             toggleEditLieferadresse(true);
+            hideden.style.display="block";
         }
     } catch (e) {
         console.log(e)
