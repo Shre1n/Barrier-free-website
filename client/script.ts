@@ -157,6 +157,50 @@ document.addEventListener("DOMContentLoaded",  () => {
 
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+    const previousPageLink = document.getElementById('previousPageLink') as HTMLAnchorElement;
+    const currentPageLink = document.getElementById('currentPageLink') as HTMLAnchorElement;
+
+    const referrer = document.referrer;
+    const currentURL = window.location.href;
+
+    if (referrer) {
+        previousPageLink.textContent = getPreviousPageName(referrer);
+        previousPageLink.href = referrer;
+    } else {
+        previousPageLink.style.display = 'none'; // Verstecke den Link, wenn keine vorherige Seite vorhanden ist
+    }
+
+    currentPageLink.textContent = getCurrentPageName(currentURL);
+    currentPageLink.href = currentURL;
+});
+
+function getPreviousPageName(url: string): string {
+    const parser = document.createElement('a');
+    parser.href = url;
+    const pathname = parser.pathname; // Pfadname der vorherigen Seite inklusive .html
+    const pageName = pathname.split('/').pop(); // Letztes Element des Pfadnamens (inklusive .html)
+
+    if (pageName) {
+        return pageName.replace('.html', ''); // Entferne das .html aus dem Namen
+    }
+
+    return ''; // Rückgabe eines leeren Strings, wenn kein Seitenname vorhanden ist
+}
+
+function getCurrentPageName(url: string): string {
+    const parser = document.createElement('a');
+    parser.href = url;
+    const pathname = parser.pathname; // Pfadname der aktuellen Seite inklusive .html
+    const pageName = pathname.split('/').pop(); // Letztes Element des Pfadnamens (inklusive .html)
+
+    if (pageName) {
+        return pageName.replace('.html', ''); // Entferne das .html aus dem Namen
+    }
+
+    return ''; // Rückgabe eines leeren Strings, wenn kein Seitenname vorhanden ist
+}
+
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;

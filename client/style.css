@@ -530,3 +530,10 @@ body {
     color: white; !important;
 }
 
+#currentPageLink {
+    text-transform: capitalize;
+}
+
+#previousPageLink {
+    text-transform: capitalize;
+}
