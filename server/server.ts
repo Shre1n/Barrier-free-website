@@ -5,7 +5,7 @@ import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
 import * as cluster from "cluster";
-import {string} from "joi";
+import {func, string} from "joi";
 
 //Install Displayable Chart option
 
@@ -693,6 +693,65 @@ function validateEditUser(isPut, user) {
             .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
             .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
+            .required(),
+        postleitzahl: Joi.string()
+            .pattern(/^[0-9]{1,5}$/)
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
+            .min(1)
+            .max(5)
+            .required(),
+        ort: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        strasse: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        hnr: Joi.string()
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
+            .min(1)
+            .max(20)
+            .required(),
+        telefonnummer: Joi.string()
+            .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
+            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
+            .required(),
+        newsletter: Joi.string()
+            .pattern(/^(Ja|Nein)$/)
+    });
+
+    return schemaPost.validate(user);
+}
+
+function validateRechnung(isPut, user) {
+    const schemaPost = Joi.object({
+        anrede: Joi.string()
+            .pattern(/^(Herr|Frau)$/)
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
+            .required(),
+        vorname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .min(2)
+            .required(),
+        nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .min(2)
+            .required(),
+        email: Joi.string()
+            // Email pattern Sonderzeichen sind NOCH erlaubt
+            .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
+            .min(2)
+            .required(),
+        passwort: Joi.string()
+            .pattern(/.{3,}/)
+            .message("Passwort muss größer als 3 Zeichen sein.")
             .required(),
         postleitzahl: Joi.string()
             .pattern(/^[0-9]{1,5}$/)
