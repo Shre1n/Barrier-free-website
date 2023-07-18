@@ -1219,7 +1219,7 @@ function bestellabschlussProdukteRender() {
           <div class="col-4">
             <div class="row">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="cardpicp placeholdermerkliste img-fluid">
               </div>
             </div>
           </div>
