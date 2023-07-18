@@ -784,7 +784,7 @@ function putLieferadresse(req: express.Request, res: express.Response) {
         const {error} = validateAdress(lieferadresse);
 
         if (error) {
-            res.status(403).json({message: error.details[0].message});
+            res.status(403).json(error.details[0].message);
             console.log(error.details[0].message);
         } else {
             req.session.lieferadresse = lieferadresse;

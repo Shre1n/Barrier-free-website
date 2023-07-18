@@ -1,4 +1,5 @@
 //import axios, {AxiosError, AxiosResponse} from "axios;
+
 interface Bestellung {
     lieferadresse: {
         anrede: string;
@@ -315,7 +316,7 @@ function addUser(event: Event): void {
     }
 }
 
-function getErrorMessage(data) {
+function getErrorMessage(data){
     const firstSpace = data.indexOf(" ");
     const firstword = data.substring(0, firstSpace);
     const caselower = firstword.toLowerCase();
@@ -374,6 +375,13 @@ function BestellungErr() {
 function BestellungCheckErr() {
     document.getElementById("bestellungErrCheckMessage").innerText= "Bitte bestätigen Sie die Datenschutzbestimmung und die AGBs";
     const toastLiveExample = document.getElementById('BestellungErrCheck');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function lieferCheckErr() {
+    document.getElementById("lieferErrMessage").innerText= "Felder dürfen nicht leer sein!";
+    const toastLiveExample = document.getElementById('lieferErr');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
@@ -1028,14 +1036,15 @@ async function lieferUndRechnungsAdresseRendern() {
     const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
     const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
 
+
+
+
     try {
         const response = await fetch("/bestellung",
             {
                 method: "GET"
             });
         const res: Bestellung = await response.json();
-        console.log("GetBestellung!!!!!!!");
-        console.log(res);
         const lieferadresse = res.lieferadresse;
 
         if (response.status == 200) {
@@ -1049,8 +1058,6 @@ async function lieferUndRechnungsAdresseRendern() {
             hnrElement.value = lieferadresse.hnr;
 
             checkLogin();
-        } else {
-
         }
     } catch (e) {
         console.log(e)
@@ -1061,13 +1068,51 @@ async function lieferUndRechnungsAdresseRendern() {
 
 // Attempt
 async function updateRechnungsadresse() {
-    const anredeElement = document.getElementById('displayRechnungAnrede') as HTMLSelectElement;
-    const vornameElement = document.getElementById('displayRechnungVorname') as HTMLInputElement;
-    const nachnameElement = document.getElementById('displayRechnungNachname') as HTMLInputElement;
-    const plzElement = document.getElementById('displayRechnungPLZ') as HTMLInputElement;
-    const ortElement = document.getElementById('displayRechnungOrt') as HTMLInputElement;
-    const strasseElement = document.getElementById('displayRechnungStraße') as HTMLInputElement;
-    const hnrElement = document.getElementById('displayRechnungHnr') as HTMLInputElement;
+
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
+
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+
+    const anredeElement = (document.getElementById('displayRechnungAnrede') as HTMLSelectElement).value.trim();
+    const vornameElement = (document.getElementById('displayRechnungVorname') as HTMLInputElement).value.trim();
+    const nachnameElement = (document.getElementById('displayRechnungNachname') as HTMLInputElement).value.trim();
+    const plzElement = (document.getElementById('displayRechnungPLZ') as HTMLInputElement).value.trim();
+    const ortElement = (document.getElementById('displayRechnungOrt') as HTMLInputElement).value.trim();
+    const strasseElement = (document.getElementById('displayRechnungStraße') as HTMLInputElement).value.trim();
+    const hnrElement = (document.getElementById('displayRechnungHnr') as HTMLInputElement).value.trim();
+
+    if (vornameElement === "") {
+        vornameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (nachnameElement === "") {
+        nachnameErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (plzElement === "") {
+        postleitzahlErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (ortElement === "") {
+        ortErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (strasseElement === "") {
+        strasseErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+    if (hnrElement === "") {
+        hausnummerErr.innerText = "Dieses Feld darf nicht leer sein!";
+    }
+
     try {
         const response = await fetch("/rechnungsadresse",
             {
@@ -1139,6 +1184,22 @@ async function updateLieferAdresse(e: Event) {
     const strasseElement = document.getElementById('displayLieferStraße') as HTMLInputElement;
     const hnrElement = document.getElementById('displayLieferHnr') as HTMLInputElement;
 
+    const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
+    const vornameErr = document.querySelector("#vornameErr") as HTMLElement;
+    const nachnameErr = document.querySelector("#nachnameErr") as HTMLElement;
+    const strasseErr = document.querySelector("#strasseErr") as HTMLElement;
+    const hausnummerErr = document.querySelector("#hausnummerErr") as HTMLElement;
+    const postleitzahlErr = document.querySelector("#postleitzahlErr") as HTMLElement;
+    const ortErr = document.querySelector("#ortErr") as HTMLElement;
+
+    anredeErr.innerText = "";
+    vornameErr.innerText = "";
+    nachnameErr.innerText = "";
+    strasseErr.innerText = "";
+    hausnummerErr.innerText = "";
+    postleitzahlErr.innerText = "";
+    ortErr.innerText = "";
+
     try {
         const response = await fetch("/lieferadresse",
             {
@@ -1158,12 +1219,11 @@ async function updateLieferAdresse(e: Event) {
             });
         if (response.status == 400 || response.status == 403) {
             const data = await response.json();
-            alert(data.message)
+            getErrorMessage(data);
+           // alert(data.message);
         } else {
             toggleEditLieferadresse(true);
-
         }
-
     } catch (e) {
         console.log(e)
     }
@@ -1305,12 +1365,21 @@ function bestellabschlussProdukteRender() {
     document.querySelector("#bestellungAbschliessen").addEventListener("click", function() {
         const agb = document.querySelector("#AGBcheck") as HTMLInputElement;
         const datenschutz = document.querySelector("#Datenschutzcheck") as HTMLInputElement;
+        const anredeElement = (document.getElementById('editLieferAnrede') as HTMLSelectElement).value.trim();
+        const vornameElement = (document.getElementById('displayLieferVorname') as HTMLInputElement).value.trim();
+        const nachnameElement = (document.getElementById('displayLieferNachname') as HTMLInputElement).value.trim();
+        const plzElement = (document.getElementById('displayLieferPLZ') as HTMLInputElement).value.trim();
+        const ortElement = (document.getElementById('displayLieferOrt') as HTMLInputElement).value.trim();
+        const strasseElement = (document.getElementById('displayLieferStraße') as HTMLInputElement).value.trim();
+        const hnrElement = (document.getElementById('displayLieferHnr') as HTMLInputElement).value.trim();
         getCart();
         if (shoppingCart.length === 0) {
             BestellungErr();
-        } else if( agb.checked && datenschutz.checked) {
+        }else if (anredeElement === "" || vornameElement === "" || nachnameElement === "" || plzElement === "" || ortElement === "" || strasseElement === "" || hnrElement === ""){
+            lieferCheckErr();
+        } else if(agb.checked && datenschutz.checked) {
             delAllCartItems();
-        }else{
+        } else {
             BestellungCheckErr();
         }
     });
