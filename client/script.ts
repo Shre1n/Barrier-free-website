@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded",  () => {
 
 
     } catch (e) {
-        console.log(e)
+
     }
 
 
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded",  () => {
 
         })
     } catch (e) {
-        console.log(e)
+
     }
 
     document.getElementById("modalForm").addEventListener("submit", addUser);
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded",  () => {
         // Nur auf Profilseite oder ganz UNTEN!
         deletecheck.addEventListener("click", delUser);
     } catch (e) {
-        console.log(e)
+
     }
 
 
@@ -270,8 +270,7 @@ function addUser(event: Event): void {
             if (reason.response.status == 400) {
                 document.getElementById("registrierenError").innerText = "Diese Email ist bereits vergeben.";
             }
-            //Error Ausgabe in Console
-            console.log(reason);
+
         });
     } else if (passwort === passwortcheck) {
 //routen aufruf welcher an den Server uebermittelt wird
@@ -683,10 +682,10 @@ function getProduct2(){
         if (productData.Bestand === ""){
             document.getElementById("bestandErr").innerHTML = "Produkt nicht mehr Verfügbar!";
         }
-        console.log(productData);
+
         startseiteRender(productData);
         renderGamesVerteiler(productData);
-        console.log(res);
+
     });
     checkLogin();
 }
@@ -697,7 +696,7 @@ function delAllCartItems() {
     }).then((res) => {
         window.location.href = "DankefürBestellung.html";
     }).catch((e) => {
-        console.log(e);
+
     });
 }
 
@@ -761,10 +760,10 @@ function renderGamesVerteiler(productData){
 
 function startseiteRender(productData) {
     checkLogin();
-    console.log(productData);
+
     const startseiteRender = document.querySelector("#startseiteRender") as HTMLDivElement;
     const JsonContent = productData;
-    console.log(JsonContent);
+
 
     let htmlContent = "";
 
@@ -969,7 +968,7 @@ async function getCart(){
         warenkorbRender();
         bestellabschlussProdukteRender();
     }).catch((e)=>{
-        console.log(e);
+
     });
 
 
@@ -1019,7 +1018,7 @@ async function lieferUndRechnungsAdresseRendern() {
                 method: "GET"
             });
         const res: Bestellung = await response.json();
-        console.log(res);
+
         const lieferadresse = res.lieferadresse;
 
         if (response.status == 200) {
@@ -1037,7 +1036,7 @@ async function lieferUndRechnungsAdresseRendern() {
 
         }
     } catch (e) {
-        console.log(e)
+
     }
 
 
@@ -1075,7 +1074,7 @@ async function updateRechnungsadresse() {
             alert(data.message)
         }
     } catch (e) {
-        console.log(e)
+
     }
     checkLogin();
 }
@@ -1148,7 +1147,7 @@ async function updateLieferAdresse(e: Event) {
         }
 
     } catch (e) {
-        console.log(e)
+
     }
     checkLogin();
     lieferUndRechnungsAdresseRendern()
@@ -1187,7 +1186,7 @@ async function createBestellung() {
             await updateRechnungsadresse()
 
         } catch (e) {
-            console.log(e)
+
         }
     }
 
@@ -1202,7 +1201,7 @@ async function createBestellung() {
             })
         });
         const data = await response.json();
-        console.log(data);
+
         await getCart();
         if (response.status == 400) {
             alert(data.message);
@@ -1211,7 +1210,7 @@ async function createBestellung() {
         }
 
     } catch (e) {
-        console.log(e)
+
     }
 }
 
