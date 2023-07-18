@@ -632,8 +632,8 @@ function validateUser(isPut, user) {
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
-            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
+            .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
         passwort: Joi.string()
@@ -657,8 +657,8 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
-            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an.")
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
             .min(1)
             .max(20)
             .required(),
@@ -690,8 +690,8 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         email: Joi.string()
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test.")
+            .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
@@ -711,9 +711,10 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
             .min(1)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
