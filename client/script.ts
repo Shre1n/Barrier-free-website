@@ -172,7 +172,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     currentPageLink.textContent = getCurrentPageName(currentURL);
-    currentPageLink.href = currentURL;
 });
 
 function getPreviousPageName(url: string): string {
