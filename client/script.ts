@@ -828,7 +828,7 @@ function warenkorbRender() {
               <div class="col-2 mb-4"></div>
               <div class="col-6">
                 <label for="menge">Menge: </label>
-                <input id="mengeInput${i}" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                <input id="mengeInput${i}" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}" onkeydown="return false">
               </div>
               <div id="preis${i}" class="col-6 text-end">
                 <span>${subtotal.toFixed(2)} €</span>
@@ -949,11 +949,6 @@ async function putCart(produktName,menge, method)  {
         method: method
     }).then(async (response) => {
         await getCart();
-        if (response.status === 403){
-            for (let i = 0; i < shoppingCart.length; i++) {
-                document.getElementById("mengenInput" + `${i}`).innerText = "1";
-            }
-        }
     });
 }
 

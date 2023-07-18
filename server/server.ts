@@ -456,6 +456,7 @@ function putCart(req: express.Request, res: express.Response): void {
                 if (produktMethod == "change") {
                     if (produktMenge < 1 || produktMenge > result[0].bestand) {
                         res.status(403).send("Menge ist negativ oder überschreitet den Bestand.");
+                        return;
                     } else {
                         query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
                             .then(() => {
