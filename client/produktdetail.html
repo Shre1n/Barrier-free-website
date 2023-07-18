@@ -9,6 +9,7 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
+    <link rel="icon" type="image/png" href="/img/logo.png">
     <!-- Change title in DOM .title = productName -->
     <title></title>
 </head>
@@ -54,9 +55,10 @@
                     </div>
                     <i id="registrieren" class="far fa-user headericon iconborder" type="button"></i>
                 </div>
-                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
-                     data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
-                    <i class="fas fa-shopping-bag headericon iconborder"></i>
+                <div class="col-lg-3 col-sm-12">
+                    <div id="warenkorb" type="button">
+                        <i class="fas fa-shopping-bag headericon iconborder d-none" id="warenkorbiconheader" type="button"></i>
+                    </div>
                 </div>
             </div>
         </div>

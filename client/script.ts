@@ -230,17 +230,17 @@ function addUser(event: Event): void {
 
 
     //Attribute von User
-    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value;
-    const email: String = (document.getElementById("email") as HTMLInputElement).value;
-    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("ort") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value;
-    const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value;
+    const anrede: String = (document.getElementById("anrede") as HTMLInputElement).value.trim();
+    const vorname: String = (document.getElementById("vorname") as HTMLInputElement).value.trim();
+    const nachname: String = (document.getElementById("nachname") as HTMLInputElement).value.trim();
+    const email: String = (document.getElementById("email") as HTMLInputElement).value.trim();
+    const passwort: String = (document.getElementById("passwort") as HTMLInputElement).value.trim();
+    const postleitzahl: String = (document.getElementById("postleitzahl") as HTMLInputElement).value.trim();
+    const ort: String = (document.getElementById("ort") as HTMLInputElement).value.trim();
+    const strasse: String = (document.getElementById("strasse") as HTMLInputElement).value.trim();
+    const hnr: String = (document.getElementById("hausnummer") as HTMLInputElement).value.trim();
+    const telefonnummer: String = (document.getElementById("telefonnummer") as HTMLInputElement).value.trim();
+    const passwortcheck: String = (document.querySelector("#passwortcheck") as HTMLInputElement).value.trim();
     const checkbox = document.querySelector("#checkNewsletter") as HTMLInputElement;
 
     if (checkbox.checked && passwort === passwortcheck) {
@@ -330,6 +330,15 @@ function erfolgreichChange(){
     toast.show();
 }
 
+function erfolgreichWarenkorbStart(){
+    document.getElementById("warenkorbErfolgreichStart").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
+    const toastLiveExample = document.getElementById('warenkorbErfolgStart');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+
+
 function erfolgreichRegister(){
 
     document.getElementById("erfolgreich").innerText= "Sie sind jetzt registriert!";
@@ -346,8 +355,21 @@ function erfolgreichEingeloggt() {
 }
 
 function warenkorbErfolgreich() {
-    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt!";
+    document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
     const toastLiveExample = document.getElementById('warenkorbErfolg');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+
+function BestellungErr() {
+    document.getElementById("bestellungErrMessage").innerText= "Der Warenkorb muss min. 1 Produkt enthalten!";
+    const toastLiveExample = document.getElementById('BestellungErr');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+}
+function BestellungCheckErr() {
+    document.getElementById("bestellungErrCheckMessage").innerText= "Bitte bestätigen Sie die Datenschutzbestimmung und die AGBs";
+    const toastLiveExample = document.getElementById('BestellungErrCheck');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
@@ -397,15 +419,15 @@ function editUser(event: Event): void {
     ortErr.innerText = "";
     editCheck.innerText = "";
 
-    const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value;
-    const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value;
-    const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value;
-    const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value;
-    const email: String = (document.getElementById("displayemailEdit") as HTMLInputElement).value;
-    const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value;
-    const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value;
-    const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value;
-    const telefonnummer: String = (document.getElementById("displaytelefonnummerEdit") as HTMLInputElement).value;
+    const anrede: String = (document.getElementById("anredeNeu") as HTMLInputElement).value.trim();
+    const vorname: String = (document.getElementById("displayvornameEdit") as HTMLInputElement).value.trim();
+    const nachname: String = (document.getElementById("displaynachnameEdit") as HTMLInputElement).value.trim();
+    const postleitzahl: String = (document.getElementById("displayPLZEdit") as HTMLInputElement).value.trim();
+    const email: String = (document.getElementById("displayemailEdit") as HTMLInputElement).value.trim();
+    const ort: String = (document.getElementById("displayortEdit") as HTMLInputElement).value.trim();
+    const strasse: String = (document.getElementById("displaystrasseEdit") as HTMLInputElement).value.trim();
+    const hnr: String = (document.getElementById("displayhausnummerEdit") as HTMLInputElement).value.trim();
+    const telefonnummer: String = (document.getElementById("displaytelefonnummerEdit") as HTMLInputElement).value.trim();
     const checkbox = document.querySelector("#checkNewsletterNeu") as HTMLInputElement;
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -492,11 +514,13 @@ function signIn(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
 
-    const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value;
-    const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value;
+    const email: string = (document.getElementById("emaillogin") as HTMLInputElement).value.trim();
+    const passwort: string = (document.getElementById("passwortlogin") as HTMLInputElement).value.trim();
     const logout = (document.querySelector("#abmelden") as HTMLElement);
     const profil = (document.querySelector("#profilseite") as HTMLElement);
     const registrieren = (document.querySelector("#registrieren") as HTMLElement);
+    const warenkorb = (document.querySelector("#warenkorbiconheader") as HTMLElement);
+
 
     axios.post("/signin", {
         email: email,
@@ -505,8 +529,10 @@ function signIn(event: Event): void {
         erfolgreichEingeloggt();
         modalFensterUserLogin.hide();
         logout.style.display = "inline-block";
+        warenkorb.style.display="inline-block";
         profil.style.display = "inline-block";
         registrieren.style.display = "none";
+
         form.reset();
         document.getElementById("loginError").innerText = "";
         checkLogin();
@@ -579,6 +605,9 @@ async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
     const registrieren = document.querySelector("#registrieren") as HTMLElement;
     const profil = document.querySelector("#profilseite") as HTMLElement;
+    const warenkorb = (document.querySelector("#warenkorbiconheader") as HTMLElement);
+
+
     try {
         const response = await fetch("/login",
             {
@@ -590,11 +619,12 @@ async function checkLogin() {
             const rolle = data.rolle;
             await getCart();
             abmelden.classList.remove("d-none");
+            warenkorb.classList.remove("d-none");
             registrieren.style.display="none";
             profil.style.display="inline-block";
         } else {
             abmelden.classList.add("d-none");
-
+            warenkorb.classList.add("d-none");
         }
     } catch (e) {
 
@@ -720,8 +750,8 @@ function renderGamesVerteiler(productData){
                                     </h5>
                                 </div>
                                 </a>
-                                <button type="button" class="btn btn-primary bbuttoncard"><i
-                                        class="fas fa-shopping-bag bicon bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"></i></button>
+                                <button type="button" class="btn btn-primary bbuttoncard bag" data-product-id="${JsonContent[p].ID}" data-productName="${JsonContent[p].Produktname}" onclick="postCart('${JsonContent[p].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon" ></i></button>
                             </div>
                         </div>
                 </div>
@@ -777,17 +807,25 @@ function startseiteRender(productData) {
               <h5 class="card-title font40 cardfont">${JsonContent[i].Produktname}<br/>${priceText}</h5>
             </div>
             ${bestand > 0 ? `
-            <button type="button" class="btn btn-primary bbuttoncard">
-              <i class="fas fa-shopping-bag bicon bag" id="${JsonContent[i].ID}"></i>
-            </button>
+            <button type="button" class="btn btn-primary bbuttoncard bag" data-product-id="${JsonContent[i].ID}" data-productName="${JsonContent[i].Produktname}" onclick="postCart('${JsonContent[i].Produktname.trim()}', 1, 'add')"><i
+                                        class="fas fa-shopping-bag bicon" ></i></button>
              ` : ''}
           </div>
         </div>
       </div>
     `;
+
+
     }
     checkLogin();
     startseiteRender.innerHTML = htmlContent;
+    const bags = document.querySelectorAll(".bag");
+    console.log("yeaaaahss")
+    bags.forEach((button) => {
+        console.log("🧇");
+        button.addEventListener("click", erfolgreichWarenkorbStart);
+    });
+
 }
 
 
@@ -1033,13 +1071,13 @@ async function updateRechnungsadresse() {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({
-                    anrede: anredeElement.value,
-                    vorname: vornameElement.value,
-                    nachname: nachnameElement.value,
-                    postleitzahl: plzElement.value,
-                    ort: ortElement.value,
-                    strasse: strasseElement.value,
-                    hnr: hnrElement.value
+                    anrede: anredeElement.value.trim(),
+                    vorname: vornameElement.value.trim(),
+                    nachname: nachnameElement.value.trim(),
+                    postleitzahl: plzElement.value.trim(),
+                    ort: ortElement.value.trim(),
+                    strasse: strasseElement.value.trim(),
+                    hnr: hnrElement.value.trim()
                 })
             });
 
@@ -1103,13 +1141,13 @@ async function updateLieferAdresse(e: Event) {
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify({
-                    anrede: anredeElement.value,
-                    vorname: vornameElement.value,
-                    nachname: nachnameElement.value,
-                    postleitzahl: plzElement.value,
-                    ort: ortElement.value,
-                    strasse: strasseElement.value,
-                    hnr: hnrElement.value
+                    anrede: anredeElement.value.trim(),
+                    vorname: vornameElement.value.trim(),
+                    nachname: nachnameElement.value.trim(),
+                    postleitzahl: plzElement.value.trim(),
+                    ort: ortElement.value.trim(),
+                    strasse: strasseElement.value.trim(),
+                    hnr: hnrElement.value.trim()
                 })
             });
         if (response.status == 400 || response.status == 403) {
@@ -1207,7 +1245,7 @@ function bestellabschlussProdukteRender() {
           <div class="col-4">
             <div class="row">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="cardpicp placeholdermerkliste img-fluid">
               </div>
             </div>
           </div>
@@ -1224,7 +1262,7 @@ function bestellabschlussProdukteRender() {
               </div>
               <div class="col-6 mb-1>
                 <label for="menge">Menge: </label>
-                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                <input onKeyDown="return false" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
                 <span id="bestandErr"></span>
               </div>
               <div id="preis${i}" class="col-6 text-end">
@@ -1257,9 +1295,20 @@ function bestellabschlussProdukteRender() {
     deleteButtons.forEach((button) => {
         button.addEventListener("click", deleteItemFromWarenkorb);
     });
-
-
-    document.getElementById("bestellungAbschliessen").addEventListener("click", delAllCartItems);
-
-
+    // document.getElementById("bestellungAbschliessen").addEventListener("click", delAllCartItems);
+    document.querySelector("#bestellungAbschliessen").addEventListener("click", function() {
+        const agb = document.querySelector("#AGBcheck") as HTMLInputElement;
+        const datenschutz = document.querySelector("#Datenschutzcheck") as HTMLInputElement;
+        getCart();
+        if (shoppingCart.length === 0) {
+            BestellungErr();
+        } else if( agb.checked && datenschutz.checked) {
+            delAllCartItems();
+        }else{
+            BestellungCheckErr();
+        }
+    });
 }
+
+
+

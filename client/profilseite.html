@@ -12,6 +12,7 @@
     <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
+    <link rel="icon" type="image/png" href="/img/logo.png">
     <title>Profil</title>
 </head>
 <body>
@@ -56,9 +57,10 @@
                     </div>
                     <i id="registrieren" class="far fa-user headericon iconborder" type="button"></i>
                 </div>
-                <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
-                     data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
-                    <i class="fas fa-shopping-bag headericon iconborder"></i>
+                <div class="col-lg-3 col-sm-12">
+                    <div id="warenkorb" type="button">
+                        <i class="fas fa-shopping-bag headericon iconborder d-none" id="warenkorbiconheader" type="button"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -376,7 +378,7 @@
                     <div class="col-4">
                         <div class="row">
                             <div class="col">
-                                <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
+                                <img src="https://i.imgur.com/uwWdAqR.jpg" id="imageProdukt" alt="Tactile Towers" class="placeholdermerkliste img-fluid imgHöhe">
                             </div>
                         </div>
                     </div>
@@ -1027,7 +1029,7 @@
                         </div>
                         <div class="col-5">
                             <label for=vorname></label>
-                            <input id=vorname type="text" name="vorname" value="Robin"
+                            <input id=vorname type="text" name="vorname"
                                    placeholder="Vorname" class="form-control" required>
                             <br>
 
@@ -1037,7 +1039,7 @@
                             <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
                             geht später in den Server-->
                             <input id=nachname type="text"
-                                   name="nachname" placeholder="Nachname" value="Hahn" class="form-control" required>
+                                   name="nachname" placeholder="Nachname" class="form-control" required>
                             <br>
 
                         </div>
@@ -1049,14 +1051,14 @@
                             <label for=email></label>
                             <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
                             <input id=email type="email" name="email"
-                                   placeholder="Email" value="robinhahn99@outlook.de" class="form-control" required>
+                                   placeholder="Email" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=telefonnummer></label>
                             <input id=telefonnummer type="text" name="telefonnummer"
-                                   placeholder="Telefon" value="0162123456" class="form-control" required>
+                                   placeholder="Telefon" class="form-control" required>
                             <br>
 
                         </div>
@@ -1067,14 +1069,14 @@
                         <div class="col-5">
                             <label for=strasse></label>
                             <input id=strasse type="text" name="strasse"
-                                   placeholder="Straße" value="Heide" class="form-control" required>
+                                   placeholder="Straße" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=hausnummer></label>
                             <input id=hausnummer type="text"
-                                   placeholder="Hausnummer" value="16" class="form-control" required>
+                                   placeholder="Hausnummer" class="form-control" required>
                             <br>
 
                         </div>
@@ -1085,14 +1087,14 @@
                         <div class="col-5">
                             <label for=postleitzahl></label>
                             <input id=postleitzahl type="text" name="postleitzahl"
-                                   placeholder="Postleitzahl" value="35390" class="form-control" required>
+                                   placeholder="Postleitzahl" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
                             <input id=ort type="text" name="ort"
-                                   placeholder="Ort" value="Gießen" class="form-control" required>
+                                   placeholder="Ort" class="form-control" required>
                             <br>
 
                         </div>
@@ -1103,14 +1105,14 @@
                         <div class="col-5">
                             <label for=passwort></label>
                             <input id=passwort type="password" name="passwort" placeholder="Passwort"
-                                   class="form-control" value="123" required>
+                                   class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
                             <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
-                                   class="form-control" value="123" required>
+                                   class="form-control" required>
                             <br>
 
                         </div>
