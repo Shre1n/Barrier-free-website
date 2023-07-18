@@ -1231,7 +1231,7 @@ function bestellabschlussProdukteRender() {
               </div>
               <div class="col-6 mb-1>
                 <label for="menge">Menge: </label>
-                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
+                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}" onkeydown="return false">
                 <span id="bestandErr"></span>
               </div>
               <div id="preis${i}" class="col-6 text-end">
