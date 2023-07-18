@@ -505,7 +505,7 @@ PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
-{"produktName": "Shake n Match", "produktMenge":  5, "method":  "change"}
+{"produktName": "Shake n Match", "produktMenge":  -1, "method":  "change"}
 ###
 
 ### Produkt Warenkorb hinzufügen
@@ -534,7 +534,7 @@ POST /cart
 Host: localhost:8080
 Content-Type: application/json
 
-{"produktName": "Shake n Match", "produktMenge":  5, "method":  "add"}
+{"produktName": "Shake n Match", "produktMenge":  5, "method":  "change"}
 
 ### Posten einer Lieferadresse
 PUT /lieferadresse HTTP/2

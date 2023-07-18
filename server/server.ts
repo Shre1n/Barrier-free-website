@@ -127,7 +127,7 @@ app.put("/lieferadresse", checkLogin, putLieferadresse);
 app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
 app.post("/bestellung", checkLogin, postBestellung);
 app.get("/bestellung", checkLogin, getBestellung);
-app.delete("/deleteAll",checkLogin, deleteCartAll);
+app.delete("/deleteAll", checkLogin, deleteCartAll);
 
 app.get("/cart", checkLogin, getCart);
 app.post("/cart", checkLogin, itemAlreadyInCart, postCart);
@@ -454,14 +454,19 @@ function putCart(req: express.Request, res: express.Response): void {
         .then((result: any) => {
             if (result.length === 1) {
                 if (produktMethod == "change") {
-                    query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
-                        .then(() => {
-                            res.status(200).send("Warenkorb geupdatet!")
-                        })
-                        .catch(() => {
-                            res.sendStatus(500);
-                        });
+                    if (produktMenge < 1 || produktMenge > result[0].bestand) {
+                        res.status(403).send("Menge ist negativ oder überschreitet den Bestand.");
+                    } else {
+                        query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                            .then(() => {
+                                res.status(200).send("Warenkorb geupdatet!")
+                            })
+                            .catch(() => {
+                                res.sendStatus(500);
+                            });
+                    }
                 } else {
+
                     res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
                 }
             } else {
@@ -480,8 +485,8 @@ function deleteCartAll(req: express.Request, res: express.Response): void {
         .then((result: any) => {
             res.status(200).send("Alle Produkte im Warenkorb wurden entfernt!");
         }).catch((e) => {
-            console.log(e);
-            res.status(500).send("Fehler beim Warenkorb löschen!");
+        console.log(e);
+        res.status(500).send("Fehler beim Warenkorb löschen!");
     });
 }
 

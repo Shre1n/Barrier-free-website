@@ -799,10 +799,11 @@ function warenkorbRender() {
 
     for (let i = 0; i < shoppingCart.length; i++) {
         let produkt = shoppingCart[i];
+
         const subtotal = produkt.preis * produkt.produktMenge; // Teilsumme für das aktuelle Produkt
         endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
 
-        modalFormWarenkorb.innerHTML += `#
+        modalFormWarenkorb.innerHTML += `
 
       <div class="modal-body" data-position="${i}">
         <div class="row border border-dark rounded">
@@ -827,8 +828,7 @@ function warenkorbRender() {
               <div class="col-2 mb-4"></div>
               <div class="col-6">
                 <label for="menge">Menge: </label>
-                <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
-                <span id="bestandErr"></span>
+                <input id="mengeInput${i}" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
               </div>
               <div id="preis${i}" class="col-6 text-end">
                 <span>${subtotal.toFixed(2)} €</span>
@@ -861,6 +861,7 @@ function warenkorbRender() {
         </div>
       </div>
     </div>`;
+
 
     const quantityInputs = document.querySelectorAll("input[name='menge']");
     quantityInputs.forEach((input) => {
@@ -946,8 +947,13 @@ async function putCart(produktName,menge, method)  {
         produktName: produktName,
         produktMenge: menge,
         method: method
-    }).then(async () => {
+    }).then(async (response) => {
         await getCart();
+        if (response.status === 403){
+            for (let i = 0; i < shoppingCart.length; i++) {
+                document.getElementById("mengenInput" + `${i}`).innerText = "1";
+            }
+        }
     });
 }
 
