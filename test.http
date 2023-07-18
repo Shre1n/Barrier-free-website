@@ -359,12 +359,12 @@ Content-Type: application/json
 
 // User signing-in
 
-POST http://localhost:8080/signin
+POST http://localhost:8080/signin HTTP/2
 Content-Type: application/json
 
 {
-  "email": "max.mustermann@hotmail.de",
-  "passwort": "12345"
+  "email": "zacigg24@gmail.com",
+  "passwort": "1234"
 }
 ###
 
@@ -518,11 +518,43 @@ Content-Type: application/json
 
 
 ###
-DELETE /cart/Tactile Towers
+DELETE /cart/Shake n Match
 Host: localhost:8080
 Content-Type: application/json
 
+### Produkt Warenkorb hinzufügen
+POST /cart
+Host: localhost:8080
+Content-Type: application/json
+
+### Posten einer Lieferadresse
+PUT /lieferadresse HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Insekt",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1"
+}
 
 
 
-###
+### Posten einer Rechnungsadresse
+PUT /rechnungsadresse HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Insekt",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1"
+}

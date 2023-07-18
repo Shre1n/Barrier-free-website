@@ -50,10 +50,10 @@
                 <div class="col-lg-3 col-sm-6 col-6">
                     <div id="profilseite">
                         <a href="profilseite.html">
-                            <i class="far fa-user headericon iconborder"></i>
+                            <i class="far fa-user headericon iconborder" type="button"></i>
                         </a>
                     </div>
-                    <i id="registrieren" class="far fa-user headericon iconborder"></i>
+                    <i id="registrieren" class="far fa-user headericon iconborder" type="button"></i>
                 </div>
                 <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
                      data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
@@ -85,7 +85,7 @@
     <section class="container-xxl">
         <div>
             <!---- hier Willkommenstext aus {Script}---->
-            <h1 class="text-center">Willkommen <span id="nutzerName"></span></h1>
+            <h1 class="text-center text-break">Willkommen <span id="nutzerName"></span></h1>
         </div>
     </section>
 
@@ -118,7 +118,7 @@
                         Nachname:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displaynachname"></div>
+                        <div id="displaynachname" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -127,7 +127,7 @@
                         Vorname:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displayvorname"></div>
+                        <div id="displayvorname" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -136,7 +136,7 @@
                         Straße:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displaystrasse"></div>
+                        <div id="displaystrasse" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -145,7 +145,7 @@
                         Hausnummer:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displayhausnummer"></div>
+                        <div id="displayhausnummer" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -154,7 +154,7 @@
                         PLZ:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displayPLZ"></div>
+                        <div id="displayPLZ" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -163,7 +163,7 @@
                         Ort:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displayort"></div>
+                        <div id="displayort" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -172,7 +172,7 @@
                         Telefonnummer:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displaytelefonnummer"></div>
+                        <div id="displaytelefonnummer" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -181,7 +181,7 @@
                         E-mail:
                     </div>
                     <div class="col-5 text-start">
-                        <div id="displayemail"></div>
+                        <div id="displayemail" class="text-break"></div>
                     </div>
                     <div class="col-1"></div>
 
@@ -323,17 +323,17 @@
 
                     <div class="col-1 mb-3"></div>
                     <div class="col-5 d-flex align-items-center justify-content-end mb-3">
-                        <button id="cancelEditButton" class="abbrechenButton">Abbrechen</button>
+                        <button id="cancelEditButton" class="btn abbrechenButton">Abbrechen</button>
                     </div>
                     <div class="col-5 mb-3 text-start">
-                        <button id="saveEdit" class="bbutton">Speichern</button>
+                        <button id="saveEdit" class="btn bbutton">Speichern</button>
                     </div>
                     <div class="col-1 mb-3"></div>
 
                     <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
                         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
-                                <strong class="me-auto">Message</strong>
+                                <strong class="me-auto">Fehler!</strong>
                             </div>
                             <div class="toast-body">
                                 <span id="anredeErr"></span>
@@ -355,7 +355,7 @@
             <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
                 <div id="erfolgreich" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
-                        <strong class="me-auto">Message</strong>
+                        <strong class="me-auto">Erfolgreich!</strong>
                     </div>
                     <div class="toast-body">
                         <span id="angelegt"></span>

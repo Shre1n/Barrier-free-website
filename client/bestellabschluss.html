@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="bestellabschluss.css">
+    <link rel="stylesheet" href="profilseite.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
@@ -23,7 +24,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-sm-6 d-none d-sm-block bree20 bree20Scale">
-                    <a href="verteilerseite.html" class="linksW" id="spiele">
+                    <a href="verteilerseite.html" class="linksW">
                         Spiele
                     </a>
                 </div>
@@ -47,10 +48,10 @@
                 <div class="col-lg-3 col-sm-6 col-6">
                     <div id="profilseite">
                         <a href="profilseite.html">
-                            <i class="far fa-user headericon iconborder"></i>
+                            <i class="far fa-user headericon iconborder" type="button"></i>
                         </a>
                     </div>
-                    <i id="registrieren" class="far fa-user headericon iconborder"></i>
+                    <i id="registrieren" class="far fa-user headericon iconborder" type="button"></i>
                 </div>
                 <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
                      data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
@@ -60,7 +61,7 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div id="bestellungContainer" class="container-fluid">
     <div class="row">
         <div class="col-1 borderCol"></div>
         <div class="col-4 noPad">
@@ -87,35 +88,183 @@
     Datenangaben von Kunde werden in nächsten Sprints ersetzt
     Server-Funktion und Datenbankverknüpfung ebenfalls
      -->
-    <div class="row">
-        <div class="col-1 borderCol"></div>
-        <div class="col-4">
-            <div class="row border border-secondary">
-                <div class="col ms-3">
-                    <div class="row">
-                        <div class="col borderCol font25">Lieferangaben</div>
-                        <div class="col">Icon</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-1 borderCol"></div>
+            <div class="col-xl-4 col-lg-12 mb-3">
+                <div class="row border border-secondary">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col borderCol font25">Lieferangaben</div>
+                            <div class="col d-flex justify-content-end align-items-center">
+                                <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
+                            </div>
+                        </div>
+                        <div class="row text-break"></div>
+                        <form type="submit" id="postLieferadresseForm" class="text-break">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
+                                        <option value="Herr" class="anrede">Herr</option>
+                                        <option value="Frau" class="anrede">Frau</option>
+                                    </select>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferAnrede" class="text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferNachname" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferVorname" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferStraße" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferHnr" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferPLZ" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <input id="displayLieferOrt" class="col-12 text-break" disabled>
+                                    </div>
+                                    <div class="col-3"></div>
+                                    <div class="col-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button id="lieferAdBtnCancel" type="button"
+                                                class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">
+                                            Speichern
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- attempt -->
+                        <form id="displayRechnungsadresse" class="col d-none">
+                            <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
+                            <label for=displayRechnungAnrede></label>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <select id="displayRechnungAnrede" class="text-center mb-2" required>
+                                        <option value="Herr" class="anrede">Herr</option>
+                                        <option value="Frau" class="anrede">Frau</option>
+                                    </select>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungVorname" class="col-12 mb-2 text-break"
+                                           placeholder="Vorname">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungNachname" class="col-12 mb-2 text-break"
+                                           placeholder="Nachname">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungStraße" class="col-12 mb-2 text-break"
+                                           placeholder="Straße">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input id="displayRechnungHnr" class="col-12 mb-2 text-break"
+                                           placeholder="Hausnummer">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                            <input id="displayRechnungPLZ" class="col-12 mb-2 text-break"
+                                   placeholder="PLZ">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                            <input id="displayRechnungOrt" class="col-12 mb-2 text-break"
+                                   placeholder="Ort">
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-1"></div>
+                            <div class="row">
+                            </div>
                     </div>
-                    <div class="row"></div>
-                    <div class="row">Herr</div>
-                    <div class="row">Mustermann</div>
-                    <div class="row">Max</div>
-                    <div class="row">Musterstraße</div>
-                    <div class="row">1</div>
-                    <div class="row">12345</div>
-                    <div class="row">Musterstadt</div>
-                    <div class="row">123456789</div>
-                    <div class="row">mustermann.max@mail.com</div>
+                    </form>
+
                     <div class="container-fluid">
                         <div class="row"></div>
-                        <div class="row">
-                            <div class="row topPad botPad">Zahlungsarten</div>
+                        <div class="row mb-1">
+                            <div class="row topPad botPad mt-3">Zahlungsarten</div>
                             <div class="row">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                           id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
+                                           value="PayPal" id="zahlungsMethodePayPal" checked>
+                                    <label class="form-check-label" for="zahlungsMethodePayPal">
+                                        <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
                                     </label>
                                 </div>
                             </div>
@@ -123,34 +272,35 @@
                         <div class="row">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                       id="flexRadioDefault2"
-                                       checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    <img src="/img/placeholder.jpg" class="card-img-top cardpicW" alt="placeholder">
+                                       value="SofortUeberweisung" id="zahlungsMethodeSofort">
+                                <label class="form-check-label" for="zahlungsMethodeSofort">
+                                    <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg"
+                                         alt="placeholder">
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="row topPad">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label font16" for="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                            <label class="form-check-label font16" for="flexCheckDefault1">
                                 Ich erkläre mich mit den AGB von PlayAbility einverstanden.
                             </label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row topPad">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <label class="form-check-label font16" for="flexCheckDefault">
-                                Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert habe.
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                            <label class="form-check-label font16" for="flexCheckDefault2">
+                                Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert
+                                habe.
                             </label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row topPad">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label font16" for="flexCheckDefault">
+                            <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
+                            <label class="form-check-label font16" for="checkRechnungsadresse">
                                 Rechnungsadresse weicht von Lieferadresse ab.
                             </label>
                         </div>
@@ -159,354 +309,247 @@
             </div>
         </div>
         <div class="col-2"></div>
-        <div class="col-4">
-            <div class="card mb-3 checkoutcard">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <img src="/img/placeholder.jpg" class="img-fluid rounded-start checkoutcardbild" alt="...">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h5 class="card-title">Tactile Towers</h5>
-                                </div>
-                                <div class="col-1">
-                                    <i class=" fas fa-solid fa-trash"></i>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <p class="card-text">Tactile Towers ist ein Spiel,
-                                bei dem unter Zeitdruck eine
-                                Figur aus Einzelteilen richtig
-                                gestapelt werden muss.
-                                Trainiere deine taktile
-                                Wahrnehmung und
-                                Geschicklichkeit in diesem
-                                spannenden Spiel!</p>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                        <button type="button" class="btn btn-secondary bree20">1</button>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop2" type="button"
-                                                    class="btn btn-secondary dropdown-toggle bree20"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Menge
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="#">1</a>
-                                                <a class="dropdown-item" href="#">2</a>
-                                                <a class="dropdown-item" href="#">3</a>
-                                                <a class="dropdown-item" href="#">4</a>
-                                                <a class="dropdown-item" href="#">5</a>
-                                                <a class="dropdown-item" href="#">6</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkoutcradrechts">
-                                    79,99€
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 checkoutcard">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <img src="/img/placeholder.jpg" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h5 class="card-title">Tactile Towers</h5>
-                                </div>
-                                <div class="col-1">
-                                    <i class=" fas fa-solid fa-trash"></i>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <p class="card-text">Tactile Towers ist ein Spiel,
-                                bei dem unter Zeitdruck eine
-                                Figur aus Einzelteilen richtig
-                                gestapelt werden muss.
-                                Trainiere deine taktile
-                                Wahrnehmung und
-                                Geschicklichkeit in diesem
-                                spannenden Spiel!</p>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                        <button type="button" class="btn btn-secondary bree20">1</button>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button"
-                                                    class="btn btn-secondary dropdown-toggle bree20"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Menge
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="#">1</a>
-                                                <a class="dropdown-item" href="#">2</a>
-                                                <a class="dropdown-item" href="#">3</a>
-                                                <a class="dropdown-item" href="#">4</a>
-                                                <a class="dropdown-item" href="#">5</a>
-                                                <a class="dropdown-item" href="#">6</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkoutcradrechts">
-                                    79,99€
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="align-items-end">
-                <p class="text-end gesamtpreis abstandtop"> 139,98€</p>
-                <div class="row">
-                    <div class="col-9">
-                    </div>
-                    <div class="col-3 btn btn-primary button1 wbutton text-right font16 abstandtop abstandtopbott weiterbuttonbestellabschluss">
-                        Weiter
-                    </div>
-                </div>
-
-            </div>
+        <div id="bestellabschlussProdukte" class="col-xl-4 col-lg-12">
+            <a id="bestellungAbschliessen"
+               class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                Bestellung abschließen
+            </a>
         </div>
     </div>
-
-<section class="container-xxl">
-    <div class="text-center bree75">
-        Danke für Ihren Einkauf
-    </div>
-    <div class="text-center">
-        <i class="heartcolor fas fa-heart fa-10x"></i>
-    </div>
-    <div class="text-center">
-        <h5 class="lieferung belleza40"> vorraussichtliche Lieferung: <span id="lieferung"></span></h5>
-    </div>
-    <div class="text-center">
-        <button class="weiterEinkaufen belleza25">Weiter Einkaufen</button>
-    </div>
-</section>
-    <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Registrieren</h5>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form id="modalForm">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <label for=anrede></label>
-                                <select id="anrede" class="bbutton text-center">
-                                    <option value="Herr" class="anrede" selected>Herr</option>
-                                    <option value="Frau" class="anrede">Frau</option>
-                                </select>
-                                <br>
-                            </div>
-                            <div class="col-5">
-                                <label for=vorname></label>
-                                <input id=vorname type="text" name="vorname" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
-                                       placeholder="Vorname" class="form-control" required>
-                                <br>
-                            </div>
-                            <div class="col-5">
-                                <label for=nachname></label>
-                                <input id=nachname type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]{2,})*$"
-                                       name="nachname" placeholder="Nachname" class="form-control " required>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-5">
-                                <label for=email></label>
-                                <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
-                                <input id=email type="email" name="email" pattern="\w+([\.\-]\w+)*@[a-z]+([\.\-][a-z]+)+"
-                                       placeholder="Email" class="form-control " required>
-                                <br>
-                            </div>
-                            <div class="col-5">
-                                <label for=passwort></label>
-                                <input id=passwort type="password" pattern=".{3,}" name="passwort" placeholder="Passwort"
-                                       class="form-control " required>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-5">
-                                <label for=strasse></label>
-                                <input id=strasse type="text" name="strasse" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-z]+)*$"
-                                       placeholder="Straße" class="form-control" required>
-                                <br>
-                            </div>
-                            <div class="col-5">
-                                <label for=hausnummer></label>
-                                <input id=hausnummer type="text" pattern="^[1-9]{1,3}$" name="hausnummer"
-                                       placeholder="Hausnummer" class="form-control" required>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-5">
-                                <label for=postleitzahl></label>
-                                <input id=postleitzahl type="text" name="postleitzahl" pattern="^[0-9]{5}$"
-                                       placeholder="Postleitzahl" class="form-control" required>
-                                <br>
-                            </div>
-                            <div class="col-5">
-                                <label for=ort></label>
-                                <input id=ort type="text" pattern="^[A-Za-zäöüÄÖÜß]{2,}(\s[A-Za-zäöüÄÖÜß]+)*$" name="ort"
-                                       placeholder="Ort" class="form-control" required>
-                                <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                            </div>
-                            <div class="col-10">
-                                <label for=telefonnummer></label>
-                                <input id=telefonnummer type="text" name="telefonnummer" pattern="^0\d{11}$"
-                                       placeholder="Telefon" class="form-control" required>
-                                <br>
-                            </div>
-                        </div>
-                        <label for="indexUser"></label>
-                        <input id="indexUser" hidden type="number">
-                        <span id="registrierenError"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="registerUser" type="submit" class="btn btn-primary bbutton" data-bs-dismiss="modal">
-                            Registrieren
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Warenkorb</h5>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form id="modalFormWarenkorb">
-                    <div class="modal-body">
-                        <div class="row border border-dark rounded">
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild" class="placeholdermerkliste img-fluid imgHöhe">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="row imgHöhe">
-                                    <div class="col-10 mb-4">
-                                        <span id="tactileTowers" class="bree20G">Tactile Towers</span>
-                                    </div>
-                                    <div class="col-2 mb-4">
-                                        <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
-                                    </div>
-                                    <div class="col-10 mb-4">
-                                <span id="kurzBechreibung">
-                                    Tactile Towers ist ein Spiel,
-                                    bei dem unter Zeitdruck eine
-                                    Figur aus Einzelteilen richtig
-                                    gestapelt werden muss.
-                                </span>
-                                    </div>
-                                    <div class="col-2 mb-4"></div>
-                                    <div class="col-6">
-                                        <label for=menge></label>
-                                        <select id="menge" class="btn bbutton text-center" required>
-                                            <option value="1" class="menge">1</option>
-                                            <option value="2" class="menge">2</option>
-                                            <option value="3" class="menge">3</option>
-                                            <option value="4" class="menge">4</option>
-                                            <option value="5" class="menge">5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        59,99€
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button id="zurKasse" type="submit" class="btn bbutton">
-                                Zur Kasse
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--Footer-->
-    <footer class="container-fluid containerFooter">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="row rowFooter text-center align-items-center">
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                        <a href="impressum.html" class="linksW">Impressum</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
-                        <a href="agb.html" class="linksW">AGB</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                        <a href="datenschutz.html" class="linksW">Datenschutz</a>
-                    </div>
-                    <div class="bree20 bree20Scale col-lg-3 col-sm-6">
-                        <a href="aboutus.html" class="linksW">Über uns</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 d-none d-sm-block">
-                <div class="row rowFooter text-center justify-content-end align-items-center">
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <a href="https://www.instagram.com/_cofit__/%22%3E">
-                            <i class="wIcon fab fa-instagram"></i>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <a href="https://www.youtube.com/channel/UCJlqftXPpRnLLzp21D_S8EQ%22%3E">
-                            <i class="wIcon fab fa-youtube"></i>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <a href="https://twitter.com/hausuebungwep1%22%3E">
-                            <i class="wIcon fab fa-twitter" ></i>
-                        </a>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 d-none d-sm-block">
-                        <a href="https://www.facebook.com/profile.php?id=100087414318077%22%3E">
-                            <i class="wIcon fab fa-facebook-f"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
 </div>
+</div>
+
+
+<div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Anmelden</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormlogin">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=emaillogin type="email" name="email"
+                                   placeholder="Email" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortlogin type="password"
+                                   placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p id="signupform">
+                        Noch nicht registriert?
+                    </p>
+                    <button id="loginUser" type="submit" class="btn btn-primary bbutton">
+                        Anmelden
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registrieren</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <label for=anrede></label>
+                            <select id="anrede" class="bbutton text-center" required>
+                                <option value="Herr" class="anrede">Herr</option>
+                                <option value="Frau" class="anrede">Frau</option>
+                            </select>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=vorname></label>
+                            <input id=vorname type="text" name="vorname"
+                                   placeholder="Vorname" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=nachname></label>
+                            <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
+                            geht später in den Server-->
+                            <input id=nachname type="text"
+                                   name="nachname" placeholder="Nachname" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=email></label>
+                            <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+                            <input id=email type="email" name="email"
+                                   placeholder="Email" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=telefonnummer></label>
+                            <input id=telefonnummer type="text" name="telefonnummer"
+                                   placeholder="Telefon" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=strasse></label>
+                            <input id=strasse type="text" name="strasse"
+                                   placeholder="Straße" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=hausnummer></label>
+                            <input id=hausnummer type="text"
+                                   placeholder="Hausnummer" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=postleitzahl></label>
+                            <input id=postleitzahl type="text" name="postleitzahl"
+                                   placeholder="Postleitzahl" class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=ort></label>
+                            <input id=ort type="text" name="ort"
+                                   placeholder="Ort" class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwort type="password" name="passwort" placeholder="Passwort"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                        <div class="col-5">
+                            <label for=passwort></label>
+                            <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
+                                   class="form-control" required>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-5">
+                            <label for="checkNewsletter">
+                            </label><input class="form-check-input" type="checkbox" name="newsletter"
+                                           value="newsletter"
+                                           id="checkNewsletter">
+                        </div>
+                        <div class="col-5">
+                            <p class="font16">Ja, ich möchte den Newsletter von PlayAbility erhalten
+                                und regelmäßig mit Neuigkeiten und Angeboten
+                                informiert werden.
+                                Die Abmeldung vom Newsletter
+                                ist jederzeit möglich.</p>
+                            <br>
+                        </div>
+                    </div>
+                    <label for="indexUser"></label>
+                    <input id="indexUser" hidden type="number">
+                    <span id="registrierenError"></span>
+                </div>
+                <div class="modal-footer">
+                    <button id="registerUser" type="submit" class="btn btn-primary bbutton">
+                        Registrieren
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Warenkorb</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="modalFormWarenkorb">
+            </form>
+        </div>
+    </div>
+</div>
+<!--Footer-->
+<footer class="container-fluid containerFooter">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row rowFooter text-center align-items-center">
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="impressum.html" class="linksW">Impressum</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6 col-6">
+                    <a href="agb.html" class="linksW">AGB</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="datenschutz.html" class="linksW">Datenschutz</a>
+                </div>
+                <div class="bree20 bree20Scale col-lg-3 col-sm-6">
+                    <a href="aboutus.html" class="linksW">Über uns</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 d-none d-sm-block">
+            <div class="row rowFooter text-center justify-content-end align-items-center">
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <a href="https://www.instagram.com/_cofit__/%22%3E">
+                        <i class="wIcon fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <a href="https://www.youtube.com/channel/UCJlqftXPpRnLLzp21D_S8EQ%22%3E">
+                        <i class="wIcon fab fa-youtube"></i>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <a href="https://twitter.com/hausuebungwep1%22%3E">
+                        <i class="wIcon fab fa-twitter"></i>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6 d-none d-sm-block">
+                    <a href="https://www.facebook.com/profile.php?id=100087414318077%22%3E">
+                        <i class="wIcon fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

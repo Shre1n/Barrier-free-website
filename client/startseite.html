@@ -49,11 +49,10 @@
                 <div class="col-lg-3 col-sm-6 col-6">
                     <div id="profilseite">
                         <a href="profilseite.html">
-                            <i class="far fa-user headericon iconborder">
-                            </i>
+                            <i class="far fa-user headericon iconborder" type="button"></i>
                         </a>
                     </div>
-                    <i id="registrieren" class="far fa-user headericon iconborder"></i>
+                    <i id="registrieren" class="far fa-user headericon iconborder" type="button"></i>
                 </div>
                 <div id="warenkorb" type="button" class="col-lg-3 col-sm-12" data-bs-container="body"
                      data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Bottom popover">
@@ -120,7 +119,7 @@
                         <img src="/img/kategoriespielequad.jpg" class="card-img-top cardpick" alt="placeholder">
                         <div class="card-body">
                             <div class="container text-center">
-                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Spiele</a>
+                                <a href="verteilerseite.html" class="btn button1 bbutton">Spiele</a>
                             </div>
                         </div>
                     </div>
@@ -130,7 +129,7 @@
                         <img src="/img/kategorieerweiterungen.jpg" class="card-img-top cardpick" alt="placeholder">
                         <div class="card-body">
                             <div class="container text-center">
-                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Erweiterungen</a>
+                                <a href="verteilerseite.html" class="btn button1 bbutton">Erweiterungen</a>
                             </div>
                         </div>
                     </div>
@@ -140,7 +139,7 @@
                         <img src="/img/kategorieersatteile.jpg" class="card-img-top cardpick" alt="placeholder">
                         <div class="card-body">
                             <div class="container text-center">
-                                <a href="verteilerseite.html" class="btn btn-primary button1 bbutton">Ersatzteile</a>
+                                <a href="verteilerseite.html" class="btn button1 bbutton">Ersatzteile</a>
                             </div>
                         </div>
                     </div>
@@ -310,6 +309,19 @@
     </div>
 </div>
 
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="loginErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Erfolgreich!</strong>
+        </div>
+        <div class="toast-body" >
+            <span id="loginErfolgreich"></span>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -332,7 +344,7 @@
                         </div>
                         <div class="col-5">
                             <label for=vorname></label>
-                            <input id=vorname type="text" name="vorname"
+                            <input id=vorname type="text" name="vorname" value="Robin"
                                    placeholder="Vorname" class="form-control" required>
                             <br>
 
@@ -342,7 +354,7 @@
                             <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
                             geht später in den Server-->
                             <input id=nachname type="text"
-                                   name="nachname" placeholder="Nachname" class="form-control" required>
+                                   name="nachname" placeholder="Nachname" value="Hahn" class="form-control" required>
                             <br>
 
                         </div>
@@ -354,14 +366,14 @@
                             <label for=email></label>
                             <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
                             <input id=email type="email" name="email"
-                                   placeholder="Email" class="form-control" required>
+                                   placeholder="Email" value="robinhahn99@outlook.de" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=telefonnummer></label>
                             <input id=telefonnummer type="text" name="telefonnummer"
-                                   placeholder="Telefon" class="form-control" required>
+                                   placeholder="Telefon" value="0162123456" class="form-control" required>
                             <br>
 
                         </div>
@@ -372,14 +384,14 @@
                         <div class="col-5">
                             <label for=strasse></label>
                             <input id=strasse type="text" name="strasse"
-                                   placeholder="Straße" class="form-control" required>
+                                   placeholder="Straße" value="Heide" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=hausnummer></label>
                             <input id=hausnummer type="text"
-                                   placeholder="Hausnummer" class="form-control" required>
+                                   placeholder="Hausnummer" value="16" class="form-control" required>
                             <br>
 
                         </div>
@@ -390,14 +402,14 @@
                         <div class="col-5">
                             <label for=postleitzahl></label>
                             <input id=postleitzahl type="text" name="postleitzahl"
-                                   placeholder="Postleitzahl" class="form-control" required>
+                                   placeholder="Postleitzahl" value="35390" class="form-control" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=ort></label>
                             <input id=ort type="text" name="ort"
-                                   placeholder="Ort" class="form-control" required>
+                                   placeholder="Ort" value="Gießen" class="form-control" required>
                             <br>
 
                         </div>
@@ -408,14 +420,14 @@
                         <div class="col-5">
                             <label for=passwort></label>
                             <input id=passwort type="password" name="passwort" placeholder="Passwort"
-                                   class="form-control" required>
+                                   class="form-control" value="123" required>
                             <br>
 
                         </div>
                         <div class="col-5">
                             <label for=passwort></label>
                             <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
-                                   class="form-control" required>
+                                   class="form-control" value="123" required>
                             <br>
 
                         </div>
@@ -452,10 +464,10 @@
             </form>
         </div>
     </div>
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <strong class="me-auto">Message</strong>
+                <strong class="me-auto">Fehler!</strong>
             </div>
             <div class="toast-body">
                 <span id="anredeErr"></span>
@@ -470,6 +482,17 @@
                 <span id="passwortErr"></span>
                 <span id="passwortCheckErr"></span>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="registerErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Erfolgreich!</strong>
+        </div>
+        <div class="toast-body">
+            <span id="erfolgreich"></span>
         </div>
     </div>
 </div>
@@ -489,7 +512,7 @@
             </div>
             <form id="modalFormWarenkorb">
                 <div class="modal-footer">
-                    <button id="zurKasse" type="submit" class="btn bbutton">
+                    <button id="zurKasse"  class="btn bbutton">
                         Zur Kasse
                     </button>
                 </div>

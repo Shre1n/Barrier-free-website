@@ -4,8 +4,29 @@ import * as mysql from "mysql";
 import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
+import * as cluster from "cluster";
+import {string} from "joi";
 //Install Displayable Chart option
 
+class Adresse {
+    anrede: string;
+    vorname: string;
+    nachname: string;
+    postleitzahl: string;
+    ort: string;
+    strasse: string;
+    hnr: string;
+}
+
+class WarenkorbProdukt{
+    produktName: string;
+    kurzbeschreibung: string;
+    preis:number;
+    bilder:string;
+    bestand: number;
+    produktMenge: number;
+}
+const warenkorbArray: WarenkorbProdukt[] = [];
 
 // Ergänzt/Überlädt den Sessionstore
 declare module "express-session" {
@@ -16,6 +37,11 @@ declare module "express-session" {
         id: string;
         rollenid: number;
         cart: Object[];
+        nutzerid: number;
+        lieferadresse: Adresse;
+        rechnungsadresse: Adresse;
+        nutzerId: number;
+        bestellID: number;
     }
 }
 
@@ -89,21 +115,26 @@ app.post("/signin", signIn);
 app.post("/signout", signOut);
 app.post("/product", postProduct);
 app.get("/product", getProduct);
-app.get("/addons" ,getAddons);
+app.get("/addons", getAddons);
 app.get("/spareparts", getSpareParts);
 app.put("/product/:name", editProduct);
 app.delete("/product/:name", deleteProduct);
 app.get("/bewertungen/:name", getProductRating);
 app.get("/login", checkLogin, isLoggedIn)
+app.put("/lieferadresse", checkLogin, putLieferadresse);
+app.put("/rechnungsadresse", checkLogin, putRechnungsadresse);
+app.post("/bestellung", checkLogin, postBestellung);
+app.get("/bestellung", checkLogin, getBestellung)
 
 app.get("/cart", checkLogin, getCart);
-app.post("/cart", checkLogin, postCart);
+app.post("/cart", checkLogin, itemAlreadyInCart, postCart);
 app.delete("/cart/:productName", checkLogin, deleteCart);
 app.put("/cart", checkLogin, putCart);
 
 
 //SITE
 // Angezeigte Webseite
+
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -273,6 +304,7 @@ function getProduct(req: express.Request, res: express.Response): void {
         }
     });
 }
+
 function getAddons(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
 
@@ -280,13 +312,14 @@ function getAddons(req: express.Request, res: express.Response): void {
     connection.query(sql, (err, results) => {
         if (err) {
             // Bei einem Fehler sende eine Fehlerantwort an den Client
-            res.status(500).json({ error: "Fehler bei der Datenbankabfrage" });
+            res.status(500).json({error: "Fehler bei der Datenbankabfrage"});
         } else {
             // Bei erfolgreicher Abfrage sende die Ergebnisse an den Client
             res.json(results);
         }
     });
 }
+
 function getSpareParts(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
 
@@ -305,10 +338,109 @@ function getSpareParts(req: express.Request, res: express.Response): void {
 
 function postCart(req: express.Request, res: express.Response): void {
 
+    const produktName: string = req.body.produktName;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT * FROM Produktliste WHERE Produktname = ?;", [produktName])
+        .then((result:any)=>{
+            const produktID:number = Number(result[0].ID);
+            const newQuery: string = 'INSERT INTO Warenkorb (NutzerID, ProduktID, menge) VALUES (?,?,?);'
+
+            const data: [number, number, number] = [
+                req.session.nutzerid,
+                produktID,
+                produktMenge
+            ];
+
+            if(produktID === null || produktMenge === null) {
+                res.sendStatus(404);
+            }
+
+            query(newQuery, data).then((result: any) => {
+                res.sendStatus(201);
+            }).catch((e) => {
+                console.log(e);
+                res.sendStatus(500);
+            });
+
+
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+
+
+
+
+
 }
 
 function getCart(req: express.Request, res: express.Response): void {
-    res.send(req.session.cart);
+    const warenkorbArray: WarenkorbProdukt[] = [];
+    query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
+        .then((results: any) => {
+            if(results.length !== 0) {
+
+
+                for(const r of results){
+                    let product: WarenkorbProdukt = new WarenkorbProdukt();
+                    product.produktName = r.Produktname;
+                    product.kurzbeschreibung = r.Kurzbeschreibung;
+                    product.bilder = r.Bilder;
+                    product.preis = r.Preis;
+                    product.produktMenge = r.Menge;
+                    product.bestand = r.Bestand;
+                    warenkorbArray.push(product);
+
+                    if (r.Produktname === undefined || r.Produktname === "") {
+                        res.sendStatus(404);
+                    }
+
+
+                }
+            }
+            res.status(200).json({warenkorb: warenkorbArray});
+        })
+        .catch((e) => {
+            console.log(e);
+            res.sendStatus(500);
+        });
+}
+
+function itemAlreadyInCart(req: express.Request, res: express.Response, next: express.NextFunction) {
+    const produktName: string = req.body.produktName;
+    const produktMethod: string = req.body.method;
+    const produktMenge: number = req.body.produktMenge;
+
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
+        .then((result: any) => {
+            query("SELECT * FROM Warenkorb WHERE NutzerID = ? AND ProduktID = ?;", [req.session.nutzerid, result[0].ID])
+                .then((results: any) => {
+                    if(results.length == 1) {
+                        if(produktMethod === "add") {
+                            query("UPDATE Warenkorb SET Menge = Menge + ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                                .then(()=>{
+                                    res.status(200).send("Warenkorb geupdatet!");
+                                })
+                                .catch((e) => {
+                                    console.log(e);
+                                    res.sendStatus(500);
+                                });
+                        } else {
+                            res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
+                        }
+                    } else {
+                        next();
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.sendStatus(500);
+                });
+        }).catch((e) => {
+        console.log(e);
+        res.sendStatus(500);
+    });
 }
 
 function putCart(req: express.Request, res: express.Response): void {
@@ -322,20 +454,22 @@ function putCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
     const produktMethod: string = req.body.method;
 
-    query("SELECT Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ?", [produktName])
+    query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
-                for (let i = 0; i < req.session.cart.length; i++) {
-                    if (req.session.cart[i].produktName.includes(produktName)) {
-                        req.session.cart[i].produktMenge = (produktMethod === "add") ? req.session.cart[i].produktMenge + 1 : produktMenge;
-                        res.sendStatus(200);
-                        return;
-                    }
+                if(produktMethod == "change") {
+                    query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
+                        .then(()=>{
+                            res.status(200).send("Warenkorb geupdatet!")
+                        })
+                        .catch(() => {
+                            res.sendStatus(500);
+                        });
+                } else {
+                    res.status(500).send("Wähle eine gültige Methode zum updaten des Warenkorbs!");
                 }
-                req.session.cart.push(JSON.parse(`{"produktName": "${produktName}","produktMenge": ${produktMenge}, "preis": ${result[0].Preis}, "bilder": "${result[0].Bilder}", "bestand": ${result[0].Bestand}, "kurzbeschreibung": "${result[0].Kurzbeschreibung}"}`));
-                res.sendStatus(200);
             } else {
-                res.status(500).send("Produkt konnte nicht eindeutig Identifiziert werden.");
+                res.status(500).send("Produkt ist nicht im Warenkorb!");
             }
 
         }).catch((err) => {
@@ -346,11 +480,21 @@ function putCart(req: express.Request, res: express.Response): void {
 
 function deleteCart(req: express.Request, res: express.Response): void {
     const productNameToDelete: string = req.params.productName;
-    // Finde das Produkt im Warenkorb und entferne es
-    req.session.cart = req.session.cart.filter(
-        (product) => product.produktName !== productNameToDelete
-    );
-    res.sendStatus(200);
+    query("SELECT ID FROM Produktliste WHERE Produktname = ? ", [productNameToDelete])
+        .then((result: any) => {
+            query("DELETE FROM Warenkorb WHERE ProduktID = ? AND NutzerID = ?;", [result[0].ID, req.session.nutzerid])
+                .then(()=>{
+                    res.status(200).send("Produkt aus Warenkorb gelöscht!");
+                })
+                .catch((e) => {
+                    console.log(e);
+                    res.status(500).send("Fehler bei der Produktauswahl!");
+                });
+        }).catch((e)=>{
+            console.log(e);
+        res.status(500).send("Fehler bei der Produktauswahl!");
+    });
+
 }
 
 function postProduct(req: express.Request, res: express.Response): void {
@@ -381,10 +525,42 @@ function signIn(req: express.Request, res: express.Response): void {
     const passwort: string = req.body.passwort;
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
-        query("SELECT Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+        query("SELECT * FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
             if (result.length === 1) {
                 req.session.email = email;
                 req.session.passwort = cryptopass;
+                req.session.cart = [];
+                req.session.nutzerid = result[0].ID;
+                req.session.nutzerId = result[0].ID;
+
+                const anrede: string = result[0].Anrede;
+                const vorname: string = result[0].Vorname;
+                const nachname: string = result[0].Nachname;
+                const postleitzahl: string = result[0].Postleitzahl;
+                const ort: string = result[0].Ort;
+                const strasse: string = result[0].Straße;
+                const hnr: string = result[0].HausNr;
+
+                const lieferadresse: Adresse = new Adresse();
+                lieferadresse.anrede = anrede;
+                lieferadresse.vorname = vorname;
+                lieferadresse.nachname = nachname;
+                lieferadresse.postleitzahl = postleitzahl;
+                lieferadresse.ort = ort;
+                lieferadresse.strasse = strasse;
+                lieferadresse.hnr = hnr;
+                req.session.lieferadresse = lieferadresse;
+
+                const rechnungsadresse: Adresse = new Adresse();
+                rechnungsadresse.anrede = anrede;
+                rechnungsadresse.vorname = vorname;
+                rechnungsadresse.nachname = nachname;
+                rechnungsadresse.postleitzahl = postleitzahl;
+                rechnungsadresse.ort = ort;
+                rechnungsadresse.strasse = strasse;
+                rechnungsadresse.hnr = hnr;
+                req.session.rechnungsadresse = rechnungsadresse;
                 req.session.cart = [];
                 res.sendStatus(200);
             } else {
@@ -395,7 +571,8 @@ function signIn(req: express.Request, res: express.Response): void {
             console.log("500 in catch");
             res.sendStatus(500);
         });
-    }
+    })
+}
 }
 
 
@@ -431,19 +608,19 @@ function validateUser(isPut, user) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test.")
+            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
             .min(2)
             .required(),
         passwort: Joi.string()
@@ -467,10 +644,10 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
-            .max(5)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+[0-9]{1,3}[0-9]{4,}|[0-9])[0-9]{4,}$/)
@@ -491,13 +668,13 @@ function validateEditUser(isPut, user) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
@@ -522,8 +699,8 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
             .min(1)
             .required(),
         telefonnummer: Joi.string()
@@ -555,7 +732,200 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+}
+
+
+function putLieferadresse(req: express.Request, res: express.Response) {
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+
+    if (anrede == undefined || vorname == undefined || nachname == undefined || postleitzahl == undefined || ort == undefined || strasse == undefined || hnr == undefined || anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+        res.status(400);
+        res.json({message: "Fülle alle Felder aus!"});
+    } else {
+
+        const lieferadresse: Adresse = new Adresse();
+        lieferadresse.anrede = anrede;
+        lieferadresse.vorname = vorname;
+        lieferadresse.nachname = nachname;
+        lieferadresse.postleitzahl = postleitzahl;
+        lieferadresse.ort = ort;
+        lieferadresse.strasse = strasse;
+        lieferadresse.hnr = hnr;
+        const rechnungsadresse: Adresse = new Adresse();
+        rechnungsadresse.anrede = anrede;
+        rechnungsadresse.vorname = vorname;
+        rechnungsadresse.nachname = nachname;
+        rechnungsadresse.postleitzahl = postleitzahl;
+        rechnungsadresse.ort = ort;
+        rechnungsadresse.strasse = strasse;
+        rechnungsadresse.hnr = hnr;
+
+
+        const {error} = validateAdress(lieferadresse);
+
+        if (error) {
+            res.status(403).json({message: error.details[0].message});
+            console.log(error.details[0].message);
+        } else {
+            req.session.lieferadresse = lieferadresse;
+            req.session.rechnungsadresse = rechnungsadresse;
+            res.sendStatus(200);
+        }
+    }
+}
+
+function putRechnungsadresse(req: express.Request, res: express.Response) {
+    const anrede: string = req.body.anrede;
+    const vorname: string = req.body.vorname;
+    const nachname: string = req.body.nachname;
+    const postleitzahl: string = req.body.postleitzahl;
+    const ort: string = req.body.ort;
+    const strasse: string = req.body.strasse;
+    const hnr: string = req.body.hnr;
+
+    if (anrede == undefined || vorname == undefined || nachname == undefined || postleitzahl == undefined || ort == undefined || strasse == undefined || hnr == undefined || anrede.trim() == "" || vorname.trim() == "" || nachname.trim() == "" || postleitzahl.trim() == "" || ort.trim() == "" || strasse.trim() == "" || hnr.trim() == "") {
+        res.status(400);
+        res.json({message: "Fülle alle Felder aus!"});
+    } else {
+
+        const rechnungsadresse: Adresse = new Adresse();
+        rechnungsadresse.anrede = anrede;
+        rechnungsadresse.vorname = vorname;
+        rechnungsadresse.nachname = nachname;
+        rechnungsadresse.postleitzahl = postleitzahl;
+        rechnungsadresse.ort = ort;
+        rechnungsadresse.strasse = strasse;
+        rechnungsadresse.hnr = hnr;
+
+        const {error} = validateAdress(rechnungsadresse);
+
+        if (error) {
+            res.status(403).json({message: error.details[0].message});
+            console.log(error.details[0].message);
+        } else {
+            req.session.rechnungsadresse = rechnungsadresse;
+            res.sendStatus(200);
+        }
+    }
+
+}
+
+function postBestellung(req: express.Request, res: express.Response) {
+    const anredeL: string = req.session.lieferadresse.anrede;
+    const vornameL: string =  req.session.lieferadresse.vorname;
+    const nachnameL: string =  req.session.lieferadresse.nachname;
+    const postleitzahlL: string =  req.session.lieferadresse.postleitzahl;
+    const ortL: string =  req.session.lieferadresse.ort;
+    const strasseL: string = req.session.lieferadresse.strasse;
+    const hnrL: string =  req.session.lieferadresse.hnr;
+    const anredeR: string = req.session.rechnungsadresse.anrede;
+    const vornameR: string =  req.session.rechnungsadresse.vorname;
+    const nachnameR: string =  req.session.rechnungsadresse.nachname;
+    const postleitzahlR: string =  req.session.rechnungsadresse.postleitzahl;
+    const ortR: string =  req.session.rechnungsadresse.ort;
+    const strasseR: string = req.session.rechnungsadresse.strasse;
+    const hnrR: string =  req.session.rechnungsadresse.hnr;
+    const date = new Date().toISOString().split('T')[0];
+    const zahlungsmethode = req.body.zahlungsmethode;
+
+
+    if(warenkorbArray.length === 0) {
+        res.status(400).json({message: "Mit leerem Warenkorb kann keine Bestellung abgeschlossen werden!"})
+    } else {
+        if(zahlungsmethode == "PayPal" || zahlungsmethode == "SofortUeberweisung") {
+            const param: [string, string, string, string, string, string, string, string, string, string, string, string, string, string, number, string, string, string] = [anredeL, vornameL, nachnameL, postleitzahlL, ortL, strasseL, hnrL, anredeR, vornameR, nachnameR, postleitzahlR, ortR, strasseR, hnrR, req.session.nutzerId, "offen", date, zahlungsmethode];
+            const sql: string = `INSERT INTO Bestellungen (LieferAnrede, LieferVorname, LieferNachname, LieferPostleitzahl, LieferOrt, LieferStraße, LieferHausNr, RechnungAnrede, RechnungVorname, RechnungNachname, RechnungPostleitzahl, RechnungOrt, RechnungStraße, RechnungHausNr, UserID, Status, Bestelldatum, Zahlungsmethode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+            query(sql, param).then((result) => {
+                query("SELECT * FROM Nutzerliste WHERE Email = ?;", [req.session.email]).then((result: any) => {
+                    if (result.length === 1) {
+                        const anrede: string = result[0].Anrede;
+                        const vorname: string = result[0].Vorname;
+                        const nachname: string = result[0].Nachname;
+                        const postleitzahl: string = result[0].Postleitzahl;
+                        const ort: string = result[0].Ort;
+                        const strasse: string = result[0].Straße;
+                        const hnr: string = result[0].HausNr;
+
+                        const lieferadresse: Adresse = new Adresse();
+                        lieferadresse.anrede = anrede;
+                        lieferadresse.vorname = vorname;
+                        lieferadresse.nachname = nachname;
+                        lieferadresse.postleitzahl = postleitzahl;
+                        lieferadresse.ort = ort;
+                        lieferadresse.strasse = strasse;
+                        lieferadresse.hnr = hnr;
+                        req.session.lieferadresse = lieferadresse;
+                        req.session.rechnungsadresse = lieferadresse;
+                        req.session.cart = [];
+                    } else {
+                        res.sendStatus(500);
+                    }
+                }).catch(() => {
+                    res.sendStatus(500);
+                });
+                res.sendStatus(200);
+            }).catch((err: mysql.MysqlError) => {
+                res.sendStatus(500);
+                console.log(err);
+            });
+        } else {
+            res.status(400).json({message: "Gebe eine gültige Zahlungsmethode an!"})
+        }
+    }
+}
+
+function getBestellung(req: express.Request, res: express.Response) {
+    res.status(200).json({lieferadresse: req.session.lieferadresse, rechnungsadresse: req.session.rechnungsadresse});
+}
+
+
+function validateAdress(adresse: Adresse) {
+    const schemaPost = Joi.object({
+        anrede: Joi.string()
+            .pattern(/^(Herr|Frau)$/)
+            .message("Anrede ist nur Herr oder Frau erlaubt.")
+            .required(),
+        vorname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        nachname: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        postleitzahl: Joi.string()
+            .pattern(/^[0-9]{1,5}$/)
+            .message("Postleitzahl muss zwischen 1-5 Zahlen lang sein und darf nur Zahlen beinhalten.")
+            .min(1)
+            .max(5)
+            .required(),
+        ort: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        strasse: Joi.string()
+            .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .min(2)
+            .required(),
+        hnr: Joi.string()
+            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
+            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .min(1)
+            .required()
+    });
+
+    return schemaPost.validate(adresse);
 }
 
 
