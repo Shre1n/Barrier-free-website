@@ -744,7 +744,8 @@ function warenkorbRender() {
         const subtotal = produkt.preis * produkt.produktMenge; // Teilsumme für das aktuelle Produkt
         endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
 
-        modalFormWarenkorb.innerHTML += `
+        modalFormWarenkorb.innerHTML += `#
+
       <div class="modal-body" data-position="${i}">
         <div class="row border border-dark rounded">
           <div class="col-4">

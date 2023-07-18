@@ -41,6 +41,12 @@
     font-size: 1.25em;
     color: #FFFFFF !important;
 }
+.breebutton {
+    font-family: "Bree Serif", serif !important;
+    font-size: 0.5em;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
 
 .bree20G {
     font-family: "Bree Serif", serif !important;
@@ -124,6 +130,7 @@
     width: 7.46em;
     height: 2em;
     transition: transform .1s;
+    border-color: #707070 !important;
 }
 
 
@@ -143,6 +150,7 @@
 .bicon {
     color: #3D93A6 !important;
 }
+
 
 .breadcrumb-container a{
     color: black;
@@ -190,6 +198,8 @@
     width: 18em;
     border-radius: 0 !important;
     border-color: #707070;
+    object-fit: cover;
+    object-position: 40%;
 }
 
 .cardpk {
@@ -247,6 +257,8 @@
     width: 15em;
     border-radius: 0 !important;
     border-color: #707070;
+    object-position: 40%;
+    object-fit: cover;
 }
 
 .cardfont {
@@ -303,6 +315,8 @@
     margin-left: 1em;
     margin-right: 8em;
     transition: transform .1s;
+    border-style: solid;
+    border-width: 0.075em;
 }
 
 .bookmarks:hover {
@@ -463,32 +477,11 @@ body {
 
 /* Produktdetailseite */
 
-.produktbillderklein img {
-    height: 3em;
-    margin-top: 1em;
-    cursor: pointer;
-    display: block;
-    padding: 0.2em;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.6;
-}
-.produktbillderklein img:hover {
-    height: 3em;
-    margin-top: 1em;
-    cursor: pointer;
-    display: block;
-    padding: 0.2em;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 1;
-    scale: 1.1;
-}
 
 .zentriert {
-    justify-content: center;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
 }
 
 .abstandtop {
@@ -513,7 +506,24 @@ body {
     position: absolute;
     z-index: 3 !important;
 }
+.wunschlisteicon{
+    border-style: solid;
+    border-color: #707070;
+}
 
+.iconbeschriftung{
+    font-family: "Bree Serif",serif;
+    color: #FFFFFF !important;
+    font-size: 1em !important;
+    text-decoration: none;
+    margin-top: 10em;
+}
+.breadpfeil{
+    color: #707070 !important;
+}
+.abstandtopklein{
+    padding-top: 1em;
+}
 
 .toastsBodyBackground{
     background-color: #3D93A6;
