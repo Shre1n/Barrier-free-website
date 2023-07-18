@@ -8,17 +8,40 @@
 .detailsection {
    padding-top: 12em;
 }
-#expresscheckout{
-    align-items: center;
-    text-align: center;
-    height: auto;
+
+#ppbutton{
+    height: 3em;
+    width: 15em;
     border-radius: 1.5em !important;
-    width: auto;
-    vertical-align: auto;
 }
+
+
+#warenkorbdetail{
+    height: 3em;
+    width: 15em;
+    border-radius: 1.5em !important;
+}
+#warenkobicon{
+    color: #FFFFFF !important;
+    padding-right: 1em;
+
+}
+
+
 .ppicon{
     height: 1.2em;
     width: auto;
+    padding-right: 1em;
+}
+
+#ppbutton{
+    color: #FFFFFF !important;
+    background-color: #A37F5F !important;
+}
+.ppbuttonschrift{
+    color: #FFFFFF !important;
+    text-decoration: none;
+    text-align: center;
 }
 
 .produktbillderklein img {
@@ -43,4 +66,26 @@
     margin-right: auto;
     opacity: 1;
     scale: 1.1;
+}
+.farbauswahl{
+    background-color: white !important;
+    border-radius: 1em;
+}
+.farbauswahlchecked {
+    background-color: white !important;
+    border-color: #3D93A6!important;
+    border-width: 0.15em;
+    border-radius: 1em;
+}
+.farbauswahlchecked:hover{
+    transform: scale(1.1);
+}
+.randfilter{
+    padding-left: 3.5em;
+}
+.randbewertung{
+    padding-left: 2em;
+}
+.sternfilter{
+    width: 1em !important;
 }
