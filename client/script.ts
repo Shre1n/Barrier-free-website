@@ -681,7 +681,7 @@ function delAllCartItems() {
     fetch("/deleteAll", {
         method: "DELETE"
     }).then((res) => {
-        window.location.href = "Bestellung.html.html";
+        window.location.href = "Bestellung.html";
     }).catch((e) => {
         console.log(e);
     });

@@ -560,3 +560,7 @@ body {
 #previousPageLink {
     text-transform: capitalize;
 }
+
+.colorforheart {
+    color: #3D93A6 !important;
+}
