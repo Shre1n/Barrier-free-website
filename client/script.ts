@@ -1137,32 +1137,31 @@ function bestellabschlussProdukteRender() {
         endpreis += subtotal; // Teilsumme zum Gesamtpreis hinzufügen
 
         bestellabschlussProdukte.innerHTML += `
-            <div class="row border border-dark rounded">
+        <div class="row border border-dark rounded mb-4"> 
           <div class="col-4">
-            <div class="row mt-3">
+            <div class="row">
               <div class="col">
                 <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="placeholdermerkliste img-fluid imgHöhe">
               </div>
             </div>
           </div>
           <div class="col-8 mb-3">
-            <div class="row imgHöhe">
+            <div class="row">
               <div class="col-10 mb-4">
                 <span class="bree20G">${produkt.produktName}</span>
               </div>
-              <div class="col-2 mb-4">
+              <div class="col-2 mb-4 text-end">
                 <i class="fas fa-solid fa-trash" type="button" data-trash="${produkt.produktName}"></i>
               </div>
               <div class="col-10 mb-4">
                 <span>${produkt.kurzbeschreibung}</span>
               </div>
-              <div class="col-2 mb-4"></div>
-              <div class="col-6">
+              <div class="col-8 mb-1>
                 <label for="menge">Menge: </label>
                 <input type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}">
                 <span id="bestandErr"></span>
               </div>
-              <div id="preis${i}" class="col-6 text-end">
+              <div id="preis${i}" class="col-4 text-end">
                 <span>${subtotal.toFixed(2)} €</span>
               </div>
             </div>
@@ -1173,7 +1172,7 @@ function bestellabschlussProdukteRender() {
 
     bestellabschlussProdukte.innerHTML += `
         <div class="align-items-end">
-            <p class="text-end gesamtpreis abstandtop"> ${endpreis}</p>
+            <p class="text-end gesamtpreis abstandtop"> Gesamtpreis: ${endpreis.toFixed(2)} €</p>
             <div class="row">
                 <div class="col text-end">
                 <a id="bestellungAbschliessen" class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
