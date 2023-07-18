@@ -6,6 +6,7 @@ import * as path from "path";
 import Joi = require('joi');
 import * as cluster from "cluster";
 import {string} from "joi";
+
 //Install Displayable Chart option
 
 class Adresse {
@@ -18,14 +19,15 @@ class Adresse {
     hnr: string;
 }
 
-class WarenkorbProdukt{
+class WarenkorbProdukt {
     produktName: string;
     kurzbeschreibung: string;
-    preis:number;
-    bilder:string;
+    preis: number;
+    bilder: string;
     bestand: number;
     produktMenge: number;
 }
+
 const warenkorbArray: WarenkorbProdukt[] = [];
 
 // Ergänzt/Überlädt den Sessionstore
@@ -134,7 +136,6 @@ app.put("/cart", checkLogin, putCart);
 
 //SITE
 // Angezeigte Webseite
-
 
 
 function postUser(req: express.Request, res: express.Response): void {
@@ -342,8 +343,8 @@ function postCart(req: express.Request, res: express.Response): void {
     const produktMenge: number = req.body.produktMenge;
 
     query("SELECT * FROM Produktliste WHERE Produktname = ?;", [produktName])
-        .then((result:any)=>{
-            const produktID:number = Number(result[0].ID);
+        .then((result: any) => {
+            const produktID: number = Number(result[0].ID);
             const newQuery: string = 'INSERT INTO Warenkorb (NutzerID, ProduktID, menge) VALUES (?,?,?);'
 
             const data: [number, number, number] = [
@@ -352,7 +353,7 @@ function postCart(req: express.Request, res: express.Response): void {
                 produktMenge
             ];
 
-            if(produktID === null || produktMenge === null) {
+            if (produktID === null || produktMenge === null) {
                 res.sendStatus(404);
             }
 
@@ -365,12 +366,9 @@ function postCart(req: express.Request, res: express.Response): void {
 
 
         })
-        .catch((e)=>{
+        .catch((e) => {
             console.log(e);
         })
-
-
-
 
 
 }
@@ -379,10 +377,8 @@ function getCart(req: express.Request, res: express.Response): void {
     const warenkorbArray: WarenkorbProdukt[] = [];
     query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
         .then((results: any) => {
-            if(results.length !== 0) {
-
-
-                for(const r of results){
+            if (results.length !== 0) {
+                for (const r of results) {
                     let product: WarenkorbProdukt = new WarenkorbProdukt();
                     product.produktName = r.Produktname;
                     product.kurzbeschreibung = r.Kurzbeschreibung;
@@ -391,11 +387,10 @@ function getCart(req: express.Request, res: express.Response): void {
                     product.produktMenge = r.Menge;
                     product.bestand = r.Bestand;
                     warenkorbArray.push(product);
-
                     if (r.Produktname === undefined || r.Produktname === "") {
+
                         res.sendStatus(404);
                     }
-
 
                 }
             }
@@ -416,10 +411,10 @@ function itemAlreadyInCart(req: express.Request, res: express.Response, next: ex
         .then((result: any) => {
             query("SELECT * FROM Warenkorb WHERE NutzerID = ? AND ProduktID = ?;", [req.session.nutzerid, result[0].ID])
                 .then((results: any) => {
-                    if(results.length == 1) {
-                        if(produktMethod === "add") {
+                    if (results.length == 1) {
+                        if (produktMethod === "add") {
                             query("UPDATE Warenkorb SET Menge = Menge + ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
-                                .then(()=>{
+                                .then(() => {
                                     res.status(200).send("Warenkorb geupdatet!");
                                 })
                                 .catch((e) => {
@@ -457,9 +452,9 @@ function putCart(req: express.Request, res: express.Response): void {
     query("SELECT ID, Preis, Bilder, Bestand, Kurzbeschreibung FROM Produktliste WHERE Produktname = ? ", [produktName])
         .then((result: any) => {
             if (result.length === 1) {
-                if(produktMethod == "change") {
+                if (produktMethod == "change") {
                     query("UPDATE Warenkorb SET Menge = ? WHERE NutzerID = ? AND ProduktID = ?;", [produktMenge, req.session.nutzerid, result[0].ID])
-                        .then(()=>{
+                        .then(() => {
                             res.status(200).send("Warenkorb geupdatet!")
                         })
                         .catch(() => {
@@ -483,15 +478,15 @@ function deleteCart(req: express.Request, res: express.Response): void {
     query("SELECT ID FROM Produktliste WHERE Produktname = ? ", [productNameToDelete])
         .then((result: any) => {
             query("DELETE FROM Warenkorb WHERE ProduktID = ? AND NutzerID = ?;", [result[0].ID, req.session.nutzerid])
-                .then(()=>{
+                .then(() => {
                     res.status(200).send("Produkt aus Warenkorb gelöscht!");
                 })
                 .catch((e) => {
                     console.log(e);
                     res.status(500).send("Fehler bei der Produktauswahl!");
                 });
-        }).catch((e)=>{
-            console.log(e);
+        }).catch((e) => {
+        console.log(e);
         res.status(500).send("Fehler bei der Produktauswahl!");
     });
 
@@ -526,53 +521,53 @@ function signIn(req: express.Request, res: express.Response): void {
     const cryptopass: string = crypto.createHash("sha512").update(passwort).digest("hex");
     if (email !== undefined && passwort !== undefined) {
         query("SELECT ID, Vorname, Nachname FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
-        query("SELECT * FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
-            if (result.length === 1) {
-                req.session.email = email;
-                req.session.passwort = cryptopass;
-                req.session.cart = [];
-                req.session.nutzerid = result[0].ID;
-                req.session.nutzerId = result[0].ID;
+            query("SELECT * FROM Nutzerliste WHERE Email = ? AND Passwort = ?;", [email, cryptopass]).then((result: any) => {
+                if (result.length === 1) {
+                    req.session.email = email;
+                    req.session.passwort = cryptopass;
+                    req.session.cart = [];
+                    req.session.nutzerid = result[0].ID;
+                    req.session.nutzerId = result[0].ID;
 
-                const anrede: string = result[0].Anrede;
-                const vorname: string = result[0].Vorname;
-                const nachname: string = result[0].Nachname;
-                const postleitzahl: string = result[0].Postleitzahl;
-                const ort: string = result[0].Ort;
-                const strasse: string = result[0].Straße;
-                const hnr: string = result[0].HausNr;
+                    const anrede: string = result[0].Anrede;
+                    const vorname: string = result[0].Vorname;
+                    const nachname: string = result[0].Nachname;
+                    const postleitzahl: string = result[0].Postleitzahl;
+                    const ort: string = result[0].Ort;
+                    const strasse: string = result[0].Straße;
+                    const hnr: string = result[0].HausNr;
 
-                const lieferadresse: Adresse = new Adresse();
-                lieferadresse.anrede = anrede;
-                lieferadresse.vorname = vorname;
-                lieferadresse.nachname = nachname;
-                lieferadresse.postleitzahl = postleitzahl;
-                lieferadresse.ort = ort;
-                lieferadresse.strasse = strasse;
-                lieferadresse.hnr = hnr;
-                req.session.lieferadresse = lieferadresse;
+                    const lieferadresse: Adresse = new Adresse();
+                    lieferadresse.anrede = anrede;
+                    lieferadresse.vorname = vorname;
+                    lieferadresse.nachname = nachname;
+                    lieferadresse.postleitzahl = postleitzahl;
+                    lieferadresse.ort = ort;
+                    lieferadresse.strasse = strasse;
+                    lieferadresse.hnr = hnr;
+                    req.session.lieferadresse = lieferadresse;
 
-                const rechnungsadresse: Adresse = new Adresse();
-                rechnungsadresse.anrede = anrede;
-                rechnungsadresse.vorname = vorname;
-                rechnungsadresse.nachname = nachname;
-                rechnungsadresse.postleitzahl = postleitzahl;
-                rechnungsadresse.ort = ort;
-                rechnungsadresse.strasse = strasse;
-                rechnungsadresse.hnr = hnr;
-                req.session.rechnungsadresse = rechnungsadresse;
-                req.session.cart = [];
-                res.sendStatus(200);
-            } else {
-                console.log("500 in else");
-                res.sendStatus(400);
-            }
-        }).catch(() => {
-            console.log("500 in catch");
-            res.sendStatus(500);
-        });
-    })
-}
+                    const rechnungsadresse: Adresse = new Adresse();
+                    rechnungsadresse.anrede = anrede;
+                    rechnungsadresse.vorname = vorname;
+                    rechnungsadresse.nachname = nachname;
+                    rechnungsadresse.postleitzahl = postleitzahl;
+                    rechnungsadresse.ort = ort;
+                    rechnungsadresse.strasse = strasse;
+                    rechnungsadresse.hnr = hnr;
+                    req.session.rechnungsadresse = rechnungsadresse;
+                    req.session.cart = [];
+                    res.sendStatus(200);
+                } else {
+                    console.log("500 in else");
+                    res.sendStatus(400);
+                }
+            }).catch(() => {
+                console.log("500 in catch");
+                res.sendStatus(500);
+            });
+        })
+    }
 }
 
 
@@ -593,7 +588,7 @@ function checkLogin(req: express.Request, res: express.Response, next: express.N
         next();
     } else {
         res.status(401);
-        res.send("User is not logged in! ")
+        res.send("User is not logged in! ");
     }
 }
 
@@ -732,7 +727,7 @@ function query(sql: string, param: any[] = []): Promise<any> {
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
 function isLoggedIn(req: express.Request, res: express.Response): void {
-    res.status(200).send({message:"Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
+    res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
 
@@ -818,67 +813,87 @@ function putRechnungsadresse(req: express.Request, res: express.Response) {
 }
 
 function postBestellung(req: express.Request, res: express.Response) {
+
+
     const anredeL: string = req.session.lieferadresse.anrede;
-    const vornameL: string =  req.session.lieferadresse.vorname;
-    const nachnameL: string =  req.session.lieferadresse.nachname;
-    const postleitzahlL: string =  req.session.lieferadresse.postleitzahl;
-    const ortL: string =  req.session.lieferadresse.ort;
+    const vornameL: string = req.session.lieferadresse.vorname;
+    const nachnameL: string = req.session.lieferadresse.nachname;
+    const postleitzahlL: string = req.session.lieferadresse.postleitzahl;
+    const ortL: string = req.session.lieferadresse.ort;
     const strasseL: string = req.session.lieferadresse.strasse;
-    const hnrL: string =  req.session.lieferadresse.hnr;
+    const hnrL: string = req.session.lieferadresse.hnr;
     const anredeR: string = req.session.rechnungsadresse.anrede;
-    const vornameR: string =  req.session.rechnungsadresse.vorname;
-    const nachnameR: string =  req.session.rechnungsadresse.nachname;
-    const postleitzahlR: string =  req.session.rechnungsadresse.postleitzahl;
-    const ortR: string =  req.session.rechnungsadresse.ort;
+    const vornameR: string = req.session.rechnungsadresse.vorname;
+    const nachnameR: string = req.session.rechnungsadresse.nachname;
+    const postleitzahlR: string = req.session.rechnungsadresse.postleitzahl;
+    const ortR: string = req.session.rechnungsadresse.ort;
     const strasseR: string = req.session.rechnungsadresse.strasse;
-    const hnrR: string =  req.session.rechnungsadresse.hnr;
+    const hnrR: string = req.session.rechnungsadresse.hnr;
     const date = new Date().toISOString().split('T')[0];
     const zahlungsmethode = req.body.zahlungsmethode;
 
 
-    if(warenkorbArray.length === 0) {
-        res.status(400).json({message: "Mit leerem Warenkorb kann keine Bestellung abgeschlossen werden!"})
-    } else {
-        if(zahlungsmethode == "PayPal" || zahlungsmethode == "SofortUeberweisung") {
-            const param: [string, string, string, string, string, string, string, string, string, string, string, string, string, string, number, string, string, string] = [anredeL, vornameL, nachnameL, postleitzahlL, ortL, strasseL, hnrL, anredeR, vornameR, nachnameR, postleitzahlR, ortR, strasseR, hnrR, req.session.nutzerId, "offen", date, zahlungsmethode];
-            const sql: string = `INSERT INTO Bestellungen (LieferAnrede, LieferVorname, LieferNachname, LieferPostleitzahl, LieferOrt, LieferStraße, LieferHausNr, RechnungAnrede, RechnungVorname, RechnungNachname, RechnungPostleitzahl, RechnungOrt, RechnungStraße, RechnungHausNr, UserID, Status, Bestelldatum, Zahlungsmethode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-            query(sql, param).then((result) => {
-                query("SELECT * FROM Nutzerliste WHERE Email = ?;", [req.session.email]).then((result: any) => {
-                    if (result.length === 1) {
-                        const anrede: string = result[0].Anrede;
-                        const vorname: string = result[0].Vorname;
-                        const nachname: string = result[0].Nachname;
-                        const postleitzahl: string = result[0].Postleitzahl;
-                        const ort: string = result[0].Ort;
-                        const strasse: string = result[0].Straße;
-                        const hnr: string = result[0].HausNr;
+    query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
+        .then((results: any) => {
+            for (const r of results) {
+                let product: WarenkorbProdukt = new WarenkorbProdukt();
+                product.produktName = r.Produktname;
+                product.kurzbeschreibung = r.Kurzbeschreibung;
+                product.bilder = r.Bilder;
+                product.preis = r.Preis;
+                product.produktMenge = r.Menge;
+                product.bestand = r.Bestand;
+                warenkorbArray.push(product);
+                if (r.Produktname === undefined || r.Produktname === "") {
 
-                        const lieferadresse: Adresse = new Adresse();
-                        lieferadresse.anrede = anrede;
-                        lieferadresse.vorname = vorname;
-                        lieferadresse.nachname = nachname;
-                        lieferadresse.postleitzahl = postleitzahl;
-                        lieferadresse.ort = ort;
-                        lieferadresse.strasse = strasse;
-                        lieferadresse.hnr = hnr;
-                        req.session.lieferadresse = lieferadresse;
-                        req.session.rechnungsadresse = lieferadresse;
-                        req.session.cart = [];
-                    } else {
+                    res.sendStatus(404);
+                }
+
+            }
+            if (results.length === 0) {
+                res.status(400).json({message: "Mit leerem Warenkorb kann keine Bestellung abgeschlossen werden!"})
+            } else {
+                if (zahlungsmethode == "PayPal" || zahlungsmethode == "SofortUeberweisung") {
+                    const param: [string, string, string, string, string, string, string, string, string, string, string, string, string, string, number, string, string, string] = [anredeL, vornameL, nachnameL, postleitzahlL, ortL, strasseL, hnrL, anredeR, vornameR, nachnameR, postleitzahlR, ortR, strasseR, hnrR, req.session.nutzerId, "offen", date, zahlungsmethode];
+                    const sql: string = `INSERT INTO Bestellungen (LieferAnrede, LieferVorname, LieferNachname, LieferPostleitzahl, LieferOrt, LieferStraße, LieferHausNr, RechnungAnrede, RechnungVorname, RechnungNachname, RechnungPostleitzahl, RechnungOrt, RechnungStraße, RechnungHausNr, UserID, Status, Bestelldatum, Zahlungsmethode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+                    query(sql, param).then((result) => {
+                        query("SELECT * FROM Nutzerliste WHERE Email = ?;", [req.session.email]).then((result: any) => {
+                            if (result.length === 1) {
+                                const anrede: string = result[0].Anrede;
+                                const vorname: string = result[0].Vorname;
+                                const nachname: string = result[0].Nachname;
+                                const postleitzahl: string = result[0].Postleitzahl;
+                                const ort: string = result[0].Ort;
+                                const strasse: string = result[0].Straße;
+                                const hnr: string = result[0].HausNr;
+
+                                const lieferadresse: Adresse = new Adresse();
+                                lieferadresse.anrede = anrede;
+                                lieferadresse.vorname = vorname;
+                                lieferadresse.nachname = nachname;
+                                lieferadresse.postleitzahl = postleitzahl;
+                                lieferadresse.ort = ort;
+                                lieferadresse.strasse = strasse;
+                                lieferadresse.hnr = hnr;
+                                req.session.lieferadresse = lieferadresse;
+                                req.session.rechnungsadresse = lieferadresse;
+
+                            } else {
+                                res.sendStatus(500);
+                            }
+                        }).catch(() => {
+                            res.sendStatus(500);
+                        });
+                    }).catch((err: mysql.MysqlError) => {
                         res.sendStatus(500);
-                    }
-                }).catch(() => {
-                    res.sendStatus(500);
-                });
-                res.sendStatus(200);
-            }).catch((err: mysql.MysqlError) => {
-                res.sendStatus(500);
-                console.log(err);
-            });
-        } else {
-            res.status(400).json({message: "Gebe eine gültige Zahlungsmethode an!"})
-        }
-    }
+                        console.log(err);
+                    });
+                } else {
+                    res.status(400).json({message: "Gebe eine gültige Zahlungsmethode an!"})
+                }
+            }
+            res.status(200).send({"message": results});
+        });
 }
 
 function getBestellung(req: express.Request, res: express.Response) {

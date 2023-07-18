@@ -527,13 +527,15 @@ POST /cart
 Host: localhost:8080
 Content-Type: application/json
 
+{"produktName": "Shake n Match", "produktMenge":  5, "method":  "add"}
+
 ### Posten einer Lieferadresse
 PUT /lieferadresse HTTP/2
 Host: localhost:8080
 Content-Type: application/json
 
 {
-  "anrede": "Insekt",
+  "anrede": "Frau",
   "vorname": "Max",
   "nachname": "Mustermann",
   "postleitzahl": "12345",
@@ -550,7 +552,7 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-  "anrede": "Insekt",
+  "anrede": "Frau",
   "vorname": "Max",
   "nachname": "Mustermann",
   "postleitzahl": "12345",
@@ -558,3 +560,22 @@ Content-Type: application/json
   "strasse": "Am Musterweg",
   "hnr": "1"
 }
+
+###
+POST http://localhost:8080/signin
+Content-Type: application/json
+
+{
+  "email": "jannis.kempf@hotmail.de",
+  "passwort": "123"
+}
+###
+
+###
+POST /bestellung HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{"zahlungsmethode":  "PayPal"}
+
+

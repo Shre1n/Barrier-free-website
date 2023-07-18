@@ -105,229 +105,121 @@
     Datenangaben von Kunde werden in nächsten Sprints ersetzt
     Server-Funktion und Datenbankverknüpfung ebenfalls
      -->
-    <div class="row">
-        <div class="col-1 borderCol"></div>
-        <div class="col-4">
-            <div class="row border border-secondary">
-                <div class="col ms-3 colMinus">
-                    <div class="row">
-                        <div class="col borderCol font25">Lieferangaben</div>
-                        <div class="col d-flex justify-content-end align-items-center">
-                            <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
-                        </div>
-                    </div>
-                    <div class="row"></div>
-                    <form type="submit" id="postLieferadresseForm">
-                        <select id="editLieferAnrede" class="mb-2 d-none bbutton text-center anredeDropdown" required>
-                            <option value="Herr" class="anrede">Herr</option>
-                            <option value="Frau" class="anrede">Frau</option>
-                        </select>
-                        <input id="displayLieferAnrede" class="row" disabled>
-                        <input id="displayLieferVorname" class="row" disabled>
-                        <input id="displayLieferNachname" class="row" disabled>
-                        <input id="displayLieferStraße" class="row" disabled>
-                        <input id="displayLieferHnr" class="row" disabled>
-                        <input id="displayLieferPLZ" class="row" disabled>
-                        <input id="displayLieferOrt" class="row" disabled>
-                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
-                        <a id="lieferAdBtnCancel" type="" class="btn-secondary mt-2 ms-1 d-none cancelButton">Abbrechen</a>
-                    </form>
-                    <!-- attempt -->
-                    <form id="displayRechnungsadresse" class="col d-none">
-                        <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
-                        <label for=displayRechnungAnrede></label>
-                        <select id="displayRechnungAnrede" class="bbutton text-center mb-2 anredeDropdown" required>
-                            <option value="Herr" class="anrede">Herr</option>
-                            <option value="Frau" class="anrede">Frau</option>
-                        </select>
-                        <input id="displayRechnungVorname" class="row mb-2" value="Vorname">
-                        <input id="displayRechnungNachname" class="row mb-2" value="Nachname">
-                        <input id="displayRechnungStraße" class="row mb-2" value="Straße">
-                        <input id="displayRechnungHnr" class="row mb-2" value="Hausnummer">
-                        <input id="displayRechnungPLZ" class="row mb-2" value="Postleitzahl">
-                        <input id="displayRechnungOrt" class="row mb-2" value="Ort">
+    <div class="container">
+        <div class="row">
+            <div class="col-1 borderCol"></div>
+            <div class="col-xl-4 col-lg-12 mb-3">
+                <div class="row border border-secondary">
+                    <div class="col ms-3 colMinus">
                         <div class="row">
+                            <div class="col borderCol font25">Lieferangaben</div>
+                            <div class="col d-flex justify-content-end align-items-center">
+                                <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
+                            </div>
                         </div>
-                    </form>
-
-                    <div class="container-fluid">
                         <div class="row"></div>
-                        <div class="row mb-1">
-                            <div class="row topPad botPad mt-3">Zahlungsarten</div>
+                        <form type="submit" id="postLieferadresseForm">
+                            <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
+                                <option value="Herr" class="anrede">Herr</option>
+                                <option value="Frau" class="anrede">Frau</option>
+                            </select>
+                            <input id="displayLieferAnrede" class="row" disabled>
+                            <input id="displayLieferVorname" class="row" disabled>
+                            <input id="displayLieferNachname" class="row" disabled>
+                            <input id="displayLieferStraße" class="row" disabled>
+                            <input id="displayLieferHnr" class="row" disabled>
+                            <input id="displayLieferPLZ" class="row" disabled>
+                            <input id="displayLieferOrt" class="row" disabled>
+                            <div class="row">
+                            <div class="col-6">
+                            <button id="lieferAdBtnCancel" type="button" class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen</button>
+                            </div>
+                            <div class="col-6">
+                            <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">Speichern</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- attempt -->
+                        <form id="displayRechnungsadresse" class="col d-none">
+                            <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
+                            <label for=displayRechnungAnrede></label>
+                            <select id="displayRechnungAnrede" class="text-center mb-2" required>
+                                <option value="Herr" class="anrede">Herr</option>
+                                <option value="Frau" class="anrede">Frau</option>
+                            </select>
+                            <input id="displayRechnungVorname" class="row mb-2" placeholder="Vorname">
+                            <input id="displayRechnungNachname" class="row mb-2" placeholder="Nachname">
+                            <input id="displayRechnungStraße" class="row mb-2" placeholder="Straße">
+                            <input id="displayRechnungHnr" class="row mb-2" placeholder="Hausnummer">
+                            <input id="displayRechnungPLZ" class="row mb-2" placeholder="PLZ">
+                            <input id="displayRechnungOrt" class="row mb-2" placeholder="Ort">
+                            <div class="row">
+                            </div>
+                        </form>
+
+                        <div class="container-fluid">
+                            <div class="row"></div>
+                            <div class="row mb-1">
+                                <div class="row topPad botPad mt-3">Zahlungsarten</div>
+                                <div class="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                               value="PayPal" id="zahlungsMethodePayPal" checked>
+                                        <label class="form-check-label" for="zahlungsMethodePayPal">
+                                            <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                           value="PayPal" id="zahlungsMethodePayPal" checked>
-                                    <label class="form-check-label" for="zahlungsMethodePayPal">
-                                        <img src="/img/PayPal.svg.png" class="payMethodImg" alt="placeholder">
+                                           value="SofortUeberweisung" id="zahlungsMethodeSofort">
+                                    <label class="form-check-label" for="zahlungsMethodeSofort">
+                                        <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg"
+                                             alt="placeholder">
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="row topPad">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                <label class="form-check-label font16" for="flexCheckDefault1">
+                                    Ich erkläre mich mit den AGB von PlayAbility einverstanden.
+                                </label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                       value="SofortUeberweisung" id="zahlungsMethodeSofort">
-                                <label class="form-check-label" for="zahlungsMethodeSofort">
-                                    <img src="/img/Sofortüberweisung_Logo.svg.png" class="payMethodImg"
-                                         alt="placeholder">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                <label class="form-check-label font16" for="flexCheckDefault2">
+                                    Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert habe.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-check">
+                                <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
+                                <label class="form-check-label font16" for="checkRechnungsadresse">
+                                    Rechnungsadresse weicht von Lieferadresse ab.
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="row topPad">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                            <label class="form-check-label font16" for="flexCheckDefault1">
-                                Ich erkläre mich mit den AGB von PlayAbility einverstanden.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                            <label class="form-check-label font16" for="flexCheckDefault2">
-                                Hiermit bestätige ich, dass ich die Datenschutzbestimmung gelesen und akzeptiert habe.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-check">
-                            <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
-                            <label class="form-check-label font16" for="checkRechnungsadresse">
-                                Rechnungsadresse weicht von Lieferadresse ab.
-                            </label>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-2"></div>
-        <div id="bestellabschlussProdukte" class="col-4">
-            <!--
-            <div class="card mb-3 checkoutcard">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <img src="/img/placeholder.jpg" class="img-fluid rounded-start checkoutcardbild" alt="...">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h5 class="card-title">Tactile Towers</h5>
-                                </div>
-                                <div class="col-1">
-                                    <i class=" fas fa-solid fa-trash"></i>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <p class="card-text">Tactile Towers ist ein Spiel,
-                                bei dem unter Zeitdruck eine
-                                Figur aus Einzelteilen richtig
-                                gestapelt werden muss.
-                                Trainiere deine taktile
-                                Wahrnehmung und
-                                Geschicklichkeit in diesem
-                                spannenden Spiel!</p>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                        <button type="button" class="btn btn-secondary bree20">1</button>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop2" type="button"
-                                                    class="btn btn-secondary dropdown-toggle bree20"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Menge
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="#">1</a>
-                                                <a class="dropdown-item" href="#">2</a>
-                                                <a class="dropdown-item" href="#">3</a>
-                                                <a class="dropdown-item" href="#">4</a>
-                                                <a class="dropdown-item" href="#">5</a>
-                                                <a class="dropdown-item" href="#">6</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkoutcradrechts">
-                                    79,99€
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-2"></div>
+            <div id="bestellabschlussProdukte" class="col-xl-4 col-lg-12">
+                <a id="bestellungAbschliessen"
+                   class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
+                    Bestellung abschließen
+                </a>
             </div>
-            <div class="card mb-3 checkoutcard">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <img src="/img/placeholder.jpg" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-10">
-                                    <h5 class="card-title">Tactile Towers</h5>
-                                </div>
-                                <div class="col-1">
-                                    <i class=" fas fa-solid fa-trash"></i>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <p class="card-text">Tactile Towers ist ein Spiel,
-                                bei dem unter Zeitdruck eine
-                                Figur aus Einzelteilen richtig
-                                gestapelt werden muss.
-                                Trainiere deine taktile
-                                Wahrnehmung und
-                                Geschicklichkeit in diesem
-                                spannenden Spiel!</p>
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                        <button type="button" class="btn btn-secondary bree20">1</button>
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button"
-                                                    class="btn btn-secondary dropdown-toggle bree20"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Menge
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item" href="#">1</a>
-                                                <a class="dropdown-item" href="#">2</a>
-                                                <a class="dropdown-item" href="#">3</a>
-                                                <a class="dropdown-item" href="#">4</a>
-                                                <a class="dropdown-item" href="#">5</a>
-                                                <a class="dropdown-item" href="#">6</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkoutcradrechts">
-                                    79,99€
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="align-items-end">
-                <p class="text-end gesamtpreis abstandtop"> 139,98€</p>
-                <div class="row">
-                    <div class="col text-end">
-                    -->
-            <a id="bestellungAbschliessen"
-               class="col-3 btn btn-primary button1 text-al font16 abstandtop abstandtopbott weiterButtonBestellabschluss">
-                Bestellung abschließen
-            </a>
         </div>
-        </div>
-    <div class="row mt-1 mb-1">
-        <div class="col"></div>
     </div>
 </div>
+
 
 <div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
