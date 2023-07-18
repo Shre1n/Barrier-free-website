@@ -1252,24 +1252,16 @@ function bestellabschlussProdukteRender() {
     deleteButtons.forEach((button) => {
         button.addEventListener("click", deleteItemFromWarenkorb);
     });
-
-    const bestellen = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
-    const agb = document.querySelector("AGB") as HTMLInputElement;
-    const datenschutz = document.querySelector("#Datenschutz") as HTMLInputElement;
-     bestellen.addEventListener("click", (event: Event) => {
-         getCart();
-         if(shoppingCart.length === 0){
-             alert("Warenkorb darf nicht leer sein")
-         }
-         else{
-             if(agb.checked && datenschutz.checked){
-                 delAllCartItems();
-             }else {
-                 alert("Bitte akzeptieren sie die AGB und die Datenschutzerklärung")
-             }
-
-         }
-     });
-
     // document.getElementById("bestellungAbschliessen").addEventListener("click", delAllCartItems);
+    document.querySelector("#bestellungAbschliessen").addEventListener("click", function() {
+        const agb = document.querySelector("#AGBcheck") as HTMLInputElement;
+        const datenschutz = document.querySelector("#Datenschutzcheck") as HTMLInputElement;
+        getCart();
+        if (shoppingCart.length === 0) {
+            alert("Warenkorb darf nicht leer sein");
+        } else if( agb.checked && datenschutz.checked) {
+            delAllCartItems();
+        }
+    });
 }
+
