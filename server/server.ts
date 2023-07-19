@@ -621,7 +621,7 @@ function disableUser(req: express.Request, res: express.Response): void {
 function validateUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
-            .pattern(/^(Herr|Frau)$/)
+            .pattern(/^(Herr|Frau|Divers)$/)
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
@@ -680,7 +680,7 @@ function validateUser(isPut, user) {
 function validateEditUser(isPut, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
-            .pattern(/^(Herr|Frau)$/)
+            .pattern(/^(Herr|Frau|Divers)$/)
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
@@ -925,7 +925,7 @@ function getBestellung(req: express.Request, res: express.Response) {
 function validateAdress(adresse: Adresse) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
-            .pattern(/^(Herr|Frau)$/)
+            .pattern(/^(Herr|Frau|Divers)$/)
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
