@@ -653,7 +653,7 @@ function validateUser(isPut, user) {
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Strasse darf keine Zahlen und Sonderzeichen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
@@ -707,7 +707,7 @@ function validateEditUser(isPut, user) {
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Strasse darf keine Zahlen und Sonderzeichen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
@@ -948,7 +948,7 @@ function validateAdress(adresse: Adresse) {
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Strasse darf keine Zahlen und Sonderzeichen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
