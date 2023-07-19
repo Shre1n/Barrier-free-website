@@ -739,7 +739,6 @@ function query(sql: string, param: any[] = []): Promise<any> {
         connection.query(sql, param, (err: mysql.MysqlError | null, results: any) => {
             if (err === null) {
                 resolve(results);
-                console.log("resolving ...");
             } else {
                 reject(err);
             }
