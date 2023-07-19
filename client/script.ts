@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded",  () => {
             deletecheck.style.display = "block";
         });
     }
+    getUser();
     //dient zum Rendern der Verteilerseite
     getProduct();
     //dient zum Rendern der Startseite
@@ -166,11 +167,6 @@ document.addEventListener("DOMContentLoaded",  () => {
     } catch (e) {
 
     }
-
-
-
-
-
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -728,7 +724,6 @@ function signOff(): void {
  */
 
 function getUser(){
-
     axios.get("/user",{
 
     }).then((res:AxiosResponse) => {
@@ -780,7 +775,6 @@ function renderUserProfile(userData) {
     newsletterElement.innerText = userData.newsletter;
     nameElement.innerText = `${userData.vorname} ${userData.nachname}`;
     checkLogin();
-
 }
 
 /**
