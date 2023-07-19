@@ -82,6 +82,7 @@ app.use(session({
     saveUninitialized: true,
 }))
 
+
 // Server starten
 app.listen(PORT, () => {
     console.log("Server gestartet unter http://localhost:" + PORT);
@@ -99,6 +100,8 @@ app.use("/img", express.static(__dirname + "/../img/"));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/../client/startseite.html'));
 });
+
+
 
 //JSON und URLenconded
 app.use(express.json());

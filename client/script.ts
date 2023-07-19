@@ -41,7 +41,6 @@ let shoppingCart:WarenkorbProdukt[] = [];
 
 document.addEventListener("DOMContentLoaded",  () => {
     //checkt ob der Nutzer eingeloggt ist
-    checkLogin();
 
     modalFensterUser = new bootstrap.Modal(document.getElementById("ModalUser"));
     modalFensterUserLogin = new bootstrap.Modal(document.getElementById("ModalUserLogin"));
@@ -95,8 +94,6 @@ document.addEventListener("DOMContentLoaded",  () => {
             deletecheck.style.display = "block";
         });
     }
-
-    getUser();
     //dient zum Rendern der Verteilerseite
     getProduct();
     //dient zum Rendern der Startseite
@@ -183,20 +180,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const referrer = document.referrer;
     const currentURL = window.location.href;
+    try {
+        if (referrer) {
+            previousPageLink.textContent = getPreviousPageName(referrer);
+            previousPageLink.href = referrer;
+        } else {
+            previousPageLink.style.display = 'none'; // Verstecke den Link, wenn keine vorherige Seite vorhanden ist
+        }
+        const currentPageName = getCurrentPageName(currentURL);
+        currentPageLink.textContent = currentPageName;
 
-    if (referrer) {
-        previousPageLink.textContent = getPreviousPageName(referrer);
-        previousPageLink.href = referrer;
-    } else {
-        previousPageLink.style.display = 'none'; // Verstecke den Link, wenn keine vorherige Seite vorhanden ist
-    }
+        // Überprüfung, ob vorherige Seite und aktuelle Seite gleich sind
+        if (previousPageLink.textContent === currentPageName) {
+            previousPageLink.style.display = 'none'; // Verstecke den Link, um Duplikate zu vermeiden
+        }
+    }catch (e) {
 
-    const currentPageName = getCurrentPageName(currentURL);
-    currentPageLink.textContent = currentPageName;
-
-    // Überprüfung, ob vorherige Seite und aktuelle Seite gleich sind
-    if (previousPageLink.textContent === currentPageName) {
-        previousPageLink.style.display = 'none'; // Verstecke den Link, um Duplikate zu vermeiden
     }
 });
 
@@ -779,7 +778,9 @@ function renderGamesVerteiler(productData){
             availabilityClass = "availabilityYellow";
         }
 
-        spiele.innerHTML +=`
+        try {
+
+            spiele.innerHTML += `
                     <div class="col-xl-4 col-lg-6 col-md-12 cardindex">
                         <div class="card cardbp">
                             <div class="container-fluid merken">
@@ -802,12 +803,15 @@ function renderGamesVerteiler(productData){
                             </div>
                         </div>
                 </div>
-    `
+               `
 
-        const bags = document.querySelectorAll(".bag");
-        bags.forEach((button) => {
-            button.addEventListener("click", warenkorbErfolgreich);
-        });
+            const bags = document.querySelectorAll(".bag");
+            bags.forEach((button) => {
+                button.addEventListener("click", warenkorbErfolgreich);
+            });
+        }catch (e) {
+
+        }
     }
 }
 
