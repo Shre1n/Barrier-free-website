@@ -224,6 +224,16 @@ function getCurrentPageName(url: string): string {
     return ''; // Rückgabe eines leeren Strings, wenn kein Seitenname vorhanden ist
 }
 //CREATE USER
+
+/**
+ * @api {post} /user Benutzer registrieren
+ * @apiName AddUser
+ * @apiGroup User
+ *
+ * @apiParam {Event} event Das `submit`-Ereignisobjekt des Registrierungsformulars.
+ * @apiError (400) {String} message Fehlermeldung, dass die Adresse nicht den Anforderungen entspricht.
+ */
+
 function addUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -340,6 +350,20 @@ function addUser(event: Event): void {
 }
 
 //Definierung der Toasts
+
+/**
+ * @api {function} getErrorMessage Fehlermeldung anzeigen
+ * @apiName GetErrorMessage
+ * @apiGroup Utils
+ *
+ * @apiParam {String} data Die Fehlermeldung, die angezeigt werden soll.
+ *
+ * @apiDescription Diese Funktion zeigt eine Fehlermeldung anhand der übergebenen Daten an.
+ *
+ * @apiParamExample {String} Fehlermeldung
+ *     "Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein."
+ */
+
 function getErrorMessage(data){
     const firstSpace = data.indexOf(" ");
     const firstword = data.substring(0, firstSpace);
@@ -355,12 +379,28 @@ function getErrorMessage(data){
     (document.getElementById(`${caselower}`) as HTMLInputElement).value = "";
 }
 
+
+/**
+ * @api {function} erfolgreichChange Nutzeränderung erfolgreich
+ * @apiName ErfolgreichChange
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Bestätigungsmeldung an, dass die Nutzeränderung erfolgreich durchgeführt wurde.
+ */
 function erfolgreichChange(){
     document.getElementById("angelegt").innerText= "Nutzer erfolgreich geändert!";
     const toastLiveExample = document.getElementById('erfolgreich');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
+/**
+ * @api {function} erfolgreichWarenkorbStart Produkt zum Warenkorb hinzugefügt (Startseite)
+ * @apiName ErfolgreichWarenkorbStart
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Bestätigungsmeldung an, dass das Produkt erfolgreich zum Warenkorb hinzugefügt wurde. Es wird auch darauf hingewiesen, dass der Zugriff auf den Warenkorb nur für angemeldete Nutzer möglich ist.
+ */
 
 function erfolgreichWarenkorbStart(){
     document.getElementById("warenkorbErfolgreichStart").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
@@ -369,7 +409,13 @@ function erfolgreichWarenkorbStart(){
     toast.show();
 }
 
-
+/**
+ * @api {function} erfolgreichRegister Registrierung erfolgreich
+ * @apiName ErfolgreichRegister
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Bestätigungsmeldung an, dass die Registrierung erfolgreich abgeschlossen wurde.
+ */
 
 function erfolgreichRegister(){
 
@@ -379,6 +425,14 @@ function erfolgreichRegister(){
     toast.show();
 }
 
+/**
+ * @api {function} erfolgreichEingeloggt Anmeldung erfolgreich
+ * @apiName ErfolgreichEingeloggt
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Bestätigungsmeldung an, dass die Anmeldung erfolgreich war.
+ */
+
 function erfolgreichEingeloggt() {
     document.getElementById("loginErfolgreich").innerText= "Sie sind jetzt Angemeldet!";
     const toastLiveExample = document.getElementById('loginErfolg');
@@ -386,6 +440,14 @@ function erfolgreichEingeloggt() {
     toast.show();
 }
 
+/**
+ * @api {function} warenkorbErfolgreich Produkt zum Warenkorb hinzugefügt
+ * @apiName WarenkorbErfolgreich
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Bestätigungsmeldung an, dass das Produkt erfolgreich zum Warenkorb hinzugefügt wurde.
+ * Bitte beachten Sie, dass Sie angemeldet sein müssen, um auf Ihren Warenkorb zuzugreifen.
+ */
 
 function warenkorbErfolgreich() {
     document.getElementById("warenkorbErfolgreich").innerText= "Produkt dem Warenkorb hinzugefügt! Bitte beachten Sie, dass Sie angemeldet sein müssen um auf Ihren Warenkorb zuzugreifen!";
@@ -394,18 +456,43 @@ function warenkorbErfolgreich() {
     toast.show();
 }
 
+/**
+ * @api {function} BestellungErr Warenkorb enthält kein Produkt
+ * @apiName BestellungErr
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Fehlermeldung an, dass der Warenkorb mindestens ein Produkt enthalten muss, um eine Bestellung abzuschließen.
+ */
+
 function BestellungErr() {
     document.getElementById("bestellungErrMessage").innerText= "Der Warenkorb muss min. 1 Produkt enthalten!";
     const toastLiveExample = document.getElementById('BestellungErr');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
+/**
+ * @api {function} BestellungCheckErr Datenschutzbestimmung und AGBs nicht bestätigt
+ * @apiName BestellungCheckErr
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Fehlermeldung an, dass die Datenschutzbestimmung und die AGBs bestätigt werden müssen, um eine Bestellung abzuschließen.
+ */
+
 function BestellungCheckErr() {
     document.getElementById("bestellungErrCheckMessage").innerText= "Bitte bestätigen Sie die Datenschutzbestimmung und die AGBs";
     const toastLiveExample = document.getElementById('BestellungErrCheck');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 }
+
+/**
+ * @api {function} lieferCheckErr Lieferadressenprüfung fehlgeschlagen
+ * @apiName lieferCheckErr
+ * @apiGroup Utils
+ *
+ * @apiDescription Diese Funktion zeigt eine Fehlermeldung an, dass die Lieferadressenfelder nicht leer sein dürfen.
+ */
 
 function lieferCheckErr() {
     document.getElementById("lieferErrMessage").innerText= "Felder dürfen nicht leer sein!";
@@ -414,9 +501,16 @@ function lieferCheckErr() {
     toast.show();
 }
 
-
-
 //DELETE USER
+
+/**
+ * @api {function} delUser Nutzer löschen
+ * @apiName delUser
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion löscht den angemeldeten Nutzer. Der Nutzer wird abgemeldet und auf die Startseite weitergeleitet.
+ */
+
 function delUser(event: Event): void {
     event.preventDefault();
     axios.delete(`/deleteUser`).then((res: AxiosResponse) => {
@@ -428,6 +522,17 @@ function delUser(event: Event): void {
     });
 }
 //UPDATE USER
+
+/**
+ * @api {function} editUser Nutzer bearbeiten
+ * @apiName editUser
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion bearbeitet die Daten des angemeldeten Nutzers. Die geänderten Daten werden an den Server übermittelt und aktualisieren das Nutzerprofil.
+ *
+ * @apiParam {Event} event Das Event-Objekt, das den Aufruf der Funktion ausgelöst hat.
+ */
+
 function editUser(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -544,13 +649,18 @@ function editUser(event: Event): void {
     }
 }
 
-/**
- *
- * Methode zum Abmelden des Users
- * Meldet den jetzigen User ab und setzt die Session des Users auf null
- *
- */
 //ANMELDEN
+
+/**
+ * @api {function} signIn Nutzer anmelden
+ * @apiName signIn
+ * @apiGroup User
+ *
+ * @apiDescription  Diese Funktion ermöglicht es einem Nutzer, sich anzumelden. Die Funktion sendet eine POST-Anfrage an den Server mit den Anmeldeinformationen des Nutzers (E-Mail und Passwort). Bei erfolgreicher Anmeldung werden die entsprechenden Benutzeroberfläche-Elemente angezeigt (z. B. Abmelden, Profilseite, Warenkorb), während das Registrieren-Element ausgeblendet wird. Bei fehlerhaften Anmeldedaten wird eine Fehlermeldung ausgegeben.
+ *
+ * @apiParam {Event} event Das Event-Objekt, das den Aufruf der Funktion ausgelöst hat.
+ */
+
 function signIn(event: Event): void {
     event.preventDefault();
     const form: HTMLFormElement = event.target as HTMLFormElement;
@@ -587,6 +697,15 @@ function signIn(event: Event): void {
     checkLogin();
 }
 //AUSLOGGEN
+
+/**
+ * @api {function} signOff Nutzer abmelden
+ * @apiName signOff
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion ermöglicht es einem Nutzer, sich abzumelden. Die Funktion sendet eine POST-Anfrage an den Server, um den Nutzer abzumelden. Nach erfolgreicher Abmeldung wird der Nutzer auf die Startseite weitergeleitet.
+ */
+
 function signOff(): void {
     axios.post("/signout").then((res: AxiosResponse) => {
         checkLogin();
@@ -597,6 +716,17 @@ function signOff(): void {
 
 }
 //READ USER
+
+/**
+ * @api {function} getUser Nutzerdaten abrufen
+ * @apiName getUser
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion ermöglicht es einem angemeldeten Nutzer, seine eigenen Nutzerdaten abzurufen. Die Funktion sendet eine GET-Anfrage an den Server, um die Nutzerdaten abzurufen. Anschließend werden die Nutzerdaten gerendert und angezeigt.
+ *
+ * @apiSuccess {Object} userData Nutzerdaten des angemeldeten Nutzers.
+ */
+
 function getUser(){
 
     axios.get("/user",{
@@ -614,6 +744,16 @@ function getUser(){
     checkLogin();
 
 }
+
+/**
+ * @api {function} renderUserProfile Nutzerprofil rendern
+ * @apiName renderUserProfile
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion rendert die Nutzerdaten auf der Profilseite, nachdem die Daten vom Server abgerufen wurden.
+ *
+ * @apiParam {Object} userData Die Nutzerdaten des angemeldeten Nutzers, die gerendert werden sollen.
+ */
 
 function renderUserProfile(userData) {
     const anredeElement = document.getElementById('displayanrede');
@@ -642,6 +782,14 @@ function renderUserProfile(userData) {
     checkLogin();
 
 }
+
+/**
+ * @api {async} checkLogin Nutzerlogin überprüfen
+ * @apiName checkLogin
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion überprüft, ob ein Nutzer angemeldet ist und rendert entsprechend die passenden Buttons und Elemente auf der Seite.
+ */
 
 async function checkLogin() {
     const abmelden = document.querySelector("#abmelden");
@@ -676,6 +824,14 @@ async function checkLogin() {
     }
 }
 
+/**
+ * @api {function} renderUserEdit Nutzerdaten auf Editier-Seite anzeigen
+ * @apiName renderUserEdit
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion zeigt die Nutzerdaten auf der Editier-Seite an, sodass der Nutzer seine Daten bearbeiten kann.
+ */
+
 function renderUserEdit(userData) {
     const vornameElementEdit = document.getElementById('displayvornameEdit') as HTMLInputElement;
     const nachnameElementEdit = document.getElementById('displaynachnameEdit') as HTMLInputElement;
@@ -699,6 +855,15 @@ function renderUserEdit(userData) {
     newsletterElementEdit.value = userData.newsletter;
     nameElementEdit.innerText = `${userData.vorname} ${userData.nachname}`;
 }
+
+/**
+ * @api {function} hideEditUser Nutzerbearbeitungsformular ausblenden
+ * @apiName hideEditUser
+ * @apiGroup User
+ *
+ * @apiDescription Diese Funktion blendet das Nutzerbearbeitungsformular aus und zeigt das Nutzerprofilformular an.
+ */
+
 function hideEditUser(){
     const UserEditForm = document.querySelector("#editUser") as HTMLElement;
     const UserProfilForm = document.querySelector("#profilUser") as HTMLElement;
@@ -712,6 +877,18 @@ function hideEditUser(){
     UserProfilForm.style.display = "block";
 }
 //READ Product
+
+/**
+ * @api {get} /product Produkt abrufen
+ * @apiName GetProduct
+ * @apiGroup Product
+ *
+ * @apiDescription Mit dieser API können Informationen zu einem Produkt abgerufen werden.
+ *
+ * @apiSuccess {Object} productData Informationen zum Produkt.
+ */
+
+
 function getProduct(){
     axios.get("/product",{
 
@@ -726,6 +903,17 @@ function getProduct(){
     checkLogin();
 }
 //READ Product (Es gab fehler beim Render der Startseite und Verteilerseite deswegen zwei GetProduct, die die Seiten rendern
+
+/**
+ * @api {get} /product Produkt abrufen
+ * @apiName GetProduct
+ * @apiGroup Product
+ *
+ * @apiDescription Mit dieser API können Informationen zu einem Produkt abgerufen werden.
+ *
+ * @apiSuccess {Object} productData Informationen zum Produkt.
+ */
+
 function getProduct2(){
     axios.get("/product",{
 
@@ -742,6 +930,17 @@ function getProduct2(){
     checkLogin();
 }
 //DELETE Warenkorb nach Bestellung
+
+/**
+ * @api {delete} /deleteAll Alle Artikel im Warenkorb löschen
+ * @apiName DeleteAllCartItems
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können alle Artikel im Warenkorb gelöscht werden.
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass alle Artikel im Warenkorb gelöscht wurden.
+ */
+
 function delAllCartItems() {
     fetch("/deleteAll", {
         method: "DELETE"
@@ -752,11 +951,22 @@ function delAllCartItems() {
     });
 }
 
-
-
-
-
 //Render Verteilerseite
+
+/**
+ * @api {post} /addCartItem Artikel zum Warenkorb hinzufügen
+ * @apiName AddCartItem
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können Artikel zum Warenkorb hinzugefügt werden.
+ *
+ * @apiParam {String} productName Name des Artikels, der zum Warenkorb hinzugefügt werden soll.
+ * @apiParam {Number} quantity Menge des Artikels, die zum Warenkorb hinzugefügt werden soll.
+ * @apiParam {String} action Aktion, die ausgeführt werden soll. Mögliche Werte: 'add' (hinzufügen), 'remove' (entfernen).
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Artikel zum Warenkorb hinzugefügt wurde.
+ */
+
 function renderGamesVerteiler(productData){
     const spiele = document.querySelector("#spieleAuflistung") as HTMLDivElement;
     let p;
@@ -815,6 +1025,21 @@ function renderGamesVerteiler(productData){
 }
 
 //Startseite
+
+/**
+ * @api {get} /product Produkte abrufen
+ * @apiName GetProducts
+ * @apiGroup Produkte
+ *
+ * @apiDescription Mit dieser API können Produkte abgerufen werden.
+ *
+ * @apiSuccess (200) {Object[]} products Array mit Produktinformationen.
+ * @apiSuccess (200) {String} products.Produktname Name des Produkts.
+ * @apiSuccess (200) {Number} products.Bestand Bestand des Produkts.
+ * @apiSuccess (200) {Number} products.Preis Preis des Produkts.
+ * @apiSuccess (200) {String} products.Bilder URL des Produktbilds.
+ */
+
 function startseiteRender(productData) {
     checkLogin();
 
@@ -875,6 +1100,17 @@ function startseiteRender(productData) {
 }
 
 //Warenkorb
+
+/**
+ * @api {get} /warenkorb Warenkorb anzeigen
+ * @apiName WarenkorbAnzeigen
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb angezeigt werden.
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den Produkten im Warenkorb.
+ */
+
 function warenkorbRender() {
     const modalFormWarenkorb = document.querySelector("#modalFormWarenkorb") as HTMLDivElement;
     let endpreis = 0; // Variable für den Gesamtpreis
@@ -976,6 +1212,21 @@ function warenkorbRender() {
 
 }
 
+/**
+ * @api {put} /cart Warenkorb aktualisieren
+ * @apiName UpdateCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb aktualisiert werden, z.B. die Menge ändern.
+ *
+ * @apiParam {String} produktName Der Name des Produkts, das aktualisiert werden soll.
+ * @apiParam {Number} quantity Die neue Menge des Produkts.
+ * @apiParam {String} action Die Aktion, die durchgeführt werden soll. Mögliche Werte: "add" (Produkt zum Warenkorb hinzufügen), "remove" (Produkt aus dem Warenkorb entfernen), "change" (Menge des Produkts ändern).
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den aktualisierten Produkten im Warenkorb.
+ */
+
+
 function updatePrice(event) {
     const input = event.target; // Das ausgelöste Eingabeelement wird abgerufen
     const quantity = parseInt(input.value); // Die eingegebene Menge wird als Ganzzahl interpretiert
@@ -990,6 +1241,16 @@ function updatePrice(event) {
 
     calculateTotalPrice(); // Der Gesamtpreis des Warenkorbs wird neu berechnet
 }
+
+/**
+ * @api {get} /cart Warenkorb abrufen
+ * @apiName GetCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb abgerufen werden.
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den Produkten im Warenkorb.
+ */
 
 function calculateTotalPrice() {
     let endpreis = 0; // Variable zur Speicherung des Gesamtpreises
@@ -1007,14 +1268,33 @@ function calculateTotalPrice() {
     }
 }
 
+/**
+ * @api {delete} /cart Warenkorb löschen
+ * @apiName DeleteCartItem
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API kann ein Produkt aus dem Warenkorb gelöscht werden.
+ *
+ * @apiParam {String} productName Der Name des zu löschenden Produkts.
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den verbleibenden Produkten im Warenkorb.
+ */
+
 async function deleteItemFromWarenkorb(event: Event): Promise<void> {
     const target: HTMLElement = event.target as HTMLElement;
     await deleteProductFromCart(target.dataset.trash);
     await getCart();
 }
 
-
-
+/**
+ * @api {get} /cart Warenkorb abrufen
+ * @apiName GetCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb abgerufen werden.
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den Produkten im Warenkorb.
+ */
 
 async function getCart(){
     await fetch("/cart",{
@@ -1031,6 +1311,21 @@ async function getCart(){
 
 }
 
+/**
+ * @api {put} /cart Warenkorb aktualisieren
+ * @apiName UpdateCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb aktualisiert werden, z.B. die Menge ändern.
+ *
+ * @apiParam {String} produktName Der Name des Produkts, das aktualisiert werden soll.
+ * @apiParam {Number} menge Die neue Menge des Produkts.
+ * @apiParam {String} method Die Aktion, die durchgeführt werden soll. Mögliche Werte: "add" (Produkt zum Warenkorb hinzufügen durch klick auf Shopping Bag), "change" (Menge des Produkts ändern in der Warenkorb ansicht).
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den aktualisierten Produkten im Warenkorb.
+ */
+
+
 async function putCart(produktName,menge, method)  {
     axios.put("/cart", {
         produktName: produktName,
@@ -1045,6 +1340,18 @@ async function putCart(produktName,menge, method)  {
     });
 }
 
+/**
+ * @api {delete} /cart/:productName Warenkorbprodukt löschen
+ * @apiName DeleteProductFromCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API kann ein Produkt aus dem Warenkorb gelöscht werden.
+ *
+ * @apiParam {String} productName Der Name des zu löschenden Produkts.
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den verbleibenden Produkten im Warenkorb.
+ */
+
 async function deleteProductFromCart(productName) {
     try {
         await axios.delete(`/cart/${productName}`);
@@ -1053,6 +1360,20 @@ async function deleteProductFromCart(productName) {
         console.error("Fehler beim Löschen des Produkts aus dem Warenkorb", error);
     }
 }
+
+/**
+ * @api {post} /cart Warenkorb aktualisieren
+ * @apiName UpdateCart
+ * @apiGroup Warenkorb
+ *
+ * @apiDescription Mit dieser API können die Produkte im Warenkorb aktualisiert werden, z.B. ein Produkt hinzufügen.
+ *
+ * @apiParam {String} produktName Der Name des hinzuzufügenden Produkts.
+ * @apiParam {Number} menge Die Menge des hinzuzufügenden Produkts.
+ * @apiParam {String} method Die Aktion, die durchgeführt werden soll. In diesem Fall immer "add".
+ *
+ * @apiSuccess {Array} shoppingCart Array mit den aktualisierten Produkten im Warenkorb.
+ */
 
 function postCart(produktName,menge, method){
     axios.post("/cart", {
@@ -1063,6 +1384,24 @@ function postCart(produktName,menge, method){
         await getCart();
     });
 }
+
+/**
+ * @api {get} /bestellung Liefer- und Rechnungsadresse abrufen
+ * @apiName GetLieferUndRechnungsadresse
+ * @apiGroup Bestellung
+ *
+ * @apiDescription Mit dieser API können die Liefer- und Rechnungsadresse abgerufen werden.
+ *
+ * @apiSuccess {Object} lieferadresse Objekt mit den Informationen zur Lieferadresse.
+ * @apiSuccess {String} lieferadresse.anrede Anrede in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.vorname Vorname in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.nachname Nachname in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.postleitzahl Postleitzahl in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.ort Ort in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.strasse Straße in der Lieferadresse.
+ * @apiSuccess {String} lieferadresse.hnr Hausnummer in der Lieferadresse.
+ */
+
 
 async function lieferUndRechnungsAdresseRendern() {
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
@@ -1106,6 +1445,23 @@ async function lieferUndRechnungsAdresseRendern() {
 }
 
 // Attempt
+
+/**
+ * @api {put} /rechnungsadresse Rechnungsadresse aktualisieren
+ * @apiName UpdateRechnungsadresse
+ * @apiGroup Rechnungsadresse
+ *
+ * @apiDescription Mit dieser API kann die Rechnungsadresse aktualisiert werden.
+ *
+ * @apiParam {String} anrede Die Anrede in der Rechnungsadresse.
+ * @apiParam {String} vorname Der Vorname in der Rechnungsadresse.
+ * @apiParam {String} nachname Der Nachname in der Rechnungsadresse.
+ * @apiParam {String} postleitzahl Die Postleitzahl in der Rechnungsadresse.
+ * @apiParam {String} ort Der Ort in der Rechnungsadresse.
+ * @apiParam {String} strasse Die Straße in der Rechnungsadresse.
+ * @apiParam {String} hnr Die Hausnummer in der Rechnungsadresse.
+ */
+
 async function updateRechnungsadresse() {
 
     const anredeErr = document.querySelector("#anredeErr") as HTMLElement;
@@ -1182,6 +1538,11 @@ async function updateRechnungsadresse() {
 }
 
 
+/**
+ * Diese Funktion steuert die Ansicht der Lieferadresse, wenn sie im Bearbeitungsmodus ist.
+ * @param {boolean} toggle - Ein Wert, der angibt, ob der Bearbeitungsmodus ein- oder ausgeschaltet werden soll.
+ */
+
 function toggleEditLieferadresse(toggle: boolean) {
     const hideden = document.querySelector("#bestellungAbschliessen") as HTMLButtonElement;
     const anredeElement = document.getElementById('editLieferAnrede') as HTMLSelectElement;
@@ -1214,6 +1575,23 @@ function toggleEditLieferadresse(toggle: boolean) {
         hideden.style.display="none";
     }
 }
+
+/**
+ * @api {put} /lieferadresse Lieferadresse aktualisieren
+ * @apiName UpdateLieferadresse
+ * @apiGroup Lieferadresse
+ *
+ * @apiDescription Mit dieser API kann die Lieferadresse aktualisiert werden.
+ *
+ * @apiParam {String} anrede Die Anrede in der Lieferadresse.
+ * @apiParam {String} vorname Der Vorname in der Lieferadresse.
+ * @apiParam {String} nachname Der Nachname in der Lieferadresse.
+ * @apiParam {String} postleitzahl Die Postleitzahl in der Lieferadresse.
+ * @apiParam {String} ort Der Ort in der Lieferadresse.
+ * @apiParam {String} strasse Die Straße in der Lieferadresse.
+ * @apiParam {String} hnr Die Hausnummer in der Lieferadresse.
+ */
+
 
 
 async function updateLieferAdresse(e: Event) {
@@ -1276,6 +1654,11 @@ async function updateLieferAdresse(e: Event) {
     lieferUndRechnungsAdresseRendern()
 }
 
+/**
+ * Diese Funktion steuert die Anzeige der Rechnungsadresse, basierend auf dem Zustand der Checkbox.
+ * @param {Event} e - Das Event-Objekt, das den Zustand der Checkbox enthält.
+ */
+
 function toggleRechnungsadresse(e: Event) {
     const rechnungsForm = document.getElementById("displayRechnungsadresse");
 
@@ -1289,6 +1672,16 @@ function toggleRechnungsadresse(e: Event) {
         rechnungsForm.classList.add("d-none");
     }
 }
+
+/**
+ * @api {post} /bestellung Bestellung erstellen
+ * @apiName CreateBestellung
+ * @apiGroup Bestellung
+ *
+ * @apiDescription Mit dieser API kann eine Bestellung erstellt werden.
+ *
+ * @apiParam {String} zahlungsmethode Die ausgewählte Zahlungsmethode.
+ */
 
 async function createBestellung() {
     const zahlungsMethodePayPal = document.getElementById('zahlungsMethodePayPal') as HTMLInputElement;
@@ -1336,6 +1729,66 @@ async function createBestellung() {
 
     }
 }
+
+/**
+ * @api {get} /bestellabschlussProdukte Bestellabschluss Produkte abrufen
+ * @apiName GetBestellabschlussProdukte
+ * @apiGroup Bestellabschluss
+ *
+ * @apiDescription Mit dieser API können die Produkte im Bestellabschluss abgerufen werden.
+ *
+ * @apiSuccess {Array} shoppingCart Ein Array mit den Produkten im Bestellabschluss.
+ * @apiSuccess {String} shoppingCart.produktName Der Name des Produkts.
+ * @apiSuccess {Number} shoppingCart.produktMenge Die Menge des Produkts.
+ * @apiSuccess {Number} shoppingCart.preis Der Preis des Produkts.
+ * @apiSuccess {Number} shoppingCart.bestand Der Bestand des Produkts.
+ * @apiSuccess {String} shoppingCart.bilder Die URL des Produktbilds.
+ * @apiSuccess {String} shoppingCart.kurzbeschreibung Die Kurzbeschreibung des Produkts.
+ *
+ * @apiError (400) {String} message Fehlermeldung, wenn die Bestellung ungültig ist.
+ * @apiError (403) {String} message Fehlermeldung, wenn die Bestellung nicht zugelassen ist.
+ */
+
+/**
+ * @api {put} /bestellabschlussProdukte/:id Produktmenge aktualisieren
+ * @apiName UpdateProductQuantity
+ * @apiGroup Bestellabschluss
+ *
+ * @apiDescription Mit dieser API kann die Menge eines Produkts im Bestellabschluss aktualisiert werden.
+ *
+ * @apiParam {Number} id Die ID des zu aktualisierenden Produkts im Bestellabschluss.
+ * @apiParam {Number} menge Die neue Menge des Produkts.
+ *
+ * @apiError (400) {String} message Fehlermeldung, wenn die Aktualisierung ungültig ist.
+ * @apiError (403) {String} message Fehlermeldung, wenn die Aktualisierung nicht zugelassen ist.
+ */
+
+/**
+ * @api {delete} /bestellabschlussProdukte/:id Produkt aus Bestellabschluss entfernen
+ * @apiName DeleteProductFromBestellabschluss
+ * @apiGroup Bestellabschluss
+ *
+ * @apiDescription Mit dieser API kann ein Produkt aus dem Bestellabschluss entfernt werden.
+ *
+ * @apiParam {Number} id Die ID des zu entfernenden Produkts im Bestellabschluss.
+ *
+ * @apiError (400) {String} message Fehlermeldung, wenn die Entfernung ungültig ist.
+ * @apiError (403) {String} message Fehlermeldung, wenn die Entfernung nicht zugelassen ist.
+ */
+
+/**
+ * @api {post} /bestellung Bestellung abschließen
+ * @apiName CompleteBestellung
+ * @apiGroup Bestellung
+ *
+ * @apiDescription Mit dieser API kann die Bestellung abgeschlossen werden.
+ *
+ * @apiParam {String} zahlungsmethode Die ausgewählte Zahlungsmethode.
+ *
+ * @apiError (400) {String} message Fehlermeldung, wenn die Bestellung ungültig ist.
+ * @apiError (403) {String} message Fehlermeldung, wenn die Bestellung nicht abgeschlossen werden kann.
+ */
+
 
 function bestellabschlussProdukteRender() {
     const bestellabschlussProdukte = document.querySelector("#bestellabschlussProdukte") as HTMLDivElement;
