@@ -1,4 +1,7 @@
-### Anlegen eines neuen Users (Max Mustermann)
+### ---------------- Richtige Angaben ------------------------
+###
+
+### Anlegen eines neuen Nutzers
 POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
@@ -17,277 +20,29 @@ Content-Type: application/json
   "newsletter": "Ja"
 }
 
-### Anlegen eines neuen Users
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
+### Nutzer einsehen
 
-{
-  "anrede": "Insekt",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "1.peter",
-  "nachname": "Mustermann",
-  "email": "1peter@hotmail.de",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "2.peter",
-  "email": "peter2mustermann@hotmail.de",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "1peter@@hotmail.com",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
-  "passwort": "",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "klein@outlook.de",
-  "passwort": "8901GH",
-  "postleitzahl": "069",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "max.mustermann@hotmail.de",
-  "passwort": "",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users mit falsches Mail Pattern @@
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "max.mustermann@@hotmail.de",
-  "passwort": "12345",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "2peter@outlook.de",
-  "passwort": "15621526",
-  "postleitzahl": "123456",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "2peter@outlook.de",
-  "passwort": "15621526",
-  "postleitzahl": "12345",
-  "ort":"Hamburg 1",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "2peter@outlook.de",
-  "passwort": "15621526",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am 1ten Peter",
-  "hnr": "1",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "5peter@outlook.de",
-  "passwort": "15621526",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "304b-404",
-  "telefonnummer": "+1761956285",
-  "newsletter": "Nein"
-}
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Max",
-  "nachname": "Mustermann",
-  "email": "80peter@outlook.de",
-  "passwort": "15621526",
-  "postleitzahl": "12345",
-  "ort":"Musterstadt",
-  "strasse": "Am Musterweg",
-  "hnr": "1",
-  "telefonnummer": "51231234",
-  "newsletter": "Nein"
-}
-
-###
 GET /user HTTP/2
 Host: localhost:8080
 
-### Einloggen eines existierenden Users (Markus Heidmann)
-POST /login HTTP/2
-Host: localhost:8080
+
+### Nutzer Einloggen
+POST http://localhost:8080/signin
 Content-Type: application/json
 
-{"email": "ceo@playability.de", "password": "Adminpass"}
+{
+  "email": "jannis.kempf@hotmail.de",
+  "passwort": "123"
+}
 
-###
-POST /logout HTTP/2
-Host: localhost:8080
-Content-Type: application/json
 
-### Auslesen eines Users (Markus Heidmann)
-GET /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
+### Nutzer Ausloggen
 
-{"email": "ceo@playability.de"}
+POST http://localhost:8080/signout HTTP/2
 
-### Bearbeiten eines Users (alle Daten)
+
+### Nutzer Bearbeiten
+
 PUT /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
@@ -306,283 +61,651 @@ Content-Type: application/json
   "newsletter": "Ja"
 }
 
-### Bearbeiten eines Users (nur Passwort)
-PUT /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-
-  "passwort": "neuesPasswort"
-}
-
 ### Löschen eines Users
+
 DELETE /deleteUser HTTP/2
 Host: localhost:8080
 
-### Auslesen eines nicht vorhanden Users
-GET /user/error HTTP/2
-Host: localhost:8080
 
-HTTP/1.1 409 Conflict
-Content-Type: text/plain
+### Produkt Warenkorb hinzufügen mit methode: ADD
 
-Diesen Nutzer gibt es nicht.
-
-### Löschen eines nicht vorhanden Users
-DELETE /user/error HTTP/2
-Host: localhost
-
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-### Anlegen eines neuen Users (Jonas Thiele)
-POST http://localhost:8080/user
-Content-Type: application/json
-
-{
-  "anrede": "Herr",
-  "vorname": "Jonas",
-  "nachname": "Thiele",
-  "email": "JonasTh@mni.thm.de",
-  "passwort": "7890",
-  "postleitzahl": 6273,
-  "ort":"Wetzlar",
-  "strasse": "Hauptstraße",
-  "hnr": 26,
-  "telefonnummer": "017683829974"
-}
-
-###
-
-// User signing-in
-
-POST http://localhost:8080/signin HTTP/2
-Content-Type: application/json
-
-{
-  "email": "zacigg24@gmail.com",
-  "passwort": "1234"
-}
-###
-
-
-// User logging-out
-
-POST http://localhost:8080/signout HTTP/2
-
-###
-
-###
-GET http://localhost:8080/user
-Content-Type: application/json
-###
-
-
-
-
-###
-
-// User signing-in
-
-POST http://localhost:8080/signin
-Content-Type: application/json
-
-{
-  "email": "jannis.kempf@hotmail.de",
-  "passwort": "123"
-}
-###
-
-
-// User logging-out
-
-POST http://localhost:8080/signout HTTP/2
-
-###
-
-
-
-
-
-###
-GET /admin/user HTTP/2
-Host: ip1-dbs.mni.thm.de
-
-### Einloggen eines existierenden Users (Markus Heidmann)
-POST /login HTTP/2
+PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
-{"email": "ceo@playability.de", "password": "Adminpass"}
+{"produktName": "Shake n Match", "produktMenge":  2, "method":  "add"}
 
-###
-POST /logout HTTP/2
+### Produkt Warenkorb hinzufügen mit methode: change
+
+PUT /cart
 Host: localhost:8080
 Content-Type: application/json
 
-### Auslesen eines Users (Markus Heidmann)
-GET /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{"email": "ceo@playability.de"}
-
-### Bearbeiten eines Users (alle Daten)
-PUT /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-  "vorname": "Muster",
-  "nachname": "Maxmann",
-  "passwort": "54321"
-}
-
-### Bearbeiten eines Users (nur Passwort)
-PUT /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-{
-
-  "passwort": "neuesPasswort"
-}
-
-### Löschen eines Users
-DELETE /deleteUser HTTP/2
-Host: localhost:8080
-
-### Auslesen eines nicht vorhanden Users
-GET /user/error HTTP/2
-Host: localhost:8080
-
-HTTP/1.1 409 Conflict
-Content-Type: text/plain
-
-Diesen Nutzer gibt es nicht.
-
-### Löschen eines nicht vorhanden Users
-DELETE /user/error HTTP/2
-Host: localhost
-
-
-### Anlegen eines neuen Users (Max Mustermann)
-POST /user HTTP/2
-Host: localhost:8080
-Content-Type: application/json
-
-
-
-### GET all Products
-
-GET /product
-Host: localhost:8080
-Content-Type: application/json
-
-###
-POST http://localhost:8080/signin
-Content-Type: application/json
-
-{
-"email": "jannis.kempf@hotmail.de",
-"passwort": "123"
-}
-###
-
-###
+{"produktName": "Shake n Match", "produktMenge":  4, "method":  "change"}
 
 ### Produkt Warenkorb hinzufügen
 GET /cart
 Host: localhost:8080
 Content-Type: application/json
-###
-
-### Produkt Warenkorb hinzufügen
-PUT /cart
-Host: localhost:8080
-Content-Type: application/json
-
-{"produktName": "Shake n Match", "produktMenge":  -1, "method":  "change"}
-###
-
-### Produkt Warenkorb hinzufügen
-PUT /cart
-Host: localhost:8080
-Content-Type: application/json
-
-{"produktName": "Tactile Towers", "produktMenge":  -1, "method":  "change"}
-###
 
 
-###
+### Warenkorb Produkt Löschen (übergibt Name des Produkts)
 DELETE /cart/Shake n Match
 Host: localhost:8080
 Content-Type: application/json
 
-###
-DELETE /deleteAll
-Host: localhost:8080
-Content-Type: application/json
 
 
 
-### Produkt Warenkorb hinzufügen
-POST /cart
-Host: localhost:8080
-Content-Type: application/json
 
-{"produktName": "Shake n Match", "produktMenge":  5, "method":  "change"}
+### ----------------Hier fehler Meldungen bei addUser--------------------
 
-### Posten einer Lieferadresse
-PUT /lieferadresse HTTP/2
+### falsches Anlegen eines neuen Users mit anrede "Insekt"
+POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
 
 {
-  "anrede": "Frau",
+  "anrede": "Insekt",
   "vorname": "Max",
   "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
-  "hnr": "1"
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
 }
 
-
-
-### Posten einer Rechnungsadresse
-PUT /rechnungsadresse HTTP/2
+### falsches Anlegen eines neuen Users mit vorname "1.peter"
+POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
 
 {
-  "anrede": "Frau",
-  "vorname": "Max/1",
+  "anrede": "Herr",
+  "vorname": "1.peter",
   "nachname": "Mustermann",
+  "email": "1peter@hotmail.de",
+  "passwort": "12345",
   "postleitzahl": "12345",
   "ort":"Musterstadt",
   "strasse": "Am Musterweg",
-  "hnr": "1"
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
 }
 
-###
-POST http://localhost:8080/signin
-Content-Type: application/json
-
-{
-  "email": "jannis.kempf@hotmail.de",
-  "passwort": "123"
-}
-###
-
-###
-POST /bestellung HTTP/2
+### falsches Anlegen eines neuen Users mit nachname "2.peter"
+POST /user HTTP/2
 Host: localhost:8080
 Content-Type: application/json
 
-{"zahlungsmethode":  "PayPal"}
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "2.peter",
+  "email": "peter2mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches Anlegen eines neuen Users mit email "@@"
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "1peter@@hotmail.com",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches Anlegen eines neuen Users mit Postleitzahl muss 5 enthalten
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "klein@outlook.de",
+  "passwort": "8901GH",
+  "postleitzahl": "069",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users postleitzahl zu lang
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "123456",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users Ort falsch
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Hamburg 1",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users Strasse falsch
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am 1ten Peter",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Anlegen eines neuen Users Telefonnummer falsch
+POST /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "80peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "51231234",
+  "newsletter": "Nein"
+}
 
 
+### ----------------Hier fehler Meldungen bei editUser--------------------
+
+### falsches ändern eines neuen Users mit anrede "Insekt"
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Insekt",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches ändern eines neuen Users mit vorname "1.peter"
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "1.peter",
+  "nachname": "Mustermann",
+  "email": "1peter@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches ändern eines neuen Users mit nachname "2.peter"
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "2.peter",
+  "email": "peter2mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches ändern eines neuen Users mit email "@@"
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "1peter@@hotmail.com",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches ändern eines neuen Users mit passswort leer
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### falsches ändern eines Users mit Postleitzahl leer
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "klein@outlook.de",
+  "postleitzahl": "",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Ändern eines neuen Users postleitzahl zu lang
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "123456",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Ändern eines neuen Users Ort falsch
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Hamburg 1",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Ändern eines Users Strasse falsch
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "2peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am 1ten Peter",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### Ändern eines Users Telefonnummer falsch
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "80peter@outlook.de",
+  "passwort": "15621526",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "51231234",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Anrede
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Vorname
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Nachname
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Email
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in passwort
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in postleitzahl
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Ort
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Strasse
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+
+### leere Angaben in Hausnummer
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "",
+  "telefonnummer": "+1761956285",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Telefonnummer
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "",
+  "newsletter": "Nein"
+}
+
+### leere Angaben in Newsletter
+
+PUT /user HTTP/2
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "anrede": "Herr",
+  "vorname": "Max",
+  "nachname": "Mustermann",
+  "email": "max.mustermann@hotmail.de",
+  "passwort": "12345",
+  "postleitzahl": "12345",
+  "ort":"Musterstadt",
+  "strasse": "Am Musterweg",
+  "hnr": "1",
+  "telefonnummer": "+1761956285",
+  "newsletter": ""
+}
+
+### falsches Produkt Warenkorb hinzufügen mit falschem Namen
+
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
+{"produktName": "", "produktMenge":  4, "method":  "change"}
+
+
+### falsches Produkt Warenkorb hinzufügen mit falschem Namen
+
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
+{"produktName": "Kein Titel", "produktMenge":  4, "method":  "add"}
+
+
+### falsches Produkt Warenkorb hinzufügen mit methode: ""
+
+PUT /cart
+Host: localhost:8080
+Content-Type: application/json
+
+{"produktName": "Tactile Towers", "produktMenge":  4, "method":  ""}
