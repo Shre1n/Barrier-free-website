@@ -349,9 +349,13 @@ function getErrorMessage(data){
     const caselower = firstword.toLowerCase();
     (document.getElementById(`${caselower}Err`).innerText = data);
 
+
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample)
     toast.show();
+
+
+    (document.getElementById(`${caselower}`) as HTMLInputElement).value = "";
 }
 
 function erfolgreichChange(){
