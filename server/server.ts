@@ -5,7 +5,7 @@ import * as crypto from "crypto";
 import * as path from "path";
 import Joi = require('joi');
 import * as cluster from "cluster";
-import {string} from "joi";
+import {func, string} from "joi";
 
 //Install Displayable Chart option
 
@@ -622,18 +622,18 @@ function validateUser(isPut, user) {
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[^@]+@([a-zA-Z0-9]+\.)+[a-zA-Z]+/)
-            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @.")
+            .pattern(/^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z-_]{2,}$/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
         passwort: Joi.string()
@@ -657,14 +657,14 @@ function validateUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
-            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an.")
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
             .min(1)
             .max(20)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
-            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
+            .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
+            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
@@ -681,17 +681,17 @@ function validateEditUser(isPut, user) {
             .required(),
         vorname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         email: Joi.string()
-            .pattern(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]/)
-            .message("Email muss in folgendem Format sein: test@test.test.")
+            .pattern(/^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z-_]{2,}$/)
+            .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
@@ -711,13 +711,14 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^\d+(\:\w+)?(-\w+)*(-\d+(\w+)?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit : an.")
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
             .min(1)
+            .max(20)
             .required(),
         telefonnummer: Joi.string()
-            .pattern(/^\+49[0-9]{3,14}|0[0-9]{4,}$/)
-            .message("Telefonnummer muss in folgendem Format sein: +49123456 oder 0123456 und muss mind. 5 Zahlen beinhalten.")
+            .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
+            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
@@ -725,6 +726,7 @@ function validateEditUser(isPut, user) {
 
     return schemaPost.validate(user);
 }
+
 
 
 // Ein eigener Wrapper, um die MySQL-Query als Promise (then/catch Syntax) zu nutzen
@@ -782,7 +784,7 @@ function putLieferadresse(req: express.Request, res: express.Response) {
         const {error} = validateAdress(lieferadresse);
 
         if (error) {
-            res.status(403).json({message: error.details[0].message});
+            res.status(403).json(error.details[0].message);
             console.log(error.details[0].message);
         } else {
             req.session.lieferadresse = lieferadresse;
@@ -818,7 +820,7 @@ function putRechnungsadresse(req: express.Request, res: express.Response) {
         const {error} = validateAdress(rechnungsadresse);
 
         if (error) {
-            res.status(403).json({message: error.details[0].message});
+            res.status(403).json(error.details[0].message);
             console.log(error.details[0].message);
         } else {
             req.session.rechnungsadresse = rechnungsadresse;
@@ -924,13 +926,13 @@ function validateAdress(adresse: Adresse) {
             .message("Anrede ist nur Herr oder Frau erlaubt.")
             .required(),
         vorname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Vorname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Vorname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         nachname: Joi.string()
-            .pattern(/^[A-Za-zäöüÄÖÜß]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Nachname darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .pattern(/^[A-Za-zäöüÄÖÜß-]{2,}(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
+            .message("Nachname darf nur aus Buchstaben bestehen und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         postleitzahl: Joi.string()
@@ -950,14 +952,16 @@ function validateAdress(adresse: Adresse) {
             .min(2)
             .required(),
         hnr: Joi.string()
-            .pattern((/^[0-9]+[A-Za-z]?(-\d+[A-Za-z]?)?$/))
-            .message("Hausnummer muss mindestens eine Zahl enthalten. App. geben Sie bitte mit - an.")
+            .pattern((/^\d[\w:-]*$/))
+            .message("Hausnummer muss mit einer Zahl beginnen und mindestens eine Zahl enthalten. Appartment geben Sie bitte mit : an. Des Weiteren darf kein Leerzeichen verwendet werden.")
             .min(1)
-            .required()
+            .max(20)
+            .required(),
     });
 
     return schemaPost.validate(adresse);
 }
+
 
 
 /*

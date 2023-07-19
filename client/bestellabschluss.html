@@ -113,9 +113,9 @@
                 <div class="row border border-secondary">
                     <div class="col">
                         <div class="row">
-                            <div class="col borderCol lieferangabenMargin font25 ms-2">Lieferangaben</div>
+                            <div class="col-9 borderCol lieferangabenMargin font25">Lieferangaben / Rechnungsadresse</div>
                             <div class="col d-flex justify-content-end align-items-center">
-                                <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
+                                <a id="editLieferadresseBtn"><i class="fas fa-edit headerIconB" id="editIconUser" type="button"></i></a>
                             </div>
                         </div>
                         <div class="row text-break"></div>
@@ -240,7 +240,6 @@
                             </div>
                     </div>
                     </form>
-
                     <div class="container-fluid">
                         <div class="row"></div>
                         <div class="row mb-1">
@@ -284,12 +283,6 @@
                         </div>
                     </div>
                     <div class="row topPad">
-                        <div class="form-check">
-                            <input id="checkRechnungsadresse" class="form-check-input" type="checkbox">
-                            <label class="form-check-label font16" for="checkRechnungsadresse">
-                                Rechnungsadresse weicht von Lieferadresse ab.
-                            </label>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -383,6 +376,18 @@
         </div>
     </div>
 </div>
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="lieferErr" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Fehler</strong>
+        </div>
+        <div class="toast-body" >
+            <span id="lieferErrMessage"></span>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -526,24 +531,27 @@
             </form>
         </div>
     </div>
-    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Fehler!</strong>
-            </div>
-            <div class="toast-body">
-                <span id="anredeErr"></span>
-                <span id="vornameErr"></span>
-                <span id="nachnameErr"></span>
-                <span id="emailErr"></span>
-                <span id="telefonnummerErr"></span>
-                <span id="strasseErr"></span>
-                <span id="hausnummerErr"></span>
-                <span id="postleitzahlErr"></span>
-                <span id="ortErr"></span>
-                <span id="passwortErr"></span>
-                <span id="passwortCheckErr"></span>
-            </div>
+
+</div>
+
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Fehler!</strong>
+        </div>
+        <div class="toast-body">
+            <span id="anredeErr"></span>
+            <span id="vornameErr"></span>
+            <span id="nachnameErr"></span>
+            <span id="emailErr"></span>
+            <span id="telefonnummerErr"></span>
+            <span id="strasseErr"></span>
+            <span id="hausnummerErr"></span>
+            <span id="postleitzahlErr"></span>
+            <span id="ortErr"></span>
+            <span id="passwortErr"></span>
+            <span id="passwortCheckErr"></span>
         </div>
     </div>
 </div>
