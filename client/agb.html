@@ -63,6 +63,21 @@
     </div>
   </div>
 </nav>
+<div class="breadcrumb-container">
+  <nav class="breadcrumb">
+    <div class="row">
+      <div class="col">
+        <a id="previousPageLink" href="#"></a>
+        <i class="fas fa-arrow-right breadpfeil"></i>
+        <a id="currentPageLink"></a>
+      </div>
+      <p class="abstandtopklein">
+        <i class="fas fa-arrow-left breadpfeil"></i>
+        <a href="startseite.html">Zurück zur Startseite</a>
+      </p>
+    </div>
+  </nav>
+</div>
 <div class="container-fluid">
 <div class="row">
   <div class="col-1">
@@ -147,7 +162,6 @@
             </div>
             <div class="col-5">
               <label for=email></label>
-              <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
               <input id=emaillogin type="email" name="email"
                      placeholder="Email" class="form-control" required>
               <br>
@@ -228,8 +242,6 @@
             </div>
             <div class="col-5">
               <label for=nachname></label>
-              <!--Durch das pattern wird vorgegeben, was in den Input-Feldern eingegeben werden muss
-              geht später in den Server-->
               <input id=nachname type="text"
                      name="nachname" placeholder="Nachname" class="form-control" required>
               <br>
@@ -241,7 +253,6 @@
             </div>
             <div class="col-5">
               <label for=email></label>
-              <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
               <input id=email type="email" name="email"
                      placeholder="Email" class="form-control" required>
               <br>

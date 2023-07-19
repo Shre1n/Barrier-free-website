@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded",  () => {
         document.getElementById("checkRechnungsadresse").addEventListener("change", toggleRechnungsadresse);
         document.getElementById("bestellungAbschliessen").addEventListener("click", createBestellung);
 
-        //  document.getElementById("bestellungAbschliessen").addEventListener("click", toggleDanke);
 
 
     } catch (e) {
