@@ -905,7 +905,7 @@ function warenkorbRender() {
               <div class="col-2 mb-4"></div>
               <div class="col-6">
                 <label for="menge">Menge: </label>
-                <input id="mengeInput${i}" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}" onkeydown="return false">
+                <input id="mengeInput${i}" type="number" name="menge" min="1" max="${produkt.bestand}" value="${produkt.produktMenge}" data-index="${i}" onKeyDown="return false">
               </div>
               <div id="preis${i}" class="col-6 text-end">
                 <span>${subtotal.toFixed(2)} €</span>
@@ -1024,7 +1024,11 @@ async function putCart(produktName,menge, method)  {
         produktName: produktName,
         produktMenge: menge,
         method: method
-    }).then(async (response) => {
+    }).then(async (res: AxiosResponse) => {
+        if (res.response.status == 403){
+            console.log("Minus");
+            throw new Error("Fehler: Menge ist negativ oder überschreitet den Bestand!");
+        }
         await getCart();
     });
 }
@@ -1338,7 +1342,7 @@ function bestellabschlussProdukteRender() {
           <div class="col-4">
             <div class="row">
               <div class="col">
-                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="cardpicp placeholdermerkliste img-fluid">
+                <img src="${produkt.bilder}" id="imageProdukt" alt="${produkt.produktName}" class="cardpicp card-img-top">
               </div>
             </div>
           </div>
