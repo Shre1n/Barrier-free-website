@@ -143,6 +143,40 @@ app.put("/cart", checkLogin, putCart);
 // Angezeigte Webseite
 
 
+
+/**
+ * @api {post} /user Neuen Benutzer erstellen
+ * @apiName postUser
+ * @apiGroup Nutzer
+ *
+ * @apiParam {String} anrede Anrede oder Anrede des Benutzers (z. B. 'Herr', 'Frau', 'Divers'). Erforderlich.
+ * @apiParam {String} vorname Vorname des Benutzers. Erforderlich.
+ * @apiParam {String} nachname Nachname des Benutzers. Erforderlich.
+ * @apiParam {String} email E-Mail-Adresse des Benutzers. Muss im System eindeutig sein. Erforderlich.
+ * @apiParam {String} passwort Passwort des Benutzers. Erforderlich.
+ * @apiParam {String} postleitzahl Postleitzahl der Adresse des Benutzers. Erforderlich.
+ * @apiParam {String} ort Stadt oder Ort der Adresse des Benutzers. Erforderlich.
+ * @apiParam {String} strasse Straßenname der Adresse des Benutzers. Erforderlich.
+ * @apiParam {String} hnr Hausnummer der Adresse des Benutzers. Erforderlich.
+ * @apiParam {String} telefonnummer Telefonnummer des Benutzers. Erforderlich.
+ * @apiParam {String} [newsletter] Gibt an, ob der Benutzer den Newsletter abonniert hat oder nicht. Optional.
+ *
+ * @apiSuccess (201) {String} message Erfolgsmeldung, die angibt, dass der Benutzer erstellt wurde: "Benutzer registriert!".
+ *
+ * @apiError (400) {String} AnredeErforderlich Fehlermeldung, die angibt, dass das Feld 'anrede' erforderlich ist.
+ * @apiError (400) {String} VornameErforderlich Fehlermeldung, die angibt, dass das Feld 'vorname' erforderlich ist.
+ * @apiError (400) {String} NachnameErforderlich Fehlermeldung, die angibt, dass das Feld 'nachname' erforderlich ist.
+ * @apiError (400) {String} EmailErforderlich Fehlermeldung, die angibt, dass das Feld 'email' erforderlich ist.
+ * @apiError (400) {String} PasswortErforderlich Fehlermeldung, die angibt, dass das Feld 'passwort' erforderlich ist.
+ * @apiError (400) {String} PostleitzahlErforderlich Fehlermeldung, die angibt, dass das Feld 'postleitzahl' erforderlich ist.
+ * @apiError (400) {String} OrtErforderlich Fehlermeldung, die angibt, dass das Feld 'ort' erforderlich ist.
+ * @apiError (400) {String} StrasseErforderlich Fehlermeldung, die angibt, dass das Feld 'strasse' erforderlich ist.
+ * @apiError (400) {String} HnrErforderlich Fehlermeldung, die angibt, dass das Feld 'hnr' erforderlich ist.
+ * @apiError (400) {String} TelefonnummerErforderlich Fehlermeldung, die angibt, dass das Feld 'telefonnummer' erforderlich ist.
+ * @apiError (400) {String} EmailBereitsVorhanden Fehlermeldung, die angibt, dass die angegebene E-Mail-Adresse bereits im System existiert.
+ * @apiError (400) {String} EtwasIstSchiefGelaufen Fehlermeldung, die angibt, dass bei der Benutzererstellung etwas schief gelaufen ist.
+ *
+ */
 function postUser(req: express.Request, res: express.Response): void {
     const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
@@ -212,6 +246,28 @@ function postAdmin(req: express.Request, res: express.Response): void {
 
 }
 
+/**
+ * @api {get} /user Informationen des Benutzers abrufen
+ * @apiName GetUser
+ * @apiGroup Nutzer
+ *
+ * @apiSuccess {String} anrede Anrede des Benutzers (z. B. 'Herr', 'Frau', 'Divers').
+ * @apiSuccess {String} vorname Vorname des Benutzers.
+ * @apiSuccess {String} nachname Nachname des Benutzers.
+ * @apiSuccess {String} email E-Mail-Adresse des Benutzers.
+ * @apiSuccess {String} passwort Passwort des Benutzers (hashed).
+ * @apiSuccess {String} postleitzahl Postleitzahl der Adresse des Benutzers.
+ * @apiSuccess {String} ort Stadt oder Ort der Adresse des Benutzers.
+ * @apiSuccess {String} strasse Straßenname der Adresse des Benutzers.
+ * @apiSuccess {String} hnr Hausnummer der Adresse des Benutzers.
+ * @apiSuccess {String} telefonnummer Telefonnummer des Benutzers.
+ * @apiSuccess {Boolean} newsletter Gibt an, ob der Benutzer den Newsletter abonniert hat oder nicht.
+ * @apiSuccess {Number} rollenid Rollen-ID des Benutzers.
+ *
+ * @apiError (500) {String} EtwasIstSchiefGelaufen Fehlermeldung, die angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ *
+ */
+
 function getUser(req: express.Request, res: express.Response): void {
 
     query("SELECT * FROM Nutzerliste WHERE Email = ?", [req.session.email])
@@ -237,6 +293,27 @@ function getUser(req: express.Request, res: express.Response): void {
             console.log(err);
         })
 }
+
+/**
+ * @api {put} /user Benutzerinformationen bearbeiten
+ * @apiName EditUser
+ * @apiGroup Nutzer
+ *
+ * @apiParam {String} anrede Anrede des Benutzers (z. B. 'Herr', 'Frau', 'Divers').
+ * @apiParam {String} vorname Vorname des Benutzers.
+ * @apiParam {String} nachname Nachname des Benutzers.
+ * @apiParam {String} postleitzahl Postleitzahl der Adresse des Benutzers.
+ * @apiParam {String} ort Stadt oder Ort der Adresse des Benutzers.
+ * @apiParam {String} strasse Straßenname der Adresse des Benutzers.
+ * @apiParam {String} hnr Hausnummer der Adresse des Benutzers.
+ * @apiParam {String} telefonnummer Telefonnummer des Benutzers.
+ * @apiParam {Boolean} newsletter Gibt an, ob der Benutzer den Newsletter abonniert hat oder nicht.
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Benutzer erfolgreich bearbeitet wurde.
+ *
+ * @apiError (403) {String} UngültigeEingabe Fehlermeldung, die angibt, dass die Eingabe des Benutzers ungültig ist.
+ * @apiError (500) {String} EtwasIstSchiefGelaufen Fehlermeldung, die angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ */
 
 function putUser(req: express.Request, res: express.Response): void {
 
@@ -275,6 +352,16 @@ function putUser(req: express.Request, res: express.Response): void {
     }
 }
 
+/**
+ * @api {delete} /user Benutzer löschen
+ * @apiName DeleteUser
+ * @apiGroup Nutzer
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Benutzer erfolgreich gelöscht wurde.
+ *
+ * @apiError (500) {String} EtwasIstSchiefGelaufen Fehlermeldung, die angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ */
+
 function deleteUser(req: express.Request, res: express.Response): void {
 
     const logeedinUser: string = req.session.email;
@@ -296,6 +383,25 @@ function deleteUser(req: express.Request, res: express.Response): void {
 
 //Produkt Routen
 
+/**
+ * @api {get} /product Request Produkte einer bestimmten Kategorie
+ * @apiName GetProduct
+ * @apiGroup Produkt
+ *
+ * @apiParam {Number} kategorieId ID der gewünschten Kategorie.
+ *
+ * @apiSuccess {Object[]} products Array von Produkten der angegebenen Kategorie.
+ * @apiSuccess {Number} products.ID Produkt ID.
+ * @apiSuccess {String} products.Produktname Name des Produkts.
+ * @apiSuccess {String} products.Beschreibung Beschreibung des Produkts.
+ * @apiSuccess {Number} products.Preis Preis des Produkts.
+ * @apiSuccess {String} products.Bild URL des Produktbilds.
+ *
+ * @apiError (500) {Object} error Fehlerobjekt, das angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ * @apiError (500) {String} error.message Fehlermeldung.
+ */
+
+
 function getProduct(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 1";
 
@@ -310,6 +416,24 @@ function getProduct(req: express.Request, res: express.Response): void {
         }
     });
 }
+
+/**
+ * @api {get} /addons Request Add-Ons einer bestimmten Kategorie
+ * @apiName GetAddons
+ * @apiGroup Add-On
+ *
+ * @apiParam {Number} kategorieId ID der gewünschten Kategorie.
+ *
+ * @apiSuccess {Object[]} addons Array von Add-Ons der angegebenen Kategorie.
+ * @apiSuccess {Number} addons.ID Add-On ID.
+ * @apiSuccess {String} addons.Produktname Name des Add-Ons.
+ * @apiSuccess {String} addons.Beschreibung Beschreibung des Add-Ons.
+ * @apiSuccess {Number} addons.Preis Preis des Add-Ons.
+ * @apiSuccess {String} addons.Bild URL des Add-On-Bilds.
+ *
+ * @apiError (500) {Object} error Fehlerobjekt, das angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ * @apiError (500) {String} error.message Fehlermeldung.
+ */
 
 function getAddons(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 2";
@@ -326,6 +450,24 @@ function getAddons(req: express.Request, res: express.Response): void {
     });
 }
 
+/**
+ * @api {get} /spareparts Request Ersatzteile einer bestimmten Kategorie
+ * @apiName GetSpareParts
+ * @apiGroup Spare Parts
+ *
+ * @apiParam {Number} kategorieId ID der gewünschten Kategorie.
+ *
+ * @apiSuccess {Object[]} spareParts Array von Ersatzteilen der angegebenen Kategorie.
+ * @apiSuccess {Number} spareParts.ID Ersatzteil ID.
+ * @apiSuccess {String} spareParts.Produktname Name des Ersatzteils.
+ * @apiSuccess {String} spareParts.Beschreibung Beschreibung des Ersatzteils.
+ * @apiSuccess {Number} spareParts.Preis Preis des Ersatzteils.
+ * @apiSuccess {String} spareParts.Bild URL des Ersatzteil-Bilds.
+ *
+ * @apiError (500) {Object} error Fehlerobjekt, das angibt, dass bei der Datenbankabfrage etwas schief gelaufen ist.
+ * @apiError (500) {String} error.message Fehlermeldung.
+ */
+
 function getSpareParts(req: express.Request, res: express.Response): void {
     const sql = "SELECT * FROM Produktliste WHERE KategorieID = 3";
 
@@ -341,6 +483,20 @@ function getSpareParts(req: express.Request, res: express.Response): void {
     });
 }
 
+
+/**
+ * @api {post} /cart Produkt zum Warenkorb hinzufügen
+ * @apiName PostCart
+ * @apiGroup Cart
+ *
+ * @apiParam {String} produktName Name des Produkts, das zum Warenkorb hinzugefügt werden soll.
+ * @apiParam {Number} produktMenge Menge des Produkts, das zum Warenkorb hinzugefügt werden soll.
+ *
+ * @apiSuccess (201) {Number} status HTTP-Statuscode 201, der angibt, dass das Produkt erfolgreich zum Warenkorb hinzugefügt wurde.
+ *
+ * @apiError (404) {Number} status HTTP-Statuscode 404, der angibt, dass das angegebene Produkt nicht gefunden wurde.
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
 
 function postCart(req: express.Request, res: express.Response): void {
 
@@ -378,6 +534,22 @@ function postCart(req: express.Request, res: express.Response): void {
 
 }
 
+/**
+ * @api {get} /cart Warenkorb anzeigen
+ * @apiName GetCart
+ * @apiGroup Cart
+ *
+ * @apiSuccess (200) {Object[]} warenkorb Array mit den Produkten im Warenkorb.
+ * @apiSuccess (200) {String} warenkorb.produktName Name des Produkts im Warenkorb.
+ * @apiSuccess (200) {String} warenkorb.kurzbeschreibung Kurzbeschreibung des Produkts im Warenkorb.
+ * @apiSuccess (200) {String} warenkorb.bilder Bild des Produkts im Warenkorb.
+ * @apiSuccess (200) {Number} warenkorb.preis Preis des Produkts im Warenkorb.
+ * @apiSuccess (200) {Number} warenkorb.produktMenge Menge des Produkts im Warenkorb.
+ * @apiSuccess (200) {Number} warenkorb.bestand Bestand des Produkts im Warenkorb.
+ *
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
+
 function getCart(req: express.Request, res: express.Response): void {
     const warenkorbArray: WarenkorbProdukt[] = [];
     query("SELECT * FROM Warenkorb JOIN Produktliste ON Warenkorb.ProduktID = Produktliste.ID WHERE Warenkorb.NutzerID = ?;", [req.session.nutzerid])
@@ -406,6 +578,20 @@ function getCart(req: express.Request, res: express.Response): void {
             res.sendStatus(500);
         });
 }
+
+/**
+ * @api {post} /cart Item zum Warenkorb hinzufügen oder aktualisieren
+ * @apiName AddOrUpdateCartItem
+ * @apiGroup Cart
+ *
+ * @apiParam {String} produktName Name des Produkts.
+ * @apiParam {String} method Methode zum Hinzufügen/Updaten des Produkts im Warenkorb (z.B. "add").
+ * @apiParam {Number} produktMenge Menge des hinzuzufügenden/zu aktualisierenden Produkts.
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Warenkorb erfolgreich aktualisiert wurde.
+ *
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
 
 function itemAlreadyInCart(req: express.Request, res: express.Response, next: express.NextFunction) {
     const produktName: string = req.body.produktName;
@@ -442,6 +628,22 @@ function itemAlreadyInCart(req: express.Request, res: express.Response, next: ex
         res.sendStatus(500);
     });
 }
+
+/**
+ * @api {put} /cart Warenkorb aktualisieren
+ * @apiName UpdateCart
+ * @apiGroup Cart
+ *
+ * @apiParam {String} produktName Name des zu aktualisierenden Produkts im Warenkorb.
+ * @apiParam {Number} produktMenge Neue Menge des zu aktualisierenden Produkts im Warenkorb.
+ * @apiParam {String} method Methode zum Aktualisieren des Produkts im Warenkorb (z.B. "change").
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Warenkorb erfolgreich aktualisiert wurde.
+ *
+ * @apiError (400) {Number} status HTTP-Statuscode 400, der angibt, dass Produkt Name oder Produkt Menge fehlerhaft sind.
+ * @apiError (403) {Number} status HTTP-Statuscode 403, der angibt, dass die angegebene Menge negativ ist oder den Bestand überschreitet.
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
 
 function putCart(req: express.Request, res: express.Response): void {
 
@@ -484,6 +686,15 @@ function putCart(req: express.Request, res: express.Response): void {
     });
 }
 
+/**
+ * @api {delete} /cart Alle Produkte im Warenkorb löschen
+ * @apiName DeleteCartAll
+ * @apiGroup Cart
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass alle Produkte im Warenkorb entfernt wurden.
+ *
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
 
 function deleteCartAll(req: express.Request, res: express.Response): void {
     query("DELETE FROM Warenkorb WHERE NutzerID = ?;", [req.session.nutzerid])
@@ -494,6 +705,18 @@ function deleteCartAll(req: express.Request, res: express.Response): void {
         res.status(500).send("Fehler beim Warenkorb löschen!");
     });
 }
+
+/**
+ * @api {delete} /cart/:productName Produkt aus dem Warenkorb löschen
+ * @apiName DeleteCartItem
+ * @apiGroup Cart
+ *
+ * @apiParam {String} productName Name des zu löschenden Produkts im Warenkorb.
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass das Produkt aus dem Warenkorb gelöscht wurde.
+ *
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
 
 function deleteCart(req: express.Request, res: express.Response): void {
     const productNameToDelete: string = req.params.productName;
@@ -537,6 +760,21 @@ function getProductRating(req: express.Request, res: express.Response): void {
 // User Sign In
 
 // Prüft, ob ein Nutzer registriert ist und speichert ggf. den Nutzernamen im Sessionstore ab
+
+/**
+ * @api {post} /signin Nutzer anmelden
+ * @apiName SignIn
+ * @apiGroup Authentication
+ *
+ * @apiParam {String} email E-Mail-Adresse des Nutzers.
+ * @apiParam {String} passwort Passwort des Nutzers.
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Nutzer erfolgreich angemeldet wurde.
+ *
+ * @apiError (400) {Number} status HTTP-Statuscode 400, der angibt, dass die Anmeldeinformationen ungültig sind.
+ * @apiError (500) {Number} status HTTP-Statuscode 500, der angibt, dass bei der Datenbankabfrage ein Fehler aufgetreten ist.
+ */
+
 function signIn(req: express.Request, res: express.Response): void {
     const email: string = req.body.email;
     const passwort: string = req.body.passwort;
@@ -596,6 +834,15 @@ function signIn(req: express.Request, res: express.Response): void {
 // User meldet sich ab -> Session wird gelöscht
 // Löscht den Sessionstore und weist den Client an, das Cookie zu löschen
 
+/**
+ * @api {get} /signout Nutzer abmelden
+ * @apiName SignOut
+ * @apiGroup Authentication
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Nutzer erfolgreich abgemeldet wurde.
+ */
+
+
 function signOut(req: express.Request, res: express.Response): void {
     req.session.destroy(() => {
             res.clearCookie("connect.sid");
@@ -604,6 +851,16 @@ function signOut(req: express.Request, res: express.Response): void {
     );
 
 }
+
+/**
+ * @api {get} /checklogin Prüfe ob der Nutzer eingeloggt ist
+ * @apiName CheckLogin
+ * @apiGroup Authentication
+ *
+ * @apiSuccess (200) {String} message Erfolgsmeldung, dass der Nutzer eingeloggt ist.
+ *
+ * @apiError (401) {String} message Fehlermeldung, dass der Nutzer nicht eingeloggt ist.
+ */
 
 function checkLogin(req: express.Request, res: express.Response, next: express.NextFunction): void {
     if (req.session.email !== undefined) {
@@ -618,7 +875,20 @@ function disableUser(req: express.Request, res: express.Response): void {
 
 }
 
-function validateUser(isPut, user) {
+/**
+ * @api {post} /validateUser Validiere Nutzerdaten
+ * @apiName ValidateUser
+ * @apiGroup Authentication
+ *
+ * @apiParam {Boolean} isPut Gibt an, ob es sich um eine Aktualisierung (POST) handelt.
+ * @apiParam {Object} user Nutzerdaten, die validiert werden sollen.
+ *
+ * @apiSuccess (200) {Object} value Validierte Nutzerdaten.
+ *
+ * @apiError (400) {String} message Fehlermeldung, dass die Nutzerdaten ungültig sind.
+ */
+
+function validateUser(isPost, user) {
     const schemaPost = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau|Divers)$/)
@@ -677,8 +947,21 @@ function validateUser(isPut, user) {
     return schemaPost.validate(user);
 }
 
+/**
+ * @api {post} /validateUser Validiere Nutzerdaten
+ * @apiName ValidateUser
+ * @apiGroup Authentication
+ *
+ * @apiParam {Boolean} isPut Gibt an, ob es sich um eine Aktualisierung (PUT) handelt.
+ * @apiParam {Object} user Nutzerdaten, die validiert werden sollen.
+ *
+ * @apiSuccess (200) {Object} value Validierte Nutzerdaten.
+ *
+ * @apiError (400) {String} message Fehlermeldung, dass die Nutzerdaten ungültig sind.
+ */
+
 function validateEditUser(isPut, user) {
-    const schemaPost = Joi.object({
+    const schemaPUT = Joi.object({
         anrede: Joi.string()
             .pattern(/^(Herr|Frau|Divers)$/)
             .message("Anrede ist nur Herr oder Frau erlaubt.")
@@ -728,7 +1011,7 @@ function validateEditUser(isPut, user) {
             .pattern(/^(Ja|Nein)$/)
     });
 
-    return schemaPost.validate(user);
+    return schemaPUT.validate(user);
 }
 
 
@@ -747,10 +1030,42 @@ function query(sql: string, param: any[] = []): Promise<any> {
 }
 
 // Kleine Hilfsfunktion, die immer 200 OK zurückgibt
+
+/**
+ * @api {get} /isLoggedIn Prüfe ob Nutzer eingeloggt ist
+ * @apiName IsLoggedIn
+ * @apiGroup Authentication
+ *
+ * @apiSuccess (200) {String} message Bestätigung, dass der Nutzer eingeloggt ist.
+ * @apiSuccess (200) {String} user Email des eingeloggten Nutzers.
+ * @apiSuccess (200) {Number} rolle Rollen-ID des eingeloggten Nutzers.
+ *
+ * @apiError (401) {String} message Fehlermeldung, dass der Nutzer nicht eingeloggt ist.
+ */
+
 function isLoggedIn(req: express.Request, res: express.Response): void {
     res.status(200).send({message: "Nutzer ist noch eingeloggt", user: req.session.email, rolle: req.session.rollenid});
 }
 
+
+/**
+ * @api {put} /putLieferadresse Lieferadresse aktualisieren
+ * @apiName PutLieferadresse
+ * @apiGroup Adressen
+ *
+ * @apiParam {String} anrede Anrede des Nutzers (Herr/Frau/Divers).
+ * @apiParam {String} vorname Vorname des Nutzers.
+ * @apiParam {String} nachname Nachname des Nutzers.
+ * @apiParam {String} postleitzahl Postleitzahl des Nutzers.
+ * @apiParam {String} ort Ort des Nutzers.
+ * @apiParam {String} strasse Straße des Nutzers.
+ * @apiParam {String} hnr Hausnummer des Nutzers.
+ *
+ * @apiSuccess (200) {String} message Bestätigung, dass die Lieferadresse aktualisiert wurde.
+ *
+ * @apiError (400) {String} message Fehlermeldung, dass alle Felder ausgefüllt werden müssen.
+ * @apiError (403) {String} message Fehlermeldung bei Validierungsfehlern (z.B. fehlerhafte Eingabe).
+ */
 
 function putLieferadresse(req: express.Request, res: express.Response) {
     const anrede: string = req.body.anrede;
@@ -797,6 +1112,25 @@ function putLieferadresse(req: express.Request, res: express.Response) {
     }
 }
 
+/**
+ * @api {put} /putRechnungsadresse Rechnungsadresse aktualisieren
+ * @apiName PutRechnungsadresse
+ * @apiGroup Adressen
+ *
+ * @apiParam {String} anrede Anrede des Nutzers (Herr/Frau/Divers).
+ * @apiParam {String} vorname Vorname des Nutzers.
+ * @apiParam {String} nachname Nachname des Nutzers.
+ * @apiParam {String} postleitzahl Postleitzahl des Nutzers.
+ * @apiParam {String} ort Ort des Nutzers.
+ * @apiParam {String} strasse Straße des Nutzers.
+ * @apiParam {String} hnr Hausnummer des Nutzers.
+ *
+ * @apiSuccess (200) {String} message Bestätigung, dass die Rechnungsadresse aktualisiert wurde.
+ *
+ * @apiError (400) {String} message Fehlermeldung, dass alle Felder ausgefüllt werden müssen.
+ * @apiError (403) {String} message Fehlermeldung bei Validierungsfehlern (z.B. fehlerhafte Eingabe).
+ */
+
 function putRechnungsadresse(req: express.Request, res: express.Response) {
     const anrede: string = req.body.anrede;
     const vorname: string = req.body.vorname;
@@ -832,6 +1166,19 @@ function putRechnungsadresse(req: express.Request, res: express.Response) {
     }
 
 }
+
+/**
+ * @api {post} /postBestellung Bestellung abschließen
+ * @apiName PostBestellung
+ * @apiGroup Bestellung
+ *
+ * @apiParam {String} zahlungsmethode Die gewählte Zahlungsmethode (PayPal, SofortUeberweisung).
+ *
+ * @apiSuccess (200) {String} message Bestätigung, dass die Bestellung erfolgreich abgeschlossen wurde.
+ *
+ * @apiError (400) {String} message Fehlermeldung, dass der Warenkorb leer ist oder eine ungültige Zahlungsmethode gewählt wurde.
+ * @apiError (500) {String} message Fehlermeldung, dass ein interner Serverfehler aufgetreten ist.
+ */
 
 function postBestellung(req: express.Request, res: express.Response) {
 
@@ -917,10 +1264,29 @@ function postBestellung(req: express.Request, res: express.Response) {
 
 }
 
+/**
+ * @api {get} /getBestellung Bestelldetails abrufen
+ * @apiName GetBestellung
+ * @apiGroup Bestellung
+ *
+ * @apiSuccess (200) {Object} lieferadresse Informationen zur Lieferadresse des Nutzers.
+ * @apiSuccess (200) {Object} rechnungsadresse Informationen zur Rechnungsadresse des Nutzers.
+ */
+
 function getBestellung(req: express.Request, res: express.Response) {
     res.status(200).json({lieferadresse: req.session.lieferadresse, rechnungsadresse: req.session.rechnungsadresse});
 }
 
+
+/**
+ * @api {post} /validateAdresse Adresse validieren
+ * @apiName ValidateAdresse
+ * @apiGroup Adresse
+ *
+ * @apiParam {Object} adresse Die Adresse, die validiert werden soll.
+ *
+ * @apiSuccess (200) {Object} value Validierte Adresse.
+ */
 
 function validateAdress(adresse: Adresse) {
     const schemaPost = Joi.object({
@@ -964,26 +1330,6 @@ function validateAdress(adresse: Adresse) {
 
     return schemaPost.validate(adresse);
 }
-
-
-
-/*
-const query = 'SELECT Email FROM Nutzerliste where RollenID = ?;';
-connection.query(query, [userId], (err, result) => {
-    if (err) {
-        console.error('Nutzerrolle konnte nicht gelesen werden:', err);
-    } else {
-        if (result.length > 0) {
-            const Rolle = result[0].RollenID;
-            // Store the user role in a variable or session for future use
-            // Example: req.session.userRole = userRole;
-        } else {
-            console.error('Nutzer nicht gefunden');
-            // Handle the case when the user is not found or the role is not defined
-        }
-    }
-});
- */
 
 
 
