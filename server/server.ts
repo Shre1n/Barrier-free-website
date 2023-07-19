@@ -648,12 +648,12 @@ function validateUser(isPut, user) {
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
@@ -664,7 +664,7 @@ function validateUser(isPut, user) {
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
-            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
+            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten. Die Telefonnummer darf nur aus Zahlen bestehen.")
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
@@ -702,12 +702,12 @@ function validateEditUser(isPut, user) {
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
@@ -718,7 +718,7 @@ function validateEditUser(isPut, user) {
             .required(),
         telefonnummer: Joi.string()
             .pattern(/^(\+\d{5,})$|^(0\d{4,})$/)
-            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten.")
+            .message("Telefonnummer muss mit einer 0 oder einem + beginnen und muss mind. 5 Zahlen beinhalten. Die Telefonnumer darf nur aus Zahlen bestehen.")
             .required(),
         newsletter: Joi.string()
             .pattern(/^(Ja|Nein)$/)
@@ -943,12 +943,12 @@ function validateAdress(adresse: Adresse) {
             .required(),
         ort: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß]+(?:[-\s][A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Ort darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         strasse: Joi.string()
             .pattern(/^[A-Za-zäöüÄÖÜß\s]+(?:\s[A-Za-zäöüÄÖÜß]+)*$/)
-            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Zeichen lang sein.")
+            .message("Strasse darf keine Zahlen enthalten und muss mind. 2 Buchstaben lang sein.")
             .min(2)
             .required(),
         hnr: Joi.string()
