@@ -58,6 +58,8 @@ document.addEventListener("DOMContentLoaded",  () => {
 
     //Wenn auf Warenkorb geklickt wird, wird das READ ausgeführt
     warenkorb.addEventListener("click", () => {
+        // muss hier aufgerufen werden, um nach Schließen des Modalfenters und nicht reloaden der Seite die Menge zu behalten
+        updatePrice(event);
         warenkorbRender();
 
     });
@@ -133,7 +135,6 @@ document.addEventListener("DOMContentLoaded",  () => {
     } catch (e) {
 
     }
-
 
     try {
         zurKasseBtn.addEventListener("click", (e) => {
