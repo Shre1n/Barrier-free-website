@@ -1259,7 +1259,7 @@ function calculateTotalPrice() {
 
     const endpreisElement = document.getElementById("summe"); // Das HTML-Element abrufen, das den Gesamtpreis anzeigen soll
     if (endpreisElement) { // Überprüfen, ob das Element gefunden wurde
-        endpreisElement.innerHTML = `${endpreis.toFixed(2)} €`; // Den Gesamtpreis in das HTML-Element einfügen
+        endpreisElement.innerHTML = `Gesamtpreis: ${endpreis.toFixed(2)} €`; // Den Gesamtpreis in das HTML-Element einfügen
     }
 }
 
