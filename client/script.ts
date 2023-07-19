@@ -31,7 +31,6 @@ interface WarenkorbProdukt{
     produktMenge: number;
 }
 
-
 //Modalfenster von Bootstrap
 let modalFensterUser: bootstrap.Modal;
 let modalFensterUserLogin: bootstrap.Modal;
