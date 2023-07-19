@@ -963,24 +963,3 @@ function validateAdress(adresse: Adresse) {
 }
 
 
-
-/*
-const query = 'SELECT Email FROM Nutzerliste where RollenID = ?;';
-connection.query(query, [userId], (err, result) => {
-    if (err) {
-        console.error('Nutzerrolle konnte nicht gelesen werden:', err);
-    } else {
-        if (result.length > 0) {
-            const Rolle = result[0].RollenID;
-            // Store the user role in a variable or session for future use
-            // Example: req.session.userRole = userRole;
-        } else {
-            console.error('Nutzer nicht gefunden');
-            // Handle the case when the user is not found or the role is not defined
-        }
-    }
-});
- */
-
-
-
