@@ -87,7 +87,7 @@
       <div class="card">
         <img class="card-img-top fotos" src="/img/aaron.png" alt="Aaron Schmidt">
         <div class="card-body">
-          <h5 class="card-title">Aarron Schmidt</h5>
+          <h5 class="card-title">Aaron Schmidt</h5>
         </div>
       </div>
     </div>
@@ -217,6 +217,84 @@
   </div>
 </div>
 
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+  <div id="warenkorbErfolgStart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Erfolgreich!</strong>
+    </div>
+    <div class="toast-body">
+      <span id="warenkorbErfolgreichStart"></span>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Anmelden</h5>
+        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form id="modalFormlogin">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-5">
+              <label for=email></label>
+              <!------------(+ mind 1x) (* 0-) mind. 1 Zeichen \w+ (\.\w+)* pattern für Wiederholung---->
+              <input id=emaillogin type="email" name="email"
+                     placeholder="Email" class="form-control" required>
+              <br>
+            </div>
+            <div class="col-5">
+              <label for=passwort></label>
+              <input id=passwortlogin type="password"
+                     placeholder="Passwort"
+                     class="form-control" required>
+              <br>
+            </div>
+          </div>
+        </div>
+        <span id="loginError"></span>
+        <div class="modal-footer">
+          <p id="signupform" type="button">
+            Noch nicht registriert?
+          </p>
+          <button id="loginUser" type="submit" class="btn btn-primary bbutton">
+            Anmelden
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+  <div id="loginErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Erfolgreich!</strong>
+    </div>
+    <div class="toast-body" >
+      <span id="loginErfolgreich"></span>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+  <div id="warenkorbErfolgStart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Erfolgreich!</strong>
+    </div>
+    <div class="toast-body">
+      <span id="warenkorbErfolgreichStart"></span>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -416,6 +494,8 @@
     </div>
   </div>
 </div>
+
+
 <!--Footer-->
 <footer class="container-fluid containerFooter">
   <div class="row">

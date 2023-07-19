@@ -404,20 +404,7 @@
         </div>
         </div>
     </div>
-
-    <!-- Mehr laden Button
-
-    <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col-12">
-                <button id="mehrLaden" class="bbutton mehrLaden">
-                    Mehr Laden
-                </button>
-            </div>
-        </div>
-    </div>
-
-    -->
+</div>
 
     <div class="modal fade" id="ModalUserLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -448,8 +435,9 @@
                             </div>
                         </div>
                     </div>
+                    <span id="loginError"></span>
                     <div class="modal-footer">
-                        <p id="signupform">
+                        <p id="signupform" type="button">
                             Noch nicht registriert?
                         </p>
                         <button id="loginUser" type="submit" class="btn btn-primary bbutton">
@@ -457,6 +445,30 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+        <div id="loginErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Erfolgreich!</strong>
+            </div>
+            <div class="toast-body" >
+                <span id="loginErfolgreich"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+        <div id="warenkorbErfolgStart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Erfolgreich!</strong>
+            </div>
+            <div class="toast-body">
+                <span id="warenkorbErfolgreichStart"></span>
             </div>
         </div>
     </div>
@@ -474,17 +486,19 @@
                         <div class="row">
                             <div class="col-2">
                                 <label for=anrede></label>
-                                <select id="anrede" class="bbutton text-center" required>
+                                <select id="anrede" class="btn bbutton text-center" required>
                                     <option value="Herr" class="anrede">Herr</option>
                                     <option value="Frau" class="anrede">Frau</option>
                                 </select>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=vorname></label>
                                 <input id=vorname type="text" name="vorname"
                                        placeholder="Vorname" class="form-control" required>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=nachname></label>
@@ -493,6 +507,7 @@
                                 <input id=nachname type="text"
                                        name="nachname" placeholder="Nachname" class="form-control" required>
                                 <br>
+
                             </div>
                         </div>
                         <div class="row">
@@ -504,12 +519,14 @@
                                 <input id=email type="email" name="email"
                                        placeholder="Email" class="form-control" required>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=telefonnummer></label>
                                 <input id=telefonnummer type="text" name="telefonnummer"
                                        placeholder="Telefon" class="form-control" required>
                                 <br>
+
                             </div>
                         </div>
                         <div class="row">
@@ -520,12 +537,14 @@
                                 <input id=strasse type="text" name="strasse"
                                        placeholder="Straße" class="form-control" required>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=hausnummer></label>
                                 <input id=hausnummer type="text"
                                        placeholder="Hausnummer" class="form-control" required>
                                 <br>
+
                             </div>
                         </div>
                         <div class="row">
@@ -536,12 +555,14 @@
                                 <input id=postleitzahl type="text" name="postleitzahl"
                                        placeholder="Postleitzahl" class="form-control" required>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=ort></label>
                                 <input id=ort type="text" name="ort"
                                        placeholder="Ort" class="form-control" required>
                                 <br>
+
                             </div>
                         </div>
                         <div class="row">
@@ -552,13 +573,14 @@
                                 <input id=passwort type="password" name="passwort" placeholder="Passwort"
                                        class="form-control" required>
                                 <br>
+
                             </div>
                             <div class="col-5">
                                 <label for=passwort></label>
-                                <input id=passwortcheck type="password" name="passwort"
-                                       placeholder="Passwort wiederholen"
+                                <input id=passwortcheck type="password" name="passwort" placeholder="Passwort wiederholen"
                                        class="form-control" required>
                                 <br>
+
                             </div>
                         </div>
                         <div class="row">
@@ -581,9 +603,11 @@
                         </div>
                         <label for="indexUser"></label>
                         <input id="indexUser" hidden type="number">
-                        <span id="registrierenError"></span>
                     </div>
                     <div class="modal-footer">
+                        <p id="loginform" type="button">
+                            Zurück zur Anmeldung
+                        </p>
                         <button id="registerUser" type="submit" class="btn btn-primary bbutton">
                             Registrieren
                         </button>
@@ -591,7 +615,44 @@
                 </form>
             </div>
         </div>
+        <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Fehler!</strong>
+                </div>
+                <div class="toast-body">
+                    <span id="anredeErr"></span>
+                    <span id="vornameErr"></span>
+                    <span id="nachnameErr"></span>
+                    <span id="emailErr"></span>
+                    <span id="telefonnummerErr"></span>
+                    <span id="strasseErr"></span>
+                    <span id="hausnummerErr"></span>
+                    <span id="postleitzahlErr"></span>
+                    <span id="ortErr"></span>
+                    <span id="passwortErr"></span>
+                    <span id="passwortCheckErr"></span>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+        <div id="registerErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Erfolgreich!</strong>
+            </div>
+            <div class="toast-body">
+                <span id="erfolgreich"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <div class="modal fade" id="ModalWarenkorb" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -601,80 +662,17 @@
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form id="modalFormWarenkorb">
-                    <div class="modal-body">
-                        <div class="row border border-dark rounded">
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="/img/placeholder.jpg" id="imageProdukt" alt="Bild"
-                                             class="placeholdermerkliste img-fluid imgHöhe">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="row imgHöhe">
-                                    <div class="col-10 mb-4">
-                                        <span id="tactileTowers" class="bree20G">Tactile Towers</span>
-                                    </div>
-                                    <div class="col-2 mb-4">
-                                        <i id="trashWarenkorb" class=" fas fa-solid fa-trash" type="button"></i>
-                                    </div>
-                                    <div class="col-10 mb-4">
-                                <span id="kurzBechreibung">
-                                    Tactile Towers ist ein Spiel,
-                                    bei dem unter Zeitdruck eine
-                                    Figur aus Einzelteilen richtig
-                                    gestapelt werden muss.
-                                </span>
-                                    </div>
-                                    <div class="col-2 mb-4"></div>
-                                    <div class="col-6">
-                                        <label for=menge></label>
-                                        <select id="menge" class="btn bbutton text-center" required>
-                                            <option value="1" class="menge">1</option>
-                                            <option value="2" class="menge">2</option>
-                                            <option value="3" class="menge">3</option>
-                                            <option value="4" class="menge">4</option>
-                                            <option value="5" class="menge">5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        59,99€
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button id="zurKasse" type="submit" class="btn bbutton">
-                                Zur Kasse
-                            </button>
-                        </div>
+                    <div class="modal-footer">
+                        <button id="zurKasse"  class="btn bbutton">
+                            Zur Kasse
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
-    <div id="loginErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Erfolgreich!</strong>
-        </div>
-        <div class="toast-body" >
-            <span id="loginErfolgreich"></span>
-        </div>
-    </div>
-</div>
-<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
-    <div id="registerErfolg" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Erfolgreich!</strong>
-        </div>
-        <div class="toast-body">
-            <span id="erfolgreich"></span>
-        </div>
-    </div>
-</div>
+
+
 
     <!--Footer-->
 <footer class="container-fluid containerFooter">

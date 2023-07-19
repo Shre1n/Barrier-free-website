@@ -113,7 +113,7 @@
                 <div class="row border border-secondary">
                     <div class="col">
                         <div class="row">
-                            <div class="col borderCol font25">Lieferangaben</div>
+                            <div class="col borderCol lieferangabenMargin font25 ms-2">Lieferangaben</div>
                             <div class="col d-flex justify-content-end align-items-center">
                                 <a id="editLieferadresseBtn"><i class="fas fa-edit" id="editIconUser"></i></a>
                             </div>
@@ -121,7 +121,6 @@
                         <div class="row text-break"></div>
                         <form type="submit" id="postLieferadresseForm" class="text-break">
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <select id="editLieferAnrede" class="text-center mb-2 d-none" required>
                                         <option value="Herr" class="anrede">Herr</option>
@@ -129,71 +128,54 @@
                                     </select>
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferAnrede" class="text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferNachname" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferVorname" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferStraße" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferHnr" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferPLZ" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-1"></div>
                                     <div class="col-7">
                                         <input id="displayLieferOrt" class="col-12 text-break" disabled>
                                     </div>
                                     <div class="col-3"></div>
-                                    <div class="col-1"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col">
                                         <button id="lieferAdBtnCancel" type="button"
-                                                class="bbutton mt-2 ms-1 d-none cancelButton">Abbrechen
+                                                class="bbutton mt-2 ms-1 me-1 d-none cancelButton">Abbrechen
                                         </button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 d-none saveButton">
+                                        <button id="lieferAdBtn" type="submit" class="bbutton mt-2 ms-1 d-none saveButton">
                                             Speichern
                                         </button>
                                     </div>
@@ -202,10 +184,9 @@
                         </form>
                         <!-- attempt -->
                         <form id="displayRechnungsadresse" class="col d-none">
-                            <div class="row mt-3 mb-1"><h3 class="noPadleft">Rechnungsadresse</h3></div>
+                            <div class="noPadleft font25 row mt-4">Rechnungsadresse</div>
                             <label for=displayRechnungAnrede></label>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <select id="displayRechnungAnrede" class="text-center mb-2" required>
                                         <option value="Herr" class="anrede">Herr</option>
@@ -213,61 +194,48 @@
                                     </select>
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <input id="displayRechnungVorname" class="col-12 mb-2 text-break"
                                            placeholder="Vorname">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <input id="displayRechnungNachname" class="col-12 mb-2 text-break"
                                            placeholder="Nachname">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <input id="displayRechnungStraße" class="col-12 mb-2 text-break"
                                            placeholder="Straße">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                                     <input id="displayRechnungHnr" class="col-12 mb-2 text-break"
                                            placeholder="Hausnummer">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                             <input id="displayRechnungPLZ" class="col-12 mb-2 text-break"
                                    placeholder="PLZ">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             </div>
                             <div class="row">
-                                <div class="col-1"></div>
                                 <div class="col-7">
                             <input id="displayRechnungOrt" class="col-12 mb-2 text-break"
                                    placeholder="Ort">
                                 </div>
                                 <div class="col-3"></div>
-                                <div class="col-1"></div>
                             <div class="row">
                             </div>
                     </div>
@@ -404,6 +372,17 @@
     </div>
 </div>
 
+
+<div class="toast-container fehler position-fixed bottom-0 end-0 p-3">
+    <div id="warenkorbErfolgStart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Erfolgreich!</strong>
+        </div>
+        <div class="toast-body">
+            <span id="warenkorbErfolgreichStart"></span>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -603,6 +582,8 @@
         </div>
     </div>
 </div>
+
+
 <!--Footer-->
 <footer class="container-fluid containerFooter">
     <div class="row">
