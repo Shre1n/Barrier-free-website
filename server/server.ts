@@ -632,7 +632,7 @@ function validateUser(isPut, user) {
             .required(),
         email: Joi.string()
             // Email pattern Sonderzeichen sind NOCH erlaubt
-            .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
+            .pattern(/^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z-_]{2,}$/)
             .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
@@ -690,7 +690,7 @@ function validateEditUser(isPut, user) {
             .min(2)
             .required(),
         email: Joi.string()
-            .pattern(/[^@]+@([a-zA-Z0-9]+)\.[a-zA-Z]{2,3}$/)
+            .pattern(/^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z-_]{2,}$/)
             .message("Email akzeptiert keine Umlaute (ä, ö, ü) oder andere Sonderzeichen nach dem @. Nach dem Punkt dürfen höchsten drei Buchstaben folgen.")
             .min(2)
             .required(),
